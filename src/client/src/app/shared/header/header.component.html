@@ -1,10 +1,36 @@
 <mat-toolbar color="primary">
-  <nav class="navbar">
-    <a routerLink="/">
-      <img src="assets/onlygains-logo.png" alt="logo">
-    </a>
-    <ul>
-      <li>Начало</li>
-    </ul>
-  </nav>
+  <ul>
+    <li>
+      <a routerLink="/">
+        <img src="assets/onlygains-logo.png" alt="logo" />
+      </a>
+    </li>
+    <li>
+      <ul>
+        <li>
+          <a mat-button>Начало</a>
+        </li>
+        <li>
+          <a mat-button>Блог</a>
+        </li>
+        <li>
+          <a mat-button>Рецепти</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <ul>
+        <li>
+         <button mat-icon-button>
+            <mat-icon>login</mat-icon>
+          </button> 
+        </li>
+        <li>
+          <button mat-icon-button>
+            <mat-icon>follow_the_signs</mat-icon>
+          </button>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </mat-toolbar>
