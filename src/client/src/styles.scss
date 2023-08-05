@@ -134,7 +134,11 @@ table {
   box-sizing: border-box;
 }
 
-#main {
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
   background-color: rgb(240, 237, 237);
-  height: 100vh;
 }
