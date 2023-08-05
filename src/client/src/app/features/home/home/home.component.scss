@@ -1,0 +1,45 @@
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h3,
+p {
+  color: #fff;
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.15rem;
+  font-weight: bold;
+}
+
+.heading {
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+h1,h3 {
+  line-height: 3rem;
+  font-size: 2rem;
+}
+
+p {
+  line-height: 1.5rem;
+  font-size: 1rem;
+}
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(
+      to right,
+      rgba(6, 10, 54, 0.8),
+      rgba(6, 10, 54, 0.8)
+    ),
+    url("/assets/images/initial.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 90vh;
+}

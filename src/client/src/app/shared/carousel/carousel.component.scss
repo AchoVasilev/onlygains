@@ -1,0 +1,16 @@
+.container {
+    margin: 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.main-item {
+    flex: 0 0 70%;
+    max-width: 50%;
+}
+
+.secondary-items {
+    flex: 0 0 30%;
+    max-width: 25%;
+}
