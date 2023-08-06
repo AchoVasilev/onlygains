@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CarouselComponent } from './carousel/carousel.component';
-import { CardComponent } from './card/card.component';
 import { MaterialModule } from '../material/material.module';
 
 
 
 @NgModule({
   declarations: [
-    CarouselComponent,
-    CardComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +13,7 @@ import { MaterialModule } from '../material/material.module';
   ],
   exports: [
     CommonModule,
-    CarouselComponent
+    MaterialModule,
   ]
 })
 export class SharedModule { }
