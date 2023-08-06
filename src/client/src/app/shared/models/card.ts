@@ -1,6 +1,8 @@
 export interface CardResource {
-    id: string,
-    imageUrl: string,
-    title?: string,
-    text?: string
+  id?: string;
+  avatar?: string;
+  imageUrl?: string;
+  title?: string;
+  subtitle?: string;
+  text?: string
 }

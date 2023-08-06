@@ -1,0 +1,33 @@
+<ng-container *ngIf="isMain; then mainCard; else secondaryCard"></ng-container>
+
+<ng-template #mainCard>
+  <mat-card>
+    <mat-card-header class="card-header">
+      <mat-card-title class="card-title">
+        <a href="" class="card-link" mat-flat-button> {{ card?.title }} </a>
+      </mat-card-title>
+      <mat-card-subtitle class="card-subtitle">{{ card?.subtitle }}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="card?.imageUrl" alt="Post image" />
+    <mat-card-content>
+      <p class="card-text">
+        {{ card?.text }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #secondaryCard>
+  <mat-card>
+    <a href="" class="image-wrapper">
+      <img class="image" [src]="card?.imageUrl" alt="Post image" />
+    </a>
+    <mat-card-header class="card-header">
+      <mat-card-title class="card-title">
+        <a href="" class="card-link-secondary" mat-flat-button>
+          {{ card?.title }}
+        </a>
+      </mat-card-title>
+    </mat-card-header>
+  </mat-card>
+</ng-template>
