@@ -1,0 +1,30 @@
+#Tue Jul 25 15:50:27 GMT 2023
+micronaut:
+  application:
+    name: onlygains
+  server:
+    host: localhost
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedOrigins:
+            - http://localhost:4200
+datasources:
+  default:
+    dialect: postgres
+    db-type: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/onlygains
+    username: postgres
+    password: postgres
+
+jpa:
+  default:
+    entity-scan:
+      packages: com.project.domain
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true
