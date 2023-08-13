@@ -1,3 +1,4 @@
+import { PostService } from './../../../core/services/post/post.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -10,4 +11,7 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  constructor(private postService: PostService) {}
+
+  
 }
