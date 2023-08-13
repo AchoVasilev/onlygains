@@ -1,9 +1,8 @@
-#Tue Jul 25 15:50:27 GMT 2023
 micronaut:
   application:
     name: onlygains
   server:
-    host: localhost
+    host: 127.0.0.1
     cors:
       enabled: true
       configurations:
@@ -26,5 +25,13 @@ jpa:
     properties:
       hibernate:
         hbm2ddl:
-          auto: update
+          auto: none
         show_sql: true
+
+flyway:
+  datasources:
+    default:
+      enabled: true
+      locations:
+        - classpath:db/migration
+        - classpath:db/seed

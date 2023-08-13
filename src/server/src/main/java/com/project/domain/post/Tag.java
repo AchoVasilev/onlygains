@@ -1,4 +1,4 @@
-package com.project.domain.user;
+package com.project.domain.post;
 
 import com.project.domain.BaseEntity;
 import jakarta.persistence.Entity;
@@ -6,25 +6,25 @@ import jakarta.persistence.Id;
 
 import java.util.UUID;
 
-@Entity(name = "roles")
-public class Role extends BaseEntity {
+@Entity
+public class Tag extends BaseEntity {
     @Id
     private UUID id;
     private String name;
 
-    protected Role () {}
+    protected Tag() {}
 
-    public Role(String name) {
+    public Tag(String name) {
         super();
         this.id = UUID.randomUUID();
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public UUID getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }
