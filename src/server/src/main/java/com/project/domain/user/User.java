@@ -1,19 +1,15 @@
 package com.project.domain.user;
 
 import com.project.domain.BaseEntity;
-import com.project.domain.image.UserImage;
 import com.project.domain.valueobjects.FullName;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-@Entity(name = "users")
+@Entity
 public class User extends BaseEntity {
     @Id
     private UUID id;
@@ -23,8 +19,7 @@ public class User extends BaseEntity {
     private FullName fullName;
     @ManyToOne
     private Role role;
-    @OneToMany
-    private List<UserImage> userImages;
+    private String imageUrl;
 
     protected User() {
     }
@@ -36,7 +31,6 @@ public class User extends BaseEntity {
         this.password = password;
         this.fullName = FullName.of(firstName, lastName);
         this.role = role;
-        this.userImages = new ArrayList<>();
     }
 
     public UUID getId() {
@@ -57,5 +51,13 @@ public class User extends BaseEntity {
 
     public Role getRole() {
         return this.role;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

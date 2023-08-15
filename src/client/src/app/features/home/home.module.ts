@@ -7,6 +7,7 @@ import { RecentPostsComponent } from './recent-posts/recent-posts.component';
 import { RecentPostComponent } from './recent-post/recent-post.component';
 import { InspirationalComponent } from './inspirational/inspirational.component';
 import { IntroComponent } from './intro/intro.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { IntroComponent } from './intro/intro.component';
     RecentPostsComponent,
     RecentPostComponent,
     InspirationalComponent,
-    IntroComponent
+    IntroComponent,
+    CategoriesComponent
   ],
   imports: [
     HomeRoutingModule,

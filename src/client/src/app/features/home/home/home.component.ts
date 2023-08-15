@@ -1,5 +1,8 @@
+import { CategoryService } from 'app/core/services/category/category.service';
 import { PostService } from './../../../core/services/post/post.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CategoryViewResource } from 'app/shared/models/category';
 
 @Component({
   selector: 'gains-home',
@@ -9,9 +12,15 @@ import { Component } from '@angular/core';
     
   ]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  constructor(private postService: PostService) {}
+  categories$?: Observable<CategoryViewResource[]>;
 
-  
+  constructor(private postService: PostService, private categoryService: CategoryService) {}
+
+  ngOnInit(): void {
+    this.categories$ = this.categoryService.getCategories();
+  }
+
+
 }
