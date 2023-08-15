@@ -1,7 +1,6 @@
 package com.project.domain.category;
 
 import com.project.domain.BaseEntity;
-import com.project.domain.image.CategoryImage;
 import com.project.domain.post.Post;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -18,18 +17,17 @@ public class Category extends BaseEntity {
     private String name;
     @OneToMany
     private List<Post> posts;
-    @OneToMany
-    private List<CategoryImage> categoryImages;
+    private String imageUrl;
 
     protected Category() {
     }
 
-    public Category(String name) {
+    public Category(String name, String imageUrl) {
         super();
         this.id = UUID.randomUUID();
         this.name = name;
         this.posts = new ArrayList<>();
-        this.categoryImages = new ArrayList<>();
+        this.imageUrl = imageUrl;
     }
 
     public void addPost(Post post) {
@@ -48,7 +46,7 @@ public class Category extends BaseEntity {
         return posts;
     }
 
-    public List<CategoryImage> getCategoryImages() {
-        return categoryImages;
+    public String getImageUrl() {
+        return imageUrl;
     }
 }
