@@ -17,7 +17,7 @@ import { CategoriesComponent } from './categories/categories.component';
     RecentPostComponent,
     InspirationalComponent,
     IntroComponent,
-    CategoriesComponent
+    CategoriesComponent,
   ],
   imports: [
     HomeRoutingModule,

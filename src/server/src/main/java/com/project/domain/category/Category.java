@@ -15,6 +15,7 @@ public class Category extends BaseEntity {
     @Id
     private UUID id;
     private String name;
+    private String translatedName;
     @OneToMany
     private List<Post> posts;
     private String imageUrl;
@@ -22,10 +23,11 @@ public class Category extends BaseEntity {
     protected Category() {
     }
 
-    public Category(String name, String imageUrl) {
+    public Category(String name, String translatedName, String imageUrl) {
         super();
         this.id = UUID.randomUUID();
         this.name = name;
+        this.name = translatedName;
         this.posts = new ArrayList<>();
         this.imageUrl = imageUrl;
     }
@@ -48,5 +50,9 @@ public class Category extends BaseEntity {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getTranslatedName() {
+        return translatedName;
     }
 }

@@ -26,6 +26,7 @@ CREATE TABLE categories
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
     name        VARCHAR(100),
+    translated_name VARCHAR(100),
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
     image_url   VARCHAR
 );
@@ -94,7 +95,7 @@ CREATE TABLE tags
     id          UUID PRIMARY KEY,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
-    name        VARCHAR(20),
+    name        VARCHAR(30),
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
     post_id     UUID REFERENCES posts (id)
 )

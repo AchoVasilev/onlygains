@@ -8,7 +8,7 @@ import io.micronaut.http.annotation.Get;
 
 import java.util.List;
 
-@Controller(value = "/category")
+@Controller(value = "/categories")
 public class CategoryController {
     private final CategoryService categoryService;
 

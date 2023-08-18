@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 @MappedSuperclass
 public abstract class BaseEntity {
     private ZonedDateTime createdAt;
-    private ZonedDateTime updatedAt;
+    private ZonedDateTime modifiedAt;
     private boolean isDeleted;
 
     protected BaseEntity() {
@@ -20,12 +20,12 @@ public abstract class BaseEntity {
         return createdAt;
     }
 
-    public ZonedDateTime getUpdatedAt() {
-        return updatedAt;
+    public ZonedDateTime getModifiedAt() {
+        return modifiedAt;
     }
 
     public void setUpdatedAt() {
-        this.updatedAt = Time.utcNow();
+        this.modifiedAt = Time.utcNow();
     }
 
     public boolean isDeleted() {
