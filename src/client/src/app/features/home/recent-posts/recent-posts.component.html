@@ -1,0 +1,16 @@
+<article class="recent-posts" *ngIf="cardResources">
+  <section class="posts-container">
+    <article class="primary-post-container">
+      <gains-recent-post
+        class="primary-card"
+        [card]="cardResources[0]"
+        [isMain]="true"
+      ></gains-recent-post>
+    </article>
+    <article class="secondary-post-container">
+      <div class="secondary-card" *ngFor="let card of cardResources.slice(1)">
+        <gains-recent-post [card]="card" [isMain]="false"></gains-recent-post>
+      </div>
+    </article>
+  </section>
+</article>

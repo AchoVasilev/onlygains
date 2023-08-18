@@ -1,0 +1,28 @@
+.inspirational {
+  display: flex;
+  padding: 4rem 8rem;
+  justify-content: space-between;
+}
+
+.text {
+  font-size: 1rem;
+  letter-spacing: 0.15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 1rem;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.image-wrapper {
+    overflow: hidden;
+}
+
+.image-wrapper img {
+    transition: all .5s;
+}
+
+.image-wrapper img:hover {
+    transform: scale(1.2);
+}

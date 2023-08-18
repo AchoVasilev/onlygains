@@ -1,0 +1,22 @@
+.recent-posts {
+  padding: 6rem;
+}
+
+.posts-container {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.primary-post-container {
+  max-width: 68%;
+  height: 100%;
+}
+
+.secondary-post-container {
+  max-width: 32%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
