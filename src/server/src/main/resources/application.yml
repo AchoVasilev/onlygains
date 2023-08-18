@@ -22,7 +22,7 @@ datasources:
 jpa:
   default:
     packages-to-scan:
-      - 'com.project'
+      - 'com.project.domain'
     properties:
       hibernate:
         hbm2ddl:

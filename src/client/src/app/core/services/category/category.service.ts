@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class CategoryService {
 
-  private apiUrl: string = environment.apiUrl + '/category';
+  private apiUrl: string = environment.apiUrl + '/categories';
 
   constructor(private http: HttpClient) { }
 

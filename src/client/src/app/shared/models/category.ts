@@ -1,5 +1,6 @@
 export interface CategoryViewResource {
     id: string,
     imageUrl: string,
-    name: string
+    name: string,
+    translatedName: string
 }

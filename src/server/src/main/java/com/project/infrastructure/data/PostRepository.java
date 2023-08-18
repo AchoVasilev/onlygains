@@ -15,5 +15,5 @@ public interface PostRepository extends CrudRepository<Post, UUID> {
     void deleteById(UUID id);
 
     @Query("SELECT * from post p WHERE p.is_deleted = false ORDER BY p.createdAt LIMIT 4")
-    List<Post> findNewest();
+    List<Post> findNewestFour();
 }

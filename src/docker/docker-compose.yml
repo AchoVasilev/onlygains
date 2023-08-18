@@ -6,6 +6,7 @@ services:
     container_name: postgres
     volumes:
       - ./postgres_vol:/var/lib/psql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/create_database.sql
     expose:
       - 5432
     ports:

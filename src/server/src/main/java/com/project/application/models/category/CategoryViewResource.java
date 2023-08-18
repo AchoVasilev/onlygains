@@ -1,6 +1,8 @@
 package com.project.application.models.category;
 
-import java.util.UUID;
+import io.micronaut.serde.annotation.Serdeable;
 
-public record CategoryViewResource(UUID id, String imageUrl, String name) {
+import java.util.UUID;
+@Serdeable
+public record CategoryViewResource(UUID id, String imageUrl, String name, String translatedName) {
 }

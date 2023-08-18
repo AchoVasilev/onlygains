@@ -2,7 +2,7 @@ package com.project.application.services;
 
 import com.project.application.models.post.PostInitialViewResource;
 import com.project.infrastructure.data.PostRepository;
-import groovy.lang.Singleton;
+import jakarta.inject.Singleton;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class PostService {
     }
 
     public List<PostInitialViewResource> getNewest() {
-        return this.postRepository.findNewest()
+        return this.postRepository.findNewestFour()
                 .stream().map(p -> new PostInitialViewResource(p.getId(),
                         p.getPostImages().get(1).getUrl(),
                         p.getCreatedAt().toString(),

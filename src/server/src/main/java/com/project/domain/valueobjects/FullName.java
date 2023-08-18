@@ -12,6 +12,8 @@ public class FullName {
         this.lastName = lastName;
     }
 
+    protected FullName() {}
+
     public String getFullName() {
         return String.format("%s %s", this.firstName, this.lastName);
     }

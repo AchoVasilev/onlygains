@@ -4,82 +4,14 @@
       <h2>Нашите категории</h2>
     </div>
     <div class="service-container">
-      <div class="box">
-        <img
-          src="https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691940539/onlygains/categories/istock-1155240408_stpuam.jpg"
-          alt=""
-        />
-        <h6 class="visible-heading">CROSSFIT TRAINING</h6>
+      <div class="box" *ngFor="let category of categories">
+        <img class="category-image" [src]="category.imageUrl" alt="category image" />
+        <h6 class="visible-heading">{{ category.name }}</h6>
         <div class="link-box">
-          <a href="">
-            <img src="/assets/images/link.png" alt="" />
+          <a routerLink="/posts/{{category.translatedName}}">
+            <img src="/assets/images/link.png" alt="link image" />
           </a>
-          <h6>CROSSFIT TRAINING</h6>
-        </div>
-      </div>
-      <div class="box">
-        <img
-          src="https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691940539/onlygains/categories/istock-1155240408_stpuam.jpg"
-          alt=""
-        />
-        <h6 class="visible-heading">FITNESS</h6>
-        <div class="link-box">
-          <a href="">
-            <img src="/assets/images/link.png" alt="" />
-          </a>
-          <h6>FITNESS</h6>
-        </div>
-      </div>
-      <div class="box">
-        <img
-          src="https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691940539/onlygains/categories/istock-1155240408_stpuam.jpg"
-          alt=""
-        />
-        <h6 class="visible-heading">DYNAMIC STRENGTH TRAINING</h6>
-        <div class="link-box">
-          <a href="">
-            <img src="/assets/images/link.png" alt="" />
-          </a>
-          <h6>DYNAMIC STRENGTH TRAINING</h6>
-        </div>
-      </div>
-      <div class="box">
-        <img
-          src="https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691940539/onlygains/categories/istock-1155240408_stpuam.jpg"
-          alt=""
-        />
-        <h6 class="visible-heading">HEALTH</h6>
-        <div class="link-box">
-          <a href="">
-            <img src="/assets/images/link.png" alt="" />
-          </a>
-          <h6>HEALTH</h6>
-        </div>
-      </div>
-      <div class="box">
-        <img
-          src="https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691940539/onlygains/categories/istock-1155240408_stpuam.jpg"
-          alt=""
-        />
-        <h6 class="visible-heading">WORKOUT</h6>
-        <div class="link-box">
-          <a href="">
-            <img src="/assets/images/link.png" alt="" />
-          </a>
-          <h6>WORKOUT</h6>
-        </div>
-      </div>
-      <div class="box">
-        <img
-          src="https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691940539/onlygains/categories/istock-1155240408_stpuam.jpg"
-          alt=""
-        />
-        <h6 class="visible-heading">STRATEGIES</h6>
-        <div class="link-box">
-          <a href="">
-            <img src="/assets/images/link.png" alt="" />
-          </a>
-          <h6>STRATEGIES</h6>
+          <h6>{{ category.name }}</h6>
         </div>
       </div>
     </div>
