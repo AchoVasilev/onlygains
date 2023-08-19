@@ -1,7 +1,7 @@
 import { CategoryService } from 'app/core/services/category/category.service';
 import { PostService } from './../../../core/services/post/post.service';
 import { Component, OnInit } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, shareReplay } from 'rxjs';
 import { CategoryViewResource } from 'app/shared/models/category';
 import { PostViewResource } from 'app/shared/models/post';
 import { CardResource } from 'app/shared/models/card';

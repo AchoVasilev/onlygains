@@ -13,7 +13,6 @@ public abstract class BaseEntity {
 
     protected BaseEntity() {
         this.createdAt = Time.utcNow();
-        this.isDeleted = false;
     }
 
     public ZonedDateTime getCreatedAt() {
@@ -28,11 +27,15 @@ public abstract class BaseEntity {
         this.modifiedAt = Time.utcNow();
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public void setModifiedAt(ZonedDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setIsDeleted(boolean deleted) {
+        this.isDeleted = deleted;
+    }
+
+    public boolean getIsDeleted() {
+        return this.isDeleted;
     }
 }

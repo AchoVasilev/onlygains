@@ -4,10 +4,14 @@ import com.project.domain.BaseEntity;
 import com.project.domain.comment.Comment;
 import com.project.domain.image.PostImage;
 import com.project.domain.user.User;
+import com.project.utilities.Time;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,22 +25,24 @@ public class Post extends BaseEntity {
     private String text;
     @OneToMany
     private List<Comment> comments;
-    @OneToMany
+    @OneToMany(mappedBy = "post")
+    @Cascade(CascadeType.ALL)
     private List<PostImage> postImages;
     private UUID categoryId;
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     protected Post() {}
 
-    public Post(String title, String text, UUID categoryId, List<PostImage> postImages, User user) {
+    public Post(String title, String text, UUID categoryId, User user) {
         super();
         this.id = UUID.randomUUID();
         this.title = title;
         this.text = text;
         this.categoryId = categoryId;
         this.comments = new ArrayList<>();
-        this.postImages = postImages;
+        this.postImages = new ArrayList<>();
         this.user = user;
     }
 
@@ -62,6 +68,11 @@ public class Post extends BaseEntity {
 
     public List<PostImage> getPostImages() {
         return this.postImages;
+    }
+
+    public void addImagesToPost(List<PostImage> postImages) {
+        this.setModifiedAt(Time.utcNow());
+        this.postImages.addAll(postImages);
     }
 
     public User getUser() {

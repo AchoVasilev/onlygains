@@ -12,7 +12,7 @@ import spock.lang.Specification
 @MicronautTest
 class PostServiceTests extends Specification {
     PostRepository postRepository = Mock(PostRepository)
-    PostService postService = new PostService(postRepository)
+    PostService postService = new PostService(postRepository, roleRepository, userRepository)
 
     def "getNewest gets the four newest posts"() {
         given: "added mocks"
