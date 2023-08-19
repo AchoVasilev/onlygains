@@ -8,7 +8,7 @@ import { CardResource } from 'app/shared/models/card';
 })
 export class RecentPostsComponent {
   @Input()
-  cardResources?: CardResource[];
+  cardResources?: CardResource[] | null;
 
   card: CardResource = {
     id: 'asdasd',

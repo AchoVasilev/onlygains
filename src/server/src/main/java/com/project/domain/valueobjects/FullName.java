@@ -21,4 +21,12 @@ public class FullName {
     public static FullName of(String firstName, String lastName) {
         return new FullName(firstName,lastName);
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
 }
