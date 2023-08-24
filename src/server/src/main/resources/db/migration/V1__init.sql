@@ -34,14 +34,14 @@ CREATE TABLE categories
 
 CREATE TABLE posts
 (
-    id            UUID PRIMARY KEY,
-    title         VARCHAR     NOT NULL,
-    text          VARCHAR     NOT NULL,
-    created_at    TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
-    modified_at   TIMESTAMPTZ,
-    is_deleted    BOOLEAN     NOT NULL DEFAULT FALSE,
-    category_id   UUID REFERENCES categories (id),
-    user_id       UUID REFERENCES users (id)
+    id          UUID PRIMARY KEY,
+    title       VARCHAR(100)     NOT NULL,
+    text        VARCHAR     NOT NULL,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at TIMESTAMPTZ,
+    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
+    category_id UUID REFERENCES categories (id),
+    user_id     UUID REFERENCES users (id)
 );
 
 CREATE TABLE comments
@@ -85,10 +85,11 @@ CREATE TABLE post_images
 
 CREATE TABLE tags
 (
-    id          UUID PRIMARY KEY,
-    name        VARCHAR(30),
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
-    modified_at TIMESTAMPTZ,
-    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
-    post_id     UUID REFERENCES posts (id)
+    id              UUID PRIMARY KEY,
+    name            VARCHAR(30),
+    translated_name VARCHAR(30),
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at     TIMESTAMPTZ,
+    is_deleted      BOOLEAN     NOT NULL DEFAULT FALSE,
+    post_id         UUID REFERENCES posts (id)
 )
