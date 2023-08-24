@@ -24,7 +24,8 @@ public class Post extends BaseEntity {
     private UUID id;
     private String title;
     private String text;
-    @OneToMany
+    @OneToMany(mappedBy = "post")
+    @Cascade(CascadeType.ALL)
     private List<Comment> comments;
     @OneToMany(mappedBy = "post")
     @Cascade(CascadeType.ALL)

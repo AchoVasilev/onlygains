@@ -23,11 +23,11 @@ public interface PostRepository extends CrudRepository<Post, UUID> {
     Optional<Post> findByTitleAndCategoryIdAndIsDeletedFalse(String title, UUID categoryId);
 
     @Query(value = """
-            SELECT p.*
-            FROM posts p\s
-            JOIN comments c ON c.post_id = p.id
-            WHERE c.is_deleted = false and p.is_deleted = false
-            ORDER BY c DESC LIMIT 4
+            SELECT p.* FROM posts p
+            LEFT JOIN comments c ON p.id = c.post_id
+            GROUP BY p.id
+            ORDER BY COUNT(c.id) DESC
+            LIMIT 5
             """, nativeQuery = true)
     List<Post> getMostPopularPosts();
 }

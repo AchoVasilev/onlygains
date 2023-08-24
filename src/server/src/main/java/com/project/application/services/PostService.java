@@ -53,11 +53,9 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<PostViewResource> getMostPopularPosts() {
-        var posts = this.postRepository.getMostPopularPosts()
+        return  this.postRepository.getMostPopularPosts()
                 .stream().map(PostViewResource::of)
                 .toList();
-
-        return  posts.isEmpty() ? this.getNewest() : posts;
     }
 
     @Transactional

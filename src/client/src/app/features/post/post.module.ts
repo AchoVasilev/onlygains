@@ -4,12 +4,14 @@ import { PostRoutingModule } from './post-routing.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { AllPostsComponent } from './all-posts/all-posts.component';
 import { PopularPostsComponent } from './popular-posts/popular-posts.component';
+import { PostDetailsComponent } from './post-details/post-details.component';
 
 
 @NgModule({
   declarations: [
     AllPostsComponent,
-    PopularPostsComponent
+    PopularPostsComponent,
+    PostDetailsComponent
   ],
   imports: [
     PostRoutingModule,
