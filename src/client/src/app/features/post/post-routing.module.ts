@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllPostsComponent } from './all-posts/all-posts.component';
+import { CategoryPostsComponent } from './category-posts/category-posts.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
 
 const routes: Routes = [
@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: ':categoryName/:categoryId',
-        component: AllPostsComponent
+        component: CategoryPostsComponent
       },
       {
         path: ':id',

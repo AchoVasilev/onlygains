@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { TagViewResource } from 'app/shared/models/tag';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13,10 +14,14 @@ export class TagComponent {
   stylingClass?: string;
 
   @Input()
-  name?: string;
+  tag?: TagViewResource;
 
   @Input()
-  url: string = '/';
+  urlPrefix?: string;
+
+  getUrl(prefix: string) {
+    return `${prefix}/${this.tag?.name}/${this.tag?.id}`;
+  }
 
   getColor(): string {
     this.currentIndex = this.getRandomNumberBetween(0, 3);

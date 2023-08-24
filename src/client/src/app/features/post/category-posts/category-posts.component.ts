@@ -1,15 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'app/core/services/post/post.service';
 import { PostViewResource } from 'app/shared/models/post';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'gains-all-posts',
-  templateUrl: './all-posts.component.html',
-  styleUrls: ['./all-posts.component.scss'],
+  selector: 'gains-category-posts',
+  templateUrl: './category-posts.component.html',
+  styleUrls: ['./category-posts.component.scss'],
 })
-export class AllPostsComponent implements OnInit {
+export class CategoryPostsComponent implements OnInit {
   posts$?: Observable<PostViewResource[]>;
   private categoryName: string = '';
   private categoryId: string = '';

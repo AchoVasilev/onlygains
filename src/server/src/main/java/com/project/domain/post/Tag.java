@@ -6,25 +6,31 @@ import jakarta.persistence.Id;
 
 import java.util.UUID;
 
-@Entity
+@Entity(name = "tags")
 public class Tag extends BaseEntity {
     @Id
     private UUID id;
     private String name;
+    private String translatedName;
 
     protected Tag() {}
 
-    public Tag(String name) {
+    public Tag(String name, String translatedName) {
         super();
         this.id = UUID.randomUUID();
         this.name = name;
+        this.translatedName = translatedName;
     }
 
     public UUID getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
+    }
+
+    public String getTranslatedName() {
+        return this.translatedName;
     }
 }

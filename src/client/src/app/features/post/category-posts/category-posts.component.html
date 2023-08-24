@@ -12,8 +12,8 @@
       <div class="card-body">
         <gains-tag
           class="tag"
-          [name]="post.categoryName"
-          [url]="getUrl(post.categoryNameTranslation, post.categoryId)"
+          [tag]="{name: post.categoryName, id: post.categoryId, translatedName: post.categoryNameTranslation}"
+            urlPrefix="/posts"
         ></gains-tag>
         <h4>{{ post.title }}</h4>
         <p class="post-text">

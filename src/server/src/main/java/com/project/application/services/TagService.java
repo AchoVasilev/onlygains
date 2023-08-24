@@ -16,7 +16,7 @@ public class TagService {
 
     public List<TagViewResource> getTags() {
         return this.tagRepository.findAll()
-                .stream().map(t -> new TagViewResource(t.getId(), t.getName()))
+                .stream().map(t -> new TagViewResource(t.getId(), t.getName(), t.getTranslatedName()))
                 .toList();
     }
 }

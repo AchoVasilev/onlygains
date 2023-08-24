@@ -1,4 +1,5 @@
 export interface TagViewResource {
     id: string,
-    name: string
+    name: string,
+    translatedName: string
 }
