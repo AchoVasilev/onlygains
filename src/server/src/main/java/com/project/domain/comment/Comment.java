@@ -1,9 +1,11 @@
 package com.project.domain.comment;
 
 import com.project.domain.BaseEntity;
-import jakarta.persistence.Column;
+import com.project.domain.post.Post;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
@@ -15,8 +17,9 @@ public class Comment extends BaseEntity {
     @Id
     private UUID id;
     private String text;
-    @Column(name = "post_id")
-    private UUID postId;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     @OneToMany
     private List<Like> likes;
@@ -26,11 +29,11 @@ public class Comment extends BaseEntity {
     protected Comment() {
     }
 
-    public Comment(String text, UUID postId) {
+    public Comment(String text, Post post) {
         super();
         this.id = UUID.randomUUID();
         this.text = text;
-        this.postId = postId;
+        this.post = post;
         this.likes = new ArrayList<>();
         this.dislikes = new ArrayList<>();
     }
@@ -43,8 +46,8 @@ public class Comment extends BaseEntity {
         return text;
     }
 
-    public UUID getPostId() {
-        return postId;
+    public Post getPost() {
+        return post;
     }
 
     public List<Like> getLikes() {
