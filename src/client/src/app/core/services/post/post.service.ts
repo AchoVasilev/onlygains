@@ -15,4 +15,12 @@ export class PostService {
   getNewest(): Observable<PostViewResource[]> {
     return this.http.get<PostViewResource[]>(this.apiUrl + '/newest');
   }
+
+  getPopular(): Observable<PostViewResource[]> {
+    return this.http.get<PostViewResource[]>(this.apiUrl + '/popular');
+  }
+
+  getPostsBy(categoryName: string, categoryId: string): Observable<PostViewResource[]> {
+    return this.http.get<PostViewResource[]>(`${this.apiUrl}/${categoryName}/${categoryId}`)
+  }
 }

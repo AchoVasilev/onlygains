@@ -4,5 +4,9 @@ export interface PostViewResource {
     text: string,
     createdAt: string,
     createdBy: string,
-    imageUrl: string
+    creatorImageUrl: string,
+    imageUrl: string,
+    categoryId: string,
+    categoryName: string,
+    categoryNameTranslation: string
 }

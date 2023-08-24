@@ -6,3 +6,12 @@ export interface CardResource {
   subtitle?: string;
   text?: string
 }
+
+export interface SideCardResource {
+  id: string,
+  title: string,
+  createdAt: string,
+  additionalUrl: string,
+  additionalUrlName: string,
+  imageUrl: string
+}

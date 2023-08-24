@@ -8,6 +8,6 @@ public class Messages {
         private ErrorMessages() {
         }
 
-        public static final String DUPLICATE_ENTRY = "Entity already exists";
+        public static final String DUPLICATE_POST = "Post with title %s already exists. PostId=%s";
     }
 }

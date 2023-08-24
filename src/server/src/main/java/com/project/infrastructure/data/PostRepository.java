@@ -18,5 +18,16 @@ public interface PostRepository extends CrudRepository<Post, UUID> {
     @Query(value = "SELECT * from posts p WHERE p.is_deleted = false ORDER BY p.created_at DESC LIMIT 4", nativeQuery = true)
     List<Post> findNewestFour();
 
+    List<Post> findByCategoryId(UUID categoryId);
+
     Optional<Post> findByTitleAndCategoryIdAndIsDeletedFalse(String title, UUID categoryId);
+
+    @Query(value = """
+            SELECT p.*
+            FROM posts p\s
+            JOIN comments c ON c.post_id = p.id
+            WHERE c.is_deleted = false and p.is_deleted = false
+            ORDER BY c DESC LIMIT 4
+            """, nativeQuery = true)
+    List<Post> getMostPopularPosts();
 }
