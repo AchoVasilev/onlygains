@@ -5,6 +5,8 @@ import com.project.domain.post.Post;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,8 @@ public class Category extends BaseEntity {
     private UUID id;
     private String name;
     private String translatedName;
-    @OneToMany
+    @OneToMany(mappedBy = "category")
+    @Cascade(value = CascadeType.ALL)
     private List<Post> posts;
     private String imageUrl;
 
@@ -27,7 +30,7 @@ public class Category extends BaseEntity {
         super();
         this.id = UUID.randomUUID();
         this.name = name;
-        this.name = translatedName;
+        this.translatedName = translatedName;
         this.posts = new ArrayList<>();
         this.imageUrl = imageUrl;
     }

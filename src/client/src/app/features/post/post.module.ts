@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { PostRoutingModule } from './post-routing.module';
 import { SharedModule } from 'app/shared/shared.module';
+import { AllPostsComponent } from './all-posts/all-posts.component';
+import { PopularPostsComponent } from './popular-posts/popular-posts.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AllPostsComponent,
+    PopularPostsComponent
+  ],
   imports: [
-    CommonModule,
     PostRoutingModule,
     SharedModule
   ]
