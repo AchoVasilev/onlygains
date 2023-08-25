@@ -1,41 +1,10 @@
 <section class="container">
   <section class="card-container" *ngIf="posts$ | async; let posts">
-    <article class="card" *ngFor="let post of posts; let i = index">
-      <div class="card-header">
-        <img
-          [src]="post.imageUrl"
-          alt="{{ post.title }} image"
-          class="card-image"
-          width="600"
-        />
-      </div>
-      <div class="card-body">
-        <gains-tag
-          class="tag"
-          [tag]="{name: post.categoryName, id: post.categoryId, translatedName: post.categoryNameTranslation}"
-            urlPrefix="/posts"
-        ></gains-tag>
-        <h4>{{ post.title }}</h4>
-        <p class="post-text">
-          {{ post.text }}
-        </p>
-      </div>
-      <div class="card-footer">
-        <div class="user">
-          <img
-            [src]="post.creatorImageUrl"
-            alt="user image"
-            class="user-image"
-          />
-          <div class="user-info">
-            <h5>{{ post.createdBy }}</h5>
-            <small>{{ post.createdAt }}</small>
-          </div>
-        </div>
-      </div>
-    </article>
+    <div *ngFor="let post of posts">
+      <gains-post-card [post]="post"></gains-post-card>
+    </div>
   </section>
-  <section>
+  <section class="side-bar">
     <gains-side-bar></gains-side-bar>
   </section>
 </section>

@@ -23,9 +23,13 @@
         style="width: 100px; height: 100px; object-fit: cover"
       />
       <div class="post-wrapper">
-        <div class="mb-1" style="font-size: 13px">
+        <div>
           <gains-tag
-            [tag]="{name: post.categoryName, id: post.categoryId, translatedName: post.categoryNameTranslation}"
+            [tag]="{
+              name: post.categoryName,
+              id: post.categoryId,
+              translatedName: post.categoryNameTranslation
+            }"
             urlPrefix="/posts"
           ></gains-tag>
           <span> / </span>
@@ -37,21 +41,15 @@
       </div>
     </article>
   </section>
-  <section>
+  <section *ngIf="tags$ | async; let tags">
     <h3 class="title">Тагове</h3>
     <section class="tags">
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Politics</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Business</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporate</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Sports</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Health</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Education</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Science</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Technology</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Foods</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Entertainment</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Travel</a>
-      <a href="" class="btn btn-sm btn-outline-secondary m-1">Lifestyle</a>
+      <gains-tag
+        class="tag"
+        *ngFor="let tag of tags"
+        [tag]="tag"
+        urlPrefix="/posts/tags"
+      ></gains-tag>
     </section>
   </section>
 </aside>

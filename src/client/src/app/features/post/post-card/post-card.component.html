@@ -1,0 +1,34 @@
+<article class="card" *ngIf="post">
+  <div class="card-header">
+    <img
+      [src]="post.imageUrl"
+      alt="{{ post.title }} image"
+      class="card-image"
+      width="600"
+    />
+  </div>
+  <div class="card-body">
+    <gains-tag
+      class="tag"
+      [tag]="{
+        name: post.categoryName,
+        id: post.categoryId,
+        translatedName: post.categoryNameTranslation
+      }"
+      urlPrefix="/posts"
+    ></gains-tag>
+    <h4>{{ post.title }}</h4>
+    <p class="post-text">
+      {{ post.text }}
+    </p>
+  </div>
+  <div class="card-footer">
+    <div class="user">
+      <img [src]="post.creatorImageUrl" alt="user image" class="user-image" />
+      <div class="user-info">
+        <h5>{{ post.createdBy }}</h5>
+        <small>{{ post.createdAt }}</small>
+      </div>
+    </div>
+  </div>
+</article>

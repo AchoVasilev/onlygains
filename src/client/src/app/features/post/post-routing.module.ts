@@ -14,7 +14,10 @@ const routes: Routes = [
       {
         path: ':id',
         component: PostDetailsComponent
-      }
+      },
+      // {
+      //   path: 'tags/:tagName/:tagId'
+      // }
     ]
   }
 ];
