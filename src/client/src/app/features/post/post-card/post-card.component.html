@@ -4,7 +4,6 @@
       [src]="post.imageUrl"
       alt="{{ post.title }} image"
       class="card-image"
-      width="600"
     />
   </div>
   <div class="card-body">
@@ -17,7 +16,7 @@
       }"
       urlPrefix="/posts"
     ></gains-tag>
-    <h4>{{ post.title }}</h4>
+    <h4> <a routerLink="/posts/details/{{post.id}}/{{post.title}}">{{ post.title }}</a></h4>
     <p class="post-text">
       {{ post.text }}
     </p>

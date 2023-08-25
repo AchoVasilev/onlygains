@@ -17,11 +17,7 @@
   <section *ngIf="popularPosts$ | async; let posts">
     <h3 class="title">Популярни теми</h3>
     <article class="post" *ngFor="let post of posts">
-      <img
-        class="post-image"
-        [src]="post.imageUrl"
-        style="width: 100px; height: 100px; object-fit: cover"
-      />
+      <img class="post-image" [src]="post.imageUrl" />
       <div class="post-wrapper">
         <div>
           <gains-tag
@@ -35,9 +31,12 @@
           <span> / </span>
           <span>{{ post.createdAt }}</span>
         </div>
-        <a mat-button class="post-title" routerLink="/posts/{{ post.id }}">{{
-          post.title
-        }}</a>
+        <a
+          mat-button
+          class="post-title"
+          routerLink="/posts/details/{{ post.id }}/{{ post.title }}"
+          >{{ post.title }}</a
+        >
       </div>
     </article>
   </section>

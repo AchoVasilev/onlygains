@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryPostsComponent } from './category-posts/category-posts.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
+import { PostsTagsComponent } from './posts-tags/posts-tags.component';
 
 const routes: Routes = [
   {
@@ -9,15 +10,19 @@ const routes: Routes = [
     children: [
       {
         path: ':categoryName/:categoryId',
-        component: CategoryPostsComponent
+        component: CategoryPostsComponent,
+        pathMatch: 'full'
       },
       {
-        path: ':id',
-        component: PostDetailsComponent
+        path: 'details/:id/:title',
+        component: PostDetailsComponent,
+        pathMatch: 'full'
       },
-      // {
-      //   path: 'tags/:tagName/:tagId'
-      // }
+      {
+        path: 'tags/:tagName/:tagId',
+        component: PostsTagsComponent,
+        pathMatch: 'full'
+      }
     ]
   }
 ];

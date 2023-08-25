@@ -7,5 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Serdeable
-public record CreatePostResource(@Nonnull String text, @Nonnull String title, List<String> imageUrls, UUID categoryId) {
+public record CreatePostResource(@Nonnull String text,
+                                 @Nonnull String title,
+                                 List<String> imageUrls,
+                                 UUID categoryId,
+                                 List<UUID> tags) {
 }

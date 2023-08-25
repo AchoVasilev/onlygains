@@ -6,17 +6,21 @@ import com.project.domain.comment.Comment;
 import com.project.domain.image.PostImage;
 import com.project.domain.user.User;
 import com.project.utilities.Time;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+
 
 @Entity(name = "posts")
 public class Post extends BaseEntity {
@@ -24,11 +28,9 @@ public class Post extends BaseEntity {
     private UUID id;
     private String title;
     private String text;
-    @OneToMany(mappedBy = "post")
-    @Cascade(CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
-    @OneToMany(mappedBy = "post")
-    @Cascade(CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostImage> postImages;
 
     @ManyToOne
@@ -38,6 +40,11 @@ public class Post extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "posts_tags", joinColumns = @JoinColumn(name = "post_id"),
+    inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags;
 
     protected Post() {}
 
@@ -50,6 +57,7 @@ public class Post extends BaseEntity {
         this.comments = new ArrayList<>();
         this.postImages = new ArrayList<>();
         this.user = user;
+        this.tags = new HashSet<>();
     }
 
     public UUID getId() {
@@ -83,5 +91,19 @@ public class Post extends BaseEntity {
 
     public Category getCategory() {
         return this.category;
+    }
+
+    public Set<Tag> getTags() {
+        return this.tags;
+    }
+
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+        tag.addPost(this);
+    }
+
+    public void removeTag(Tag tag) {
+        this.tags.remove(tag);
+        tag.removePost(this);
     }
 }

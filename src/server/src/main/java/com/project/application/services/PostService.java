@@ -29,44 +29,38 @@ public class PostService {
     //TODO: remove this one
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final TagService tagService;
 
-    public PostService(PostRepository postRepository, CategoryService categoryService, RoleRepository roleRepository, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, CategoryService categoryService, RoleRepository roleRepository, UserRepository userRepository, TagService tagService) {
         this.postRepository = postRepository;
         this.categoryService = categoryService;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.tagService = tagService;
     }
 
     @Transactional(readOnly = true)
     public List<PostViewResource> getNewest() {
-        return this.postRepository.findNewestFour()
-                .stream().map(PostViewResource::of)
-                .toList();
+        return this.postRepository.findNewestFour().stream().map(PostViewResource::of).toList();
     }
 
     @Transactional(readOnly = true)
     public List<PostViewResource> getPostsBy(UUID categoryId) {
-        return this.postRepository.findByCategoryId(categoryId)
-                .stream().map(PostViewResource::of)
-                .toList();
+        return this.postRepository.findByCategoryId(categoryId).stream().map(PostViewResource::of).toList();
     }
 
     @Transactional(readOnly = true)
     public List<PostViewResource> getMostPopularPosts() {
-        return  this.postRepository.getMostPopularPosts()
-                .stream().map(PostViewResource::of)
-                .toList();
+        return this.postRepository.getMostPopularPosts().stream().map(PostViewResource::of).toList();
     }
 
     @Transactional
     public void createPost(CreatePostResource postResource) {
-        var postOpt = this.postRepository
-                .findByTitleAndCategoryIdAndIsDeletedFalse(postResource.title(), postResource.categoryId());
+        var postOpt = this.postRepository.findByTitleAndCategoryIdAndIsDeletedFalse(postResource.title(), postResource.categoryId());
         var postExists = this.postExists(postOpt, postResource);
         if (postExists) {
             postOpt.ifPresent(post -> {
-                throw new DuplicateEntryException(String.format(Messages.ErrorMessages.DUPLICATE_POST,
-                        post.getTitle(), post.getId()));
+                throw new DuplicateEntryException(String.format(Messages.ErrorMessages.DUPLICATE_POST, post.getTitle(), post.getId()));
             });
         }
 
@@ -80,6 +74,9 @@ public class PostService {
         post.addImagesToPost(images);
         user.addPost(post);
 
+        var tags = this.tagService.getTags(postResource.tags());
+        tags.forEach(post::addTag);
+
         this.userRepository.save(user);
         this.postRepository.save(post);
         log.info("Post has been created, [postId={}]", post.getId());
@@ -92,8 +89,6 @@ public class PostService {
 
         var post = postOptional.get();
         var similarImageUrls = post.getPostImages().stream().map(Image::getUrl).toList().equals(postResource.imageUrls());
-        return similarImageUrls && post.getCategory().getId().equals(postResource.categoryId())
-                && post.getTitle().equals(postResource.title())
-                && post.getText().equals(postResource.text());
+        return similarImageUrls && post.getCategory().getId().equals(postResource.categoryId()) && post.getTitle().equals(postResource.title()) && post.getText().equals(postResource.text());
     }
 }

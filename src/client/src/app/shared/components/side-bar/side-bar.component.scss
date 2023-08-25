@@ -32,7 +32,10 @@
 
 .post {
     display: flex;
-    padding-bottom: 1rem;
+    margin: 1rem 0;
+    background-color: gainsboro;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .post-image {
