@@ -20,7 +20,7 @@ export class TagComponent {
   urlPrefix?: string;
 
   getUrl(prefix: string) {
-    return `${prefix}/${this.tag?.name}/${this.tag?.id}`;
+    return `${prefix}/${this.tag?.translatedName}/${this.tag?.id}`;
   }
 
   getColor(): string {

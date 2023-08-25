@@ -73,6 +73,7 @@ public class PostService {
         //TODO: mock user till auth
         var role = this.roleRepository.findById(UUID.fromString("ac3d9fd0-1725-466e-b0a7-00b9cd2161a7"));
         var user = new User("email@abv.bg", "somepwd", "Gosho", "Peshev", role.get());
+        user.setImageUrl("https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691942376/onlygains/categories/hiking-trail-names_fgpox2.jpg");
         var category = this.categoryService.getCategoryBy(postResource.categoryId());
         var post = new Post(postResource.title(), postResource.text(), user, category);
         var images = postResource.imageUrls().stream().map(i -> new PostImage(i, post)).toList();
