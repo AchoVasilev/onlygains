@@ -92,4 +92,11 @@ CREATE TABLE tags
     modified_at     TIMESTAMPTZ,
     is_deleted      BOOLEAN     NOT NULL DEFAULT FALSE,
     post_id         UUID REFERENCES posts (id)
-)
+);
+
+CREATE TABLE posts_tags
+(
+    post_id UUID REFERENCES posts(id),
+    tag_id UUID REFERENCES tags(id),
+    CONSTRAINT posts_tags_pk PRIMARY KEY (post_id, tag_id)
+);

@@ -44,6 +44,11 @@ public class PostController {
         return HttpResponse.ok(this.postService.getPostsBy(categoryId));
     }
 
+    @Get(uri = "/tags/{tagId}")
+    public HttpResponse<List<PostViewResource>> getPostsBy(@PathVariable("tagId") UUID tagId) {
+        return HttpResponse.ok();
+    }
+
     @Post
     public HttpResponse<Void> createPost(@Body @Valid CreatePostResource postResource) {
         this.postService.createPost(postResource);
