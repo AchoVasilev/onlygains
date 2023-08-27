@@ -3,12 +3,14 @@ package com.project.ports.rest;
 import com.project.application.models.post.CreatePostResource;
 import com.project.application.models.post.PostViewResource;
 import com.project.application.services.PostService;
+import io.micronaut.data.model.Page;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.QueryValue;
 import jakarta.validation.Valid;
 
 import java.net.URI;
@@ -39,14 +41,14 @@ public class PostController {
     }
 
     @Get(uri = "/{categoryName}/{categoryId}")
-    public HttpResponse<List<PostViewResource>> getPostsBy(@PathVariable("categoryName") String categoryName,
-                                                           @PathVariable("categoryId") UUID categoryId) {
-        return HttpResponse.ok(this.postService.getPostsBy(categoryId));
+    public HttpResponse<Page<PostViewResource>> getPostsBy(@PathVariable("categoryName") String categoryName,
+                                                           @PathVariable("categoryId") UUID categoryId, @QueryValue int currentPage) {
+        return HttpResponse.ok(this.postService.getPostsBy(categoryId, currentPage));
     }
 
     @Get(uri = "/tags/{tagId}")
-    public HttpResponse<List<PostViewResource>> getPostsBy(@PathVariable("tagId") UUID tagId) {
-        return HttpResponse.ok();
+    public HttpResponse<Page<PostViewResource>> getPostsBy(@PathVariable("tagId") UUID tagId, @QueryValue int currentPage) {
+        return HttpResponse.ok(this.postService.getPostsByTag(tagId, currentPage));
     }
 
     @Post

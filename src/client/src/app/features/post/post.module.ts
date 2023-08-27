@@ -7,6 +7,7 @@ import { CategoryPostsComponent } from './category-posts/category-posts.componen
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { PostsTagsComponent } from './posts-tags/posts-tags.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,11 @@ import { PostsTagsComponent } from './posts-tags/posts-tags.component';
     PostCardComponent,
     PostsTagsComponent,
   ],
-  imports: [PostRoutingModule, SharedModule, ScrollingModule],
+  imports: [
+    PostRoutingModule,
+    SharedModule,
+    ScrollingModule,
+    InfiniteScrollModule,
+  ],
 })
 export class PostModule {}

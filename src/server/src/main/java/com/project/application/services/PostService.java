@@ -11,6 +11,8 @@ import com.project.infrastructure.data.PostRepository;
 import com.project.infrastructure.data.RoleRepository;
 import com.project.infrastructure.data.UserRepository;
 import com.project.infrastructure.exceptions.DuplicateEntryException;
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import io.micronaut.transaction.annotation.Transactional;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -19,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static com.project.common.Constants.ITEMS_PER_PAGE;
 
 @Singleton
 public class PostService {
@@ -45,13 +49,19 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostViewResource> getPostsBy(UUID categoryId) {
-        return this.postRepository.findByCategoryId(categoryId).stream().map(PostViewResource::of).toList();
+    public Page<PostViewResource> getPostsBy(UUID categoryId, int page) {
+        return this.postRepository.findByCategoryId(categoryId, Pageable.from(page, ITEMS_PER_PAGE)).map(PostViewResource::of);
     }
 
     @Transactional(readOnly = true)
     public List<PostViewResource> getMostPopularPosts() {
         return this.postRepository.getMostPopularPosts().stream().map(PostViewResource::of).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PostViewResource> getPostsByTag(UUID tagId, int page) {
+        return this.postRepository.findPostsByTagId(tagId, Pageable.from(page, ITEMS_PER_PAGE))
+                .map(PostViewResource::of);
     }
 
     @Transactional

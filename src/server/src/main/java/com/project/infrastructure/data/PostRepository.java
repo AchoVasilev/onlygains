@@ -3,6 +3,8 @@ package com.project.infrastructure.data;
 import com.project.domain.post.Post;
 import io.micronaut.data.annotation.Query;
 import io.micronaut.data.annotation.Repository;
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import io.micronaut.data.repository.CrudRepository;
 
 import java.util.List;
@@ -18,7 +20,7 @@ public interface PostRepository extends CrudRepository<Post, UUID> {
     @Query(value = "SELECT * from posts p WHERE p.is_deleted = false ORDER BY p.created_at DESC LIMIT 4", nativeQuery = true)
     List<Post> findNewestFour();
 
-    List<Post> findByCategoryId(UUID categoryId);
+    Page<Post> findByCategoryId(UUID categoryId, Pageable pageable);
 
     Optional<Post> findByTitleAndCategoryIdAndIsDeletedFalse(String title, UUID categoryId);
 
@@ -30,4 +32,7 @@ public interface PostRepository extends CrudRepository<Post, UUID> {
             LIMIT 5
             """, nativeQuery = true)
     List<Post> getMostPopularPosts();
+
+    @Query("SELECT p FROM posts p JOIN tags t WHERE t.id = :tagId")
+    Page<Post> findPostsByTagId(UUID tagId, Pageable pageable);
 }

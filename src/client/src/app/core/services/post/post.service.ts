@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { PostViewResource } from 'app/shared/models/post';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { TagViewResource } from 'app/shared/models/tag';
 
 @Injectable({
@@ -21,11 +21,38 @@ export class PostService {
     return this.http.get<PostViewResource[]>(this.apiUrl + '/popular');
   }
 
-  getPostsBy(categoryName: string, categoryId: string): Observable<PostViewResource[]> {
-    return this.http.get<PostViewResource[]>(`${this.apiUrl}/${categoryName}/${categoryId}`)
+  getPostsBy(
+    categoryName: string,
+    categoryId: string,
+    currentPage: number
+  ): Observable<PostViewResource[]> {
+    return this.http
+      .get<PostViewResource[]>(`${this.apiUrl}/${categoryName}/${categoryId}`, {
+        params: {
+          currentPage,
+        },
+      })
+      .pipe(
+        map((res: any) => {
+          return res.content;
+        })
+      );
   }
 
-  getPostsByTagId(tagId: string): Observable<PostViewResource[]> {
-    return this.http.get<PostViewResource[]>(`${this.apiUrl}/tags/${tagId}`);
+  getPostsByTagId(
+    tagId: string,
+    currentPage: number
+  ): Observable<PostViewResource[]> {
+    return this.http
+      .get<PostViewResource[]>(`${this.apiUrl}/tags/${tagId}`, {
+        params: {
+          currentPage,
+        },
+      })
+      .pipe(
+        map((res: any) => {
+          return res.content;
+        })
+      );
   }
 }

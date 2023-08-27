@@ -1,12 +1,16 @@
-<section class="container">
-  <section class="card-container" *ngIf="posts$ | async; let posts">
-    <cdk-virtual-scroll-viewport [itemSize]="pageSize">
-      <div *cdkVirtualFor="let post of posts">
-        <gains-post-card [post]="post"></gains-post-card>
-      </div>
-    </cdk-virtual-scroll-viewport>
-  </section>
-  <section class="side-bar">
-    <gains-side-bar></gains-side-bar>
+<section
+  class="container"
+>
+  <section class="card-container" 
+  infinite-scroll
+  [infiniteScrollDistance]="4"
+  [infiniteScrollThrottle]="500"
+  (scrolled)="onScroll()"
+  [scrollWindow]="false"
+  infiniteScrollContainer=".mat-typography"
+  [fromRoot]="true">
+    <div *ngFor="let post of posts$ | async">
+      <gains-post-card [post]="post"></gains-post-card>
+    </div>
   </section>
 </section>
