@@ -1,11 +1,12 @@
 <section class="container">
-    <section class="card-container" *ngIf="posts$ | async; let posts">
-      <div *ngFor="let post of posts">
+  <section class="card-container" *ngIf="posts$ | async; let posts">
+    <cdk-virtual-scroll-viewport [itemSize]="pageSize">
+      <div *cdkVirtualFor="let post of posts">
         <gains-post-card [post]="post"></gains-post-card>
       </div>
-    </section>
-    <section class="side-bar">
-      <gains-side-bar></gains-side-bar>
-    </section>
+    </cdk-virtual-scroll-viewport>
   </section>
-  
+  <section class="side-bar">
+    <gains-side-bar></gains-side-bar>
+  </section>
+</section>
