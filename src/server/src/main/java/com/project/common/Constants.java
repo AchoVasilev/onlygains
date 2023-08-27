@@ -1,5 +1,6 @@
 package com.project.common;
 
 public class Constants {
-    public final int DEFAULT_PAGE_SIZE = 30;
+    private Constants() {}
+    public static final int ITEMS_PER_PAGE = 30;
 }

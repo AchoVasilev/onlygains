@@ -1,5 +1,5 @@
 .container {
-    display: flex;
+  display: flex;
 }
 
 .side-bar {
@@ -7,10 +7,20 @@
 }
 
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  // display: flex;
+  // flex-wrap: wrap;
+  // justify-content: center;
   max-width: 90rem;
   padding: 3rem;
   gap: 2rem;
+  height: 100%;
+  overflow: scroll;
+}
+
+.view-port {
+  width: 90rem;
+  height: 90rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
