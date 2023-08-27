@@ -26,7 +26,7 @@
       <img [src]="post.creatorImageUrl" alt="user image" class="user-image" />
       <div class="user-info">
         <h5>{{ post.createdBy }}</h5>
-        <small>{{ post.createdAt }}</small>
+        <small>{{ post.createdAt | dateAgo }}</small>
       </div>
     </div>
   </div>

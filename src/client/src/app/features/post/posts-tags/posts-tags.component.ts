@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'app/core/services/post/post.service';
+import { pageSize } from 'app/shared/constants/data-constants';
 import { PostViewResource } from 'app/shared/models/post';
 import { Observable } from 'rxjs';
 
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs';
 export class PostsTagsComponent {
   posts$?: Observable<PostViewResource[]>;
   private tagId: string = '';
+  pageSize = pageSize;
 
   constructor(private route: ActivatedRoute, private postService: PostService) {
     this.tagId = this.route.snapshot.params['tagId'];
