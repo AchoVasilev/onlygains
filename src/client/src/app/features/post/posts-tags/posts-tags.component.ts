@@ -13,17 +13,20 @@ import { Observable, forkJoin, map } from 'rxjs';
 export class PostsTagsComponent {
   private tagId: string = '';
 
-  posts$?: Observable<PostViewResource[]>;
-
+  items: PostViewResource[] = [];
   pageSize = itemsPerPage;
-  currentPage = 1;
+  currentPage = 0;
 
   constructor(private route: ActivatedRoute, private postService: PostService) {
     this.tagId = this.route.snapshot.params['tagId'];
   }
 
   ngOnInit(): void {
-    this.posts$ = this.postService.getPostsByTagId(this.tagId, this.currentPage);
+    this.getPosts();
+  }
+
+  getPosts() {
+    this.postService.getPostsByTagId(this.tagId, this.currentPage, this.pageSize).subscribe((posts) => (this.items = [...this.items, ...posts]));
   }
 
   getUrl(categoryName: string, categoryId: string) {
@@ -31,11 +34,9 @@ export class PostsTagsComponent {
   }
 
   onScroll() {
-    this.currentPage++;
-    const newPosts$ = this.postService.getPostsByTagId(this.tagId, this.currentPage);
-    
-    this.posts$ = forkJoin([this.posts$!, newPosts$]).pipe(
-      map((arr: any) => arr.reduce((acc: any, curr: any) => acc.concat(curr)))
-    );
+    if (this.items.length === this.pageSize) {
+      this.currentPage++;
+      this.getPosts();
+    }
   }
 }

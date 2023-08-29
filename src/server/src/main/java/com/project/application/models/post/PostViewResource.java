@@ -10,7 +10,7 @@ import java.util.UUID;
 public record PostViewResource(UUID id, String imageUrl, ZonedDateTime createdAt, String createdBy,
                                String creatorImageUrl, String title, String text, String categoryName,
                                String categoryNameTranslation, UUID categoryId) {
-    public static PostViewResource of(Post post) {
+    public static PostViewResource from(Post post) {
         return new PostViewResource(post.getId(),
                 post.getPostImages().get(0).getUrl(),
                 post.getCreatedAt(),

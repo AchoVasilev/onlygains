@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'app/core/services/post/post.service';
+import { itemsPerPage } from 'app/shared/constants/data-constants';
 import { PostViewResource } from 'app/shared/models/post';
-import { Observable, combineLatest, forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'gains-category-posts',
@@ -10,23 +10,27 @@ import { Observable, combineLatest, forkJoin, map } from 'rxjs';
   styleUrls: ['./category-posts.component.scss'],
 })
 export class CategoryPostsComponent implements OnInit {
-  posts$?: Observable<PostViewResource[]>;
-  private categoryName: string = '';
+  items: PostViewResource[] = [];
   private categoryId: string = '';
-  private currentPage: number = 1;
-  itemsPerPage = 30;
+  private currentPage: number = 0;
+  itemsPerPage: number = itemsPerPage;
 
   constructor(private route: ActivatedRoute, private postService: PostService) {
-    this.categoryName = this.route.snapshot.params['categoryName'];
     this.categoryId = this.route.snapshot.params['categoryId'];
   }
 
   ngOnInit(): void {
-    this.posts$ = this.postService.getPostsBy(
-      this.categoryName,
-      this.categoryId,
-      this.currentPage
-    );
+    this.getPosts();
+  }
+
+  getPosts() {
+    this.postService
+      .getPostsBy(
+        this.categoryId,
+        this.currentPage,
+        this.itemsPerPage
+      )
+      .subscribe((posts) => (this.items = [...this.items, ...posts]));
   }
 
   getUrl(categoryName: string, categoryId: string) {
@@ -34,11 +38,9 @@ export class CategoryPostsComponent implements OnInit {
   }
 
   onScroll() {
-    this.currentPage++;
-    const newPosts$ = this.postService.getPostsBy(this.categoryName, this.categoryId, this.currentPage);
-    
-    this.posts$ = forkJoin([this.posts$!, newPosts$]).pipe(
-      map((arr: any) => arr.reduce((acc: any, curr: any) => acc.concat(curr)))
-    );
+    if (this.items.length === this.itemsPerPage) {
+      this.currentPage++;
+      this.getPosts();
+    }
   }
 }

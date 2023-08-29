@@ -22,7 +22,7 @@ public class CategoryService {
     public List<CategoryViewResource> getCategories() {
         return this.categoryRepository.findAll()
                 .stream()
-                .map(c -> new CategoryViewResource(c.getId(), c.getImageUrl(), c.getName(), c.getTranslatedName()))
+                .map(CategoryViewResource::from)
                 .toList();
     }
 

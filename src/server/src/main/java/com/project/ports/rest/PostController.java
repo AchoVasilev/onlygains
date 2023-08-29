@@ -1,8 +1,10 @@
 package com.project.ports.rest;
 
 import com.project.application.models.post.CreatePostResource;
+import com.project.application.models.post.PostDetailsResource;
 import com.project.application.models.post.PostViewResource;
 import com.project.application.services.PostService;
+import com.project.common.enums.PostQueryType;
 import io.micronaut.data.model.Page;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
@@ -35,20 +37,14 @@ public class PostController {
         return HttpResponse.ok(this.postService.getMostPopularPosts());
     }
 
-    @Get(uri = "/{id}")
-    public HttpResponse<PostViewResource> getPost(@PathVariable("id") UUID id) {
-        return HttpResponse.ok();
+    @Get(uri = "/details/{id}")
+    public HttpResponse<PostDetailsResource> getPost(@PathVariable("id") UUID id) {
+        return HttpResponse.ok(this.postService.getPostBy(id));
     }
 
-    @Get(uri = "/{categoryName}/{categoryId}")
-    public HttpResponse<Page<PostViewResource>> getPostsBy(@PathVariable("categoryName") String categoryName,
-                                                           @PathVariable("categoryId") UUID categoryId, @QueryValue int currentPage) {
-        return HttpResponse.ok(this.postService.getPostsBy(categoryId, currentPage));
-    }
-
-    @Get(uri = "/tags/{tagId}")
-    public HttpResponse<Page<PostViewResource>> getPostsBy(@PathVariable("tagId") UUID tagId, @QueryValue int currentPage) {
-        return HttpResponse.ok(this.postService.getPostsByTag(tagId, currentPage));
+    @Get(uri = "/all/{id}")
+    public HttpResponse<Page<PostViewResource>> getPostsBy(@PathVariable("id") UUID id, @QueryValue int page, @QueryValue int size, @QueryValue PostQueryType type) {
+        return HttpResponse.ok(this.postService.getPostsBy(id, page, size, type));
     }
 
     @Post

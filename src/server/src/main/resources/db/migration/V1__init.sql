@@ -51,7 +51,8 @@ CREATE TABLE comments
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
-    post_id     UUID REFERENCES posts (id)
+    post_id     UUID REFERENCES posts (id),
+    user_id     UUID REFERENCES users(id)
 );
 
 CREATE TABLE likes
