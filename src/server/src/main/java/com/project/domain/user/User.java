@@ -1,6 +1,7 @@
 package com.project.domain.user;
 
 import com.project.domain.BaseEntity;
+import com.project.domain.comment.Comment;
 import com.project.domain.post.Post;
 import com.project.domain.valueobjects.FullName;
 import jakarta.persistence.Embedded;
@@ -27,8 +28,12 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private final List<Post> posts;
 
+    @OneToMany(mappedBy = "user")
+    private final List<Comment> comments;
+
     protected User() {
         this.posts = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public User(String email, String password, String firstName, String lastName, Role role) {
@@ -39,6 +44,7 @@ public class User extends BaseEntity {
         this.fullName = FullName.of(firstName, lastName);
         this.role = role;
         this.posts = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public UUID getId() {

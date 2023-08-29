@@ -1,8 +1,9 @@
 package com.project.application.services;
 
 import com.project.application.models.post.CreatePostResource;
+import com.project.application.models.post.PostDetailsResource;
 import com.project.application.models.post.PostViewResource;
-import com.project.common.Messages;
+import com.project.common.enums.PostQueryType;
 import com.project.domain.image.Image;
 import com.project.domain.image.PostImage;
 import com.project.domain.post.Post;
@@ -11,6 +12,7 @@ import com.project.infrastructure.data.PostRepository;
 import com.project.infrastructure.data.RoleRepository;
 import com.project.infrastructure.data.UserRepository;
 import com.project.infrastructure.exceptions.DuplicateEntryException;
+import com.project.infrastructure.exceptions.EntityNotFoundException;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;
 import io.micronaut.transaction.annotation.Transactional;
@@ -21,8 +23,6 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import static com.project.common.Constants.ITEMS_PER_PAGE;
 
 @Singleton
 public class PostService {
@@ -45,23 +45,26 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<PostViewResource> getNewest() {
-        return this.postRepository.findNewestFour().stream().map(PostViewResource::of).toList();
+        return this.postRepository.findNewestFour().stream().map(PostViewResource::from).toList();
     }
 
     @Transactional(readOnly = true)
-    public Page<PostViewResource> getPostsBy(UUID categoryId, int page) {
-        return this.postRepository.findByCategoryId(categoryId, Pageable.from(page, ITEMS_PER_PAGE)).map(PostViewResource::of);
+    public Page<PostViewResource> getPostsBy(UUID id, int page, int size, PostQueryType postQueryType) {
+        return switch (postQueryType) {
+            case Tag -> this.getPostsByTag(id, page, size);
+            case Category -> this.getPostsBy(id, page, size);
+        };
     }
 
     @Transactional(readOnly = true)
     public List<PostViewResource> getMostPopularPosts() {
-        return this.postRepository.getMostPopularPosts().stream().map(PostViewResource::of).toList();
+        return this.postRepository.getMostPopularPosts().stream().map(PostViewResource::from).toList();
     }
 
     @Transactional(readOnly = true)
-    public Page<PostViewResource> getPostsByTag(UUID tagId, int page) {
-        return this.postRepository.findPostsByTagId(tagId, Pageable.from(page, ITEMS_PER_PAGE))
-                .map(PostViewResource::of);
+    public PostDetailsResource getPostBy(UUID postId) {
+        return PostDetailsResource.from(this.postRepository.findById(postId)
+                .orElseThrow(() -> new EntityNotFoundException(Post.class, postId)));
     }
 
     @Transactional
@@ -70,7 +73,7 @@ public class PostService {
         var postExists = this.postExists(postOpt, postResource);
         if (postExists) {
             postOpt.ifPresent(post -> {
-                throw new DuplicateEntryException(String.format(Messages.ErrorMessages.DUPLICATE_POST, post.getTitle(), post.getId()));
+                throw new DuplicateEntryException(Post.class, post.getId());
             });
         }
 
@@ -100,5 +103,14 @@ public class PostService {
         var post = postOptional.get();
         var similarImageUrls = post.getPostImages().stream().map(Image::getUrl).toList().equals(postResource.imageUrls());
         return similarImageUrls && post.getCategory().getId().equals(postResource.categoryId()) && post.getTitle().equals(postResource.title()) && post.getText().equals(postResource.text());
+    }
+
+    private Page<PostViewResource> getPostsBy(UUID categoryId, int page, int size) {
+        return this.postRepository.findByCategoryId(categoryId, Pageable.from(page, size)).map(PostViewResource::from);
+    }
+
+    private Page<PostViewResource> getPostsByTag(UUID tagId, int page, int size) {
+        return this.postRepository.findPostsByTagId(tagId, Pageable.from(page, size))
+                .map(PostViewResource::from);
     }
 }

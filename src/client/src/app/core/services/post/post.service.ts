@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { PostViewResource } from 'app/shared/models/post';
 import { Observable, map } from 'rxjs';
-import { TagViewResource } from 'app/shared/models/tag';
+import { PostQueryType } from 'app/shared/enums/Post';
 
 @Injectable({
   providedIn: 'root',
@@ -22,14 +22,16 @@ export class PostService {
   }
 
   getPostsBy(
-    categoryName: string,
     categoryId: string,
-    currentPage: number
+    page: number,
+    size: number
   ): Observable<PostViewResource[]> {
     return this.http
-      .get<PostViewResource[]>(`${this.apiUrl}/${categoryName}/${categoryId}`, {
+      .get<PostViewResource[]>(`${this.apiUrl}/all/${categoryId}`, {
         params: {
-          currentPage,
+          page,
+          size,
+          type: PostQueryType.Category
         },
       })
       .pipe(
@@ -41,12 +43,15 @@ export class PostService {
 
   getPostsByTagId(
     tagId: string,
-    currentPage: number
+    page: number,
+    size: number
   ): Observable<PostViewResource[]> {
     return this.http
-      .get<PostViewResource[]>(`${this.apiUrl}/tags/${tagId}`, {
+      .get<PostViewResource[]>(`${this.apiUrl}/all/${tagId}`, {
         params: {
-          currentPage,
+          page,
+          size,
+          type: PostQueryType.Tag
         },
       })
       .pipe(
