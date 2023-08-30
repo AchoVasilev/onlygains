@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TagViewResource } from 'app/shared/models/tag';
+import { TagViewResource } from 'app/shared/shared-module/models/tag';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 

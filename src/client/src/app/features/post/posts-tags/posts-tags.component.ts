@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'app/core/services/post/post.service';
-import { itemsPerPage } from 'app/shared/constants/data-constants';
-import { PostViewResource } from 'app/shared/models/post';
-import { Observable, forkJoin, map } from 'rxjs';
+import { itemsPerPage } from 'app/shared/shared-module/constants/data-constants';
+import { PostViewResource } from 'app/shared/shared-module/models/post';
 
 @Component({
   selector: 'gains-posts-tags',

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CardResource } from 'app/shared/models/card';
+import { CardResource } from 'app/shared/shared-module/models/card';
 
 @Component({
   selector: 'gains-recent-post',
