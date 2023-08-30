@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CategoryViewResource } from 'app/shared/models/category';
+import { CategoryViewResource } from 'app/shared/shared-module/models/category';
 
 @Component({
   selector: 'gains-categories',

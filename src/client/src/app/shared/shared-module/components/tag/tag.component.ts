@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { TagViewResource } from 'app/shared/models/tag';
+import { TagViewResource } from 'app/shared/shared-module/models/tag';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

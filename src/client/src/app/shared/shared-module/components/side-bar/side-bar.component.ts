@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'app/core/services/category/category.service';
 import { PostService } from 'app/core/services/post/post.service';
 import { TagService } from 'app/core/services/tag/tag.service';
-import { CategoryViewResource } from 'app/shared/models/category';
-import { PostViewResource } from 'app/shared/models/post';
-import { TagViewResource } from 'app/shared/models/tag';
+import { CategoryViewResource } from 'app/shared/shared-module/models/category';
+import { PostViewResource } from 'app/shared/shared-module/models/post';
+import { TagViewResource } from 'app/shared/shared-module/models/tag';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
-import { PostViewResource } from 'app/shared/models/post';
 import { Observable, map } from 'rxjs';
-import { PostQueryType } from 'app/shared/enums/Post';
+import { environment } from '../../../../../environments/environment';
+import { PostViewResource } from 'app/shared/shared-module/models/post';
+import { PostQueryType } from 'app/shared/shared-module/enums/Post';
 
 @Injectable({
   providedIn: 'root',
