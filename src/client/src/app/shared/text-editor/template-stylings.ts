@@ -1,19 +1,4 @@
-export const threeImageTemplateStyling = `.container {
-    display: flex;
-    padding: 3rem;
-    gap: 2rem;
-  }
-  
-  .side-bar {
-    flex-basis: 30%;
-  }
-  
-  .post-comment-container {
-    margin: 1rem;
-    background-color: rgb(226, 226, 226);
-    flex-basis: 90%;
-  }
-  
+export const threeImageTemplateStyling = `
   .main-image-container {
     max-height: 45rem;
     overflow: hidden;
