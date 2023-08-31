@@ -8,8 +8,6 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { PostsTagsComponent } from './posts-tags/posts-tags.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { CreatePostComponent } from './create-post/create-post.component';
-import { TextEditorModule } from 'app/shared/text-editor/text-editor.module';
 
 @NgModule({
   declarations: [
@@ -17,14 +15,12 @@ import { TextEditorModule } from 'app/shared/text-editor/text-editor.module';
     PostDetailsComponent,
     PostCardComponent,
     PostsTagsComponent,
-    CreatePostComponent,
   ],
   imports: [
     PostRoutingModule,
     SharedModule,
     ScrollingModule,
     InfiniteScrollModule,
-    TextEditorModule
   ],
 })
 export class PostModule {}

@@ -1,3 +1,4 @@
+import { PostDetailsResource } from './../../../shared/shared-module/models/post';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
@@ -19,6 +20,10 @@ export class PostService {
 
   getPopular(): Observable<PostViewResource[]> {
     return this.http.get<PostViewResource[]>(this.apiUrl + '/popular');
+  }
+
+  getById(postId: string): Observable<PostDetailsResource> {
+    return this.http.get<PostDetailsResource>(`${this.apiUrl}/details/${postId}`);
   }
 
   getPostsBy(
