@@ -23,5 +23,5 @@ export const defaultPostConfig: PostConfig = {
     'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
   promotion: false,
   branding: false,
-  plugins: ['anchor', 'link', 'lists', 'image',]
+  plugins: ['anchor', 'link', 'lists', 'image',],
 };
