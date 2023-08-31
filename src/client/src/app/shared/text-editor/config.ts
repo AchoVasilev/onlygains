@@ -2,7 +2,7 @@ export interface PostConfig {
   base_url: string;
   suffix: string;
   selector?: string;
-  height?: number;
+  height?: string;
   menubar?: boolean;
   language?: string;
   language_url?: string;
@@ -10,12 +10,14 @@ export interface PostConfig {
   toolbar?: string;
   promotion: boolean;
   branding: boolean;
+  content_style?: string;
+  images_upload_handler?: any
 }
 
 export const defaultPostConfig: PostConfig = {
   base_url: '/tinymce',
   suffix: '.min',
-  height: 500,
+  height: 'calc(100vh - 88px)',
   menubar: true,
   language: 'bg_BG',
   language_url: 'assets/langs/bg_BG.js',

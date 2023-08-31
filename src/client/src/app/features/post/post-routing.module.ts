@@ -3,17 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { CategoryPostsComponent } from './category-posts/category-posts.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostsTagsComponent } from './posts-tags/posts-tags.component';
-import { CreatePostComponent } from './create-post/create-post.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
-      {
-        path: 'new',
-        component: CreatePostComponent,
-        pathMatch: 'full'
-      },
       {
         path: ':categoryName/:categoryId',
         component: CategoryPostsComponent,
