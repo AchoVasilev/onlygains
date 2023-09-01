@@ -5,9 +5,15 @@ import { TagComponent } from './components/tag/tag.component';
 import { RouterLink } from '@angular/router';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { DateAgoPipe } from './pipes/date-ago/date-ago.pipe';
+import { IconButtonComponent } from './components/icon-button/icon-button.component';
 
 @NgModule({
-  declarations: [TagComponent, SideBarComponent, DateAgoPipe],
+  declarations: [
+    TagComponent,
+    SideBarComponent,
+    DateAgoPipe,
+    IconButtonComponent,
+  ],
   imports: [CommonModule, MaterialModule, RouterLink],
   exports: [
     CommonModule,
@@ -15,6 +21,7 @@ import { DateAgoPipe } from './pipes/date-ago/date-ago.pipe';
     TagComponent,
     SideBarComponent,
     DateAgoPipe,
+    IconButtonComponent,
   ],
 })
 export class SharedModule {}

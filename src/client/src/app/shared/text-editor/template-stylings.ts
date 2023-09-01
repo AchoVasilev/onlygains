@@ -12,7 +12,7 @@ export const threeImageTemplateStyling = `
   }
   
   .secondary-image {
-    width: 35%;
+    width: 30%;
   }
   
   .image-left {

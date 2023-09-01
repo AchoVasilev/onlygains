@@ -12,6 +12,8 @@
   margin: 1rem;
   background-color: rgb(226, 226, 226);
   flex-basis: 90%;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-image-container {
@@ -27,7 +29,7 @@
 }
 
 .secondary-image {
-  width: 35%;
+  width: 30%;
 }
 
 .image-left {
@@ -83,4 +85,21 @@ h4 {
 
 .first-post-half {
     margin-bottom: 2rem;
+}
+
+.comments {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.tag {
+    margin: 0.50rem 0.25rem;
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1.5rem;
 }

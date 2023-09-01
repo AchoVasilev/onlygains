@@ -24,7 +24,7 @@ export class PostDetailsComponent implements OnInit {
 
   getTag(): TagViewResource {
     return {
-      name: this.post?.category.name || '',
+      name: this.post?.category.name || 'categoryyy',
       id: this.post?.category.id || '',
       translatedName: this.post?.category.translatedName || ''
     }

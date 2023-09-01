@@ -8,6 +8,7 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { PostsTagsComponent } from './posts-tags/posts-tags.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     PostDetailsComponent,
     PostCardComponent,
     PostsTagsComponent,
+    CommentComponent,
   ],
   imports: [
     PostRoutingModule,
