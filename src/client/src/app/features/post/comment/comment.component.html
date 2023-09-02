@@ -1,1 +1,83 @@
-<p>comment works!</p>
+<section class="comment-container">
+  <article class="comment">
+    <div class="comment-heading">
+      <h6>
+        <a href="">{{comment.createdBy.fullName}}</a>
+        <small><i>{{comment.createdAt | dateAgo}}</i></small>
+      </h6>
+      <section>
+        <gains-icon-button
+          color="primary"
+          iconType="thumb_up"
+        ></gains-icon-button>
+        <gains-icon-button
+          color="warn"
+          iconType="thumb_down"
+        ></gains-icon-button>
+      </section>
+    </div>
+    <p>
+      {{comment.text}}
+    </p>
+    <button mat-button>Отговори</button>
+  </article>
+  <gains-comment-form
+    *ngIf="isEditing()"
+    submitLabel="Update"
+    [hasCancelButton]="true"
+    [initialText]="comment.text"
+    (handleSubmit)="updateComment.emit({ text: $event, commentId: comment.id })"
+    (handleCancel)="setActiveComment.emit(null)"
+  ></gains-comment-form>
+  <section class="comment-actions">
+    <button mat-button
+      *ngIf="canReply"
+      class="comment-action"
+      (click)="
+        setActiveComment.emit({
+          id: comment.id,
+          type: activeCommentType.replying
+        })
+      "
+    >
+      Отговори
+    </button>
+    <button mat-button
+      *ngIf="canEdit"
+      class="comment-action"
+      (click)="
+        setActiveComment.emit({
+          id: comment.id,
+          type: activeCommentType.editing
+        })
+      "
+    >
+      Промени
+    </button>
+    <button mat-button
+      *ngIf="canDelete"
+      class="comment-action"
+      (click)="deleteComment.emit(comment.id)"
+    >
+      Изтрий
+    </button>
+  </section>
+  <gains-comment-form
+    *ngIf="isReplying()"
+    submitLabel="Reply"
+    (handleSubmit)="addComment.emit({ text: $event, parentId: replyId })"
+  ></gains-comment-form>
+  <section class="replies" *ngIf="comment.replies">
+    <gains-comment
+      *ngFor="let reply of comment.replies"
+      [comment]="reply"
+      (setActiveComment)="setActiveComment.emit($event)"
+      [activeComment]="activeComment"
+      (updateComment)="updateComment.emit($event)"
+      (deleteComment)="deleteComment.emit($event)"
+      (addComment)="addComment.emit($event)"
+      [parentId]="comment.id"
+      [currentUserId]="currentUserId"
+    ></gains-comment>
+  </section>
+</section>

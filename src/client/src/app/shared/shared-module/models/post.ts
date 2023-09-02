@@ -1,5 +1,7 @@
 import { CategoryViewResource } from "./category"
 import { CommentViewResource } from "./comment"
+import { TagViewResource } from "./tag"
+import { UserViewResource } from "./user"
 
 export interface PostViewResource {
     id: string,
@@ -18,9 +20,10 @@ export interface PostDetailsResource {
     id: string,
     title: string, 
     text: string,
-    createdBy: string,
+    createdBy: UserViewResource,
     createdAt: string,
     imageUrls: string[],
     category: CategoryViewResource,
-    comments: CommentViewResource[]
+    comments: CommentViewResource[],
+    tags: TagViewResource[]
 }

@@ -32,19 +32,18 @@ public class User extends BaseEntity {
     private final List<Comment> comments;
 
     protected User() {
+        super();
         this.posts = new ArrayList<>();
         this.comments = new ArrayList<>();
     }
 
     public User(String email, String password, String firstName, String lastName, Role role) {
-        super();
+        this();
         this.id = UUID.randomUUID();
         this.email = email;
         this.password = password;
-        this.fullName = FullName.of(firstName, lastName);
+        this.fullName = FullName.from(firstName, lastName);
         this.role = role;
-        this.posts = new ArrayList<>();
-        this.comments = new ArrayList<>();
     }
 
     public UUID getId() {
@@ -85,5 +84,9 @@ public class User extends BaseEntity {
 
     public void addPost(Post post) {
         this.posts.add(post);
+    }
+
+    public List<Post> getPosts() {
+        return this.posts;
     }
 }

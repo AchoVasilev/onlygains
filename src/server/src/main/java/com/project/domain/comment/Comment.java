@@ -32,18 +32,17 @@ public class Comment extends BaseEntity {
     private final List<Dislike> dislikes;
 
     protected Comment() {
+        super();
         this.likes = new ArrayList<>();
         this.dislikes = new ArrayList<>();
     }
 
     public Comment(String text, Post post, User user) {
-        super();
+        this();
         this.id = UUID.randomUUID();
         this.text = text;
         this.post = post;
         this.user = user;
-        this.likes = new ArrayList<>();
-        this.dislikes = new ArrayList<>();
     }
 
     public UUID getId() {

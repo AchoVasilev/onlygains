@@ -9,6 +9,8 @@ import { PostCardComponent } from './post-card/post-card.component';
 import { PostsTagsComponent } from './posts-tags/posts-tags.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommentComponent } from './comment/comment.component';
+import { CommentFormComponent } from './comment-form/comment-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { CommentComponent } from './comment/comment.component';
     PostCardComponent,
     PostsTagsComponent,
     CommentComponent,
+    CommentFormComponent,
   ],
   imports: [
     PostRoutingModule,
     SharedModule,
     ScrollingModule,
     InfiniteScrollModule,
+    ReactiveFormsModule
   ],
 })
 export class PostModule {}
