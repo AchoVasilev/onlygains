@@ -3,6 +3,7 @@ package com.project.domain.comment;
 import com.project.domain.BaseEntity;
 import com.project.domain.post.Post;
 import com.project.domain.user.User;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -26,15 +27,23 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Like> likes;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Dislike> dislikes;
+
+    @ManyToOne
+    @JoinColumn(name = "reply_id")
+    private Comment comment;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "comment")
+    private final List<Comment> replies;
 
     protected Comment() {
         super();
         this.likes = new ArrayList<>();
         this.dislikes = new ArrayList<>();
+        this.replies = new ArrayList<>();
     }
 
     public Comment(String text, Post post, User user) {
