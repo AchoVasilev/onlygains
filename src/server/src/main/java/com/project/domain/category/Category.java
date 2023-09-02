@@ -20,18 +20,19 @@ public class Category extends BaseEntity {
     private String translatedName;
     @OneToMany(mappedBy = "category")
     @Cascade(value = CascadeType.ALL)
-    private List<Post> posts;
+    private final List<Post> posts;
     private String imageUrl;
 
     protected Category() {
+        super();
+        this.posts = new ArrayList<>();
     }
 
     public Category(String name, String translatedName, String imageUrl) {
-        super();
+        this();
         this.id = UUID.randomUUID();
         this.name = name;
         this.translatedName = translatedName;
-        this.posts = new ArrayList<>();
         this.imageUrl = imageUrl;
     }
 

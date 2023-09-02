@@ -17,16 +17,18 @@ public class Tag extends BaseEntity {
     private String translatedName;
 
     @ManyToMany(mappedBy = "tags")
-    private Set<Post> posts;
+    private final Set<Post> posts;
 
-    protected Tag() {}
+    protected Tag() {
+        super();
+        this.posts = new HashSet<>();
+    }
 
     public Tag(String name, String translatedName) {
-        super();
+        this();
         this.id = UUID.randomUUID();
         this.name = name;
         this.translatedName = translatedName;
-        this.posts = new HashSet<>();
     }
 
     public UUID getId() {

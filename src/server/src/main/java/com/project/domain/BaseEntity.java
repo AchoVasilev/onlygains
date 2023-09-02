@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 
 @MappedSuperclass
 public abstract class BaseEntity {
-    private ZonedDateTime createdAt;
+    private final ZonedDateTime createdAt;
     private ZonedDateTime modifiedAt;
     private boolean isDeleted;
 
