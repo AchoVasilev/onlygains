@@ -52,7 +52,8 @@ CREATE TABLE comments
     modified_at TIMESTAMPTZ,
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
     post_id     UUID REFERENCES posts (id),
-    user_id     UUID REFERENCES users(id)
+    user_id     UUID REFERENCES users(id),
+    reply_id    UUID REFERENCES comments(id)
 );
 
 CREATE TABLE likes
