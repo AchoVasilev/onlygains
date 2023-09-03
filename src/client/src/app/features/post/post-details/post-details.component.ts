@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'app/core/services/post/post.service';
+import { CommentEmittedType } from 'app/shared/shared-module/models/comment';
 import { PostDetailsResource } from 'app/shared/shared-module/models/post';
 import { TagViewResource } from 'app/shared/shared-module/models/tag';
 
@@ -66,7 +67,7 @@ export class PostDetailsComponent implements OnInit {
       ],
       comments: [
         {
-          id: 'asdasd',
+          id: 'asdasd1',
           createdAt: '2023-08-29 16:34:49.104848+00',
           createdBy: {
             id: 'asdasd',
@@ -77,7 +78,7 @@ export class PostDetailsComponent implements OnInit {
           replies: [],
         },
         {
-          id: 'asdasd',
+          id: 'asdasd2',
           createdAt: '2023-08-29 16:34:49.104848+00',
           createdBy: {
             id: 'asdasd',
@@ -87,7 +88,7 @@ export class PostDetailsComponent implements OnInit {
           text: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
           replies: [
             {
-              id: 'asdasdasd',
+              id: 'asdasdasd3',
               createdAt: '2023-08-29 16:34:49.104848+00',
               createdBy: {
                 id: 'asdasd',
@@ -98,7 +99,7 @@ export class PostDetailsComponent implements OnInit {
               replies: [],
             },
             {
-              id: 'asdasdasd',
+              id: 'asdasdasd4',
               createdAt: '2023-08-29 16:34:49.104848+00',
               createdBy: {
                 id: 'asdasd',
@@ -108,7 +109,7 @@ export class PostDetailsComponent implements OnInit {
               text: 'dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
               replies: [
                 {
-                  id: 'asdasdasd',
+                  id: 'asdasdasd5',
                   createdAt: '2023-08-29 16:34:49.104848+00',
                   createdBy: {
                     id: 'asdasd',
@@ -119,7 +120,7 @@ export class PostDetailsComponent implements OnInit {
                   replies: [],
                 },
                 {
-                  id: 'asdasdasd',
+                  id: 'asdasdasd6',
                   createdAt: '2023-08-29 16:34:49.104848+00',
                   createdBy: {
                     id: 'asdasd',
@@ -130,7 +131,7 @@ export class PostDetailsComponent implements OnInit {
                   replies: [],
                 },
                 {
-                  id: 'asdasdasd',
+                  id: 'asdasdasd7',
                   createdAt: '2023-08-29 16:34:49.104848+00',
                   createdBy: {
                     id: 'asdasd',
@@ -140,7 +141,7 @@ export class PostDetailsComponent implements OnInit {
                   text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
                   replies: [
                     {
-                      id: 'asdasdasd',
+                      id: 'asdasdasd8',
                       createdAt: '2023-08-29 16:34:49.104848+00',
                       createdBy: {
                         id: 'asdasd',
@@ -151,7 +152,7 @@ export class PostDetailsComponent implements OnInit {
                       replies: [],
                     },
                     {
-                      id: 'asdasdasd',
+                      id: 'asdasdasd9',
                       createdAt: '2023-08-29 16:34:49.104848+00',
                       createdBy: {
                         id: 'asdasd',
@@ -162,7 +163,7 @@ export class PostDetailsComponent implements OnInit {
                       replies: [],
                     },
                     {
-                      id: 'asdasdasd',
+                      id: 'asdasdasd10',
                       createdAt: '2023-08-29 16:34:49.104848+00',
                       createdBy: {
                         id: 'asdasd',
@@ -177,7 +178,7 @@ export class PostDetailsComponent implements OnInit {
               ],
             },
             {
-              id: 'asdasdasd',
+              id: 'asdasdasd11',
               createdAt: '2023-08-29 16:34:49.104848+00',
               createdBy: {
                 id: 'asdasd',

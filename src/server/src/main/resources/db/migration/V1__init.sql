@@ -35,11 +35,11 @@ CREATE TABLE categories
 CREATE TABLE posts
 (
     id          UUID PRIMARY KEY,
-    title       VARCHAR(100)     NOT NULL,
-    text        VARCHAR     NOT NULL,
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    title       VARCHAR(100) NOT NULL,
+    text        VARCHAR      NOT NULL,
+    created_at  TIMESTAMPTZ  NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
-    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
+    is_deleted  BOOLEAN      NOT NULL DEFAULT FALSE,
     category_id UUID REFERENCES categories (id),
     user_id     UUID REFERENCES users (id)
 );
@@ -52,8 +52,8 @@ CREATE TABLE comments
     modified_at TIMESTAMPTZ,
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
     post_id     UUID REFERENCES posts (id),
-    user_id     UUID REFERENCES users(id),
-    reply_id    UUID REFERENCES comments(id)
+    user_id     UUID REFERENCES users (id),
+    parent_id   UUID REFERENCES comments (id)
 );
 
 CREATE TABLE likes
@@ -98,7 +98,7 @@ CREATE TABLE tags
 
 CREATE TABLE posts_tags
 (
-    post_id UUID REFERENCES posts(id),
-    tag_id UUID REFERENCES tags(id),
+    post_id UUID REFERENCES posts (id),
+    tag_id  UUID REFERENCES tags (id),
     CONSTRAINT posts_tags_pk PRIMARY KEY (post_id, tag_id)
 );

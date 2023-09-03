@@ -8,6 +8,11 @@ export interface CommentViewResource {
   replies: CommentViewResource[];
 }
 
+export interface CommentEmittedType {
+  text: string,
+  commentId: string | null
+}
+
 export interface ActiveComment {
   id: string;
   type: ActiveCommentType;
@@ -16,4 +21,5 @@ export interface ActiveComment {
 export enum ActiveCommentType {
   replying = 'replying',
   editing = 'editing',
+  default = 'default',
 }

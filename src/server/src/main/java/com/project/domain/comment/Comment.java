@@ -32,11 +32,9 @@ public class Comment extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Dislike> dislikes;
 
-    @ManyToOne
-    @JoinColumn(name = "reply_id")
-    private Comment comment;
+    private UUID parentId;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "comment")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Comment> replies;
 
     protected Comment() {
@@ -76,5 +74,16 @@ public class Comment extends BaseEntity {
 
     public List<Dislike> getDislikes() {
         return this.dislikes;
+    }
+
+    public void setParentId(UUID parentId) {
+        this.parentId = parentId;
+        this.setUpdatedAt();
+    }
+
+    public void reply(Comment comment) {
+        comment.setParentId(this.id);
+        this.replies.add(comment);
+        this.setUpdatedAt();
     }
 }

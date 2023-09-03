@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   ActiveComment,
   ActiveCommentType,
@@ -9,6 +9,7 @@ import {
   selector: 'gains-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentComponent {
   @Input() comment!: CommentViewResource;
@@ -54,5 +55,12 @@ export class CommentComponent {
       ? false
       : this.activeComment.id === this.comment.id &&
           this.activeComment.type === this.activeCommentType.editing;
+  }
+
+  onReplyClick(id: string) {
+    this.setActiveComment.emit({
+      id: id,
+      type: this.activeCommentType.replying
+    });
   }
 }
