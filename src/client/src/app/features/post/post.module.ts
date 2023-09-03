@@ -11,6 +11,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommentComponent } from './comment/comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommentsComponent } from './comments/comments.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     PostsTagsComponent,
     CommentComponent,
     CommentFormComponent,
+    CommentsComponent,
   ],
   imports: [
     PostRoutingModule,
     SharedModule,
     ScrollingModule,
     InfiniteScrollModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
   ],
 })
 export class PostModule {}
