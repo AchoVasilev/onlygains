@@ -23,61 +23,65 @@
     <p class="comment-text">
       {{ comment.text }}
     </p>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="onReplyClick(comment.id)"
-    >
-      Отговори
-    </button>
-  </article>
-  <gains-comment-form
-    *ngIf="isEditing()"
-    submitLabel="Промени"
-    [hasCancelButton]="true"
-    [initialText]="comment.text"
-    (handleSubmit)="updateComment.emit({ text: $event, commentId: comment.id })"
-    (handleCancel)="setActiveComment.emit(null)"
-  ></gains-comment-form>
-  <section class="comment-actions">
-    <button
-      mat-button
-      *ngIf="canReply"
-      class="comment-action"
-      (click)="onReplyClick(comment.id)"
-    >
-      Отговори
-    </button>
-    <button
-      mat-button
-      *ngIf="canEdit"
-      class="comment-action"
-      (click)="
-        setActiveComment.emit({
-          id: comment.id,
-          type: activeCommentType.editing
-        })
+    <gains-comment-form
+      *ngIf="isEditing()"
+      submitLabel="Update"
+      [hasCancelButton]="true"
+      [initialText]="comment.text"
+      (handleSubmit)="
+        updateComment.emit({ text: $event, commentId: comment.id })
       "
-    >
-      Промени
-    </button>
-    <button
-      mat-button
-      *ngIf="canDelete"
-      class="comment-action"
-      (click)="deleteComment.emit(comment.id)"
-    >
-      Изтрий
-    </button>
-  </section>
-  <gains-comment-form
-    *ngIf="isReplying()"
-    submitLabel="Отговор"
-    (handleSubmit)="addComment.emit({ text: $event, parentId: replyId })"
-  ></gains-comment-form>
-  <section class="replies" *ngIf="comment.replies">
+      (handleCancel)="onCancelReply()"
+    ></gains-comment-form>
+    <section class="comment-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="canReply && !(isEditing() || isReplying())"
+        class="comment-action"
+        (click)="
+          setActiveComment.emit({
+            id: comment.id,
+            type: activeCommentType.replying
+          })
+        "
+      >
+        Отговори
+      </button>
+      <button
+        mat-raised-button
+        *ngIf="canEdit"
+        class="comment-action"
+        (click)="
+          setActiveComment.emit({
+            id: comment.id,
+            type: activeCommentType.editing
+          })
+        "
+      >
+        Промени
+      </button>
+      <button
+        mat-raised-button
+        *ngIf="canDelete"
+        class="comment-action"
+        (click)="deleteComment.emit(comment.id)"
+      >
+        Изтрий
+      </button>
+    </section>
+    <gains-comment-form
+      *ngIf="isReplying()"
+      submitLabel="Отговор"
+      (handleSubmit)="addComment.emit({ text: $event, parentId: replyId })"
+      [hasCancelButton]="true"
+      (handleCancel)="onCancelReply()"
+    ></gains-comment-form>
+  </article>
+
+  <section class="replies" *ngIf="comment.replies.length > 0">
     <gains-comment
-      *ngFor="let reply of comment.replies"
+      *ngFor="let reply of replies"
       [comment]="reply"
       (setActiveComment)="setActiveComment.emit($event)"
       [activeComment]="activeComment"
@@ -85,6 +89,7 @@
       (deleteComment)="deleteComment.emit($event)"
       (addComment)="addComment.emit($event)"
       [parentId]="comment.id"
+      [replies]="comment.replies"
       [currentUserId]="currentUserId"
     ></gains-comment>
   </section>

@@ -76,6 +76,14 @@ public class Comment extends BaseEntity {
         return this.dislikes;
     }
 
+    public UUID getParentId() {
+        return this.parentId;
+    }
+
+    public List<Comment> getReplies() {
+        return this.replies;
+    }
+
     public void setParentId(UUID parentId) {
         this.parentId = parentId;
         this.setUpdatedAt();

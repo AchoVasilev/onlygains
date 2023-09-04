@@ -12,7 +12,7 @@ import { CommentComponent } from './comment/comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommentsComponent } from './comments/comments.component';
-import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { MatInputModule } from '@angular/material/input';
     ScrollingModule,
     InfiniteScrollModule,
     ReactiveFormsModule,
-    MatInputModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class PostModule {}
