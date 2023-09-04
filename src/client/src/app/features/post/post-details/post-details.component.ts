@@ -20,6 +20,8 @@ export class PostDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     //this.postService.getById(this.postId).subscribe(post => this.post = post);
+
+    this.post = this.getPost();
   }
 
   getTag(): TagViewResource {
@@ -76,6 +78,7 @@ export class PostDetailsComponent implements OnInit {
           },
           text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           replies: [],
+          parentId: null
         },
         {
           id: 'asdasd2',
@@ -86,6 +89,7 @@ export class PostDetailsComponent implements OnInit {
             username: 'gosho@abv.bg',
           },
           text: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+          parentId: null,
           replies: [
             {
               id: 'asdasdasd3',
@@ -97,6 +101,7 @@ export class PostDetailsComponent implements OnInit {
               },
               text: 'cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc',
               replies: [],
+              parentId: 'asdasd2'
             },
             {
               id: 'asdasdasd4',
@@ -107,6 +112,7 @@ export class PostDetailsComponent implements OnInit {
                 username: 'gosho@abv.bg',
               },
               text: 'dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+              parentId: 'asdasd2',
               replies: [
                 {
                   id: 'asdasdasd5',
@@ -118,6 +124,7 @@ export class PostDetailsComponent implements OnInit {
                   },
                   text: 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv',
                   replies: [],
+                  parentId: 'asdasdasd4'
                 },
                 {
                   id: 'asdasdasd6',
@@ -129,6 +136,7 @@ export class PostDetailsComponent implements OnInit {
                   },
                   text: 'gggggggggggggggggggggggggggggggggggggggggggggggggggggggg',
                   replies: [],
+                  parentId: 'asdasdasd4'
                 },
                 {
                   id: 'asdasdasd7',
@@ -139,6 +147,7 @@ export class PostDetailsComponent implements OnInit {
                     username: 'gosho@abv.bg',
                   },
                   text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+                  parentId: 'asdasdasd4',
                   replies: [
                     {
                       id: 'asdasdasd8',
@@ -150,6 +159,7 @@ export class PostDetailsComponent implements OnInit {
                       },
                       text: 'asdasdasafsafsafasfasfarqwrqwrqwrqwrqwr',
                       replies: [],
+                      parentId: 'asdasdasd7'
                     },
                     {
                       id: 'asdasdasd9',
@@ -161,6 +171,7 @@ export class PostDetailsComponent implements OnInit {
                       },
                       text: 'tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt',
                       replies: [],
+                      parentId: 'asdasdasd7'
                     },
                     {
                       id: 'asdasdasd10',
@@ -172,6 +183,7 @@ export class PostDetailsComponent implements OnInit {
                       },
                       text: 'hhjhkkhkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
                       replies: [],
+                      parentId: 'asdasdasd7'
                     },
                   ],
                 },
@@ -187,6 +199,7 @@ export class PostDetailsComponent implements OnInit {
               },
               text: 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
               replies: [],
+              parentId: null
             },
           ],
         },

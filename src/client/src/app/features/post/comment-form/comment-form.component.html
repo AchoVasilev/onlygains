@@ -1,26 +1,13 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field class="comment-form-textarea">
-    <mat-label>Оставете коментар</mat-label>
-    <textarea
-      placeholder="Напишете коментар.."
-      matInput
-      class="comment-form-textarea"
-      formControlName="text"
-    ></textarea>
-  </mat-form-field>
-  <button
-    mat-flat-button
-    color="primary"
-    type="submit"
-    [disabled]="form.invalid"
-  >
+  <textarea matInput class="comment-form-textarea" formControlName="text"></textarea>
+  <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
     {{ submitLabel }}
   </button>
   <button
     *ngIf="hasCancelButton"
-    mat-button
+    mat-flat-button
     color="warn"
-    (click)="handleCancel.emit()"
+    (click)="onCancel()"
   >
     Откажи
   </button>

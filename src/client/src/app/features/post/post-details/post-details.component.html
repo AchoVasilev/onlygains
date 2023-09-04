@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="post">
   <section class="post-comment-container">
     <section class="post-container">
       <div class="main-image-container">
@@ -88,7 +88,7 @@
     <!-- News Detail End -->
 
     <!-- Comment List Start -->
-   <gains-comments [post]="getPost()"></gains-comments>
+   <gains-comments [comments]="this.post!.comments" [currentUserId]="'asdasdasd'"></gains-comments>
   </section>
   <!-- Comment Form End -->
   <section class="side-bar">

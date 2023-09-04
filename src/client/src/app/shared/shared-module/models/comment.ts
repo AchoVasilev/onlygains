@@ -6,6 +6,7 @@ export interface CommentViewResource {
   createdAt: string;
   text: string;
   replies: CommentViewResource[];
+  parentId: string | null;
 }
 
 export interface CommentEmittedType {

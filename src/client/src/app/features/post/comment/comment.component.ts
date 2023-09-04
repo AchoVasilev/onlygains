@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import {
   ActiveComment,
   ActiveCommentType,
@@ -9,11 +14,11 @@ import {
   selector: 'gains-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentComponent {
   @Input() comment!: CommentViewResource;
   @Input() activeComment!: ActiveComment | null;
+  @Input() replies!: CommentViewResource[];
   @Input() currentUserId!: string;
   @Input() parentId!: string | null;
 
@@ -34,33 +39,42 @@ export class CommentComponent {
   replyId: string | null = null;
 
   ngOnInit(): void {
+    const fiveMinutes = 300000;
+    const timePassed =
+      new Date().getMilliseconds() -
+        new Date(this.comment.createdAt).getMilliseconds() >
+      fiveMinutes;
     this.createdAt = new Date(this.comment.createdAt).toLocaleDateString();
     this.canReply = Boolean(this.currentUserId);
-    this.canEdit = this.currentUserId === this.comment.createdBy.id;
+    this.canEdit = this.currentUserId === this.comment.createdBy.id && !timePassed;
     this.canDelete =
       this.currentUserId === this.comment.createdBy.id &&
-      this.comment.replies.length === 0;
+      this.replies.length === 0 &&
+      !timePassed;
     this.replyId = this.parentId ? this.parentId : this.comment.id;
   }
 
   isReplying(): boolean {
-    return !this.activeComment
-      ? false
-      : this.activeComment.id === this.comment.id &&
-          this.activeComment.type === this.activeCommentType.replying;
+    if (!this.activeComment) {
+      return false;
+    }
+    return (
+      this.activeComment.id === this.comment.id &&
+      this.activeComment.type === this.activeCommentType.replying
+    );
   }
 
   isEditing(): boolean {
-    return !this.activeComment
-      ? false
-      : this.activeComment.id === this.comment.id &&
-          this.activeComment.type === this.activeCommentType.editing;
+    if (!this.activeComment) {
+      return false;
+    }
+    return (
+      this.activeComment.id === this.comment.id &&
+      this.activeComment.type === 'editing'
+    );
   }
 
-  onReplyClick(id: string) {
-    this.setActiveComment.emit({
-      id: id,
-      type: this.activeCommentType.replying
-    });
+  onCancelReply() {
+    this.setActiveComment.emit(null);
   }
 }

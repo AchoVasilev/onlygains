@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import {
   ActiveComment,
   CommentEmittedType,
+  CommentViewResource,
 } from 'app/shared/shared-module/models/comment';
-import { PostDetailsResource } from 'app/shared/shared-module/models/post';
 
 @Component({
   selector: 'gains-comments',
@@ -11,7 +11,7 @@ import { PostDetailsResource } from 'app/shared/shared-module/models/post';
   styleUrls: ['./comments.component.scss'],
 })
 export class CommentsComponent {
-  @Input() post?: PostDetailsResource;
+  @Input() comments!: CommentViewResource[];
   activeComment!: ActiveComment | null;
 
   @Input() currentUserId!: string;
@@ -28,8 +28,16 @@ export class CommentsComponent {
   deleteComment($event: string) {
     throw new Error('Method not implemented.');
   }
-  
+
   addComment($event: { text: string; parentId: string | null }) {
-    throw new Error('Method not implemented.');
+    console.log($event)
+  }
+
+  getRootComments(): CommentViewResource[] {
+    return this.comments.filter((comment) => comment?.parentId === null);
+  }
+
+  getReplies(comment: CommentViewResource): CommentViewResource[] {
+    return comment.replies;
   }
 }
