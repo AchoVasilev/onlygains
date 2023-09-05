@@ -9,7 +9,7 @@ export const threeImageTemplate = `
   </div>
   <div class="intro">
     <div class="mb-3">
-      <gains-tag urlPrefix="/categories" [tag]="getTag()"></gains-tag>
+      <gains-tag urlPrefix="/categories" [tag]="getTag()">Exercises</gains-tag>
       <span class="px-1">/</span>
       <span>January 01, 2045</span>
     </div>

@@ -1,9 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   ActiveComment,
   ActiveCommentType,
@@ -46,7 +41,8 @@ export class CommentComponent {
       fiveMinutes;
     this.createdAt = new Date(this.comment.createdAt).toLocaleDateString();
     this.canReply = Boolean(this.currentUserId);
-    this.canEdit = this.currentUserId === this.comment.createdBy.id && !timePassed;
+    this.canEdit =
+      this.currentUserId === this.comment.createdBy.id && !timePassed;
     this.canDelete =
       this.currentUserId === this.comment.createdBy.id &&
       this.replies.length === 0 &&

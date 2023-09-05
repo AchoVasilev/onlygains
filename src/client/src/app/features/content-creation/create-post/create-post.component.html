@@ -1,19 +1,18 @@
 <div class="post-container">
   <section class="editor-container">
-    <h1>Create a template</h1>
-    <editor
-      [init]="config"
-      [initialValue]="strTemplate"
-      [(ngModel)]="source"
-      (ngModelChange)="onModelChange()"
-      (onInit)="onEditorInit($event)"
-    >
-    </editor>
+    <h1 class="post-header">Създай статия</h1>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <editor
+        [formControl]="form.controls.body"
+        [init]="config"
+        [initialValue]="strTemplate"
+        [(ngModel)]="source"
+        (onInit)="onEditorInit($event)"
+      >
+      </editor>
+    </form>
   </section>
-  <section class="preview-container">
-    <div class="preview">
-      <h1>Preview</h1>
-      <div #preview id="preview"></div>
-    </div>
-  </section>
+  <button mat-raised-button (click)="onSubmit()">
+    Submit
+  </button>
 </div>
