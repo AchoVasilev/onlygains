@@ -17,13 +17,14 @@ export interface PostConfig {
 export const defaultPostConfig: PostConfig = {
   base_url: '/tinymce',
   suffix: '.min',
+  selector: '#textarea',
   height: 'calc(100vh - 88px)',
   menubar: true,
   language: 'bg_BG',
   language_url: 'assets/langs/bg_BG.js',
   toolbar:
-    'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+    'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | preview',
   promotion: false,
   branding: false,
-  plugins: ['anchor', 'link', 'lists', 'image',],
+  plugins: ['anchor', 'link', 'lists', 'image', 'preview'],
 };
