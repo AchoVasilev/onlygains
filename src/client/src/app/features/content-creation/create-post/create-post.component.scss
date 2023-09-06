@@ -1,17 +1,16 @@
-/* post.component.css */
-.post-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 1rem;
-}
-
 .editor-container {
   flex: 1;
   margin: 1rem;
 }
 
-.post-container {
+.post-header {
   text-align: center;
   margin: 1rem;
+}
+
+.form-items-container {
+  padding: 1rem;
+  display: flex;
+  gap: 1;
+  flex-direction: row;
 }

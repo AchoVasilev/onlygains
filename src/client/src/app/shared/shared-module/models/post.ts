@@ -27,3 +27,11 @@ export interface PostDetailsResource {
     comments: CommentViewResource[],
     tags: TagViewResource[]
 }
+
+export interface CreatePostResource {
+    title: string,
+    text: string,
+    tags: string[],
+    categoryId: string,
+    imageUrls: string[]
+}
