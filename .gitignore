@@ -53,3 +53,4 @@ testem.log
 
 /server/src/main/resources/misc
 /server/src/main/config
+/server/src/main/resources/application-local.yml

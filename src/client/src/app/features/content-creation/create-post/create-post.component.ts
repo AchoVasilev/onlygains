@@ -12,6 +12,7 @@ import { TagViewResource } from 'app/shared/shared-module/models/tag';
 import {C, COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatSelectChange } from '@angular/material/select';
+import { ImageService } from 'app/core/services/image/image.service';
 
 @Component({
   selector: 'gains-create-post',
@@ -35,10 +36,11 @@ export class CreatePostComponent implements OnInit {
     title: this.fb.control<string>("", [Validators.required]),
     body: this.fb.control<string>("", [Validators.required]),
     category: this.fb.control<CategoryDTO>({}, [Validators.required]),
-    tags: this.fb.control<string[]>([])
-  })
+    tags: this.fb.control<string[]>([]),
+    imageUrls: this.fb.control<string[]>([])
+  });
 
-  constructor(private fb: FormBuilder, private categoryService: CategoryService, private tagService: TagService) {
+  constructor(private fb: FormBuilder, private categoryService: CategoryService, private tagService: TagService, private imageService: ImageService) {
     this.config.content_style = threeImageTemplateStyling;
     this.config.images_upload_handler = this.onUpload;
     this.strTemplate = this.source = threeImageTemplate;
@@ -55,7 +57,10 @@ export class CreatePostComponent implements OnInit {
   }
   
   onUpload(blobInfo: any) {
-    console.log(blobInfo.blob());
+    console.log(blobInfo);
+    console.log(blobInfo.blob() as File);
+
+    this.imageService.upload(blobInfo.blob(), 'posts')
   }
 
   categorySelect(ev: MatSelectChange) {
