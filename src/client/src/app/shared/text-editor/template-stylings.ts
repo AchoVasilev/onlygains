@@ -3,6 +3,20 @@ export const threeImageTemplateStyling = `
     max-height: 45rem;
     overflow: hidden;
   }
+
+  .tag {
+    padding: 0.50em 0.75em;
+    border-radius: 1em;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .tag-blue {
+    background: #56ccf2;
+    background: linear-gradient(to bottom, #2f80ed, #56ccf2);
+    color: #fafafa;
+  }
   
   .main-image {
     width: 100%;
@@ -33,6 +47,10 @@ export const threeImageTemplateStyling = `
     margin-bottom: 1rem;
     font-weight: 400;
     line-height: 1.5;
+  }
+
+  .px-1 {
+    padding: 0, 0.75rem
   }
   
   .post-text,
