@@ -4,7 +4,7 @@
     <section class="editor-container">
       <editor
         [formControl]="form.controls.body"
-        [init]="config"
+        [init]="defaultPostConfig"
         [initialValue]="strTemplate"
         [(ngModel)]="source"
         (onInit)="onEditorInit($event)"
