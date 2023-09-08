@@ -18,8 +18,8 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @Post(value = "/{folder}", consumes = MULTIPART_FORM_DATA)
-    public HttpResponse<String> upload(@PathVariable("folder") String folder, @Body CompletedFileUpload file) {
+    @Post(value = "/{folder}", consumes = {MULTIPART_FORM_DATA})
+    public HttpResponse<String> upload(@PathVariable String folder, CompletedFileUpload file) {
         return HttpResponse.ok(this.imageService.upload(folder, file));
     }
 }
