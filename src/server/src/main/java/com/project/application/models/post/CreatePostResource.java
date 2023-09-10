@@ -9,6 +9,7 @@ import java.util.UUID;
 @Serdeable
 public record CreatePostResource(@Nonnull String text,
                                  @Nonnull String title,
+                                 String previewText,
                                  List<String> imageUrls,
                                  UUID categoryId,
                                  List<UUID> tags) {

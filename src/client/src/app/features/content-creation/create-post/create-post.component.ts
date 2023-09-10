@@ -16,6 +16,8 @@ import { MatSelectChange } from '@angular/material/select';
 import { ImageService } from 'app/core/services/image/image.service';
 import { EditorComponent } from '@tinymce/tinymce-angular';
 import { DOCUMENT } from '@angular/common';
+import { environment } from '../../../../../environments/environment';
+import { PostService } from 'app/core/services/post/post.service';
 
 @Component({
   selector: 'gains-create-post',
@@ -30,7 +32,6 @@ export class CreatePostComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   categories$?: Observable<CategoryViewResource[]>;
   tags$?: Observable<TagViewResource[]>;
-  tags: TagViewResource[] = [];
   selectedCategory?: CategoryDTO;
   imageUrls: string[] = [];
 
@@ -52,13 +53,17 @@ export class CreatePostComponent implements OnInit {
     image_title: true,
     automatic_uploads: true,
     images_upload_handler: (blobInfo) => this.onUpload(blobInfo),
-    file_picker_callback: (callback, value, meta) => this.onFilePick(callback, value, meta),
+    file_picker_callback: (callback, value, meta) =>
+      this.onFilePick(callback, value, meta),
   };
+
+  private categoryAnchor?: HTMLElement;
 
   form = this.fb.group({
     title: this.fb.control<string>('', [Validators.required]),
-    body: this.fb.control<string>('', [Validators.required]),
-    category: this.fb.control<CategoryDTO>({}, [Validators.required]),
+    text: this.fb.control<string>('', [Validators.required]),
+    previewText: this.fb.control<string>('', [Validators.required]),
+    categoryId: this.fb.control<string>('', [Validators.required]),
     tags: this.fb.control<string[]>([]),
     imageUrls: this.fb.control<string[]>([]),
   });
@@ -68,7 +73,8 @@ export class CreatePostComponent implements OnInit {
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private tagService: TagService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private postService: PostService
   ) {
     this.strTemplate = this.source = threeImageTemplate;
   }
@@ -80,6 +86,18 @@ export class CreatePostComponent implements OnInit {
 
   onEditorInit(event: any) {
     this.editor = event.editor;
+    this.categoryAnchor = this.editor!.dom.select('a.tag')[0];
+
+    this.editor?.dom.select('img').forEach((img) => {
+      this.imageUrls.push(img.getAttribute('src')!);
+    });
+
+    this.form.controls.imageUrls.patchValue(this.imageUrls);
+    const title = this.editor?.dom.select('h2.title')[0].textContent;
+    this.form.controls.title.patchValue(title!);
+
+    const date = this.editor?.dom.select('#date')[0];
+    date!.textContent = new Date().toLocaleString('bg-BG');
   }
 
   onFilePick(callback: any, value: any, meta: any) {
@@ -97,8 +115,8 @@ export class CreatePostComponent implements OnInit {
           registry. In the next release this part hopefully won't be
           necessary, as we are looking to handle it internally.
         */
-        const id = 'blobid' + (new Date()).getTime();
-        const blobCache =  this.editor?.editorUpload.blobCache;
+        const id = 'blobid' + new Date().getTime();
+        const blobCache = this.editor?.editorUpload.blobCache;
         const base64 = (reader.result as string).split(',')[1];
         const blobInfo = blobCache?.create(id, file, base64!);
         blobCache?.add(blobInfo!);
@@ -106,7 +124,7 @@ export class CreatePostComponent implements OnInit {
         /* call the callback and populate the Title field with the file name */
         callback(blobInfo?.blobUri(), { title: file.name });
       });
-      
+
       reader.readAsDataURL(file);
     });
 
@@ -114,34 +132,49 @@ export class CreatePostComponent implements OnInit {
   }
 
   onUpload(blobInfo: any) {
-    let imageUrl = '';
     const upload$ = this.imageService.upload(blobInfo.blob(), 'posts');
     const result = new Promise<string>((resolve, reject) => {
-      upload$.subscribe((url) => {
-        imageUrl = url;
-        resolve(url);
+      upload$.subscribe((image) => {
+        this.imageUrls.push(image.url);
+        resolve(image.url);
       });
     });
 
-    this.imageUrls.push(imageUrl);
-
+    this.form.controls.imageUrls.patchValue(this.imageUrls);
     return result;
   }
 
   categorySelect(ev: MatSelectChange) {
     this.selectedCategory = ev.value;
+
+    this.editor!.dom.setAttrib(
+      this.categoryAnchor!,
+      'href',
+      this.buildCategoryUrl()
+    );
+    this.categoryAnchor!.textContent = this.selectedCategory?.name!;
+
+    this.form.controls.categoryId.setValue(this.selectedCategory?.id!);
   }
 
   onSubmit() {
-    const title = this.editor?.dom.select('h2')[0].textContent;
-    this.form.controls.title.setValue(title!);
+    const {title, text, imageUrls, categoryId, tags} = this.form.value;
+    const data = {
+      title,
+      text,
+      tags,
+      categoryId,
+      imageUrls
+    };
 
-    console.log(this.editor!.dom.select('a.tag')[0].attributes);
-    console.log(this.form.value);
-    console.log(this.buildCategoryUrl());
+    const previewText = this.editor?.dom.select('p')[0];
+    this.form.controls.previewText.patchValue(previewText!.textContent);
+
+    //@ts-ignore
+    this.postService.createPost(data).subscribe();
   }
 
   private buildCategoryUrl(): string {
-    return `/posts/${this.selectedCategory?.translatedName}/${this.selectedCategory?.id}`;
+    return `${environment.clientUrl}/posts/${this.selectedCategory?.translatedName}/${this.selectedCategory?.id}`;
   }
 }

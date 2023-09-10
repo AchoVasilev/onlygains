@@ -1,5 +1,4 @@
 export const threeImageTemplate = `
-<section class="post-comment-container">
 <section class="post-container">
   <div class="main-image-container">
     <img
@@ -9,13 +8,13 @@ export const threeImageTemplate = `
   </div>
   <div class="intro">
     <div class="mb-3">
-      <a class="tag tag-blue" target="_blank">Exercises</a>
+      <a class="post-tag tag-blue" target="_blank">Exercises</a>
       <span class="px-1">/</span>
-      <span>January 01, 2045</span>
+      <span id="date">January 01, 2045</span>
     </div>
     <article class="post-text">
       <section class="first-post-half">
-        <h2 class="mb-3">Est stet amet ipsum stet clita rebum duo</h2>
+        <h2 class="title">Est stet amet ipsum stet clita rebum duo</h2>
         <p class="text">
           Sadipscing labore amet rebum est et justo gubergren. Et eirmod
           ipsum sit diam ut magna lorem. Nonumy vero labore lorem sanctus

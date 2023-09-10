@@ -1,35 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'app/core/services/post/post.service';
-import { CommentEmittedType } from 'app/shared/shared-module/models/comment';
 import { PostDetailsResource } from 'app/shared/shared-module/models/post';
-import { TagViewResource } from 'app/shared/shared-module/models/tag';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'gains-post-details',
   templateUrl: './post-details.component.html',
   styleUrls: ['./post-details.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PostDetailsComponent implements OnInit {
-  post?: PostDetailsResource;
+  post$?: Observable<PostDetailsResource>;
   postId: string;
 
-  constructor(private postService: PostService, private route: ActivatedRoute) {
-    this.postId = this.route.snapshot.params['postId'];
+  constructor(private postService: PostService, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
+    this.postId = this.route.snapshot.params['id'];
   }
 
   ngOnInit(): void {
-    //this.postService.getById(this.postId).subscribe(post => this.post = post);
+    this.post$ = this.postService.getById(this.route.snapshot.params['id']);
 
-    this.post = this.getPost();
+    //this.post = this.getPost();
   }
 
-  getTag(): TagViewResource {
-    return {
-      name: this.post?.category.name || 'categoryyy',
-      id: this.post?.category.id || '',
-      translatedName: this.post?.category.translatedName || '',
-    };
+  // getTag(): TagViewResource {
+  //   return {
+  //     name: this.post?.category.name || 'categoryyy',
+  //     id: this.post?.category.id || '',
+  //     translatedName: this.post?.category.translatedName || '',
+  //   };
+  // }
+
+  sanitize(text: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(text);
   }
 
   getPost(): PostDetailsResource {

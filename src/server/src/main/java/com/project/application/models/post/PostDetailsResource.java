@@ -13,11 +13,11 @@ import java.util.UUID;
 
 @Serdeable
 public record PostDetailsResource(UUID id, ZonedDateTime createdAt, UserViewResource createdBy, String title,
-                                  String text, List<String> imageUrls, CategoryViewResource category,
+                                  String text, String previewText, List<String> imageUrls, CategoryViewResource category,
                                   List<CommentViewResource> comments, List<TagViewResource> tags) {
     public static PostDetailsResource from(Post post) {
         return new PostDetailsResource(post.getId(), post.getCreatedAt(), UserViewResource.from(post.getUser()), post.getTitle(),
-                post.getText(), post.getPostImages().stream().map(Image::getUrl).toList(),
+                post.getText(), post.getPreviewText(), post.getPostImages().stream().map(Image::getUrl).toList(),
                 CategoryViewResource.from(post.getCategory()),
                 post.getComments().stream().map(CommentViewResource::from).toList(),
                 post.getTags().stream().map(TagViewResource::from).toList());

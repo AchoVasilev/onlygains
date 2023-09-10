@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { DateAgoPipe } from './pipes/date-ago/date-ago.pipe';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
+import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { IconButtonComponent } from './components/icon-button/icon-button.compon
     SideBarComponent,
     DateAgoPipe,
     IconButtonComponent,
+    SafeHtmlPipe,
   ],
   imports: [CommonModule, MaterialModule, RouterLink],
   exports: [
@@ -20,8 +22,9 @@ import { IconButtonComponent } from './components/icon-button/icon-button.compon
     MaterialModule,
     TagComponent,
     SideBarComponent,
-    DateAgoPipe,
     IconButtonComponent,
+    DateAgoPipe,
+    SafeHtmlPipe
   ],
 })
 export class SharedModule {}

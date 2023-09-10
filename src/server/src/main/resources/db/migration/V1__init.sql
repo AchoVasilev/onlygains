@@ -37,6 +37,7 @@ CREATE TABLE posts
     id          UUID PRIMARY KEY,
     title       VARCHAR(100) NOT NULL,
     text        VARCHAR      NOT NULL,
+    previewText VARCHAR NOT NULL,
     created_at  TIMESTAMPTZ  NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
     is_deleted  BOOLEAN      NOT NULL DEFAULT FALSE,

@@ -1,4 +1,4 @@
-import { PostDetailsResource } from './../../../shared/shared-module/models/post';
+import { CreatePostResource, PostDetailsResource } from './../../../shared/shared-module/models/post';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
@@ -64,5 +64,9 @@ export class PostService {
           return res.content;
         })
       );
+  }
+
+  createPost(post: CreatePostResource): Observable<PostViewResource> {
+    return this.http.post<PostViewResource>(this.apiUrl, post);
   }
 }

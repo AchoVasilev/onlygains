@@ -10,7 +10,7 @@ public class CloudinaryConfig {
 
     @Bean
     public Cloudinary cloudinary() {
-        var dotEnv = Dotenv.configure().directory("src/server/src/main/resources/misc/.env").load();
+        var dotEnv = Dotenv.configure().directory("./misc").filename(".env").load();
         var cloudinary = new Cloudinary(dotEnv.get("CLOUDINARY_URL"));
         cloudinary.config.secure = true;
 

@@ -1,5 +1,6 @@
 package com.project.ports.rest;
 
+import com.project.application.models.image.ImageResponseResource;
 import com.project.application.services.ImageService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
@@ -19,7 +20,7 @@ public class ImageController {
     }
 
     @Post(value = "/{folder}", consumes = {MULTIPART_FORM_DATA})
-    public HttpResponse<String> upload(@PathVariable String folder, CompletedFileUpload file) {
+    public HttpResponse<ImageResponseResource> upload(@PathVariable String folder, CompletedFileUpload file) {
         return HttpResponse.ok(this.imageService.upload(folder, file));
     }
 }
