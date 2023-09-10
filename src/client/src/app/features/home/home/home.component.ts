@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
           imageUrl: p.imageUrl,
           title: p.title,
           subtitle: `${p.createdAt, p.createdBy}`,
-          text: p.text
+          text: p.previewText
         }
       }))
     )

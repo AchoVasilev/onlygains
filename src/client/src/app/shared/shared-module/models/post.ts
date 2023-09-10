@@ -7,6 +7,7 @@ export interface PostViewResource {
     id: string,
     title: string,
     text: string,
+    previewText: string,
     createdAt: string,
     createdBy: string,
     creatorImageUrl: string,
@@ -29,9 +30,10 @@ export interface PostDetailsResource {
 }
 
 export interface CreatePostResource {
-    title: string,
-    text: string,
-    tags: string[],
-    categoryId: string,
-    imageUrls: string[]
+    title?: string,
+    text?: string,
+    previewText?: string,
+    tags?: string[],
+    categoryId?: string,
+    imageUrls?: string[]
 }

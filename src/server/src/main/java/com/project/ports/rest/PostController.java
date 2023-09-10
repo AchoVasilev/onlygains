@@ -48,8 +48,8 @@ public class PostController {
     }
 
     @Post
-    public HttpResponse<Void> createPost(@Body @Valid CreatePostResource postResource) {
-        this.postService.createPost(postResource);
-        return HttpResponse.created(URI.create("/posts"));
+    public HttpResponse<PostDetailsResource> createPost(@Body @Valid CreatePostResource postResource) {
+        var post = this.postService.createPost(postResource);
+        return HttpResponse.created(post, URI.create("/posts"));
     }
 }

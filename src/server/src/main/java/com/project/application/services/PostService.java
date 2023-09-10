@@ -68,7 +68,7 @@ public class PostService {
     }
 
     @Transactional
-    public void createPost(CreatePostResource postResource) {
+    public PostDetailsResource createPost(CreatePostResource postResource) {
         var postOpt = this.postRepository.findByTitleAndCategoryIdAndIsDeletedFalse(postResource.title(), postResource.categoryId());
         var postExists = this.postExists(postOpt, postResource);
         if (postExists) {
@@ -82,7 +82,7 @@ public class PostService {
         var user = new User("email@abv.bg", "somepwd", "Gosho", "Peshev", role.get());
         user.setImageUrl("https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691942376/onlygains/categories/hiking-trail-names_fgpox2.jpg");
         var category = this.categoryService.getCategoryBy(postResource.categoryId());
-        var post = new Post(postResource.title(), postResource.text(), user, category);
+        var post = new Post(postResource.title(), postResource.text(), postResource.previewText(), user, category);
         var images = postResource.imageUrls().stream().map(i -> new PostImage(i, post)).toList();
         post.addImagesToPost(images);
         user.addPost(post);
@@ -90,9 +90,10 @@ public class PostService {
         var tags = this.tagService.getTags(postResource.tags());
         tags.forEach(post::addTag);
 
-        this.userRepository.save(user);
         this.postRepository.save(post);
         log.info("Post has been created, [postId={}]", post.getId());
+
+        return PostDetailsResource.from(post);
     }
 
     private boolean postExists(Optional<Post> postOptional, CreatePostResource postResource) {

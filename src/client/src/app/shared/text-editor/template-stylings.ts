@@ -4,7 +4,7 @@ export const threeImageTemplateStyling = `
     overflow: hidden;
   }
 
-  .tag {
+  .post-tag {
     padding: 0.50em 0.75em;
     border-radius: 1em;
     font-size: 0.75rem;
@@ -58,27 +58,31 @@ export const threeImageTemplateStyling = `
     padding: 1.5rem;
   }
   
-  h2,
-  h3,
-  h4 {
-    color: #343a40;
-  }
+  .post-page-container {
+    h2,
+    h3,
+    h4 {
+      color: #343a40;
+    }
   
-  h3, h4{
+    h3,
+    h4 {
       font-weight: 500;
+    }
+  
+    h2 {
+      font-size: 2rem;
+    }
+  
+    h3 {
+      font-size: 1.75rem;
+    }
+  
+    h4 {
+      font-size: 1.5rem;
+    }
   }
   
-  h2 {
-    font-size: 2rem;
-  }
-  
-  h3 {
-    font-size: 1.75rem;
-  }
-  
-  h4 {
-    font-size: 1.5rem;
-  }
   
   .second-post-half {
       padding-top: 3rem;

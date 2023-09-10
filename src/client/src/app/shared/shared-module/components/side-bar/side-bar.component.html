@@ -39,10 +39,10 @@
     </article>
   </section>
   <section *ngIf="tags$ | async; let tags">
-    <h3 class="title">Всимки тагове</h3>
-    <section class="tags">
+    <h3 class="title">Всички тагове</h3>
+    <section class="sidebar-tags">
       <gains-tag
-        class="tag"
+        class="sidebar-tag"
         *ngFor="let tag of tags"
         [tag]="tag"
         urlPrefix="/posts/tags"

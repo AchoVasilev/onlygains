@@ -28,6 +28,7 @@ public class Post extends BaseEntity {
     private UUID id;
     private String title;
     private String text;
+    private String previewText;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Comment> comments;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -37,7 +38,7 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -53,11 +54,12 @@ public class Post extends BaseEntity {
         this.tags = new HashSet<>();
     }
 
-    public Post(String title, String text, User user, Category category) {
+    public Post(String title, String text, String previewText, User user, Category category) {
         this();
         this.id = UUID.randomUUID();
         this.title = title;
         this.text = text;
+        this.previewText = previewText;
         this.category = category;
         this.user = user;
     }
@@ -85,6 +87,10 @@ public class Post extends BaseEntity {
     public void addImagesToPost(List<PostImage> postImages) {
         this.setModifiedAt(Time.utcNow());
         this.postImages.addAll(postImages);
+    }
+
+    public String getPreviewText() {
+        return this.previewText;
     }
 
     public User getUser() {

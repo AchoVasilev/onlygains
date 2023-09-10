@@ -2,6 +2,7 @@ package com.project.application.services;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.project.application.models.image.ImageResponseResource;
 import com.project.infrastructure.exceptions.FileUploadException;
 import io.micronaut.http.multipart.CompletedFileUpload;
 import jakarta.inject.Singleton;
@@ -21,7 +22,7 @@ public class ImageService {
         this.cloudinary = cloudinary;
     }
 
-    public String upload(String folder, CompletedFileUpload file) {
+    public ImageResponseResource upload(String folder, CompletedFileUpload file) {
         final var rootFolderName = "onlygains";
         final var uploadFolder = String.format("%s/%s", rootFolderName, folder);
         try {
@@ -32,7 +33,7 @@ public class ImageService {
             var uploadResult = this.cloudinary.uploader().upload(uploadedFile, params);
             var url = uploadResult.get("secure_url").toString();
 
-            log.info("Successfully uploaded image. [name={}]", file.getName());
+            log.info("Successfully uploaded image. [name={}]", uploadedFile.getName());
 
             boolean isDeleted = uploadedFile.delete();
             if (isDeleted) {
@@ -40,14 +41,14 @@ public class ImageService {
             } else
                 log.info("File doesn't exist");
 
-            return url;
+            return new ImageResponseResource(url, file.getFilename());
         } catch (IOException e) {
             throw new FileUploadException(file.getClass(), e);
         }
     }
 
     private File convertMultipartToFile(CompletedFileUpload file) throws IOException {
-        var convFile = new File(file.getName());
+        var convFile = new File(file.getFilename());
         var fos = new FileOutputStream(convFile);
         fos.write(file.getBytes());
         fos.close();

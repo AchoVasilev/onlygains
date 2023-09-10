@@ -11,7 +11,7 @@ import {
   styleUrls: ['./comments.component.scss'],
 })
 export class CommentsComponent {
-  @Input() comments!: CommentViewResource[];
+  @Input() comments?: CommentViewResource[];
   activeComment!: ActiveComment | null;
 
   @Input() currentUserId!: string;
@@ -33,8 +33,8 @@ export class CommentsComponent {
     console.log($event)
   }
 
-  getRootComments(): CommentViewResource[] {
-    return this.comments.filter((comment) => comment?.parentId === null);
+  getRootComments() {
+    return this.comments?.filter((comment) => comment?.parentId === null);
   }
 
   getReplies(comment: CommentViewResource): CommentViewResource[] {

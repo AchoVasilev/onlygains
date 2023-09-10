@@ -7,7 +7,7 @@
   flex-basis: 30%;
 }
 
-.tags,
+.sidebar-tags,
 .categories {
   display: flex;
   flex-direction: column;
@@ -61,11 +61,11 @@
     margin-bottom: 0.75rem;
 }
 
-.tag {
-    margin: 0.50rem 0.25rem;
+.sidebar-tag {
+    margin: 0.50rem;
 }
 
-.tags {
+.sidebar-tags {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
