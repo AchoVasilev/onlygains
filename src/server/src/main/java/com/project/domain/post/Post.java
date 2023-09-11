@@ -25,7 +25,7 @@ import java.util.UUID;
 @Entity(name = "posts")
 public class Post extends BaseEntity {
     @Id
-    private UUID id;
+    private final UUID id;
     private String title;
     private String text;
     private String previewText;
@@ -49,6 +49,7 @@ public class Post extends BaseEntity {
 
     protected Post() {
         super();
+        this.id = UUID.randomUUID();
         this.comments = new ArrayList<>();
         this.postImages = new ArrayList<>();
         this.tags = new HashSet<>();
@@ -56,7 +57,6 @@ public class Post extends BaseEntity {
 
     public Post(String title, String text, String previewText, User user, Category category) {
         this();
-        this.id = UUID.randomUUID();
         this.title = title;
         this.text = text;
         this.previewText = previewText;
