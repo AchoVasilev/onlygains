@@ -1,13 +1,9 @@
 package com.project.domain.category;
 
 import com.project.domain.BaseEntity;
-import com.project.domain.post.Post;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "categories")
@@ -16,24 +12,18 @@ public class Category extends BaseEntity {
     private UUID id;
     private String name;
     private String translatedName;
-    @OneToMany
-    private List<Post> posts;
     private String imageUrl;
 
     protected Category() {
+        super();
     }
 
     public Category(String name, String translatedName, String imageUrl) {
-        super();
+        this();
         this.id = UUID.randomUUID();
         this.name = name;
-        this.name = translatedName;
-        this.posts = new ArrayList<>();
+        this.translatedName = translatedName;
         this.imageUrl = imageUrl;
-    }
-
-    public void addPost(Post post) {
-        this.posts.add(post);
     }
 
     public UUID getId() {
@@ -42,10 +32,6 @@ public class Category extends BaseEntity {
 
     public String getName() {
         return name;
-    }
-
-    public List<Post> getPosts() {
-        return posts;
     }
 
     public String getImageUrl() {

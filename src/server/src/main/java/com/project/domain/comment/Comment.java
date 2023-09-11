@@ -1,9 +1,13 @@
 package com.project.domain.comment;
 
 import com.project.domain.BaseEntity;
-import jakarta.persistence.Column;
+import com.project.domain.post.Post;
+import com.project.domain.user.User;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
@@ -15,43 +19,79 @@ public class Comment extends BaseEntity {
     @Id
     private UUID id;
     private String text;
-    @Column(name = "post_id")
-    private UUID postId;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 
-    @OneToMany
-    private List<Like> likes;
-    @OneToMany
-    private List<Dislike> dislikes;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Like> likes;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Dislike> dislikes;
+
+    private UUID parentId;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Comment> replies;
 
     protected Comment() {
-    }
-
-    public Comment(String text, UUID postId) {
         super();
-        this.id = UUID.randomUUID();
-        this.text = text;
-        this.postId = postId;
         this.likes = new ArrayList<>();
         this.dislikes = new ArrayList<>();
+        this.replies = new ArrayList<>();
+    }
+
+    public Comment(String text, Post post, User user) {
+        this();
+        this.id = UUID.randomUUID();
+        this.text = text;
+        this.post = post;
+        this.user = user;
     }
 
     public UUID getId() {
-        return id;
+        return this.id;
     }
 
     public String getText() {
-        return text;
+        return this.text;
     }
 
-    public UUID getPostId() {
-        return postId;
+    public Post getPost() {
+        return this.post;
+    }
+
+    public User getUser() {
+        return this.user;
     }
 
     public List<Like> getLikes() {
-        return likes;
+        return this.likes;
     }
 
     public List<Dislike> getDislikes() {
-        return dislikes;
+        return this.dislikes;
+    }
+
+    public UUID getParentId() {
+        return this.parentId;
+    }
+
+    public List<Comment> getReplies() {
+        return this.replies;
+    }
+
+    public void setParentId(UUID parentId) {
+        this.parentId = parentId;
+        this.setUpdatedAt();
+    }
+
+    public void reply(Comment comment) {
+        comment.setParentId(this.id);
+        this.replies.add(comment);
+        this.setUpdatedAt();
     }
 }

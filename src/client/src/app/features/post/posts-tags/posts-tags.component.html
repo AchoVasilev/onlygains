@@ -1,0 +1,16 @@
+<section class="container">
+  <section
+    class="card-container"
+    infinite-scroll
+    [infiniteScrollDistance]="3"
+    [infiniteScrollThrottle]="500"
+    (scrolled)="onScroll()"
+    [scrollWindow]="false"
+    infiniteScrollContainer=".mat-typography"
+    [fromRoot]="true"
+  >
+    <div *ngFor="let post of items">
+      <gains-post-card [post]="post"></gains-post-card>
+    </div>
+  </section>
+</section>

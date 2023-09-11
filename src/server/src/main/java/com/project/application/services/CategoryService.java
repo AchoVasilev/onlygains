@@ -1,11 +1,14 @@
 package com.project.application.services;
 
 import com.project.application.models.category.CategoryViewResource;
+import com.project.domain.category.Category;
 import com.project.infrastructure.data.CategoryRepository;
 import io.micronaut.transaction.annotation.Transactional;
 import jakarta.inject.Singleton;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
+import java.util.UUID;
 
 @Singleton
 public class CategoryService {
@@ -19,7 +22,13 @@ public class CategoryService {
     public List<CategoryViewResource> getCategories() {
         return this.categoryRepository.findAll()
                 .stream()
-                .map(c -> new CategoryViewResource(c.getId(), c.getImageUrl(), c.getName(), c.getTranslatedName()))
+                .map(CategoryViewResource::from)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Category getCategoryBy(UUID id) {
+        return this.categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Category with %s does not exist", id)));
     }
 }

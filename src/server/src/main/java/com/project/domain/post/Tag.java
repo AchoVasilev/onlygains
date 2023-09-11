@@ -3,28 +3,55 @@ package com.project.domain.post;
 import com.project.domain.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "tags")
 public class Tag extends BaseEntity {
     @Id
     private UUID id;
     private String name;
+    private String translatedName;
 
-    protected Tag() {}
+    @ManyToMany(mappedBy = "tags")
+    private final Set<Post> posts;
 
-    public Tag(String name) {
+    protected Tag() {
         super();
+        this.posts = new HashSet<>();
+    }
+
+    public Tag(String name, String translatedName) {
+        this();
         this.id = UUID.randomUUID();
         this.name = name;
+        this.translatedName = translatedName;
     }
 
     public UUID getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
+    }
+
+    public String getTranslatedName() {
+        return this.translatedName;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void removePost(Post post) {
+        this.posts.remove(post);
+    }
+
+    public void addPost(Post post) {
+        this.posts.add(post);
     }
 }

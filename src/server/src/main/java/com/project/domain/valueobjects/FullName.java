@@ -18,7 +18,15 @@ public class FullName {
         return String.format("%s %s", this.firstName, this.lastName);
     }
 
-    public static FullName of(String firstName, String lastName) {
+    public static FullName from(String firstName, String lastName) {
         return new FullName(firstName,lastName);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }

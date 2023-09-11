@@ -1,0 +1,17 @@
+<div class="post-page-container" *ngIf="post$ | async; let post">
+  <section class="post-comment-container" >
+    <section class="post-container" [innerHTML]="post.text | safeHtml">
+    </section>
+      <section class="post-tags">
+        <gains-tag class="post-tag" urlPrefix="/posts" *ngFor="let tag of post.tags" [tag]="tag"></gains-tag>
+      </section>
+    <!-- News Detail End -->
+
+    <!-- Comment List Start -->
+   <gains-comments [comments]="this.post!.comments" [currentUserId]="post.createdBy.id"></gains-comments>
+  </section>
+  <!-- Comment Form End -->
+  <section class="post-side-bar">
+    <gains-side-bar></gains-side-bar>
+  </section>
+</div>

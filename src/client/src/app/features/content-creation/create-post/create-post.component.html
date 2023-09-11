@@ -1,0 +1,40 @@
+<h1 class="post-header">Създай статия</h1>
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class="form-items-container">
+    <section class="editor-container">
+      <editor
+        [formControl]="form.controls.text"
+        [init]="defaultPostConfig"
+        [initialValue]="strTemplate"
+        [(ngModel)]="source"
+        (onInit)="onEditorInit($event)"
+      >
+      </editor>
+    </section>
+    <section class="category-tags-container">
+      <section class="category-select">
+        <h4>Избери категория</h4>
+        <mat-form-field>
+          <mat-label>Категория</mat-label>
+          <mat-select (selectionChange)="categorySelect($event)">
+            <mat-option
+              *ngFor="let category of categories$ | async"
+              [value]="{id: category.id, translatedName: category.translatedName, name: category.name}"
+              >{{category.name}} / {{ category.translatedName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </section>
+      <section class="tags">
+        <h4>Избери тагове</h4>
+        <mat-form-field>
+          <mat-label>Тагове</mat-label>
+          <mat-select [formControl]="form.controls.tags" multiple>
+            <mat-option *ngFor="let tag of tags$ | async" [value]="tag.id">{{tag.name}} / {{tag.translatedName}}</mat-option>
+          </mat-select>
+        </mat-form-field>        
+      </section>
+      <button mat-raised-button type="submit">Създай</button>
+    </section>
+  </div>
+</form>
