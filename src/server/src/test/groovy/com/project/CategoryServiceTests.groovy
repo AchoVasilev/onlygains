@@ -21,4 +21,17 @@ class CategoryServiceTests extends Specification{
         then: "size is correct"
         categories.size() == 1
     }
+
+    def "get category by id should return correct object"() {
+        given: "set up mocks"
+        def category = new Category("category", "category", "url")
+        1 * categoryRepository.findById(_) >> Optional.of(category)
+
+        when: "service method is called"
+        def result = categoryService.getCategoryBy(category.id)
+
+        then: "objects match"
+        result.id == category.id
+        result.name == category.name
+    }
 }

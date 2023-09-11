@@ -86,7 +86,7 @@ export class CreatePostComponent implements OnInit {
 
   onEditorInit(event: any) {
     this.editor = event.editor;
-    this.categoryAnchor = this.editor!.dom.select('a.tag')[0];
+    this.categoryAnchor = this.editor!.dom.select('a.post-tag')[0];
 
     this.editor?.dom.select('img').forEach((img) => {
       this.imageUrls.push(img.getAttribute('src')!);
@@ -132,6 +132,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   onUpload(blobInfo: any) {
+    this.imageUrls = [];
     const upload$ = this.imageService.upload(blobInfo.blob(), 'posts');
     const result = new Promise<string>((resolve, reject) => {
       upload$.subscribe((image) => {
@@ -158,17 +159,17 @@ export class CreatePostComponent implements OnInit {
   }
 
   onSubmit() {
-    const {title, text, imageUrls, categoryId, tags} = this.form.value;
+    const pElement = this.editor?.dom.select('p.post-text')[0];
+    this.form.controls.previewText.patchValue(pElement!.textContent);
+    const {title, text, imageUrls, categoryId, tags, previewText} = this.form.value;
     const data = {
       title,
       text,
       tags,
       categoryId,
-      imageUrls
+      imageUrls,
+      previewText
     };
-
-    const previewText = this.editor?.dom.select('p')[0];
-    this.form.controls.previewText.patchValue(previewText!.textContent);
 
     //@ts-ignore
     this.postService.createPost(data).subscribe();
