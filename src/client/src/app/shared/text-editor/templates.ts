@@ -1,21 +1,21 @@
 export const threeImageTemplate = `
 <section class="post-container">
-  <div class="main-image-container">
+  <div class="post-main-image-container">
     <img
-      class="main-image"
+      class="post-main-image"
       src="https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691942376/onlygains/categories/hiking-trail-names_fgpox2.jpg"
     />
   </div>
-  <div class="intro">
+  <div class="post-intro">
     <div class="mb-3">
-      <a class="post-tag tag-blue" target="_blank">Exercises</a>
+      <a class="post-tag post-tag-blue" target="_blank">Exercises</a>
       <span class="px-1">/</span>
       <span id="date">January 01, 2045</span>
     </div>
     <article class="post-text">
       <section class="first-post-half">
         <h2 class="title">Est stet amet ipsum stet clita rebum duo</h2>
-        <p class="text">
+        <p class="post-text">
           Sadipscing labore amet rebum est et justo gubergren. Et eirmod
           ipsum sit diam ut magna lorem. Nonumy vero labore lorem sanctus
           rebum et lorem magna kasd, stet amet magna accusam consetetur
@@ -24,7 +24,7 @@ export const threeImageTemplate = `
           aliquyam ut et vero clita. Diam sea sea no sed dolores diam
           nonumy, gubergren sit stet no diam kasd vero.
         </p>
-        <p class="text">
+        <p class="post-text">
           Voluptua est takimata stet invidunt sed rebum nonumy stet, clita
           aliquyam dolores vero stet consetetur elitr takimata rebum
           sanctus. Sit sed accusam stet sit nonumy kasd diam dolores,
@@ -35,10 +35,10 @@ export const threeImageTemplate = `
         </p>
         <h3 class="mb-3">Est dolor lorem et ea</h3>
         <img
-          class="image-left secondary-image"
+          class="post-image-left post-secondary-image"
           src="https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691941224/onlygains/categories/brutally-hardcore-gyms-you-need-to-train-at-before-you-die-652x400-10-1496399800_ahp7xa.jpg"
         />
-        <p class="text">
+        <p class="post-text">
           Diam dolor est labore duo invidunt ipsum clita et, sed et lorem
           voluptua tempor invidunt at est sanctus sanctus. Clita dolores sit
           kasd diam takimata justo diam lorem sed. Magna amet sed rebum eos.
@@ -53,13 +53,13 @@ export const threeImageTemplate = `
           Et duo tempor sea kasd clita ipsum et.
         </p>
         <img
-          class="image-right secondary-image"
+          class="post-image-right post-secondary-image"
           src="https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691941043/onlygains/categories/TheNotebook_pd92nm.jpg"
         />
       </section>
       <section class="second-post-half">
         <h4 class="mb-3">Est dolor lorem et ea</h4>
-        <p class="text">
+        <p class="post-text">
           Diam dolor est labore duo invidunt ipsum clita et, sed et lorem
           voluptua tempor invidunt at est sanctus sanctus. Clita dolores sit
           kasd diam takimata justo diam lorem sed. Magna amet sed rebum eos.

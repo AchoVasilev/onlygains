@@ -1,5 +1,5 @@
 export const threeImageTemplateStyling = `
-  .main-image-container {
+  .post-main-image-container {
     max-height: 45rem;
     overflow: hidden;
   }
@@ -12,36 +12,36 @@ export const threeImageTemplateStyling = `
     text-decoration: none;
   }
   
-  .tag-blue {
+  .post-tag-blue {
     background: #56ccf2;
     background: linear-gradient(to bottom, #2f80ed, #56ccf2);
     color: #fafafa;
   }
   
-  .main-image {
+  .post-main-image {
     width: 100%;
     height: 100%;
     background-size: cover;
     object-fit: cover;
   }
   
-  .secondary-image {
+  .post-secondary-image {
     width: 30%;
   }
   
-  .image-left {
+  .post-image-left {
     float: left;
     padding-right: 1rem;
     padding-bottom: 0.75rem;
   }
   
-  .image-right {
+  .post-image-right {
     float: right;
     padding-left: 1rem;
     padding-bottom: 0.75rem;
   }
   
-  .text {
+  .post-text {
     font-size: 1rem;
     padding-bottom: 0.75rem;
     margin-bottom: 1rem;
@@ -54,35 +54,31 @@ export const threeImageTemplateStyling = `
   }
   
   .post-text,
-  .intro {
+  .post-intro {
     padding: 1.5rem;
   }
   
-  .post-page-container {
-    h2,
-    h3,
-    h4 {
-      color: #343a40;
-    }
-  
-    h3,
-    h4 {
-      font-weight: 500;
-    }
-  
-    h2 {
-      font-size: 2rem;
-    }
-  
-    h3 {
-      font-size: 1.75rem;
-    }
-  
-    h4 {
-      font-size: 1.5rem;
-    }
+  h2,
+  h3,
+  h4 {
+    color: #343a40;
   }
   
+  h3, h4{
+      font-weight: 500;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.75rem;
+  }
+  
+  h4 {
+    font-size: 1.5rem;
+  }
   
   .second-post-half {
       padding-top: 3rem;
