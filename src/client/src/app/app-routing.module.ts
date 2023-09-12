@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'content',
     loadChildren: () => import('./features/content-creation/content-creation.module').then(m => m.ContentCreationModule),
+  },
+  {
+    path: 'workout',
+    loadChildren: () => import('./features/workout/workout.module').then(m => m.WorkoutModule),
   }
 ]
 

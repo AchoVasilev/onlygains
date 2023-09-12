@@ -94,7 +94,6 @@ CREATE TABLE tags
     created_at      TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at     TIMESTAMPTZ,
     is_deleted      BOOLEAN     NOT NULL DEFAULT FALSE,
-    post_id         UUID REFERENCES posts (id)
 );
 
 CREATE TABLE posts_tags
@@ -103,3 +102,59 @@ CREATE TABLE posts_tags
     tag_id  UUID REFERENCES tags (id),
     CONSTRAINT posts_tags_pk PRIMARY KEY (post_id, tag_id)
 );
+
+CREATE TABLE workout
+(
+    id          UUID PRIMARY KEY,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at TIMESTAMPTZ,
+    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
+);
+
+CREATE TABLE workout_template
+(
+    name        VARCHAR,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at TIMESTAMPTZ,
+    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
+);
+
+CREATE TABLE muscle_groups
+(
+    id          UUID PRIMARY KEY,
+    name        VARCHAR(50),
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at TIMESTAMPTZ,
+    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
+);
+
+CREATE TABLE exercises
+(
+    id          UUID PRIMARY KEY,
+    name        VARCHAR(100) NOT NULL,
+    description VARCHAR,
+    video_url   VARCHAR,
+    workout_template_id  UUID REFERENCES workout (id),
+    created_at  TIMESTAMPTZ  NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at TIMESTAMPTZ,
+    is_deleted  BOOLEAN      NOT NULL DEFAULT FALSE,
+);
+
+CREATE TABLE exercises_musclegroups
+(
+    exercise_id    UUID REFERENCES exercises (id),
+    musclegroup_id UUID REFERENCES muscle_groups (id),
+    CONSTRAINT exercise_muscle_group_id PRIMARY KEY (exercise_id, musclegroup_id)
+);
+
+CREATE TABLE sets
+(
+    id          UUID PRIMARY KEY,
+    weight      DOUBLE PRECISION(14,2),
+    weight_type VARCHAR(3),
+    exercise_id REFERENCES exercises (id),
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at TIMESTAMPTZ,
+    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
+);
+

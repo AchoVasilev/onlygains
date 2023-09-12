@@ -9,40 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "workouts")
 public class Workout extends BaseEntity {
     @Id
-    private UUID id;
+    private final UUID id;
 
-    private String name;
+    @OneToMany(mappedBy = "workout")
+    private List<WorkoutTemplate> workoutTemplates;
 
-    @OneToMany
-    private final List<Exercise> exercises;
-
-    protected Workout() {
+    public Workout() {
         super();
-        this.exercises = new ArrayList<>();
-    }
-
-    public Workout(String name) {
-        this();
         this.id = UUID.randomUUID();
-        this.name = name;
+        this.workoutTemplates = new ArrayList<>();
     }
 
     public UUID getId() {
         return this.id;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public List<Exercise> getExercises() {
-        return this.exercises;
-    }
-
-    public void addExercise(Exercise exercise) {
-        this.exercises.add(exercise);
+    public List<WorkoutTemplate> getWorkoutTemplates() {
+        return this.workoutTemplates;
     }
 }

@@ -1,7 +1,6 @@
 package com.project.domain.workout;
 
 import com.project.domain.BaseEntity;
-import com.project.domain.post.Post;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
@@ -10,23 +9,23 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity
-public class BodyPart extends BaseEntity {
+@Entity(name = "muscle_groups")
+public class MuscleGroup extends BaseEntity {
     @Id
-    private UUID id;
+    private final UUID id;
 
     private String name;
 
-    @ManyToMany(mappedBy = "bodyParts")
+    @ManyToMany(mappedBy = "muscleGroups")
     private final Set<Exercise> exercises;
 
-    protected BodyPart() {
+    protected MuscleGroup() {
         super();
         this.id = UUID.randomUUID();
         this.exercises = new HashSet<>();
     }
 
-    public BodyPart(String name) {
+    public MuscleGroup(String name) {
         this();
         this.name = name;
     }
