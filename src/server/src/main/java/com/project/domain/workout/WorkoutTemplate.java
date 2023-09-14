@@ -11,7 +11,7 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-@Entity
+@Entity(name = "workout_templates")
 public class WorkoutTemplate extends BaseEntity {
     @Id
     private UUID id;

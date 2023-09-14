@@ -16,6 +16,8 @@ public class MuscleGroup extends BaseEntity {
 
     private String name;
 
+    private String translatedName;
+
     @ManyToMany(mappedBy = "muscleGroups")
     private final Set<Exercise> exercises;
 
@@ -25,9 +27,10 @@ public class MuscleGroup extends BaseEntity {
         this.exercises = new HashSet<>();
     }
 
-    public MuscleGroup(String name) {
+    public MuscleGroup(String name, String translatedName) {
         this();
         this.name = name;
+        this.translatedName = translatedName;
     }
 
     public UUID getId() {
@@ -40,5 +43,9 @@ public class MuscleGroup extends BaseEntity {
 
     public Set<Exercise> getExercises() {
         return this.exercises;
+    }
+
+    public String getTranslatedName() {
+        return this.translatedName;
     }
 }

@@ -20,7 +20,11 @@ const routes: Routes = [
     loadChildren: () => import('./features/content-creation/content-creation.module').then(m => m.ContentCreationModule),
   },
   {
-    path: 'workout',
+    path: 'exercises',
+    loadChildren: () => import('./features/exercise/exercise.module').then(m => m.ExerciseModule),
+  },
+  {
+    path: 'workouts',
     loadChildren: () => import('./features/workout/workout.module').then(m => m.WorkoutModule),
   }
 ]

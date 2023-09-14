@@ -23,30 +23,39 @@ public class Exercise extends BaseEntity {
     private final UUID id;
 
     private String name;
+
+    private String translatedName;
     private String description;
     private String videoUrl;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "exercise")
     private final List<com.project.domain.workout.Set> sets;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "exercises_musclegroups", joinColumns = @JoinColumn(name = "exercise_id"),
-            inverseJoinColumns = @JoinColumn(name = "musclegroup_id"))
+    @JoinTable(name = "exercises_workouts", joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "workout_id"))
     private final Set<MuscleGroup> muscleGroups;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workout_template_id")
     private WorkoutTemplate workoutTemplate;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "exercises_musclegroups", joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "musclegroup_id"))
+    private final Set<Workout> workouts;
+
     protected Exercise() {
         super();
         this.id = UUID.randomUUID();
         this.muscleGroups = new HashSet<>();
         this.sets = new ArrayList<>();
+        this.workouts = new HashSet<>();
     }
 
-    public Exercise(String name, String description, String videoUrl) {
+    public Exercise(String name, String translatedName, String description, String videoUrl) {
         this();
         this.name = name;
+        this.translatedName = translatedName;
         this.description = description;
         this.videoUrl = videoUrl;
     }
@@ -57,6 +66,10 @@ public class Exercise extends BaseEntity {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getTranslatedName() {
+        return this.translatedName;
     }
 
     public List<com.project.domain.workout.Set> getSets() {
@@ -72,14 +85,22 @@ public class Exercise extends BaseEntity {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public String getVideoUrl() {
-        return videoUrl;
+        return this.videoUrl;
     }
 
     public WorkoutTemplate getWorkoutTemplate() {
-        return workoutTemplate;
+        return this.workoutTemplate;
+    }
+
+    public Set<Workout> getWorkouts() {
+        return this.workouts;
+    }
+
+    public void setWorkoutTemplate(WorkoutTemplate workoutTemplate) {
+        this.workoutTemplate = workoutTemplate;
     }
 }

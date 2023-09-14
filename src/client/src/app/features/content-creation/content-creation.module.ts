@@ -9,9 +9,10 @@ import { SharedModule } from 'app/shared/shared-module/shared.module';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 
 @NgModule({
-  declarations: [CreatePostComponent],
+  declarations: [CreatePostComponent, CreateExerciseComponent],
   imports: [
     CommonModule,
     ContentCreationRoutingModule,
