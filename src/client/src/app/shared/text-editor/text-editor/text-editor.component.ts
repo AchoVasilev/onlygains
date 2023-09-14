@@ -4,7 +4,7 @@ import { threeImageTemplateStyling } from '../template-stylings';
 import { Editor } from 'tinymce';
 import { threeImageTemplate } from '../templates';
 import { DOCUMENT } from '@angular/common';
-import { EditorOnInit } from '../editor-model';
+import { EditorInputChange, EditorOnInit } from '../editor-model';
 import { ImageService } from 'app/core/services/image/image.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class TextEditorComponent {
   imageUpload: EventEmitter<string> = new EventEmitter();
 
   @Output()
-  inputChanged: EventEmitter<string> = new EventEmitter();
+  inputChanged: EventEmitter<EditorInputChange> = new EventEmitter();
   
   defaultPostConfig: EditorComponent['init'] = {
     base_url: '/tinymce',
@@ -115,6 +115,8 @@ export class TextEditorComponent {
   }
 
   onEditorChange() {
-    this.inputChanged.emit(this.source);
+    const pElement = this.editor?.dom.select('p.post-text')[0].textContent;
+
+    this.inputChanged.emit({body: this.source, previewText: pElement});
   }
 }
