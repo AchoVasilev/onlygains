@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ExerciseRoutingModule } from './exercise-routing.module';
+import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ExerciseDetailsComponent
+  ],
   imports: [
     CommonModule,
     ExerciseRoutingModule
