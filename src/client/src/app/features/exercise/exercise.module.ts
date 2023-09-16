@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ExerciseRoutingModule } from './exercise-routing.module';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
+import { SharedModule } from 'app/shared/shared-module/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ExerciseDetailsComponent } from './exercise-details/exercise-details.co
   ],
   imports: [
     CommonModule,
-    ExerciseRoutingModule
+    ExerciseRoutingModule,
+    SharedModule
   ]
 })
 export class ExerciseModule { }

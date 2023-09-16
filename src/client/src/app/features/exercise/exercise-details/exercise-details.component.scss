@@ -1,0 +1,93 @@
+.exercise-container {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    padding-left: 7rem;
+    padding-right: 3rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.exercise-heading-container, .exercise-how-to, .exercise-tips, .exercise-benefits {
+    padding-bottom: 1rem;
+}
+
+.exercise-heading, .exercise-subheading {
+    color: #343a40;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.exercise-sidebar {
+    flex-basis: 30%;
+}
+
+.exercise-section {
+    padding-right: 4rem;
+    padding-left: 4rem;
+    width: 100%;
+}
+
+.exercise-ordered-list {
+    counter-reset: item;
+
+    li {
+        counter-increment: item;
+        padding: 0.50rem;
+    }
+
+    li:before {
+        content: counter(item) ". ";
+    }
+}
+
+.exercise-tips-list {
+    li:before {
+        content: "•";
+        color: #343a40;
+        padding: 0.50rem;
+    }
+}
+
+p, li {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+strong {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.exercise-gif-container {
+    width: 50%;
+    margin: auto;
+    padding: 1rem;
+}
+
+.similar-exercises {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.similar-exercise {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+
+    a {
+        max-width: 200px;
+        padding: 1rem;
+
+        img {
+            width: 100%;
+            padding: 1rem;
+        }
+    }
+}

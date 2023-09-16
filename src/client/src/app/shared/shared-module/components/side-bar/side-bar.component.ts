@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CategoryService } from 'app/core/services/category/category.service';
 import { PostService } from 'app/core/services/post/post.service';
 import { TagService } from 'app/core/services/tag/tag.service';
@@ -14,14 +14,22 @@ import { Observable } from 'rxjs';
 })
 export class SideBarComponent implements OnInit{
   categories$?: Observable<CategoryViewResource[]>;
+  
+  @Input()
   popularPosts$?: Observable<PostViewResource[]>;
+  @Input()
+  postsTitle: string = 'Популярни теми';
+
   tags$?: Observable<TagViewResource[]> | null;
 
   constructor(private categoryService: CategoryService, private postService: PostService, private tagService: TagService) {}
 
   ngOnInit(): void {
     this.categories$ = this.categoryService.getCategories();
-    this.popularPosts$ = this.postService.getPopular();
+    if (!this.popularPosts$) {
+      this.popularPosts$ = this.postService.getPopular();
+    }
+
     this.tags$ = this.tagService.getTags();
   }
 

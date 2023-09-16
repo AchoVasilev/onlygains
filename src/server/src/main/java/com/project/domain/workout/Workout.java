@@ -23,7 +23,7 @@ public class Workout extends BaseEntity {
     @OneToMany(mappedBy = "workout")
     private final List<WorkoutTemplate> workoutTemplates;
 
-    @ManyToMany(mappedBy = "workout")
+    @ManyToMany(mappedBy = "workouts")
     private final Set<Exercise> exercises;
 
     @ManyToOne(fetch = FetchType.LAZY)

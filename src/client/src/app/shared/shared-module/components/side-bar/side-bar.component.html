@@ -1,7 +1,7 @@
 <aside class="side-bar-container">
   <section
     class="categories-container"
-    *ngIf="categories$ | async; let categories"
+    *ngIf="categories$ | async; else loading; let categories"
   >
     <h3 class="title">Категории</h3>
     <ul class="categories">
@@ -14,8 +14,8 @@
       </li>
     </ul>
   </section>
-  <section *ngIf="popularPosts$ | async; let posts">
-    <h3 class="title">Популярни теми</h3>
+  <section *ngIf="popularPosts$ | async; else loading; let posts">
+    <h3 class="title">{{postsTitle}}</h3>
     <article class="post" *ngFor="let post of posts">
       <img class="post-image" [src]="post.imageUrl" />
       <div class="post-wrapper">
@@ -38,7 +38,7 @@
       </div>
     </article>
   </section>
-  <section *ngIf="tags$ | async; let tags">
+  <section *ngIf="tags$ | async; else loading; let tags">
     <h3 class="title">Всички тагове</h3>
     <section class="sidebar-tags">
       <gains-tag
@@ -50,3 +50,7 @@
     </section>
   </section>
 </aside>
+
+<ng-template #loading>
+  <mat-spinner value="70" diameter="30"></mat-spinner>
+</ng-template>

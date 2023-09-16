@@ -5,7 +5,8 @@ import { WorkoutRoutingModule } from './workout-routing.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     WorkoutRoutingModule

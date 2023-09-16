@@ -22,7 +22,7 @@ public class WorkoutTemplate extends BaseEntity {
     @JoinColumn(name = "workout_id")
     private Workout workout;
 
-    @OneToMany(mappedBy = "workout")
+    @OneToMany(mappedBy = "workoutTemplate")
     private final List<Exercise> exercises;
 
     protected WorkoutTemplate() {

@@ -2,6 +2,7 @@ package com.project.domain.workout;
 
 import com.project.domain.BaseEntity;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -26,7 +27,7 @@ public class Exercise extends BaseEntity {
 
     private String translatedName;
     private String description;
-    private String videoUrl;
+    private String imageUrl;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "exercise")
     private final List<com.project.domain.workout.Set> sets;
 
@@ -44,20 +45,27 @@ public class Exercise extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "musclegroup_id"))
     private final Set<Workout> workouts;
 
+    @Column(name = "parent_id")
+    private UUID parentId;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "parent_id")
+    private final List<Exercise> variations;
+
     protected Exercise() {
         super();
         this.id = UUID.randomUUID();
         this.muscleGroups = new HashSet<>();
         this.sets = new ArrayList<>();
         this.workouts = new HashSet<>();
+        this.variations = new ArrayList<>();
     }
 
-    public Exercise(String name, String translatedName, String description, String videoUrl) {
+    public Exercise(String name, String translatedName, String description, String imageUrl) {
         this();
         this.name = name;
         this.translatedName = translatedName;
         this.description = description;
-        this.videoUrl = videoUrl;
+        this.imageUrl = imageUrl;
     }
 
     public UUID getId() {
@@ -88,8 +96,8 @@ public class Exercise extends BaseEntity {
         return this.description;
     }
 
-    public String getVideoUrl() {
-        return this.videoUrl;
+    public String getImageUrl() {
+        return this.imageUrl;
     }
 
     public WorkoutTemplate getWorkoutTemplate() {
@@ -102,5 +110,17 @@ public class Exercise extends BaseEntity {
 
     public void setWorkoutTemplate(WorkoutTemplate workoutTemplate) {
         this.workoutTemplate = workoutTemplate;
+    }
+
+    public UUID getParentId() {
+        return this.parentId;
+    }
+
+    public void setParentId(UUID parentId) {
+        this.parentId = parentId;
+    }
+
+    public List<Exercise> getVariations() {
+        return this.variations;
     }
 }

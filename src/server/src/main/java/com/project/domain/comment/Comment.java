@@ -4,6 +4,7 @@ import com.project.domain.BaseEntity;
 import com.project.domain.post.Post;
 import com.project.domain.user.User;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -33,9 +34,11 @@ public class Comment extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Dislike> dislikes;
 
+    @Column(name = "parent_id")
     private UUID parentId;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "parent_id")
     private final List<Comment> replies;
 
     protected Comment() {

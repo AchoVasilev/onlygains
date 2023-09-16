@@ -122,8 +122,9 @@ CREATE TABLE workouts
 
 CREATE TABLE workout_templates
 (
+    id          UUID PRIMARY KEY,
     name        VARCHAR,
-    workout_id  UUID REFERENCES workout (id),
+    workout_id  UUID REFERENCES workouts (id),
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE
@@ -145,8 +146,9 @@ CREATE TABLE exercises
     name                VARCHAR(100) NOT NULL,
     translated_name     VARCHAR(150) NOT NULL,
     description         VARCHAR,
-    video_url           VARCHAR,
+    image_url           VARCHAR,
     workout_template_id UUID REFERENCES workout_templates (id),
+    parent_id           UUID REFERENCES exercises (id),
     created_at          TIMESTAMPTZ  NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at         TIMESTAMPTZ,
     is_deleted          BOOLEAN      NOT NULL DEFAULT FALSE
@@ -154,10 +156,10 @@ CREATE TABLE exercises
 
 CREATE TABLE exercises_workouts
 (
-    exercise_id    UUID REFERENCES exercises (id),
-    workout_id UUID REFERENCES workouts (id),
+    exercise_id UUID REFERENCES exercises (id),
+    workout_id  UUID REFERENCES workouts (id),
     CONSTRAINT exercise_workout_id PRIMARY KEY (exercise_id, workout_id)
-)
+);
 
 CREATE TABLE exercises_musclegroups
 (
@@ -169,9 +171,9 @@ CREATE TABLE exercises_musclegroups
 CREATE TABLE sets
 (
     id          UUID PRIMARY KEY,
-    weight      DOUBLE PRECISION(14,2),
+    weight      NUMERIC(4, 2),
     weight_type VARCHAR(3),
-    exercise_id REFERENCES exercises (id),
+    exercise_id UUID REFERENCES exercises (id),
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE
