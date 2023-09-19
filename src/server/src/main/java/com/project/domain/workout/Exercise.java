@@ -61,12 +61,13 @@ public class Exercise extends BaseEntity {
         this.variations = new ArrayList<>();
     }
 
-    public Exercise(String name, String translatedName, String description, String imageUrl) {
+    public Exercise(String name, String translatedName, String description, String imageUrl, String gifUrl) {
         this();
         this.name = name;
         this.translatedName = translatedName;
         this.description = description;
         this.imageUrl = imageUrl;
+        this.gifUrl = gifUrl;
     }
 
     public UUID getId() {
@@ -123,5 +124,9 @@ public class Exercise extends BaseEntity {
 
     public List<Exercise> getVariations() {
         return this.variations;
+    }
+
+    public String getGifUrl() {
+        return this.gifUrl;
     }
 }

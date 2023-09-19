@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { ContentCreationRoutingModule } from './content-creation-routing.module';
 import { CreatePostComponent } from './create-post/create-post.component';
@@ -14,7 +13,6 @@ import { CreateExerciseComponent } from './create-exercise/create-exercise.compo
 @NgModule({
   declarations: [CreatePostComponent, CreateExerciseComponent],
   imports: [
-    CommonModule,
     ContentCreationRoutingModule,
     TextEditorModule,
     SharedModule,
