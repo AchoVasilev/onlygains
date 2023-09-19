@@ -81,7 +81,7 @@
 
   <section class="replies" *ngIf="comment.replies.length > 0">
     <gains-comment
-      *ngFor="let reply of replies"
+      *ngFor="let reply of replies; trackById"
       [comment]="reply"
       (setActiveComment)="setActiveComment.emit($event)"
       [activeComment]="activeComment"

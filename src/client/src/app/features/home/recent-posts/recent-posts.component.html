@@ -8,7 +8,7 @@
       ></gains-recent-post>
     </article>
     <article class="secondary-post-container">
-      <div class="secondary-card" *ngFor="let card of cardResources.slice(1)">
+      <div class="secondary-card" *ngFor="let card of cardResources.slice(1); trackById">
         <gains-recent-post [card]="card" [isMain]="false"></gains-recent-post>
       </div>
     </article>

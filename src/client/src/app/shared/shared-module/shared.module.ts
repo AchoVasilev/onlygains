@@ -7,6 +7,7 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { DateAgoPipe } from './pipes/date-ago/date-ago.pipe';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
+import { NgForTrackByIdDirective } from './directives/ng-for-track-by-id.directive';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
     DateAgoPipe,
     IconButtonComponent,
     SafeHtmlPipe,
+    NgForTrackByIdDirective,
   ],
   imports: [CommonModule, MaterialModule, RouterLink],
   exports: [
@@ -24,7 +26,8 @@ import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
     SideBarComponent,
     IconButtonComponent,
     DateAgoPipe,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    NgForTrackByIdDirective
   ],
 })
 export class SharedModule {}

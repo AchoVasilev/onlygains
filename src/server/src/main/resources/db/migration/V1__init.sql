@@ -147,6 +147,7 @@ CREATE TABLE exercises
     translated_name     VARCHAR(150) NOT NULL,
     description         VARCHAR,
     image_url           VARCHAR,
+    gif_url             VARCHAR,
     workout_template_id UUID REFERENCES workout_templates (id),
     parent_id           UUID REFERENCES exercises (id),
     created_at          TIMESTAMPTZ  NOT NULL DEFAULT (now() at time zone 'utc'),

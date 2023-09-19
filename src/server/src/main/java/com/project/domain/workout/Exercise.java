@@ -28,6 +28,7 @@ public class Exercise extends BaseEntity {
     private String translatedName;
     private String description;
     private String imageUrl;
+    private String gifUrl;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "exercise")
     private final List<com.project.domain.workout.Set> sets;
 

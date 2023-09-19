@@ -4,7 +4,7 @@
       <h2>Нашите категории</h2>
     </div>
     <div class="service-container">
-      <div class="box" *ngFor="let category of categories">
+      <div class="box" *ngFor="let category of categories; trackById">
         <img
           class="category-image"
           [src]="category.imageUrl"

@@ -9,7 +9,7 @@
     infiniteScrollContainer=".mat-typography"
     [fromRoot]="true"
   >
-    <div *ngFor="let post of items">
+    <div *ngFor="let post of items; trackById">
       <gains-post-card [post]="post"></gains-post-card>
     </div>
   </section>
