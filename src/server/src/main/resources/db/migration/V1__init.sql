@@ -180,3 +180,18 @@ CREATE TABLE sets
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE
 );
 
+CREATE TABLE equipment
+(
+    id          UUID PRIMARY KEY,
+    name        VARCHAR,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at TIMESTAMPTZ,
+    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE exercises_equipment
+(
+    exercise_id  UUID REFERENCES exercises (id),
+    equipment_id UUID REFERENCES equipment (id),
+    CONSTRAINT exercise_equipment_id PRIMARY KEY (exercise_id, equipment_id)
+);

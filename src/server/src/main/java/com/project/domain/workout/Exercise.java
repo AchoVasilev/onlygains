@@ -52,6 +52,11 @@ public class Exercise extends BaseEntity {
     @JoinColumn(name = "parent_id")
     private final List<Exercise> variations;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "exercises_equipment", joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipment_id"))
+    private final Set<Equipment> equipment;
+
     protected Exercise() {
         super();
         this.id = UUID.randomUUID();
@@ -59,6 +64,7 @@ public class Exercise extends BaseEntity {
         this.sets = new ArrayList<>();
         this.workouts = new HashSet<>();
         this.variations = new ArrayList<>();
+        this.equipment = new HashSet<>();
     }
 
     public Exercise(String name, String translatedName, String description, String imageUrl, String gifUrl) {
@@ -128,5 +134,9 @@ public class Exercise extends BaseEntity {
 
     public String getGifUrl() {
         return this.gifUrl;
+    }
+
+    public Set<Equipment> getEquipment() {
+        return this.equipment;
     }
 }

@@ -1,0 +1,12 @@
+<article class="similar-exercise">
+  <div>
+    <h3><a mat-button href="">{{exercise?.name}}</a></h3>
+    <p><strong>Уреди:</strong> {{getEquipment()}}</p>
+  </div>
+  <a href="">
+    <img
+      [src]="exercise?.imageUrl"
+      alt="{{exercise?.name}} image"
+    />
+  </a>
+</article>
