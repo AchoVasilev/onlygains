@@ -112,8 +112,11 @@
         angles. Here are some common variations to consider:
       </p>
     </section>
+    <section class="exercise-muscle-groups">
+      <gains-muscle-group></gains-muscle-group>
+    </section>
     <section class="similar-exercises">
-      <gains-similar-exercise *ngFor="let exercise of"></gains-similar-exercise>
+      <gains-similar-exercise *ngFor="let exercise of getExercises()" [exercise]="exercise" trackById></gains-similar-exercise>
     </section>
   </section>
   <section class="exercise-sidebar">

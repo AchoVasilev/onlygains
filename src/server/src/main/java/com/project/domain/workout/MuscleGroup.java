@@ -12,7 +12,7 @@ import java.util.UUID;
 @Entity(name = "muscle_groups")
 public class MuscleGroup extends BaseEntity {
     @Id
-    private final UUID id;
+    private String id;
 
     private String name;
 
@@ -23,17 +23,17 @@ public class MuscleGroup extends BaseEntity {
 
     protected MuscleGroup() {
         super();
-        this.id = UUID.randomUUID();
         this.exercises = new HashSet<>();
     }
 
     public MuscleGroup(String name, String translatedName) {
         this();
+        this.id = translatedName;
         this.name = name;
         this.translatedName = translatedName;
     }
 
-    public UUID getId() {
+    public String getId() {
         return this.id;
     }
 

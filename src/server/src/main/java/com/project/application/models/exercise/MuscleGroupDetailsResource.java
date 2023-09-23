@@ -6,7 +6,7 @@ import io.micronaut.serde.annotation.Serdeable;
 import java.util.UUID;
 
 @Serdeable
-public record MuscleGroupDetailsResource(UUID id, String name, String translatedName) {
+public record MuscleGroupDetailsResource(String id, String name, String translatedName) {
     public static MuscleGroupDetailsResource from(MuscleGroup muscleGroup) {
         return new MuscleGroupDetailsResource(muscleGroup.getId(), muscleGroup.getName(), muscleGroup.getTranslatedName());
     }
