@@ -82,8 +82,9 @@ VALUES ('1f3684e0-5555-4bc2-8108-dde28193f888', 'Тежести', 'Weights'),
 
 INSERT INTO muscle_groups(id, name, translated_name)
 VALUES ('Trapezius', 'Трапец', 'Trapezius'),
-       ('Back', 'Гръб', 'Back'),
-       ('Shoulders', 'Рамене', 'Shoulders'),
+       ('Lats', 'Гръб', 'Lats'),
+       ('Rear-deltoids', 'Задно рамо', 'Rear deltoids'),
+       ('Deltoids', 'Рамене', 'Deltoids'),
        ('Chest', 'Гърди', 'Chest'),
        ('Biceps', 'Бицепс', 'Biceps'),
        ('Triceps', 'Трицепс', 'Triceps'),
@@ -94,5 +95,6 @@ VALUES ('Trapezius', 'Трапец', 'Trapezius'),
        ('Calves', 'Прасци', 'Calves'),
        ('Hamstrings', 'Задни бедра', 'Hamstrings'),
        ('Glutes', 'Глутеус', 'Glutes'),
+       ('Hips', 'Бедрени мускули', 'Hips'),
        ('Quads', 'Четириглав бедрен мускул', 'Quads'),
-       ('Lower back', 'Кръст', 'Lower back');
+       ('Lower-back', 'Кръст', 'Lower back');
