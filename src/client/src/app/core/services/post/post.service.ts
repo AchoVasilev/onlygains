@@ -1,10 +1,10 @@
-import { CreatePostResource, PostDetailsResource } from './../../../shared/shared-module/models/post';
+import { CreatePostResource, PostDetailsResource } from 'app/shared/models/post';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
-import { PostViewResource } from 'app/shared/shared-module/models/post';
-import { PostQueryType } from 'app/shared/shared-module/enums/Post';
+import { PostViewResource } from 'app/shared/models/post';
+import { PostQueryType } from 'app/shared/enums/Post';
 
 @Injectable({
   providedIn: 'root',

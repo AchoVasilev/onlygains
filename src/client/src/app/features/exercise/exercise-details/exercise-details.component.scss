@@ -1,3 +1,5 @@
+@import "variables";
+
 .exercise-container {
   padding-top: 5rem;
   padding-bottom: 5rem;
@@ -12,15 +14,15 @@
 .exercise-how-to,
 .exercise-tips,
 .exercise-benefits {
-  padding-bottom: 1rem;
+  padding-bottom: $one-rem;
 }
 
 .exercise-heading,
 .exercise-subheading {
-  color: #343a40;
+  color: $dark-gray;
   text-transform: uppercase;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: $half-rem;
 }
 
 .exercise-sidebar {
@@ -30,7 +32,7 @@
 .exercise-section {
   padding-right: 4rem;
   padding-left: 4rem;
-  width: 100%;
+  width: $max-size;
 }
 
 .exercise-ordered-list {
@@ -38,7 +40,7 @@
 
   li {
     counter-increment: item;
-    padding: 0.5rem;
+    padding: $half-rem;
   }
 
   li:before {
@@ -49,8 +51,8 @@
 .exercise-tips-list {
   li:before {
     content: "•";
-    color: #343a40;
-    padding: 0.5rem;
+    color: $dark-gray;
+    padding: $half-rem;
   }
 }
 
@@ -62,13 +64,13 @@ li {
 
 strong {
   font-weight: 600;
-  color: #343a40;
+  color: $dark-gray;
 }
 
 .exercise-gif-container {
-  width: 50%;
+  width: $half-size;
   margin: auto;
-  padding: 1rem;
+  padding: $one-rem;
 }
 
 .similar-exercises {
@@ -85,32 +87,32 @@ strong {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  border: 1px solid #343a40;
-  border-radius: 1rem;
-  box-shadow: 10px 10px 3px lightseagreen;
+  gap: $half-rem;
+  padding: $one-rem;
+  border: 1px solid $dark-gray;
+  border-radius: $one-rem;
+  box-shadow: 10px 10px 3px $light-blue;
 
   a {
     max-width: 200px;
-    padding: 1rem;
+    padding: $one-rem;
     text-decoration: none;
-    color: #343a40;
+    color: $dark-gray;
     text-transform: uppercase;
 
     img {
-      width: 100%;
-      padding: 1rem;
+      width: $max-size;
+      padding: $one-rem;
     }
   }
 
   div {
     p {
-      padding-left: 1rem;
+      padding-left: $one-rem;
     }
   }
 }
 
 p {
-  margin-bottom: 1rem;
+  margin-bottom: $one-rem;
 }

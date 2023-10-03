@@ -3,7 +3,7 @@ import {
   ActiveComment,
   CommentEmittedType,
   CommentViewResource,
-} from 'app/shared/shared-module/models/comment';
+} from 'app/shared/models/comment';
 
 @Component({
   selector: 'gains-comments',

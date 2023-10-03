@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
-import { ExerciseDetailsResource } from 'app/shared/shared-module/models/exercise';
+import { ExerciseDetailsResource } from 'app/shared/models/exercise';
 import { Observable } from 'rxjs';
 
 @Injectable({

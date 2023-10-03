@@ -1,0 +1,32 @@
+@import "variables";
+
+.similar-exercise {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: $half-rem;
+    padding: $one-rem;
+    border: 1px solid $dark-gray;
+    border-radius: 1rem;
+    box-shadow: 10px 10px 3px $light-blue;
+  
+    a {
+      max-width: 200px;
+      padding: $one-rem;
+      text-decoration: none;
+      color: $dark-gray;
+      text-transform: uppercase;
+  
+      img {
+        width: $max-size;
+        padding: $one-rem;
+      }
+    }
+  
+    div {
+      p {
+        padding-left: $one-rem;
+      }
+    }
+  }

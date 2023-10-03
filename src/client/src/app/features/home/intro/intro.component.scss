@@ -1,3 +1,5 @@
+@import "variables";
+
 .intro {
   display: flex;
   flex-direction: column;
@@ -17,7 +19,7 @@
 h1,
 h3,
 p {
-  color: #fff;
+  color: $white;
   margin: 0;
   text-align: center;
   letter-spacing: 0.15rem;

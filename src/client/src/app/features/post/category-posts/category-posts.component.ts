@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'app/core/services/post/post.service';
-import { itemsPerPage } from 'app/shared/shared-module/constants/data-constants';
-import { PostViewResource } from 'app/shared/shared-module/models/post';
+import { itemsPerPage } from 'app/shared/constants/data-constants';
+import { PostViewResource } from 'app/shared/models/post';
 
 @Component({
   selector: 'gains-category-posts',

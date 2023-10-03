@@ -1,0 +1,40 @@
+@import "variables";
+
+.muscle-groups-container {
+  width: $max-size;
+  padding: $half-rem $one-rem;
+  margin: $half-rem $one-rem;
+
+  h1 {
+    text-align: center;
+    color: $dark-gray;
+  }
+
+  svg {
+    width: $max-size;
+  }
+
+  svg g[id] path {
+    opacity: 0.2;
+    transition: opacity 0.25s ease-in-out;
+  }
+
+  svg g g[id]:hover path {
+    cursor: pointer;
+    opacity: 0.5;
+    fill: $light-blue !important;
+  }
+  
+  .muscles-helper {
+    display: none;
+  }
+}
+
+.light-red {
+  fill: $red !important;
+}
+
+.red {
+  fill: $red !important;
+  opacity: 0.8 !important;
+}

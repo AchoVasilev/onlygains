@@ -1,22 +1,24 @@
+@import "variables";
+
 .recent-posts {
   padding: 6rem;
 }
 
 .posts-container {
   display: flex;
-  gap: 1rem;
+  gap: $one-rem;
   flex-direction: row;
   flex-wrap: nowrap;
 }
 
 .primary-post-container {
   max-width: 68%;
-  height: 100%;
+  height: $max-size
 }
 
 .secondary-post-container {
   max-width: 32%;
   display: flex;
-  gap: 1rem;
+  gap: $one-rem;
   flex-direction: column;
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'app/core/services/post/post.service';
-import { PostDetailsResource } from 'app/shared/shared-module/models/post';
+import { PostDetailsResource } from 'app/shared/models/post';
 import { Observable } from 'rxjs';
 
 @Component({

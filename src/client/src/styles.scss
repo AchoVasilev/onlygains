@@ -2,6 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+@import "variables";
 
 html,
 body,
@@ -135,7 +136,7 @@ table {
 }
 
 html, body {
-  height: 100%;
+  height: $max-size;
   background-color: rgb(211, 208, 208);
   overflow-x: hidden;
   overflow-y: scroll;

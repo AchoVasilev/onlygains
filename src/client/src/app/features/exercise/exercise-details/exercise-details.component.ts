@@ -4,7 +4,7 @@ import { ExerciseService } from 'app/core/services/exercise/exercise.service';
 import {
   ExerciseDetailsResource,
   ExerciseListResource,
-} from 'app/shared/shared-module/models/exercise';
+} from 'app/shared/models/exercise';
 import { Observable } from 'rxjs';
 
 @Component({

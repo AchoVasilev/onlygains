@@ -1,3 +1,5 @@
+@import "variables";
+
 .container {
     padding: 4rem 8rem;
 }
@@ -24,12 +26,12 @@
             content: "";
             position: absolute;
             bottom: 0;
-            left: 50%;
+            left: $half-size;
             width: 4rem;
-            height: 1rem;
-            border-radius: 1rem;
-            background-color: #f8bc1a;
-            transform: translateX(-50%);
+            height: $one-rem;
+            border-radius: $one-rem;
+            background-color: $yellow;
+            transform: translateX(-$half-size);
         }
     }
 }
@@ -42,22 +44,22 @@
 
         .box {
             position: relative;
-            color: #fff;
+            color: $white;
             margin: 1%;
             flex-basis: 40%;
 
             h6 {
                 font-weight: bold;
                 text-transform: uppercase;
-                font-size: 1rem;
+                font-size: $one-rem;
             }
 
             img {
-                width: 100%;
+                width: $max-size;
             }
 
             .category-image {
-                height: 100%;
+                height: $max-size;
             }
 
             .visible-heading {
@@ -72,9 +74,9 @@
                 align-items: center;
                 text-align: center;
                 position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                top: $half-size;
+                left: $half-size;
+                transform: translate(-$half-size, -$half-size);
 
                 a {
                     display: flex;
@@ -82,8 +84,8 @@
                     align-items: center;
                     width: 45px;
                     height: 45px;
-                    border-radius: 100%;
-                    background-color: #f8bc1a;
+                    border-radius: $max-size;
+                    background-color: $yellow;
 
                     img {
                         width: 20px;
@@ -103,8 +105,8 @@
             &::before {
                 display: none;
                 content: "";
-                width: 100%;
-                height: 100%;
+                width: $max-size;
+                height: $max-size;
                 position: absolute;
                 left: 0;
                 top: 0;

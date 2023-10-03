@@ -1,24 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { threeImageTemplateStyling } from 'app/shared/text-editor/template-stylings';
 import { Editor } from 'tinymce';
-import { threeImageTemplate } from 'app/shared/text-editor/templates';
+import { threeImageTemplate } from 'app/shared/models/text-editor/templates';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CategoryService } from 'app/core/services/category/category.service';
 import { TagService } from 'app/core/services/tag/tag.service';
 import {
   CategoryDTO,
   CategoryViewResource,
-} from 'app/shared/shared-module/models/category';
+} from 'app/shared/models/category';
 import { Observable } from 'rxjs';
-import { TagViewResource } from 'app/shared/shared-module/models/tag';
+import { TagViewResource } from 'app/shared/models/tag';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSelectChange } from '@angular/material/select';
 import { ImageService } from 'app/core/services/image/image.service';
-import { EditorComponent } from '@tinymce/tinymce-angular';
 import { DOCUMENT } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { PostService } from 'app/core/services/post/post.service';
-import { EditorInputChange, EditorOnInit } from 'app/shared/text-editor/editor-model';
+import { EditorInputChange, EditorOnInit } from 'app/shared/models/text-editor/editor-model';
 
 @Component({
   selector: 'gains-create-post',
