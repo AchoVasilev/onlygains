@@ -1,9 +1,11 @@
+@use "variables" as *;
+
 .comment-form-title {
   font-size: 22px;
 }
 
 .comment-form-textarea {
-  width: 100%;
+  width: $max-size;
   height: 80px;
   margin-bottom: 8px;
   margin-top: 8px;
@@ -15,9 +17,9 @@
   padding: 8px 16px;
   background: rgb(59, 130, 246);
   border-radius: 8px;
-  color: white;
+  color: $white;
 }
 
 button {
-  margin: 1rem;
+  margin: $one-rem;
 }

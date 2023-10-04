@@ -1,11 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ExerciseListResource } from 'app/shared/models/exercise';
 
 @Component({
   selector: 'gains-similar-exercise',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './similar-exercise.component.html',
   styleUrls: ['./similar-exercise.component.scss']
 })

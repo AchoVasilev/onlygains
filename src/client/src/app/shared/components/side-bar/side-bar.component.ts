@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { CategoryService } from 'app/core/services/category/category.service';
 import { PostService } from 'app/core/services/post/post.service';
 import { TagService } from 'app/core/services/tag/tag.service';
@@ -14,7 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'gains-side-bar',
   standalone: true,
-  imports: [CommonModule, RouterModule, TagComponent, MatProgressSpinnerModule],
+  imports: [NgIf, NgForOf, AsyncPipe, RouterModule, TagComponent, MatProgressSpinnerModule],
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss']
 })

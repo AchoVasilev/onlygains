@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'gains-muscle-group',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './muscle-group.component.html',
   styleUrls: ['./muscle-group.component.scss'],
 })

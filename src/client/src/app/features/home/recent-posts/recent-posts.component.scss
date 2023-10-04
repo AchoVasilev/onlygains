@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables" as *;
 
 .recent-posts {
   padding: 6rem;
