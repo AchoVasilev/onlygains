@@ -35,8 +35,8 @@ public class Exercise extends BaseEntity {
     private final List<com.project.domain.workout.Set> sets;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "exercises_workouts", joinColumns = @JoinColumn(name = "exercise_id"),
-            inverseJoinColumns = @JoinColumn(name = "workout_id"))
+    @JoinTable(name = "exercises_musclegroups", joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "musclegroup_id"))
     private final Set<MuscleGroup> muscleGroups;
 
     @ManyToOne(fetch = FetchType.LAZY)

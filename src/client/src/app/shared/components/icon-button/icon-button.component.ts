@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'gains-icon-button',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule],
   templateUrl: './icon-button.component.html'
 })
 export class IconButtonComponent {

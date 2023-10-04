@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TagViewResource } from 'app/shared/models/tag';
 import { RouterModule } from '@angular/router';
@@ -8,7 +8,8 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './tag.component.html',
-  styleUrls: ['./tag.component.scss']
+  styleUrls: ['./tag.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TagComponent {
   private stylingClasses: string[] = ['tag-brown', 'tag-blue', 'tag-red'];

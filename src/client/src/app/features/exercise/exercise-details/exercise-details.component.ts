@@ -26,6 +26,36 @@ export class ExerciseDetailsComponent implements OnInit {
     // this.exercise$ = this.exerciseService.getById(this.exerciseId);
   }
 
+  getExercise(): ExerciseDetailsResource {
+    return {
+      id: '1234',
+      parentId: null,
+      name: 'Shoulder press',
+      gifUrl:
+        'https://res.cloudinary.com/dpo3vbxnl/image/upload/v1694870493/onlygains/exercises/no-bg_ff5h1t.gif',
+      translatedName: 'Раменна преса',
+      description: 'description',
+      muscleGroups: [
+        { name: 'Chest', translatedName: 'Гърди', id: 'Chest' },
+        { name: 'Deltoids', translatedName: 'Рамене', id: 'Deltoids' },
+        { name: 'Abs', translatedName: 'Корем', id: 'Abs' },
+        { name: 'Obliques', translatedName: 'Корем', id: 'Obliques' },
+      ],
+      mainMuscleGroupIds: ['Deltoids'],
+      syngergisticMuscleGroupIds: ['Chest', 'Abs', 'Obliques'],
+      variations: this.getExercises(),
+      equipment: [{ id: '1234', name: 'dumbbells' }]
+    };
+  }
+
+  getMainMuscleGroups() {
+    return this.getExercise().muscleGroups.filter(gr => this.getExercise().mainMuscleGroupIds.includes(gr.id));
+  }
+
+  getSynergists() {
+    return this.getExercise().muscleGroups.filter(gr => this.getExercise().syngergisticMuscleGroupIds.includes(gr.id));
+  }
+
   getExercises() {
     const exercises: ExerciseListResource[] = [
       {
@@ -68,7 +98,11 @@ export class ExerciseDetailsComponent implements OnInit {
         name: 'random name',
         imageUrl:
           'https://res.cloudinary.com/dpo3vbxnl/image/upload/v1695099641/onlygains/exercises/reverse-fly_ukqlb1.png',
-        equipment: [{ id: '1234', name: 'dumbbells' }, {id: '12345', name: 'barbell'}, {id: '123456', name: 'bench'}],
+        equipment: [
+          { id: '1234', name: 'dumbbells' },
+          { id: '12345', name: 'barbell' },
+          { id: '123456', name: 'bench' },
+        ],
       },
     ];
 

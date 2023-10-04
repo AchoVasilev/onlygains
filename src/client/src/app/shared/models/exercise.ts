@@ -9,7 +9,7 @@ export interface ExerciseListResource {
 
 export interface ExerciseDetailsResource {
     id: string;
-    parentId: string;
+    parentId?: string | null;
     name: string;
     gifUrl: string;
     translatedName: string;

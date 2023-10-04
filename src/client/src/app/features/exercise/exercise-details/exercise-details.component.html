@@ -103,7 +103,20 @@
       </p>
     </section>
     <section class="exercise-muscle-groups">
-      <gains-muscle-group heading="Мускулни групи"></gains-muscle-group>
+      <h2 class="exercise-subheading">Използвани мускулни групи</h2>
+      <section class="exercise-muscle-group">
+        <section class="exercise-main-muscle-groups">
+          <div *ngFor="let muscle of getMainMuscleGroups()">
+            <p>Целева група: {{muscle.translatedName}}</p>
+          </div>
+        </section>
+        <section class="exercise-synergist-muscle-groups">
+          <div *ngFor="let muscle of getSynergists()">
+            <p>Спомагателна група: {{muscle.translatedName}}</p>
+          </div>
+        </section>
+        <gains-muscle-group></gains-muscle-group>
+      </section>
     </section>
     <section class="exercise-variations">
       <h2 class="exercise-subheading">
