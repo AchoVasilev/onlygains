@@ -9,15 +9,16 @@ import { Observable } from 'rxjs';
   selector: 'gains-post-details',
   templateUrl: './post-details.component.html',
   styleUrls: ['./post-details.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class PostDetailsComponent implements OnInit {
   post$?: Observable<PostDetailsResource>;
-  postId: string;
 
-  constructor(private postService: PostService, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
-    this.postId = this.route.snapshot.params['id'];
-  }
+  constructor(
+    private postService: PostService,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
     this.post$ = this.postService.getById(this.route.snapshot.params['id']);

@@ -25,6 +25,40 @@
   margin-bottom: $half-rem;
 }
 
+.exercise-muscle-group {
+  display: flex;
+
+  div {
+    flex-basis: 50%;
+  }
+}
+
+.exercise-main-muscle-groups, .exercise-synergist-muscle-groups {
+  
+  p {
+    padding-top: $half-rem;
+    padding-bottom: $half-rem;
+    padding-left: $half-rem;
+    margin: $half-rem;
+    color: $white;
+    font-weight: 500;
+    border-radius: 4px;
+  }
+}
+
+.exercise-main-muscle-groups p {
+  background-color: $red;
+}
+
+.exercise-synergist-muscle-groups p {
+  background-color: $light-blue;
+  max-width: 85%;
+}
+
+gains-muscle-group {
+  width: $max-size;
+}
+
 .exercise-sidebar {
   flex-basis: 30%;
 }
