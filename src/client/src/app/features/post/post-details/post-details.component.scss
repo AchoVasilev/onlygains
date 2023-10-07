@@ -1,3 +1,5 @@
+@use "variables" as *;
+
 .post-page-container {
   display: flex;
   padding: 3rem;
@@ -36,8 +38,8 @@
 }
 
 .post-main-image {
-  width: 100%;
-  height: 100%;
+  width: $max-size;
+  height: $max-size;
   background-size: cover;
   object-fit: cover;
 }
@@ -48,20 +50,20 @@
 
 .post-image-left {
   float: left;
-  padding-right: 1rem;
+  padding-right: $one-rem;
   padding-bottom: 0.75rem;
 }
 
 .post-image-right {
   float: right;
-  padding-left: 1rem;
+  padding-left: $one-rem;
   padding-bottom: 0.75rem;
 }
 
 .post-text {
-  font-size: 1rem;
+  font-size: $one-rem;
   padding-bottom: 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: $one-rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -76,10 +78,11 @@
 }
 
 .post-page-container {
+  h1,
   h2,
   h3,
   h4 {
-    color: #343a40;
+    color: $dark-gray;
   }
 
   h3,

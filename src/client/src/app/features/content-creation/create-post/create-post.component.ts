@@ -1,22 +1,17 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Editor } from 'tinymce';
 import { threeImageTemplate } from 'app/shared/models/text-editor/templates';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CategoryService } from 'app/core/services/category/category.service';
 import { TagService } from 'app/core/services/tag/tag.service';
-import {
-  CategoryDTO,
-  CategoryViewResource,
-} from 'app/shared/models/category';
+import { CategoryDTO, CategoryViewResource } from 'app/shared/models/category';
 import { Observable } from 'rxjs';
 import { TagViewResource } from 'app/shared/models/tag';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSelectChange } from '@angular/material/select';
-import { ImageService } from 'app/core/services/image/image.service';
-import { DOCUMENT } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { PostService } from 'app/core/services/post/post.service';
-import { EditorInputChange, EditorOnInit } from 'app/shared/models/text-editor/editor-model';
+import { EditorComponent } from '@tinymce/tinymce-angular';
+import { threeImageTemplateStyling } from 'app/shared/models/text-editor/template-stylings';
 
 @Component({
   selector: 'gains-create-post',
@@ -24,11 +19,10 @@ import { EditorInputChange, EditorOnInit } from 'app/shared/models/text-editor/e
   styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
-  strTemplate?: string;
-  source: string = '';
+  template: string = threeImageTemplate;
+  styling: string = threeImageTemplateStyling;
   editor?: Editor;
 
-  separatorKeysCodes: number[] = [ENTER, COMMA];
   categories$?: Observable<CategoryViewResource[]>;
   tags$?: Observable<TagViewResource[]>;
   selectedCategory?: CategoryDTO;
@@ -46,24 +40,35 @@ export class CreatePostComponent implements OnInit {
   });
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private tagService: TagService,
-    private imageService: ImageService,
     private postService: PostService
-  ) {
-    this.strTemplate = this.source = threeImageTemplate;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.categories$ = this.categoryService.getCategories();
     this.tags$ = this.tagService.getTags();
   }
 
-  onEditorInit(ev: EditorOnInit) {
-    this.imageUrls = [...this.imageUrls, ...ev.imageUrls];
-    this.form.controls.title.patchValue(ev.title!);
+  onEditorInit(ev: Editor) {
+    this.editor = ev;
+    this.categoryAnchor = this.editor!.dom.select('a.post-tag')[0];
+
+    const imageUrls: string[] = [];
+    this.editor?.dom.select('img').forEach((img) => {
+      imageUrls.push(img.getAttribute('src')!);
+    });
+
+    const title = this.editor?.dom.select('h1')[0].textContent;
+
+    const date = this.editor?.dom.select('#date')[0];
+    if (date) {
+      date.textContent = new Date().toLocaleString('bg-BG');
+    }
+
+    this.imageUrls = [...this.imageUrls, ...imageUrls];
+    this.form.controls.title.patchValue(title!);
     this.form.controls.imageUrls.patchValue(this.imageUrls);
   }
 
@@ -72,9 +77,11 @@ export class CreatePostComponent implements OnInit {
     this.form.controls.imageUrls.patchValue(this.imageUrls);
   }
 
-  onEditorInputChange(ev: EditorInputChange) {
-    this.form.controls.previewText.patchValue(ev.previewText!);
-    this.form.controls.text.patchValue(ev.body);
+  onEditorInputChange(ev: string) {
+    const pElement = this.editor?.dom.select('p.post-text')[0].textContent;
+
+    this.form.controls.previewText.patchValue(pElement!);
+    this.form.controls.text.patchValue(ev);
   }
 
   categorySelect(ev: MatSelectChange) {
@@ -93,14 +100,15 @@ export class CreatePostComponent implements OnInit {
   onSubmit() {
     const pElement = this.editor?.dom.select('p.post-text')[0];
     this.form.controls.previewText.patchValue(pElement!.textContent);
-    const {title, text, imageUrls, categoryId, tags, previewText} = this.form.value;
+    const { title, text, imageUrls, categoryId, tags, previewText } =
+      this.form.value;
     const data = {
       title,
       text,
       tags,
       categoryId,
       imageUrls,
-      previewText
+      previewText,
     };
 
     //@ts-ignore

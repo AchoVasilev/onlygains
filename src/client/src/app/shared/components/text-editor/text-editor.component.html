@@ -1,7 +1,7 @@
-<editor
+<editor *ngIf="editorConfig"
 (onChange)="onEditorChange()"
-[init]="defaultPostConfig"
-[initialValue]="strTemplate"
+[init]="editorConfig"
+[initialValue]="template"
 [(ngModel)]="source"
 (onInit)="onEditorInit($event)"
 >

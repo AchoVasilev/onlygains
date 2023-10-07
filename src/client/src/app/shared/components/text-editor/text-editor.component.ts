@@ -1,45 +1,48 @@
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { DOCUMENT, NgIf } from '@angular/common';
 import {
   EditorComponent,
   EditorModule,
   TINYMCE_SCRIPT_SRC,
 } from '@tinymce/tinymce-angular';
 import { ImageService } from 'app/core/services/image/image.service';
-import {
-  EditorOnInit,
-  EditorInputChange,
-} from 'app/shared/models/text-editor/editor-model';
-import { threeImageTemplateStyling } from 'app/shared/models/text-editor/template-stylings';
-import { threeImageTemplate } from 'app/shared/models/text-editor/templates';
 import { Editor } from 'tinymce';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'gains-text-editor',
   standalone: true,
-  imports: [EditorModule, FormsModule, ReactiveFormsModule],
+  imports: [EditorModule, FormsModule, ReactiveFormsModule, NgIf],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
   ],
   templateUrl: './text-editor.component.html',
   styleUrls: ['./text-editor.component.scss'],
 })
-export class TextEditorComponent {
-  strTemplate?: string;
+export class TextEditorComponent implements OnInit {
   source: string = '';
   editor?: Editor;
 
   @Output()
-  editorInit: EventEmitter<EditorOnInit> = new EventEmitter();
+  editorInit: EventEmitter<Editor> = new EventEmitter();
 
   @Output()
   imageUpload: EventEmitter<string> = new EventEmitter();
 
   @Output()
-  inputChanged: EventEmitter<EditorInputChange> = new EventEmitter();
+  inputChanged: EventEmitter<string> = new EventEmitter();
 
-  defaultPostConfig: EditorComponent['init'] = {
+  @Input()
+  styling?: string;
+
+  editorConfig: EditorComponent['init'] = {
     base_url: '/tinymce',
     suffix: '.min',
     selector: '#textarea',
@@ -52,39 +55,36 @@ export class TextEditorComponent {
     promotion: false,
     branding: false,
     plugins: ['anchor', 'link', 'lists', 'image', 'preview'],
-    content_style: threeImageTemplateStyling,
     file_picker_types: 'image',
     image_title: true,
     automatic_uploads: true,
-    images_upload_handler: (blobInfo) => this.onUpload(blobInfo),
-    file_picker_callback: (callback, value, meta) =>
-      this.onFilePick(callback, value, meta),
   };
 
-  private categoryAnchor?: HTMLElement;
+  @Input()
+  template?: string;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private imageService: ImageService
-  ) {
-    this.strTemplate = this.source = threeImageTemplate;
+  ) {}
+
+  ngOnInit(): void {
+    if (this.styling) {
+      this.editorConfig!.images_upload_handler = (blobInfo) =>
+        this.onUpload(blobInfo);
+      this.editorConfig!.file_picker_callback = (callback, value, meta) =>
+        this.onFilePick(callback, value, meta);
+      this.editorConfig!.content_style = this.styling;
+    }
+
+    if (this.template) {
+      this.source = this.template;
+    }
   }
 
   onEditorInit(event: any) {
     this.editor = event.editor;
-    this.categoryAnchor = this.editor!.dom.select('a.post-tag')[0];
-
-    const imageUrls: string[] = [];
-    this.editor?.dom.select('img').forEach((img) => {
-      imageUrls.push(img.getAttribute('src')!);
-    });
-
-    const title = this.editor?.dom.select('h2.title')[0].textContent;
-
-    const date = this.editor?.dom.select('#date')[0];
-    date!.textContent = new Date().toLocaleString('bg-BG');
-
-    this.editorInit.emit({ imageUrls, title });
+    this.editorInit.emit(this.editor);
   }
 
   onFilePick(callback: any, value: any, meta: any) {
@@ -120,7 +120,7 @@ export class TextEditorComponent {
 
   onUpload(blobInfo: any) {
     const upload$ = this.imageService.upload(blobInfo.blob(), 'posts');
-    const result = new Promise<string>((resolve, reject) => {
+    const result = new Promise<string>((resolve) => {
       upload$.subscribe((image) => {
         this.imageUpload.emit(image.url);
         resolve(image.url);
@@ -131,8 +131,6 @@ export class TextEditorComponent {
   }
 
   onEditorChange() {
-    const pElement = this.editor?.dom.select('p.post-text')[0].textContent;
-
-    this.inputChanged.emit({ body: this.source, previewText: pElement });
+    this.inputChanged.emit(this.source);
   }
 }

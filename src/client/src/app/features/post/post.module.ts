@@ -11,7 +11,7 @@ import { CommentComponent } from './comment/comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommentsComponent } from './comments/comments.component';
-import { IconButtonComponent } from 'app/shared/components/icon-button/icon-button.component';
+import { IconButtonComponent } from 'app/shared/components/buttons/icon-button/icon-button.component';
 import { TagComponent } from 'app/shared/components/tag/tag.component';
 import { SideBarComponent } from 'app/shared/components/side-bar/side-bar.component';
 import { SafeHtmlPipe } from 'app/shared/pipes/safe-html/safe-html.pipe';

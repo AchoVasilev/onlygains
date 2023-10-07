@@ -6,6 +6,8 @@
         (editorInit)="onEditorInit($event)"
         (imageUpload)="onImageUpload($event)"
         (inputChanged)="onEditorInputChange($event)"
+        [styling]="styling"
+        [template]="template"
       >
       </gains-text-editor>
     </section>
@@ -38,7 +40,7 @@
           </mat-select>
         </mat-form-field>
       </section>
-      <button mat-raised-button type="submit">Създай</button>
+      <gains-raised-button type="submit" color="primary" text="Създай"></gains-raised-button>
     </section>
   </div>
 </form>

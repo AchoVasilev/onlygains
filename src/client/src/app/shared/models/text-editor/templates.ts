@@ -14,7 +14,7 @@ export const threeImageTemplate = `
     </div>
     <article class="post-text">
       <section class="first-post-half">
-        <h2 class="title">Est stet amet ipsum stet clita rebum duo</h2>
+        <h1 class="title">Est stet amet ipsum stet clita rebum duo</h1>
         <p class="post-text">
           Sadipscing labore amet rebum est et justo gubergren. Et eirmod
           ipsum sit diam ut magna lorem. Nonumy vero labore lorem sanctus
