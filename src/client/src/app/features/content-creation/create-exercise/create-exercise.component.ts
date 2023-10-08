@@ -5,10 +5,10 @@ import { ExerciseService } from 'app/core/services/exercise/exercise.service';
 import { MuscleGroupService } from 'app/core/services/muscle-group/muscle-group.service';
 import { CategoryDTO } from 'app/shared/models/category';
 import { EquipmentResource } from 'app/shared/models/equipment';
-import { MuscleGroupDetailsResource } from 'app/shared/models/exercise';
+import { ExerciseResource, MuscleGroupDetailsResource } from 'app/shared/models/exercise';
 import { exerciseTemplateStyling } from 'app/shared/models/text-editor/template-stylings';
 import { exerciseTemplate } from 'app/shared/models/text-editor/templates';
-import { Observable } from 'rxjs';
+import { Observable, map, startWith, switchMap } from 'rxjs';
 import { Editor } from 'tinymce';
 
 @Component({
@@ -25,6 +25,7 @@ export class CreateExerciseComponent {
 
   selectedCategory?: CategoryDTO;
   muscleGroups: MuscleGroupDetailsResource[] = [];
+  variations$: Observable<ExerciseResource[]>;
 
   form = this.fb.group({
     name: this.fb.control<string>('', [Validators.required]),
@@ -34,7 +35,8 @@ export class CreateExerciseComponent {
     mainMuscleGroupsIds: this.fb.control<string[]>([]),
     synergisticMuscleGroupsIds: this.fb.control<string[]>([]),
     gifUrl: this.fb.control<string>('', [Validators.required]),
-    imageUrl: this.fb.control<string>('', [Validators.required])
+    imageUrl: this.fb.control<string>('https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691941224/onlygains/categories/brutally-hardcore-gyms-you-need-to-train-at-before-you-die-652x400-10-1496399800_ahp7xa.jpg', [Validators.required]),
+    variations: this.fb.control<string[]>([])
   });
 
   constructor(
@@ -42,7 +44,13 @@ export class CreateExerciseComponent {
     private readonly equipmentService: EquipmentService,
     private readonly muscleGroupService: MuscleGroupService,
     private readonly exerciseService: ExerciseService
-  ) {}
+  ) {
+    this.variations$ = this.form.controls.variations.valueChanges.pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : ''),
+      switchMap(search => this.exerciseService.getVariations(search))
+    );
+  }
 
   ngOnInit(): void {
     this.equipment$ = this.equipmentService.getAll();
@@ -59,7 +67,6 @@ export class CreateExerciseComponent {
     const gifUrl = this.editor?.dom.select('img')[0].getAttribute('src');
 
     const title = this.editor?.dom.select('h1')[0].textContent;
-
     this.form.controls.name.patchValue(title!);
     this.form.controls.gifUrl.patchValue(gifUrl);
   }
@@ -77,6 +84,9 @@ export class CreateExerciseComponent {
   }
 
   onSubmit() {
+    const title = this.editor?.dom.select('h1')[0].textContent;
+    this.form.controls.name.patchValue(title!);
+    
     const { name, translatedName, description, gifUrl, imageUrl, equipment, mainMuscleGroupsIds, synergisticMuscleGroupsIds } =
       this.form.value;
     const data = {

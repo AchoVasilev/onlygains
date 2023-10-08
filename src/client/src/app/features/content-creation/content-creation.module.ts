@@ -10,6 +10,7 @@ import { CreateExerciseComponent } from './create-exercise/create-exercise.compo
 import { TextEditorComponent } from 'app/shared/components/text-editor/text-editor.component';
 import { CommonModule } from '@angular/common';
 import { RaisedButtonComponent } from 'app/shared/components/buttons/raised-button/raised-button.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
 
 @NgModule({
   declarations: [CreatePostComponent, CreateExerciseComponent],
@@ -21,6 +22,7 @@ import { RaisedButtonComponent } from 'app/shared/components/buttons/raised-butt
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatAutocompleteModule,
     TextEditorComponent,
     RaisedButtonComponent
   ],

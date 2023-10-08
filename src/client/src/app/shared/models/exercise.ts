@@ -1,5 +1,12 @@
 import { EquipmentResource } from "./equipment";
 
+export interface ExerciseResource {
+    id: string,
+    name: string,
+    translatedName: string,
+    imageUrl: string;
+}
+
 export interface ExerciseListResource {
     id: string;
     name: string;

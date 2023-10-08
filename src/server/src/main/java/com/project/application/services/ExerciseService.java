@@ -2,6 +2,7 @@ package com.project.application.services;
 
 import com.project.application.models.exercise.CreateExerciseResource;
 import com.project.application.models.exercise.ExerciseDetailsResource;
+import com.project.application.models.exercise.ExerciseResource;
 import com.project.domain.workout.Exercise;
 import com.project.infrastructure.data.ExerciseRepository;
 import com.project.infrastructure.exceptions.DuplicateEntryException;
@@ -65,6 +66,11 @@ public class ExerciseService {
         var result = this.exerciseRepository.save(exercise);
 
         return ExerciseDetailsResource.from(result);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ExerciseResource> findBy(String search) {
+        return this.exerciseRepository.findSimilarExercises(search);
     }
 
     private List<Exercise> getBy(List<UUID> ids) {
