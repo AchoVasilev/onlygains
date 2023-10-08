@@ -42,6 +42,12 @@ export class TextEditorComponent implements OnInit {
   @Input()
   styling?: string;
 
+  @Input()
+  folderUpload: string = '';
+
+  @Input()
+  template?: string;
+
   editorConfig: EditorComponent['init'] = {
     base_url: '/tinymce',
     suffix: '.min',
@@ -59,9 +65,6 @@ export class TextEditorComponent implements OnInit {
     image_title: true,
     automatic_uploads: true,
   };
-
-  @Input()
-  template?: string;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -119,7 +122,7 @@ export class TextEditorComponent implements OnInit {
   }
 
   onUpload(blobInfo: any) {
-    const upload$ = this.imageService.upload(blobInfo.blob(), 'posts');
+    const upload$ = this.imageService.upload(blobInfo.blob(), this.folderUpload);
     const result = new Promise<string>((resolve) => {
       upload$.subscribe((image) => {
         this.imageUpload.emit(image.url);

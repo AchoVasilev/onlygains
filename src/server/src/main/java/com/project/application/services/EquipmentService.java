@@ -1,5 +1,6 @@
 package com.project.application.services;
 
+import com.project.application.models.exercise.EquipmentResource;
 import com.project.domain.workout.Equipment;
 import com.project.infrastructure.data.EquipmentRepository;
 import io.micronaut.transaction.annotation.Transactional;
@@ -19,5 +20,10 @@ public class EquipmentService {
     @Transactional(readOnly = true)
     public List<Equipment> getBy(List<UUID> ids) {
         return this.equipmentRepository.findByIdIn(ids);
+    }
+
+    @Transactional(readOnly = true)
+    public List<EquipmentResource> getAll() {
+        return this.equipmentRepository.findAll().stream().map(EquipmentResource::from).toList();
     }
 }

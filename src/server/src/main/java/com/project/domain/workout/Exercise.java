@@ -170,4 +170,12 @@ public class Exercise extends BaseEntity {
     public List<String> getSynergisticMuscleGroupsIds() {
         return this.synergisticMuscleGroupsIds;
     }
+
+    public void addMainMuscleGroupsIds(List<String> ids) {
+        this.mainMuscleGroupsIds.addAll(ids);
+    }
+
+    public void addSynergisticMuscleGroupIds(List<String> ids) {
+        this.synergisticMuscleGroupsIds.addAll(ids);
+    }
 }

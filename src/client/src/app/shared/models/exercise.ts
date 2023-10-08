@@ -26,3 +26,15 @@ export interface MuscleGroupDetailsResource {
     name: string;
     translatedName: string;
 }
+
+export interface CreateExerciseResource {
+    name?: string | null,
+    translatedName?: string | null,
+    description?: string | null,
+    gifUrl?: string | null,
+    imageUrl?: string | null,
+    mainMuscleGroupsIds?: string[] | null,
+    synergisticMuscleGroupsIds?: string[] | null,
+    variations?: string[] | null,
+    equipment?: string[] | null,
+}

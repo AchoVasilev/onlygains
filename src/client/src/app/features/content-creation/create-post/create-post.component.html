@@ -8,6 +8,7 @@
         (inputChanged)="onEditorInputChange($event)"
         [styling]="styling"
         [template]="template"
+        folderUpload="posts"
       >
       </gains-text-editor>
     </section>
@@ -16,7 +17,7 @@
         <h4>Избери категория</h4>
         <mat-form-field>
           <mat-label>Категория</mat-label>
-          <mat-select (selectionChange)="categorySelect($event)">
+          <mat-select (selectionChange)="categorySelect($event)" formControlName="categoryId">
             <mat-option
               *ngFor="let category of categories$ | async"
               [value]="{

@@ -45,9 +45,16 @@ public class ExerciseService {
             exercise.addVariations(variations);
         });
 
-        exerciseResource.muscleGroups().ifPresent(muscleGroupIds -> {
+        exerciseResource.mainMuscleGroupsIds().ifPresent(muscleGroupIds -> {
             var muscleGroups = this.muscleGroupService.findBy(muscleGroupIds);
             exercise.addMuscleGroups(muscleGroups);
+            exercise.addMainMuscleGroupsIds(muscleGroupIds);
+        });
+
+        exerciseResource.synergisticMuscleGroupsIds().ifPresent(muscleGroupIds -> {
+            var muscleGroups = this.muscleGroupService.findBy(muscleGroupIds);
+            exercise.addMuscleGroups(muscleGroups);
+            exercise.addSynergisticMuscleGroupIds(muscleGroupIds);
         });
 
         exerciseResource.equipment().ifPresent(equipmentIds -> {

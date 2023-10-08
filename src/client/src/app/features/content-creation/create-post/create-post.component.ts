@@ -8,9 +8,8 @@ import { CategoryDTO, CategoryViewResource } from 'app/shared/models/category';
 import { Observable } from 'rxjs';
 import { TagViewResource } from 'app/shared/models/tag';
 import { MatSelectChange } from '@angular/material/select';
-import { environment } from '../../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { PostService } from 'app/core/services/post/post.service';
-import { EditorComponent } from '@tinymce/tinymce-angular';
 import { threeImageTemplateStyling } from 'app/shared/models/text-editor/template-stylings';
 
 @Component({

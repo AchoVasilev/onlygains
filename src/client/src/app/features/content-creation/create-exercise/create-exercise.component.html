@@ -1,1 +1,75 @@
-<p>create-exercise works!</p>
+<h1 class="post-header">Създай статия</h1>
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class="form-items-container">
+    <section class="editor-container">
+      <gains-text-editor
+        (editorInit)="onEditorInit($event)"
+        (imageUpload)="onImageUpload($event)"
+        (inputChanged)="onEditorInputChange($event)"
+        [styling]="styling"
+        [template]="template"
+        folderUpload="exercises"
+      >
+      </gains-text-editor>
+    </section>
+    <section>
+      <section>
+        <h4>Име на английски</h4>
+        <mat-form-field appearance="fill">
+          <mat-label>Име на английски*</mat-label>
+          <input matInput required/>
+        </mat-form-field>
+      </section>
+      <section>
+        <h4>Избери уреди</h4>
+        <mat-form-field>
+          <mat-label>Уреди</mat-label>
+          <mat-select formControlName="equipment" multiple>
+            <mat-option
+              *ngFor="let equipment of equipment$ | async"
+              [value]="equipment.id"
+              >{{ equipment.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </section>
+      <section>
+        <h4>Избери основни мускулни групи</h4>
+        <mat-form-field>
+          <mat-label>Мускулни групи</mat-label>
+          <mat-select
+            [formControl]="form.controls.mainMuscleGroupsIds"
+            multiple
+          >
+            <mat-option
+              *ngFor="let muscleGroup of muscleGroups"
+              [value]="muscleGroup.id"
+              >{{ muscleGroup.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </section>
+      <section>
+        <h4>Избери допълнителни мускулни групи</h4>
+        <mat-form-field>
+          <mat-label>Мускулни групи</mat-label>
+          <mat-select
+            [formControl]="form.controls.synergisticMuscleGroupsIds"
+            multiple
+          >
+            <mat-option
+              *ngFor="let muscleGroup of muscleGroups"
+              [value]="muscleGroup.id"
+              >{{ muscleGroup.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </section>
+      <gains-raised-button
+        type="submit"
+        color="primary"
+        text="Създай"
+      ></gains-raised-button>
+    </section>
+  </div>
+</form>

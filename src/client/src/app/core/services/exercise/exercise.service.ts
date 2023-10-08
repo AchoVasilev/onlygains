@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
-import { ExerciseDetailsResource } from 'app/shared/models/exercise';
+import { environment } from '../../../../environments/environment';
+import { CreateExerciseResource, ExerciseDetailsResource } from 'app/shared/models/exercise';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,5 +14,9 @@ export class ExerciseService {
 
   getById(id: string): Observable<ExerciseDetailsResource> {
     return this.http.get<ExerciseDetailsResource>(`${this.apiUrl}/${id}`);
+  }
+
+  createExercise(data: CreateExerciseResource): Observable<ExerciseDetailsResource> {
+    return this.http.post<ExerciseDetailsResource>(this.apiUrl, data);
   }
 }

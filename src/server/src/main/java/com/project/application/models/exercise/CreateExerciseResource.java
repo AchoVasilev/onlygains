@@ -14,7 +14,8 @@ public record CreateExerciseResource(
         @Nonnull String description,
         @Nonnull String gifUrl,
         @Nonnull String imageUrl,
-        Optional<List<String>> muscleGroups,
+        Optional<List<String>> mainMuscleGroupsIds,
+        Optional<List<String>> synergisticMuscleGroupsIds,
         Optional<List<UUID>> variations,
         Optional<List<UUID>> equipment) {
 }
