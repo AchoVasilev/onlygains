@@ -1,4 +1,6 @@
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgModule } from '@angular/core';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { ContentCreationRoutingModule } from './content-creation-routing.module';
 import { CreatePostComponent } from './create-post/create-post.component';
@@ -10,7 +12,7 @@ import { CreateExerciseComponent } from './create-exercise/create-exercise.compo
 import { TextEditorComponent } from 'app/shared/components/text-editor/text-editor.component';
 import { CommonModule } from '@angular/common';
 import { RaisedButtonComponent } from 'app/shared/components/buttons/raised-button/raised-button.component';
-import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [CreatePostComponent, CreateExerciseComponent],
@@ -22,9 +24,11 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatChipsModule,
+    MatIconModule,
     MatAutocompleteModule,
     TextEditorComponent,
-    RaisedButtonComponent
+    RaisedButtonComponent,
   ],
 })
 export class ContentCreationModule {}

@@ -17,7 +17,7 @@
         <h4>Име на английски</h4>
         <mat-form-field appearance="fill">
           <mat-label>Име на английски*</mat-label>
-          <input matInput required formControlName="translatedName"/>
+          <input matInput required formControlName="translatedName" />
         </mat-form-field>
       </section>
       <section>
@@ -67,19 +67,40 @@
       </section>
       <section>
         <h4>Вариации</h4>
-        <mat-form-field class="example-full-width">
-            <mat-label>Вариации</mat-label>
-            <input matInput
-                   aria-label="State"
-                   [matAutocomplete]="auto"
-                   [formControl]="form.controls.variations">
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let variaton of variations$ | async" [value]="variaton.id">
-                <img alt="" class="example-option-img" [src]="variaton.imageUrl" height="25">
-                <span>{{variaton.name}}</span>
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
+        <mat-form-field>
+          <mat-label>Вариации</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Fruit selection">
+            <mat-chip-row
+              *ngFor="let variation of selectedVariations"
+              (removed)="remove(variation)"
+            >
+              {{ variation.name }}
+              <button matChipRemove [attr.aria-label]="'remove ' + variation.name">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input
+            placeholder="Търси вариации"
+            #variationInput
+            [formControl]="form.controls.variations"
+            [matChipInputFor]="chipGrid"
+            [matAutocomplete]="auto"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (input)="onInput($event)"
+          />
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selected($event)"
+          >
+            <mat-option
+              *ngFor="let variation of variations$ | async"
+              [value]="variation"
+            >
+              {{ variation.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
       </section>
       <gains-raised-button
         type="submit"
