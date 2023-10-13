@@ -1,10 +1,7 @@
 import { EquipmentResource } from "./equipment";
+import { Selectable } from "./selectable";
 
-export interface ExerciseResource {
-    id: string,
-    name: string,
-    translatedName: string,
-    imageUrl: string;
+export interface ExerciseResource extends Selectable {
 }
 
 export interface ExerciseListResource {

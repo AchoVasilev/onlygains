@@ -58,10 +58,15 @@ export const threeImageTemplateStyling = `
     padding: 1.5rem;
   }
   
+  h1,
   h2,
   h3,
   h4 {
     color: #343a40;
+  }
+
+  h1 {
+    font-size: 2.5rem;
   }
   
   h3, h4{

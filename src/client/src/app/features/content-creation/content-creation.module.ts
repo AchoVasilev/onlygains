@@ -13,6 +13,7 @@ import { TextEditorComponent } from 'app/shared/components/text-editor/text-edit
 import { CommonModule } from '@angular/common';
 import { RaisedButtonComponent } from 'app/shared/components/buttons/raised-button/raised-button.component';
 import { MatIconModule } from '@angular/material/icon';
+import { SelectComponent } from 'app/shared/components/select/select.component';
 
 @NgModule({
   declarations: [CreatePostComponent, CreateExerciseComponent],
@@ -29,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatAutocompleteModule,
     TextEditorComponent,
     RaisedButtonComponent,
+    SelectComponent
   ],
 })
 export class ContentCreationModule {}

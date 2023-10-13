@@ -1,5 +1,3 @@
-export interface TagViewResource {
-    id: string,
-    name: string,
-    translatedName: string
+import { Selectable } from './selectable';
+export interface TagViewResource extends Selectable {
 }

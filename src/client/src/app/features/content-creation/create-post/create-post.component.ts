@@ -7,7 +7,6 @@ import { TagService } from 'app/core/services/tag/tag.service';
 import { CategoryDTO, CategoryViewResource } from 'app/shared/models/category';
 import { Observable } from 'rxjs';
 import { TagViewResource } from 'app/shared/models/tag';
-import { MatSelectChange } from '@angular/material/select';
 import { environment } from '../../../../environments/environment';
 import { PostService } from 'app/core/services/post/post.service';
 import { threeImageTemplateStyling } from 'app/shared/models/text-editor/template-stylings';
@@ -69,6 +68,9 @@ export class CreatePostComponent implements OnInit {
     this.imageUrls = [...this.imageUrls, ...imageUrls];
     this.form.controls.title.patchValue(title!);
     this.form.controls.imageUrls.patchValue(this.imageUrls);
+
+    const content = this.editor?.getContent();
+    this.form.controls.text.setValue(content);
   }
 
   onImageUpload(imageUrl: string) {
@@ -78,25 +80,22 @@ export class CreatePostComponent implements OnInit {
 
   onEditorInputChange(ev: string) {
     const pElement = this.editor?.dom.select('p.post-text')[0].textContent;
-
     this.form.controls.previewText.patchValue(pElement!);
     this.form.controls.text.patchValue(ev);
   }
 
-  categorySelect(ev: MatSelectChange) {
-    this.selectedCategory = ev.value;
-
+  categorySelect(ev: any) {
+    this.selectedCategory = ev;
     this.editor!.dom.setAttrib(
       this.categoryAnchor!,
       'href',
       this.buildCategoryUrl()
     );
     this.categoryAnchor!.textContent = this.selectedCategory?.name!;
-
-    this.form.controls.categoryId.setValue(this.selectedCategory?.id!);
   }
 
   onSubmit() {
+    this.form.controls.categoryId.setValue(this.selectedCategory?.id!);
     const pElement = this.editor?.dom.select('p.post-text')[0];
     this.form.controls.previewText.patchValue(pElement!.textContent);
     const { title, text, imageUrls, categoryId, tags, previewText } =
@@ -112,6 +111,7 @@ export class CreatePostComponent implements OnInit {
 
     //@ts-ignore
     this.postService.createPost(data).subscribe();
+    this.form.reset();
   }
 
   private buildCategoryUrl(): string {

@@ -77,6 +77,9 @@ export class CreateExerciseComponent {
     const title = this.editor?.dom.select('h1')[0].textContent;
     this.form.controls.name.patchValue(title!);
     this.form.controls.gifUrl.patchValue(gifUrl);
+
+    const content = this.editor.getContent();
+    this.form.controls.description.setValue(content);
   }
 
   onImageUpload(imageUrl: string) {
