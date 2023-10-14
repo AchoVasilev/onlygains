@@ -62,7 +62,8 @@ export class CreatePostComponent implements OnInit {
 
     const date = this.editor?.dom.select('#date')[0];
     if (date) {
-      date.textContent = new Date().toLocaleString('bg-BG');
+      date.textContent = new Date().toLocaleString('bg-BG', {
+        month: '2-digit',day: '2-digit',year: 'numeric'});
     }
 
     this.imageUrls = [...this.imageUrls, ...imageUrls];

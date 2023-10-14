@@ -1,13 +1,14 @@
 import { NgForOf } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 import { Selectable } from 'app/shared/models/selectable';
 
 @Component({
   selector: 'gains-select',
   standalone: true,
-  imports: [ReactiveFormsModule, MatSelectModule, NgForOf],
+  imports: [ReactiveFormsModule, MatSelectModule, NgForOf, NgForTrackByIdDirective],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })

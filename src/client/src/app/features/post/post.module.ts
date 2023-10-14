@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { PostRoutingModule } from './post-routing.module';
-import { CategoryPostsComponent } from './category-posts/category-posts.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostCardComponent } from './post-card/post-card.component';
-import { PostsTagsComponent } from './posts-tags/posts-tags.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommentComponent } from './comment/comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
@@ -18,16 +16,16 @@ import { SafeHtmlPipe } from 'app/shared/pipes/safe-html/safe-html.pipe';
 import { DateAgoPipe } from 'app/shared/pipes/date-ago/date-ago.pipe';
 import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 import { CommonModule } from '@angular/common';
+import { ListPostsComponent } from './list-posts/list-posts.component';
 
 @NgModule({
   declarations: [
-    CategoryPostsComponent,
     PostDetailsComponent,
     PostCardComponent,
-    PostsTagsComponent,
     CommentComponent,
     CommentFormComponent,
     CommentsComponent,
+    ListPostsComponent,
   ],
   imports: [
     CommonModule,

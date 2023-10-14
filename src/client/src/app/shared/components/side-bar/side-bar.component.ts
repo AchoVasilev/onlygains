@@ -10,11 +10,12 @@ import { Observable } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { TagComponent } from '../tag/tag.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 
 @Component({
   selector: 'gains-side-bar',
   standalone: true,
-  imports: [NgIf, NgForOf, AsyncPipe, RouterModule, TagComponent, MatProgressSpinnerModule],
+  imports: [NgIf, NgForOf, AsyncPipe, RouterModule, TagComponent, MatProgressSpinnerModule, NgForTrackByIdDirective],
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss']
 })

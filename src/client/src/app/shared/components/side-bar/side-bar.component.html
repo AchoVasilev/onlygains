@@ -5,7 +5,7 @@
     >
       <h3 class="title">Категории</h3>
       <ul class="categories">
-        <li class="category" *ngFor="let category of categories">
+        <li class="category" *ngFor="let category of categories" trackById>
           <a
             mat-button
             routerLink="/posts/{{ category.translatedName }}/{{ category.id }}"
@@ -16,7 +16,7 @@
     </section>
     <section *ngIf="popularPosts$ | async; else loading; let posts">
       <h3 class="title">{{postsTitle}}</h3>
-      <article class="post" *ngFor="let post of posts">
+      <article class="post" *ngFor="let post of posts" trackById>
         <img class="post-image" [src]="post.imageUrl" />
         <div class="post-wrapper">
           <div>
@@ -45,7 +45,8 @@
           class="sidebar-tag"
           *ngFor="let tag of tags"
           [tag]="tag"
-          urlPrefix="/posts/tags"
+          urlPrefix="/posts"
+          trackById
         ></gains-tag>
       </section>
     </section>

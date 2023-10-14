@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
+import { SnakeCasePipe } from 'app/shared/pipes/snake-case/snake-case.pipe';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-i
     CommonModule,
     MatCardModule,
     MatIconModule,
-    NgForTrackByIdDirective
+    NgForTrackByIdDirective,
+    SnakeCasePipe
   ]
 })
 export class HomeModule { }

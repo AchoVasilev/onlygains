@@ -3,7 +3,7 @@
     <section class="post-container" [innerHTML]="post.text | safeHtml">
     </section>
       <section class="post-tags">
-        <gains-tag class="post-tag" urlPrefix="/posts" *ngFor="let tag of post.tags" [tag]="tag"></gains-tag>
+        <gains-tag class="post-tag" urlPrefix="/posts" *ngFor="let tag of post.tags" [tag]="tag" trackById></gains-tag>
       </section>
     <!-- News Detail End -->
 
