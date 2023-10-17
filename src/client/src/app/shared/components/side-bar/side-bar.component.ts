@@ -23,7 +23,7 @@ export class SideBarComponent implements OnInit{
   categories$?: Observable<CategoryViewResource[]>;
   
   @Input()
-  popularPosts$?: Observable<PostViewResource[]>;
+  posts$?: Observable<PostViewResource[]>;
   @Input()
   postsTitle: string = 'Популярни теми';
 
@@ -33,8 +33,8 @@ export class SideBarComponent implements OnInit{
 
   ngOnInit(): void {
     this.categories$ = this.categoryService.getCategories();
-    if (!this.popularPosts$) {
-      this.popularPosts$ = this.postService.getPopular();
+    if (!this.posts$) {
+      this.posts$ = this.postService.getPopular();
     }
 
     this.tags$ = this.tagService.getTags();

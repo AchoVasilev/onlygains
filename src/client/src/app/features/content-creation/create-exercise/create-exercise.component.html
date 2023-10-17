@@ -22,52 +22,40 @@
       </section>
       <section>
         <h4>Избери уреди</h4>
-        <gains-select label="Уреди" [selectableItems]="equipment$ | async" [control]="form.controls.equipment" [multiple]="true"></gains-select>
+        <gains-select
+          label="Уреди"
+          [selectableItems]="equipment$ | async"
+          [control]="form.controls.equipment"
+          [multiple]="true"
+        ></gains-select>
       </section>
       <section>
         <h4>Избери основни мускулни групи</h4>
-        <gains-select label="Мускулни групи" [selectableItems]="muscleGroups" [control]="form.controls.mainMuscleGroupsIds" [multiple]="true"></gains-select>
+        <gains-select
+          label="Мускулни групи"
+          [selectableItems]="muscleGroups"
+          [control]="form.controls.mainMuscleGroupsIds"
+          [multiple]="true"
+        ></gains-select>
       </section>
       <section>
         <h4>Избери допълнителни мускулни групи</h4>
-        <gains-select label="Мускулни групи" [selectableItems]="muscleGroups" [control]="form.controls.synergisticMuscleGroupsIds" [multiple]="true"></gains-select>
+        <gains-select
+          label="Мускулни групи"
+          [selectableItems]="muscleGroups"
+          [control]="form.controls.synergisticMuscleGroupsIds"
+          [multiple]="true"
+        ></gains-select>
       </section>
       <section>
         <h4>Вариации</h4>
-        <mat-form-field>
-          <mat-label>Вариации</mat-label>
-          <mat-chip-grid #chipGrid aria-label="Fruit selection">
-            <mat-chip-row
-              *ngFor="let variation of selectedVariations"
-              (removed)="remove(variation)"
-            >
-              {{ variation.name }}
-              <button matChipRemove [attr.aria-label]="'remove ' + variation.name">
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip-row>
-          </mat-chip-grid>
-          <input
-            placeholder="Търси вариации"
-            #variationInput
-            [formControl]="form.controls.variations"
-            [matChipInputFor]="chipGrid"
-            [matAutocomplete]="auto"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (input)="onInput($event)"
-          />
-          <mat-autocomplete
-            #auto="matAutocomplete"
-            (optionSelected)="selected($event)"
-          >
-            <mat-option
-              *ngFor="let variation of variations$ | async"
-              [value]="variation"
-            >
-              {{ variation.name }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
+        <gains-auto-complete
+          label="Вариации"
+          placeholder="Търси вариации"
+          [control]="form.controls.variations"
+          [items]="variations$ | async"
+          (onFieldInput)="onInput($event)"
+        ></gains-auto-complete>
       </section>
       <gains-raised-button
         type="submit"

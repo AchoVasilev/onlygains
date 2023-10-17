@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { EquipmentService } from 'app/core/services/equipment/equipment.service';
 import { ExerciseService } from 'app/core/services/exercise/exercise.service';
 import { MuscleGroupService } from 'app/core/services/muscle-group/muscle-group.service';
@@ -14,7 +13,6 @@ import { exerciseTemplateStyling } from 'app/shared/models/text-editor/template-
 import { exerciseTemplate } from 'app/shared/models/text-editor/templates';
 import { Observable } from 'rxjs';
 import { Editor } from 'tinymce';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'gains-create-exercise',
@@ -31,9 +29,7 @@ export class CreateExerciseComponent {
   selectedCategory?: CategoryDTO;
   muscleGroups: MuscleGroupDetailsResource[] = [];
   variations$?: Observable<ExerciseResource[]>;
-  selectedVariations: ExerciseResource[] = [];
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  
+
   form = this.fb.group({
     name: this.fb.control<string>('', [Validators.required]),
     translatedName: this.fb.control<string>('', [Validators.required]),
@@ -91,26 +87,11 @@ export class CreateExerciseComponent {
   }
 
   onInput(ev: any) {
-    const input = ev.data ? ev.data : '';
-    this.variations$ = this.exerciseService.getVariations(input);
+    this.variations$ = this.exerciseService.getVariations(ev);
   }
 
   onEditorInputChange(ev: string) {
     this.form.controls.description.patchValue(ev);
-  }
-
-  remove(variation: ExerciseResource): void {
-    const index = this.selectedVariations.indexOf(variation);
-
-    if (index >= 0) {
-      this.selectedVariations.splice(index, 1);
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.selectedVariations.push(event.option.value);
-    this.variationInput!.nativeElement.value = '';
-    this.form.controls.variations.patchValue(this.selectedVariations.map(v => v.id));
   }
 
   onSubmit() {
