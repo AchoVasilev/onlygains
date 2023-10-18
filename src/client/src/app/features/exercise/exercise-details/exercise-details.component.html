@@ -111,12 +111,12 @@
       <section class="exercise-muscle-group">
         <div>
           <section class="exercise-main-muscle-groups">
-            <div *ngFor="let muscle of getMainMuscleGroups()">
+            <div *ngFor="let muscle of getMainMuscleGroups() trackById">
               <p>Целева група: {{ muscle.translatedName }}</p>
             </div>
           </section>
           <section class="exercise-synergist-muscle-groups">
-            <div *ngFor="let muscle of getSynergists()">
+            <div *ngFor="let muscle of getSynergists() trackById">
               <p>Спомагателна група: {{ muscle.translatedName }}</p>
             </div>
           </section>

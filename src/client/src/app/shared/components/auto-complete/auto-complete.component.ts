@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, signal } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -8,16 +8,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Selectable } from 'app/shared/models/selectable';
+import { Subscription, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'gains-auto-complete',
   standalone: true,
   imports: [NgForOf, NgForTrackByIdDirective, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatIconModule, MatAutocompleteModule, MatChipsModule],
   templateUrl: './auto-complete.component.html',
-  styleUrls: ['./auto-complete.component.scss']
+  styleUrls: ['./auto-complete.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoCompleteComponent {
-
+export class AutoCompleteComponent implements OnInit, OnDestroy {
+ 
   @Input({required: true})
   label: string = '';
 
@@ -35,12 +37,19 @@ export class AutoCompleteComponent {
   
   @ViewChild('inputItem') variationInput?: ElementRef<HTMLInputElement>;
 
+  valueChangesSubscription$?: Subscription;
+
   @Output()
   onFieldInput: EventEmitter<string> = new EventEmitter();
 
-  onInput(ev: any) {
-    const inputText = ev.data ? ev.data : '';
-    this.onFieldInput.emit(inputText);
+  ngOnInit(): void {
+    this.valueChangesSubscription$ = this.control.valueChanges
+      .pipe(debounceTime(200))
+      .subscribe(val => this.onFieldInput.emit(val));
+  }
+
+  ngOnDestroy(): void {
+    this.valueChangesSubscription$?.unsubscribe();
   }
 
   remove(variation: Selectable): void {
