@@ -21,8 +21,8 @@ export interface ExerciseDetailsResource {
     muscleGroups: MuscleGroupDetailsResource[];
     variations: ExerciseListResource[];
     equipment: EquipmentResource[];
-    mainMuscleGroupIds: string[];
-    syngergisticMuscleGroupIds: string[];
+    mainMuscleGroupsIds: string[];
+    synergisticMuscleGroupsIds: string[];
 }
 
 export interface MuscleGroupDetailsResource {

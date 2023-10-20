@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, signal } from '@angular/core';
 import { NgForOf } from '@angular/common';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,7 +13,7 @@ import { Subscription, debounceTime } from 'rxjs';
 @Component({
   selector: 'gains-auto-complete',
   standalone: true,
-  imports: [NgForOf, NgForTrackByIdDirective, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatIconModule, MatAutocompleteModule, MatChipsModule],
+  imports: [NgForOf, NgForTrackByIdDirective, ReactiveFormsModule, MatFormFieldModule, MatIconModule, MatAutocompleteModule, MatChipsModule],
   templateUrl: './auto-complete.component.html',
   styleUrls: ['./auto-complete.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

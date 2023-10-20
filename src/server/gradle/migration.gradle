@@ -9,7 +9,7 @@ class GenerateMigration extends DefaultTask {
 
         def timePart = new Date().getTime()
 
-        def filename = "V1__${timePart}__$migrationName"
+        def filename = "V${timePart}__$migrationName"
         def migrationDir = 'src/main/resources/db/migration'
 
         def file = "${getProject().getProjectDir()}/$migrationDir/${filename}.sql"

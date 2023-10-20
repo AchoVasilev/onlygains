@@ -107,6 +107,7 @@ export class CreateExerciseComponent {
       equipment,
       mainMuscleGroupsIds,
       synergisticMuscleGroupsIds,
+      variations
     } = this.form.value;
     const data = {
       name,
@@ -117,6 +118,7 @@ export class CreateExerciseComponent {
       equipment,
       gifUrl,
       imageUrl,
+      variations
     };
 
     this.exerciseService.createExercise(data).subscribe();

@@ -2,7 +2,7 @@
     <mat-label>{{label}}</mat-label>
     <mat-chip-grid #chipGrid aria-label="Fruit selection">
       <mat-chip-row
-        *ngFor="let variation of selectedItems()"
+        *ngFor="let variation of selectedItems()" trackById
         (removed)="remove(variation)"
       >
         {{ variation.name }}
@@ -24,7 +24,7 @@
       (optionSelected)="selected($event)"
     >
       <mat-option
-        *ngFor="let variation of items"
+        *ngFor="let variation of items" trackById
         [value]="variation"
       >
         {{ variation.name }}

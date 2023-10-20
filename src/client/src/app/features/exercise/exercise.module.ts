@@ -7,19 +7,21 @@ import { MuscleGroupComponent } from 'app/shared/components/muscle-group/muscle-
 import { SideBarComponent } from 'app/shared/components/side-bar/side-bar.component';
 import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 import { CommonModule } from '@angular/common';
+import { SafeHtmlPipe } from "../../shared/pipes/safe-html/safe-html.pipe";
 
 
 @NgModule({
-  declarations: [
-    ExerciseDetailsComponent
-  ],
-  imports: [
-    CommonModule,
-    ExerciseRoutingModule,
-    SimilarExerciseComponent,
-    MuscleGroupComponent,
-    SideBarComponent,
-    NgForTrackByIdDirective
-  ]
+    declarations: [
+        ExerciseDetailsComponent
+    ],
+    imports: [
+        CommonModule,
+        ExerciseRoutingModule,
+        SimilarExerciseComponent,
+        MuscleGroupComponent,
+        SideBarComponent,
+        NgForTrackByIdDirective,
+        SafeHtmlPipe
+    ]
 })
 export class ExerciseModule { }
