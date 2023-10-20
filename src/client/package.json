@@ -23,7 +23,7 @@
     "@tinymce/tinymce-angular": "^7.0.0",
     "ngx-infinite-scroll": "^16.0.0",
     "rxjs": "~7.5.0",
-    "tinymce": "^6.7.0",
+    "tinymce": "^6.7.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.1"
   },
