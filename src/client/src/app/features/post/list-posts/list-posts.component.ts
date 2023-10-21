@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'app/core/services/post/post.service';
 import { itemsPerPage } from 'app/shared/constants/data-constants';
@@ -9,37 +9,42 @@ import { PostViewResource } from 'app/shared/models/post';
   templateUrl: './list-posts.component.html',
   styleUrls: ['./list-posts.component.scss'],
 })
-export class ListPostsComponent {
+export class ListPostsComponent implements OnInit {
   items: PostViewResource[] = [];
   private itemType: string = '';
   private itemId: string = '';
   private currentPage: number = 0;
+  private scrolling: boolean = false;
   pageSize: number = itemsPerPage;
 
   constructor(private route: ActivatedRoute, private postService: PostService) {
-    this.itemId = this.route.snapshot.params['itemId'];
-    this.itemType = this.route.snapshot.params['itemType'];
   }
-
+  
   ngOnInit(): void {
-    this.getPosts();
+    this.route.params.subscribe(params => {
+      this.itemType = params['itemType'];
+      this.itemId = params['itemId'];
+      this.getPosts();
+    });
+    
   }
 
   getPosts() {
-    if (this.itemType === 'categories') {
+    if (this.itemType === 'Category') {
       this.postService
         .getPostsBy(this.itemId, this.currentPage, this.pageSize)
-        .subscribe((posts) => (this.items = [...this.items, ...posts]));
-    } else if (this.itemType === 'tags') {
+        .subscribe((posts) => this.scrolling ? this.items = [...this.items, ...posts] : this.items = posts);
+    } else if (this.itemType === 'Tag') {
       this.postService
         .getPostsByTagId(this.itemId, this.currentPage, this.pageSize)
-        .subscribe((posts) => (this.items = [...this.items, ...posts]));
+        .subscribe((posts) => this.scrolling ? this.items = [...this.items, ...posts] : this.items = posts);
     }
   }
 
   onScroll() {
     if (this.items.length === this.pageSize) {
       this.currentPage++;
+      this.scrolling = true;
       this.getPosts();
     }
   }

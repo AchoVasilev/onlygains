@@ -36,7 +36,6 @@ import { ListPostsComponent } from './list-posts/list-posts.component';
     IconButtonComponent,
     TagComponent,
     SideBarComponent,
-    SafeHtmlPipe,
     DateAgoPipe,
     NgForTrackByIdDirective
   ],

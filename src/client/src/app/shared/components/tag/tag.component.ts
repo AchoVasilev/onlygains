@@ -23,8 +23,11 @@ export class TagComponent {
   @Input()
   urlPrefix?: string;
 
+  @Input()
+  type?: string;
+
   getUrl(prefix: string) {
-    return `${prefix}/tags/${this.tag?.translatedName}/${this.tag?.id}`;
+    return `${prefix}/list/${this.type}/${this.tag?.translatedName}/${this.tag?.id}`;
   }
 
   getColor(): string {

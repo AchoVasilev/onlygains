@@ -8,7 +8,7 @@
         <li class="category" *ngFor="let category of categories" trackById>
           <a
             mat-button
-            routerLink="/posts/{{ category.translatedName }}/{{ category.id }}"
+            routerLink="/posts/list/Category/{{ category.translatedName }}/{{ category.id }}"
             >{{ category.name }}</a
           >
         </li>
@@ -27,6 +27,7 @@
                 translatedName: post.categoryNameTranslation
               }"
               urlPrefix="/posts"
+              type="Category"
             ></gains-tag>
           </div>
           <a
@@ -46,6 +47,7 @@
           *ngFor="let tag of tags"
           [tag]="tag"
           urlPrefix="/posts"
+          type="Tag"
           trackById
         ></gains-tag>
       </section>

@@ -34,6 +34,6 @@ public interface PostRepository extends CrudRepository<Post, UUID> {
     List<Post> getMostPopularPosts();
 
     @Query(value = "SELECT p FROM posts p JOIN tags t WHERE t.id = :tagId",
-            countQuery = "SELECT COUNT(p.id) from posts JOIN tags t where t.id = :tagId")
+            countQuery = "SELECT COUNT(p.id) FROM posts p JOIN tags t WHERE t.id = :tagId")
     Page<Post> findPostsByTagId(UUID tagId, Pageable pageable);
 }

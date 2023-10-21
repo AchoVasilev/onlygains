@@ -1,9 +1,9 @@
 <div class="post-page-container" *ngIf="post$ | async; let post">
   <section class="post-comment-container" >
-    <section class="post-container" [innerHTML]="post.text | safeHtml">
+    <section class="post-container" [innerHTML]="post.text">
     </section>
       <section class="post-tags">
-        <gains-tag class="post-tag" urlPrefix="/posts" *ngFor="let tag of post.tags" [tag]="tag" trackById></gains-tag>
+        <gains-tag class="post-tag" urlPrefix="/posts" type="Tag" *ngFor="let tag of post.tags" [tag]="tag" trackById></gains-tag>
       </section>
     <!-- News Detail End -->
 
