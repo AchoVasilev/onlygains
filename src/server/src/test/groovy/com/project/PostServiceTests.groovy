@@ -3,8 +3,8 @@ package com.project
 import com.project.application.services.CategoryService
 import com.project.application.services.PostService
 import com.project.application.services.TagService
+import com.project.common.enums.PostQueryType
 import com.project.domain.category.Category
-import com.project.domain.image.Image
 import com.project.domain.image.PostImage
 import com.project.domain.post.Post
 import com.project.domain.user.Role
@@ -12,6 +12,8 @@ import com.project.domain.user.User
 import com.project.infrastructure.data.PostRepository
 import com.project.infrastructure.data.RoleRepository
 import com.project.infrastructure.data.UserRepository
+import io.micronaut.data.model.Page
+import io.micronaut.data.model.Pageable
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Specification
 
@@ -53,5 +55,35 @@ class PostServiceTests extends Specification {
 
         then: "result is correct"
         result.id() == post.id
+    }
+
+    def "getPostsBy returns correct number"() {
+        def post1 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
+        def post2 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
+        def post3 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
+        def post4 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
+        post1.addImageToPost(new PostImage("img", post1))
+        post2.addImageToPost(new PostImage("img", post2))
+        post3.addImageToPost(new PostImage("img", post3))
+        post4.addImageToPost(new PostImage("img", post4))
+
+        def pageSize = 4
+        def page = 1
+
+        1 * postRepository.findByCategoryId(_, _) >> Page.of(List.of(post1, post2, post3, post4), Pageable.from(page, pageSize), 5)
+
+        when: "calling the service method"
+        def result = postService.getPostsBy(post1.category.id, page, pageSize, PostQueryType.Category)
+
+        then: "result is correct"
+        result.size == pageSize
+
+        but:
+        when: "calling the service method with tag id"
+        1 * postRepository.findPostsByTagId(_, Pageable.from(page, pageSize)) >> Page.of(List.of(post1, post2, post3, post4), Pageable.from(page, pageSize), 5)
+        def result2 = postService.getPostsBy(UUID.randomUUID(), page, pageSize, PostQueryType.Tag)
+
+        then: "result is correct"
+        result2.size == pageSize
     }
 }

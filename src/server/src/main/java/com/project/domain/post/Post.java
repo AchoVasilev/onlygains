@@ -85,8 +85,13 @@ public class Post extends BaseEntity {
     }
 
     public void addImagesToPost(List<PostImage> postImages) {
-        this.setModifiedAt(Time.utcNow());
         this.postImages.addAll(postImages);
+        this.setModifiedAt(Time.utcNow());
+    }
+
+    public void addImageToPost(PostImage postImage) {
+        this.postImages.add(postImage);
+        this.setModifiedAt(Time.utcNow());
     }
 
     public String getPreviewText() {
@@ -108,10 +113,12 @@ public class Post extends BaseEntity {
     public void addTag(Tag tag) {
         this.tags.add(tag);
         tag.addPost(this);
+        this.setModifiedAt(Time.utcNow());
     }
 
     public void removeTag(Tag tag) {
         this.tags.remove(tag);
         tag.removePost(this);
+        this.setModifiedAt(Time.utcNow());
     }
 }
