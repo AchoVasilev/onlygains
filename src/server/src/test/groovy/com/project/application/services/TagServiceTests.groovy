@@ -1,4 +1,4 @@
-package com.project
+package com.project.application.services
 
 import com.project.application.services.TagService
 import com.project.domain.post.Tag

@@ -1,8 +1,6 @@
-package com.project
+package com.project.application.services
 
-import com.project.application.services.CategoryService
-import com.project.application.services.PostService
-import com.project.application.services.TagService
+
 import com.project.common.enums.PostQueryType
 import com.project.domain.category.Category
 import com.project.domain.image.PostImage
