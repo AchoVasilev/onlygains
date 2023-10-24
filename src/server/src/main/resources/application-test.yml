@@ -3,7 +3,7 @@ datasources:
     dialect: postgres
     db-type: postgres
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    url: jdbc:tc:postgresql:///postgres?currentSchema=app
+    url: jdbc:tc:postgresql:12://postgres?currentSchema=app
     username: postgres
     password: postgres
 

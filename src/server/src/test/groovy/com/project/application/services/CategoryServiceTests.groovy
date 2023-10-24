@@ -1,13 +1,10 @@
 package com.project.application.services
 
-import com.project.application.services.CategoryService
+import com.project.BaseUnitTest
 import com.project.domain.category.Category
 import com.project.infrastructure.data.CategoryRepository
-import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import spock.lang.Specification
 
-@MicronautTest
-class CategoryServiceTests extends Specification{
+class CategoryServiceTests extends BaseUnitTest {
     CategoryRepository categoryRepository = Mock(CategoryRepository)
     CategoryService categoryService = new CategoryService(categoryRepository)
 

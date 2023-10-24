@@ -1,12 +1,10 @@
 package com.project.application.services
 
+import com.project.BaseUnitTest
 import com.project.domain.workout.Equipment
 import com.project.infrastructure.data.EquipmentRepository
-import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import spock.lang.Specification
 
-@MicronautTest
-class EquipmentServiceTests extends Specification {
+class EquipmentServiceTests extends BaseUnitTest {
     EquipmentRepository equipmentRepository = Mock(EquipmentRepository)
     EquipmentService equipmentService = new EquipmentService(equipmentRepository)
 
