@@ -1,10 +1,10 @@
 package com.project.application.services
 
-import com.project.BaseUnitTest
 import com.project.domain.category.Category
 import com.project.infrastructure.data.CategoryRepository
+import spock.lang.Specification
 
-class CategoryServiceTests extends BaseUnitTest {
+class CategoryServiceTests extends Specification {
     CategoryRepository categoryRepository = Mock(CategoryRepository)
     CategoryService categoryService = new CategoryService(categoryRepository)
 

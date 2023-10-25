@@ -1,10 +1,10 @@
 package com.project.application.services
 
-import com.project.BaseUnitTest
 import com.project.domain.workout.Equipment
 import com.project.infrastructure.data.EquipmentRepository
+import spock.lang.Specification
 
-class EquipmentServiceTests extends BaseUnitTest {
+class EquipmentServiceTests extends Specification {
     EquipmentRepository equipmentRepository = Mock(EquipmentRepository)
     EquipmentService equipmentService = new EquipmentService(equipmentRepository)
 

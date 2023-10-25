@@ -1,10 +1,12 @@
 package com.project.application.services
 
-import com.project.BaseUnitTest
 import com.project.domain.post.Tag
 import com.project.infrastructure.data.TagRepository
+import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import spock.lang.Specification
 
-class TagServiceTests extends BaseUnitTest {
+@MicronautTest
+class TagServiceTests extends Specification {
     TagRepository tagRepository = Mock(TagRepository)
     TagService tagService = new TagService(tagRepository)
 

@@ -1,6 +1,5 @@
 package com.project.application.services
 
-import com.project.BaseUnitTest
 import com.project.common.enums.PostQueryType
 import com.project.domain.category.Category
 import com.project.domain.image.PostImage
@@ -12,8 +11,9 @@ import com.project.infrastructure.data.RoleRepository
 import com.project.infrastructure.data.UserRepository
 import io.micronaut.data.model.Page
 import io.micronaut.data.model.Pageable
+import spock.lang.Specification
 
-class PostServiceTests extends BaseUnitTest {
+class PostServiceTests extends Specification {
     PostRepository postRepository = Mock(PostRepository)
     CategoryService categoryService = Mock(CategoryService)
     RoleRepository roleRepository = Mock(RoleRepository)

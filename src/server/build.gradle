@@ -1,10 +1,10 @@
 plugins {
-    id("groovy")
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.0.1"
     id("io.micronaut.aot") version "4.0.1"
 }
 
+apply plugin: 'groovy'
 apply from: "gradle/migration.gradle"
 
 version = "0.1"
@@ -54,6 +54,27 @@ java {
     sourceCompatibility = JavaVersion.toVersion("17")
     targetCompatibility = JavaVersion.toVersion("17")
 }
+
+sourceSets {
+    integration {
+        groovy.srcDir "$projectDir/src/integration/groovy"
+        resources.srcDir "$projectDir/src/integration/resources"
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+}
+
+configurations {
+    integrationImplementation.extendsFrom testImplementation
+    integrationRuntime.extendsFrom testRuntime
+}
+
+task integration(type: Test) {
+    useJUnitPlatform()
+    testClassesDirs = sourceSets.integration.output.classesDirs
+    classpath = sourceSets.integration.runtimeClasspath
+}
+check.dependsOn integration
 
 graalvmNative.toolchainDetection = false
 micronaut {
