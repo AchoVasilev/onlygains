@@ -18,7 +18,7 @@ public class Weight {
 
     protected Weight() {}
 
-    public static Weight from(int weight) {
+    public static Weight from(double weight) {
         return new Weight(weight);
     }
 

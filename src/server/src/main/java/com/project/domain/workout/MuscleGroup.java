@@ -7,7 +7,6 @@ import jakarta.persistence.ManyToMany;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity(name = "muscle_groups")
 public class MuscleGroup extends BaseEntity {

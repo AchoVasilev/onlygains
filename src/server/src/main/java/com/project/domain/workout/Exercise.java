@@ -111,10 +111,6 @@ public class Exercise extends BaseEntity {
         return this.muscleGroups;
     }
 
-    public void addSet(com.project.domain.workout.Set set) {
-        this.sets.add(set);
-    }
-
     public String getDescription() {
         return this.description;
     }
@@ -177,5 +173,9 @@ public class Exercise extends BaseEntity {
 
     public void addSynergisticMuscleGroupIds(List<String> ids) {
         this.synergisticMuscleGroupsIds.addAll(ids);
+    }
+
+    public void addSet(int repetitions, double weight) {
+        this.sets.add(com.project.domain.workout.Set.from(weight, repetitions, this));
     }
 }

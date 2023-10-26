@@ -24,7 +24,7 @@ public class Set extends BaseEntity {
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
-    private Set(int weight, int repetitions, Exercise exercise) {
+    private Set(double weight, int repetitions, Exercise exercise) {
         super();
         this.id = UUID.randomUUID();
         this.weight = Weight.from(weight);
@@ -35,7 +35,7 @@ public class Set extends BaseEntity {
     protected Set() {
     }
 
-    public static Set from(int weight, int repetitions, Exercise exercise) {
+    public static Set from(double weight, int repetitions, Exercise exercise) {
         return new Set(weight, repetitions, exercise);
     }
 

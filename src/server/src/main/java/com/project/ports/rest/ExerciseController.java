@@ -26,12 +26,12 @@ public class ExerciseController {
 
     @Get(uri = "/{id}")
     public HttpResponse<ExerciseDetailsResource> getById(@PathVariable("id") UUID id) {
-        return HttpResponse.ok(this.exerciseService.getBy(id));
+        return HttpResponse.ok(ExerciseDetailsResource.from(this.exerciseService.getBy(id)));
     }
 
     @Get("/variations")
     public HttpResponse<List<ExerciseResource>> getBy(@QueryValue String search) {
-        return HttpResponse.ok(this.exerciseService.findBy(search));
+        return HttpResponse.ok(this.exerciseService.getBy(search));
     }
 
     @Post

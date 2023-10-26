@@ -26,11 +26,9 @@ public class ExerciseService {
     }
 
     @Transactional(readOnly = true)
-    public ExerciseDetailsResource getBy(UUID id) {
-        var exercise = this.exerciseRepository.findById(id)
+    public Exercise getBy(UUID id) {
+        return this.exerciseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Exercise.class, id));
-
-        return ExerciseDetailsResource.from(exercise);
     }
 
     @Transactional
@@ -69,11 +67,12 @@ public class ExerciseService {
     }
 
     @Transactional(readOnly = true)
-    public List<ExerciseResource> findBy(String search) {
+    public List<ExerciseResource> getBy(String search) {
         return this.exerciseRepository.findSimilarExercises(search);
     }
 
-    private List<Exercise> getBy(List<UUID> ids) {
+    @Transactional(readOnly = true)
+    public List<Exercise> getBy(List<UUID> ids) {
         return this.exerciseRepository.findByIdIn(ids);
     }
 }

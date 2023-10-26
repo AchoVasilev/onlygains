@@ -5,8 +5,8 @@ import com.project.domain.workout.MuscleGroup;
 import com.project.infrastructure.data.MuscleGroupRepository;
 import io.micronaut.transaction.annotation.Transactional;
 import jakarta.inject.Singleton;
+
 import java.util.List;
-import java.util.UUID;
 
 @Singleton
 public class MuscleGroupService {

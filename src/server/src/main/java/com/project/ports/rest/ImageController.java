@@ -3,7 +3,6 @@ package com.project.ports.rest;
 import com.project.application.models.image.ImageResponseResource;
 import com.project.application.services.ImageService;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
