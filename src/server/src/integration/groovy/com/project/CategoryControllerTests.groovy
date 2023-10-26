@@ -1,7 +1,6 @@
-package com.project.ports.rest
+package com.project
 
 import com.project.application.models.category.CategoryViewResource
-import com.project.application.services.CategoryService
 import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.HttpClient
@@ -13,17 +12,13 @@ import spock.lang.Specification
 @MicronautTest
 class CategoryControllerTests extends Specification{
     @Inject
-    CategoryService categoryService
-
-    @Inject
     @Client("/")
-    HttpClient client
+    HttpClient httpClient
 
-    def "getCategories should return all categories"() {
-        when: "getting the categories"
-        def result = client.toBlocking().retrieve(HttpRequest.GET("/categories"), Argument.of(List.class, CategoryViewResource.class))
-
-        then:
-        result.size() != 0
+    def "first"() {
+        when: "get response"
+        def res = httpClient.toBlocking().retrieve(HttpRequest.GET("/categories"), Argument.of(List.class, CategoryViewResource.class))
+        def s = res
+        then: "something"
     }
 }

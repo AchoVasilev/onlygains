@@ -14,6 +14,22 @@ repositories {
     mavenCentral()
 }
 
+testing {
+    suites {
+        integration(JvmTestSuite) {
+            dependencies {
+                implementation project()
+            }
+            configurations {
+                integrationCompileClasspath.extendsFrom testCompileClassPath
+                integrationRuntimeClasspath.extendsFrom testRuntimeClasspath
+                integrationImplementation.extendsFrom testImplementation
+                integrationRuntime.extendsFrom testRuntime
+            }
+        }
+    }
+}
+
 dependencies {
     annotationProcessor('io.micronaut.serde:micronaut-serde-processor:1.5.2')
     annotationProcessor('io.micronaut.data:micronaut-data-processor:3.9.6')
@@ -55,26 +71,7 @@ java {
     targetCompatibility = JavaVersion.toVersion("17")
 }
 
-sourceSets {
-    integration {
-        groovy.srcDir "$projectDir/src/integration/groovy"
-        resources.srcDir "$projectDir/src/integration/resources"
-        compileClasspath += main.output + test.output
-        runtimeClasspath += main.output + test.output
-    }
-}
-
-configurations {
-    integrationImplementation.extendsFrom testImplementation
-    integrationRuntime.extendsFrom testRuntime
-}
-
-task integration(type: Test) {
-    useJUnitPlatform()
-    testClassesDirs = sourceSets.integration.output.classesDirs
-    classpath = sourceSets.integration.runtimeClasspath
-}
-check.dependsOn integration
+check.dependsOn { testing.suites.integration }
 
 graalvmNative.toolchainDetection = false
 micronaut {
