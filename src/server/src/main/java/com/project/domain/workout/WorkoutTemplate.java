@@ -2,14 +2,14 @@ package com.project.domain.workout;
 
 import com.project.domain.BaseEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 @Entity(name = "workout_templates")
 public class WorkoutTemplate extends BaseEntity {
@@ -18,16 +18,16 @@ public class WorkoutTemplate extends BaseEntity {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workout_id")
-    private Workout workout;
-
     @OneToMany(mappedBy = "workoutTemplate")
-    private final List<Exercise> exercises;
+    private final List<Workout> workouts;
+
+    @ManyToMany(mappedBy = "workoutTemplates")
+    private final Set<Exercise> exercises;
 
     protected WorkoutTemplate() {
         super();
-        this.exercises = new ArrayList<>();
+        this.exercises = new HashSet<>();
+        this.workouts = new ArrayList<>();
     }
 
     public WorkoutTemplate(String name) {
@@ -44,7 +44,7 @@ public class WorkoutTemplate extends BaseEntity {
         return this.name;
     }
 
-    public List<Exercise> getExercises() {
+    public Set<Exercise> getExercises() {
         return this.exercises;
     }
 
@@ -52,11 +52,11 @@ public class WorkoutTemplate extends BaseEntity {
         this.exercises.add(exercise);
     }
 
-    public Workout getWorkout() {
-        return this.workout;
+    public List<Workout> getWorkouts() {
+        return this.workouts;
     }
 
-    public void setWorkout(Workout workout) {
-        this.workout = workout;
+    public void addWorkout(Workout workout) {
+        this.workouts.add(workout);
     }
 }

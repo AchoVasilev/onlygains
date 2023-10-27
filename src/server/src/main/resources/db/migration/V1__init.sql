@@ -99,7 +99,7 @@ CREATE TABLE post_images
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
-    CONSTRAINT pk_post_image_id PRIMARY KEY(id),
+    CONSTRAINT pk_post_image_id PRIMARY KEY (id),
     CONSTRAINT fk_post_id FOREIGN KEY (post_id) REFERENCES posts (id)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE tags
     created_at      TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at     TIMESTAMPTZ,
     is_deleted      BOOLEAN     NOT NULL DEFAULT FALSE,
-    CONSTRAINT pk_tag_id PRIMARY KEY(id)
+    CONSTRAINT pk_tag_id PRIMARY KEY (id)
 );
 
 CREATE TABLE posts_tags
@@ -130,26 +130,27 @@ CREATE TABLE workout_history
     CONSTRAINT pk_workout_history_id PRIMARY KEY (id)
 );
 
-CREATE TABLE workouts
-(
-    id                 UUID,
-    workout_history_id UUID,
-    created_at         TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
-    modified_at        TIMESTAMPTZ,
-    is_deleted         BOOLEAN     NOT NULL DEFAULT FALSE,
-    CONSTRAINT pk_workout_id PRIMARY KEY (id),
-    CONSTRAINT fk_workout_history_id FOREIGN KEY (workout_history_id) REFERENCES workout_history(id)
-);
-
 CREATE TABLE workout_templates
 (
     id          UUID,
     name        VARCHAR,
-    workout_id  UUID REFERENCES workouts (id),
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
     CONSTRAINT pk_workout_template_id PRIMARY KEY (id)
+);
+
+CREATE TABLE workouts
+(
+    id                  UUID,
+    workout_history_id  UUID,
+    workout_template_id UUID,
+    created_at          TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at         TIMESTAMPTZ,
+    is_deleted          BOOLEAN     NOT NULL DEFAULT FALSE,
+    CONSTRAINT pk_workout_id PRIMARY KEY (id),
+    CONSTRAINT fk_workout_history_id FOREIGN KEY (workout_history_id) REFERENCES workout_history (id),
+    CONSTRAINT fk_workout_template_id FOREIGN KEY (workout_template_id) REFERENCES workout_templates (id)
 );
 
 CREATE TABLE muscle_groups
@@ -165,20 +166,18 @@ CREATE TABLE muscle_groups
 
 CREATE TABLE exercises
 (
-    id                  UUID,
-    name                VARCHAR(100) NOT NULL,
-    translated_name     VARCHAR(150) NOT NULL,
-    description         VARCHAR,
-    image_url           VARCHAR,
-    gif_url             VARCHAR,
-    main_muscle_groups_ids VARCHAR,
+    id                            UUID,
+    name                          VARCHAR(100) NOT NULL,
+    translated_name               VARCHAR(150) NOT NULL,
+    description                   VARCHAR,
+    image_url                     VARCHAR,
+    gif_url                       VARCHAR,
+    main_muscle_groups_ids        VARCHAR,
     synergistic_muscle_groups_ids VARCHAR,
-    workout_template_id UUID,
-    created_at          TIMESTAMPTZ  NOT NULL DEFAULT (now() at time zone 'utc'),
-    modified_at         TIMESTAMPTZ,
-    is_deleted          BOOLEAN      NOT NULL DEFAULT FALSE,
+    created_at                    TIMESTAMPTZ  NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at                   TIMESTAMPTZ,
+    is_deleted                    BOOLEAN      NOT NULL DEFAULT FALSE,
     CONSTRAINT pk_exercise_id PRIMARY KEY (id),
-    CONSTRAINT fk_workout_template_id FOREIGN KEY (workout_template_id) REFERENCES workout_templates(id)
 );
 
 CREATE TABLE exercises_variations
@@ -186,6 +185,13 @@ CREATE TABLE exercises_variations
     exercise_id  UUID,
     variation_id UUID,
     CONSTRAINT pk_exercise_variation PRIMARY KEY (exercise_id, variation_id)
+);
+
+CREATE TABLE exercises_workout_templates
+(
+    exercise_id UUID,
+    workout_template_id UUID,
+    CONSTRAINT exercise_workout_template_id PRIMARY KEY (exercise_id, workout_template_id)
 );
 
 CREATE TABLE exercises_workouts
@@ -206,13 +212,14 @@ CREATE TABLE sets
 (
     id          UUID,
     weight      NUMERIC(4, 2),
+    repetitions INTEGER,
     weight_type VARCHAR(3),
     exercise_id UUID,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
     CONSTRAINT pk_set_id PRIMARY KEY (id),
-    CONSTRAINT fk_exercise_id FOREIGN KEY (exercise_id) REFERENCES exercises(id)
+    CONSTRAINT fk_exercise_id FOREIGN KEY (exercise_id) REFERENCES exercises (id)
 );
 
 CREATE TABLE equipment

@@ -24,21 +24,23 @@ public class WorkoutService {
         this.exerciseService = exerciseService;
     }
 
+    public void start() {
+
+    }
+
     @Transactional
-    public WorkoutDetailsResource perform(UUID workoutTemplateId, List<WorkoutExerciseResource> additionalExercises) {
+    public void perform(UUID workoutTemplateId, List<WorkoutExerciseResource> additionalExercises) {
         var workoutTemplate = this.workoutTemplateService.findById(workoutTemplateId);
         var exercises = new ArrayList<Exercise>();
 
         additionalExercises.forEach(additionalExercise -> {
             var exercise = this.exerciseService.getBy(additionalExercise.id());
-            additionalExercise.sets().forEach(set -> exercise.addSet(set.repetitions(), set.weight()));
+            additionalExercise.sets().forEach(set -> exercise.perform(set.repetitions(), set.weight()));
             exercises.add(exercise);
         });
 
         var workout = new Workout();
-        workout.perform(workoutTemplate, exercises);
-        var result = this.workoutRepository.save(workout);
-
-        return WorkoutDetailsResource.from(result);
+        workout.finish(workoutTemplate, exercises);
+        this.workoutRepository.save(workout);
     }
 }

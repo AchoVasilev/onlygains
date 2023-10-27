@@ -1,2 +1,0 @@
-ALTER TABLE sets
-    ADD COLUMN IF NOT EXISTS repetitions INTEGER;
