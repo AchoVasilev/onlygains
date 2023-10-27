@@ -5,8 +5,8 @@ services:
     network_mode: bridge
     container_name: postgres
     volumes:
-      - ./postgres_vol:/var/lib/psql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/create_database.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgres_vol:/var/lib/postgresql/data
     expose:
       - 5432
     ports:

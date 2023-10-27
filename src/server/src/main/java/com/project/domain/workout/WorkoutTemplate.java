@@ -1,6 +1,7 @@
 package com.project.domain.workout;
 
 import com.project.domain.BaseEntity;
+import com.project.utilities.Time;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
@@ -50,6 +51,7 @@ public class WorkoutTemplate extends BaseEntity {
 
     public void addExercise(Exercise exercise) {
         this.exercises.add(exercise);
+        this.setModifiedAt(Time.utcNow());
     }
 
     public List<Workout> getWorkouts() {
@@ -58,5 +60,6 @@ public class WorkoutTemplate extends BaseEntity {
 
     public void addWorkout(Workout workout) {
         this.workouts.add(workout);
+        this.setModifiedAt(Time.utcNow());
     }
 }

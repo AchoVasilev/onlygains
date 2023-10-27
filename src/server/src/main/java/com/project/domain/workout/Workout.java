@@ -9,6 +9,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +32,10 @@ public class Workout extends BaseEntity {
     @JoinColumn(name = "workout_history_id")
     private WorkoutHistory workoutHistory;
 
-    public Workout() {
+    private ZonedDateTime finishedAt;
+    private Duration duration;
+
+    protected Workout() {
         super();
         this.id = UUID.randomUUID();
         this.exercises = new HashSet<>();
@@ -48,11 +53,56 @@ public class Workout extends BaseEntity {
         return this.exercises;
     }
 
+    public ZonedDateTime getFinishedAt() {
+        return this.finishedAt;
+    }
+
+    public Duration getDuration() {
+        return this.duration;
+    }
+
+    public static Workout startEmptyWorkout(WorkoutTemplate workoutTemplate, List<Exercise> additionalExercises) {
+        var workout = new Workout();
+        workout.addWorkoutTemplate(workoutTemplate);
+        workout.addExercises(additionalExercises);
+
+        return workout;
+    }
+
+    public static Workout startEmptyWorkout() {
+        return new Workout();
+    }
+
     public void finish(WorkoutTemplate workoutTemplate, List<Exercise> additionalExercises) {
         this.workoutHistory.addWorkout(this);
-        workoutTemplate.addWorkout(this);
         this.workoutTemplate = workoutTemplate;
-        this.exercises.addAll(additionalExercises);
+        workoutTemplate.addWorkout(this);
+
+        if (!this.exercises.isEmpty()) {
+            this.exercises.clear();
+        }
+
+        this.addExercises(additionalExercises);
+
+        this.finishedAt = Time.utcNow();
+        this.setDuration();
         this.setModifiedAt(Time.utcNow());
+    }
+
+    public void addExercise(Exercise exercise) {
+        this.exercises.add(exercise);
+        this.setModifiedAt(Time.utcNow());
+    }
+
+    private void setDuration() {
+        this.duration = Duration.between(this.getCreatedAt(), this.finishedAt);
+    }
+
+    private void addWorkoutTemplate(WorkoutTemplate workoutTemplate) {
+        this.workoutTemplate = workoutTemplate;
+    }
+
+    private void addExercises(List<Exercise> exercises) {
+        this.exercises.addAll(exercises);
     }
 }

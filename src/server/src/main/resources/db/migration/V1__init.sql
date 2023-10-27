@@ -145,6 +145,8 @@ CREATE TABLE workouts
     id                  UUID,
     workout_history_id  UUID,
     workout_template_id UUID,
+    finished_at         TIMESTAMPTZ,
+    duration            INTERVAL,
     created_at          TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at         TIMESTAMPTZ,
     is_deleted          BOOLEAN     NOT NULL DEFAULT FALSE,
@@ -177,7 +179,7 @@ CREATE TABLE exercises
     created_at                    TIMESTAMPTZ  NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at                   TIMESTAMPTZ,
     is_deleted                    BOOLEAN      NOT NULL DEFAULT FALSE,
-    CONSTRAINT pk_exercise_id PRIMARY KEY (id),
+    CONSTRAINT pk_exercise_id PRIMARY KEY (id)
 );
 
 CREATE TABLE exercises_variations

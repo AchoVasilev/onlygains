@@ -18,7 +18,6 @@ import io.micronaut.data.model.Pageable;
 import io.micronaut.transaction.annotation.Transactional;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +25,7 @@ import java.util.UUID;
 
 @Singleton
 public class PostService {
-    private static final Logger log = LoggerFactory.getLogger(PostService.class.getName());
+    private static final Logger log = LoggerProvider.getLogger(PostService.class);
     private final PostRepository postRepository;
     private final CategoryService categoryService;
 
