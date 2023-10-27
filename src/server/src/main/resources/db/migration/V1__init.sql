@@ -146,7 +146,7 @@ CREATE TABLE workouts
     workout_history_id  UUID,
     workout_template_id UUID,
     finished_at         TIMESTAMPTZ,
-    duration            INTERVAL,
+    duration            INTERVAL DEFAULT NULL,
     created_at          TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at         TIMESTAMPTZ,
     is_deleted          BOOLEAN     NOT NULL DEFAULT FALSE,

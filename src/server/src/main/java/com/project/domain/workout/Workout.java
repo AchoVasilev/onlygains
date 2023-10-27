@@ -1,13 +1,19 @@
 package com.project.domain.workout;
 
 import com.project.domain.BaseEntity;
+import com.project.infrastructure.converters.DurationToIntervalConverter;
 import com.project.utilities.Time;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import org.hibernate.annotations.Type;
+import org.hibernate.dialect.PostgreSQLIntervalSecondJdbcType;
 
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -33,6 +39,8 @@ public class Workout extends BaseEntity {
     private WorkoutHistory workoutHistory;
 
     private ZonedDateTime finishedAt;
+
+    @Convert(converter = DurationToIntervalConverter.class)
     private Duration duration;
 
     protected Workout() {

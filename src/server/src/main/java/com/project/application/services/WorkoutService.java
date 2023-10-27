@@ -1,5 +1,6 @@
 package com.project.application.services;
 
+import com.project.application.models.workout.WorkoutDetailsResource;
 import com.project.application.models.workout.WorkoutExerciseResource;
 import com.project.domain.workout.Exercise;
 import com.project.domain.workout.Workout;
@@ -37,10 +38,12 @@ public class WorkoutService {
     }
 
     @Transactional
-    public void startEmptyWorkout() {
+    public WorkoutDetailsResource startEmptyWorkout() {
         var workout = this.workoutRepository.save(Workout.startEmptyWorkout());
 
         log.info("Workout started. [workoutId={}]", workout.getId());
+
+        return WorkoutDetailsResource.from(workout);
     }
 
     @Transactional
