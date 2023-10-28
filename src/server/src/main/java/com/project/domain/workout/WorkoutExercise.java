@@ -50,8 +50,15 @@ public class WorkoutExercise extends BaseEntity {
         this();
         this.exerciseId = exerciseId;
         this.workout = workout;
+        this.setSets(sets);
+    }
+
+    protected WorkoutExercise(UUID exerciseId, WorkoutTemplate workoutTemplate, List<WorkoutSet> sets) {
+        this();
+        this.exerciseId = exerciseId;
+        this.workoutTemplate = workoutTemplate;
         sets.forEach(s -> s.setExercise(this));
-        this.sets.addAll(sets);
+        this.setSets(sets);
     }
 
     public UUID getId() {
@@ -87,21 +94,28 @@ public class WorkoutExercise extends BaseEntity {
         return new WorkoutExercise(exercise.getId(), workout, sets);
     }
 
-    public void updateFrom(WorkoutExercise workoutExercise) {
-        this.sets.clear();
-        this.sets.addAll(workoutExercise.getSets());
-        this.setModifiedAt(Time.utcNow());
+    public static WorkoutExercise from(Exercise exercise, WorkoutTemplate workoutTemplate, List<WorkoutSet> sets) {
+        return new WorkoutExercise(exercise.getId(),workoutTemplate, sets);
     }
 
     public void updateSet(UUID setId, double weight, int repetitions) {
         Predicate<WorkoutSet> predicate = ws -> ws.getId().equals(setId);
         var set = FindUtil.findByProperty(this.sets, predicate);
-        set.setWeight(weight);
-        set.setRepetitions(repetitions);
+        set.ifPresent(s -> {
+            s.setWeight(weight);
+            s.setRepetitions(repetitions);
+        });
     }
 
     public void addSet(int repetitions, double weight) {
-        this.sets.add(WorkoutSet.from(weight, repetitions));
+        var set = WorkoutSet.from(weight, repetitions);
+        set.setExercise(this);
+        this.sets.add(set);
         this.setModifiedAt(Time.utcNow());
+    }
+
+    private void setSets(List<WorkoutSet> sets) {
+        sets.forEach(s -> s.setExercise(this));
+        this.sets.addAll(sets);
     }
 }

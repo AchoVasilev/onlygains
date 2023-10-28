@@ -3,18 +3,17 @@ package com.project.application.services;
 import com.project.application.models.workout.CreateWorkoutExerciseResource;
 import com.project.application.models.workout.UpdateWorkoutExerciseResource;
 import com.project.application.models.workout.WorkoutDetailsResource;
-import com.project.application.models.workout.WorkoutExerciseResource;
 import com.project.domain.workout.Workout;
 import com.project.domain.workout.WorkoutExercise;
 import com.project.domain.workout.WorkoutSet;
 import com.project.infrastructure.data.WorkoutRepository;
 import com.project.infrastructure.exceptions.EntityNotFoundException;
+import com.project.messaging.messages.workout.WorkoutCreated;
+import com.project.messaging.publishing.EventPublisher;
 import io.micronaut.transaction.annotation.Transactional;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Singleton
@@ -24,16 +23,19 @@ public class WorkoutService {
     private final WorkoutTemplateService workoutTemplateService;
     private final ExerciseService exerciseService;
     private final WorkoutHistoryService workoutHistoryService;
+    private final EventPublisher eventPublisher;
 
     public WorkoutService(
             WorkoutRepository workoutRepository,
             WorkoutTemplateService workoutTemplateService,
             ExerciseService exerciseService,
-            WorkoutHistoryService workoutHistoryService) {
+            WorkoutHistoryService workoutHistoryService,
+            EventPublisher eventPublisher) {
         this.workoutRepository = workoutRepository;
         this.workoutTemplateService = workoutTemplateService;
         this.exerciseService = exerciseService;
         this.workoutHistoryService = workoutHistoryService;
+        this.eventPublisher = eventPublisher;
     }
 
     @Transactional
@@ -62,7 +64,13 @@ public class WorkoutService {
         var exercise = this.exerciseService.getBy(workoutExerciseResource.exerciseId());
 
         workoutExerciseResource.sets()
-                .forEach(set -> workout.updateExercise(exercise.getId(), set.id(), set.weight(), set.repetitions()));
+                .forEach(set -> {
+                    if (set.id() != null) {
+                        workout.updateExercise(exercise.getId(), set.id(), set.weight(), set.repetitions());
+                    } else {
+                        workout.addSetToExercise(exercise.getId(), set.weight(), set.repetitions());
+                    }
+                });
 
         this.workoutRepository.save(workout);
 
@@ -81,7 +89,7 @@ public class WorkoutService {
         }
 
         this.workoutRepository.save(workout);
-
+        this.eventPublisher.publishEvent(WorkoutCreated.from(workout));
         log.info("Added exercise to workout. [exerciseId={}, workoutId={}]", exercise.getId(), workout.getId());
     }
 
@@ -109,19 +117,5 @@ public class WorkoutService {
     private Workout findById(UUID id) {
         return this.workoutRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Workout.class, id));
-    }
-
-    private List<WorkoutExercise> processAdditionalExercises(List<WorkoutExerciseResource> additionalExercises, Workout workout) {
-        var exercises = new ArrayList<WorkoutExercise>();
-        additionalExercises.forEach(additionalExercise -> {
-            var exercise = this.exerciseService.getBy(additionalExercise.id());
-            additionalExercise.sets().forEach(set -> {
-                var workoutExercise = WorkoutExercise.from(exercise, workout);
-                workoutExercise.addSet(set.repetitions(), set.weight());
-                exercises.add(workoutExercise);
-            });
-        });
-
-        return exercises;
     }
 }

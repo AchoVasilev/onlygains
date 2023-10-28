@@ -7,12 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Serdeable
-public record WorkoutDetailsResource(UUID id, String workoutTemplateName,
-                                     List<WorkoutExerciseDetailsResource> exercises) {
+public record WorkoutDetailsResource(UUID id, String workoutTemplateName) {
     public static WorkoutDetailsResource from(Workout workout) {
         return new WorkoutDetailsResource(workout.getId(),
-                workout.getWorkoutTemplate() != null ? workout.getWorkoutTemplate().getName() : null,
-                workout.getExercises().isEmpty() ? List.of() : workout.getExercises().stream().map(WorkoutExerciseDetailsResource::from)
-                        .toList());
+                workout.getWorkoutTemplate() != null ? workout.getWorkoutTemplate().getName() : null);
     }
 }

@@ -1,47 +1,44 @@
 package com.project.messaging.messages.workout;
 
-import com.project.domain.workout.WorkoutExercise;
+import com.project.domain.workout.Workout;
 import com.project.messaging.messages.ApplicationEventBase;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.UUID;
 
 public class WorkoutCreated extends ApplicationEventBase {
-    private UUID id;
-    private ZonedDateTime createdAt;
-    private String status;
-    private UUID workoutTemplateId;
+    private final UUID id;
+    private final ZonedDateTime createdAt;
+    private final String status;
+    private final UUID workoutTemplateId;
 
-    private WorkoutCreated(UUID id, ZonedDateTime createdAt, String status) {
+    private WorkoutCreated(UUID id, ZonedDateTime createdAt, String status, UUID workoutTemplateId) {
         super();
         this.id = id;
         this.createdAt = createdAt;
         this.status = status;
+        this.workoutTemplateId = workoutTemplateId;
     }
 
-    public static class Builder {
-        private UUID id;
-        private ZonedDateTime createdAt;
-        private String status;
+    public static WorkoutCreated from(Workout workout) {
+        return new WorkoutCreated(workout.getId(), workout.getCreatedAt(),
+                workout.getStatus().name(),
+                workout.getWorkoutTemplate() != null ? workout.getWorkoutTemplate().getId() : null);
+    }
 
-        public Builder setId(UUID id) {
-            this.id = id;
-            return this;
-        }
+    public UUID getId() {
+        return this.id;
+    }
 
-        public Builder setCreatedAt(ZonedDateTime createdAt) {
-            this.createdAt = createdAt;
-            return this;
-        }
+    public ZonedDateTime getCreatedAt() {
+        return this.createdAt;
+    }
 
-        public Builder setStatus(String status) {
-            this.status = status;
-            return this;
-        }
+    public String getStatus() {
+        return this.status;
+    }
 
-        public WorkoutCreated build() {
-            return new WorkoutCreated(id, createdAt, status);
-        }
+    public UUID getWorkoutTemplateId() {
+        return this.workoutTemplateId;
     }
 }
