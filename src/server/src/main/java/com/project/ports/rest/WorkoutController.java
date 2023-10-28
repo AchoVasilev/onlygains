@@ -18,4 +18,9 @@ public class WorkoutController {
     public HttpResponse<WorkoutDetailsResource> start() {
         return HttpResponse.ok(this.workoutService.startEmptyWorkout());
     }
+
+    @Post("/add-exercise")
+    public HttpResponse<?> addExercise() {
+        return HttpResponse.ok();
+    }
 }

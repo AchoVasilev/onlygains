@@ -4,13 +4,10 @@ import com.project.domain.BaseEntity;
 import com.project.utilities.Time;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 @Entity(name = "workout_templates")
 public class WorkoutTemplate extends BaseEntity {
@@ -22,12 +19,12 @@ public class WorkoutTemplate extends BaseEntity {
     @OneToMany(mappedBy = "workoutTemplate")
     private final List<Workout> workouts;
 
-    @ManyToMany(mappedBy = "workoutTemplates")
-    private final Set<Exercise> exercises;
+    @OneToMany(mappedBy = "workout")
+    private final List<WorkoutExercise> exercises;
 
     protected WorkoutTemplate() {
         super();
-        this.exercises = new HashSet<>();
+        this.exercises = new ArrayList<>();
         this.workouts = new ArrayList<>();
     }
 
@@ -45,11 +42,12 @@ public class WorkoutTemplate extends BaseEntity {
         return this.name;
     }
 
-    public Set<Exercise> getExercises() {
+    public List<WorkoutExercise> getExercises() {
         return this.exercises;
     }
 
-    public void addExercise(Exercise exercise) {
+    public void addExercise(WorkoutExercise exercise) {
+        exercise.setWorkoutTemplate(this);
         this.exercises.add(exercise);
         this.setModifiedAt(Time.utcNow());
     }

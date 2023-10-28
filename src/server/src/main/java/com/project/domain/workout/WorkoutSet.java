@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import java.util.UUID;
 
 @Entity(name = "sets")
-public class Set extends BaseEntity {
+public class WorkoutSet extends BaseEntity {
     @Id
     private UUID id;
 
@@ -22,21 +22,20 @@ public class Set extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
-    private Exercise exercise;
+    private WorkoutExercise exercise;
 
-    private Set(double weight, int repetitions, Exercise exercise) {
+    private WorkoutSet(double weight, int repetitions) {
         super();
         this.id = UUID.randomUUID();
         this.weight = Weight.from(weight);
         this.repetitions = repetitions;
-        this.exercise = exercise;
     }
 
-    protected Set() {
+    protected WorkoutSet() {
     }
 
-    public static Set from(double weight, int repetitions, Exercise exercise) {
-        return new Set(weight, repetitions, exercise);
+    public static WorkoutSet from(double weight, int repetitions) {
+        return new WorkoutSet(weight, repetitions);
     }
 
     public UUID getId() {
@@ -51,7 +50,19 @@ public class Set extends BaseEntity {
         return repetitions;
     }
 
-    public Exercise getExercise() {
+    public WorkoutExercise getExercise() {
         return exercise;
+    }
+
+    public void setExercise(WorkoutExercise workoutExercise) {
+        this.exercise = workoutExercise;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = Weight.from(weight);
+    }
+
+    public void setRepetitions(int repetitions) {
+        this.repetitions = repetitions;
     }
 }

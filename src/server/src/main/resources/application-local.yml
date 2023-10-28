@@ -9,6 +9,7 @@ micronaut:
         web:
           allowedOrigins:
             - http://localhost:4200
+
 datasources:
   default:
     dialect: postgres
@@ -35,3 +36,6 @@ flyway:
       locations:
         - classpath:db/migration
         - classpath:db/seed
+
+jackson:
+  serializationInclusion: ALWAYS

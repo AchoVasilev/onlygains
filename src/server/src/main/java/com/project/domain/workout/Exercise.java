@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,30 +21,16 @@ import java.util.UUID;
 public class Exercise extends BaseEntity {
     @Id
     private final UUID id;
-
     private String name;
-
     private String translatedName;
     private String description;
     private String imageUrl;
     private String gifUrl;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "exercise")
-    private final List<com.project.domain.workout.Set> sets;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "exercises_musclegroups", joinColumns = @JoinColumn(name = "exercise_id"),
             inverseJoinColumns = @JoinColumn(name = "musclegroup_id"))
     private final Set<MuscleGroup> muscleGroups;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "exercises_musclegroups", joinColumns = @JoinColumn(name = "exercise_id"),
-            inverseJoinColumns = @JoinColumn(name = "musclegroup_id"))
-    private final Set<Workout> workouts;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "exercises_workout_templates", joinColumns = @JoinColumn(name = "exercise_id"),
-            inverseJoinColumns = @JoinColumn(name = "workout_template_id"))
-    private final Set<WorkoutTemplate> workoutTemplates;
 
     @ManyToMany(mappedBy = "variations")
     private final Set<Exercise> exercises;
@@ -72,12 +57,9 @@ public class Exercise extends BaseEntity {
         super();
         this.id = UUID.randomUUID();
         this.muscleGroups = new HashSet<>();
-        this.sets = new ArrayList<>();
-        this.workouts = new HashSet<>();
         this.variations = new HashSet<>();
         this.exercises = new HashSet<>();
         this.equipment = new HashSet<>();
-        this.workoutTemplates = new HashSet<>();
         this.mainMuscleGroupsIds = new ArrayList<>();
         this.synergisticMuscleGroupsIds = new ArrayList<>();
     }
@@ -103,10 +85,6 @@ public class Exercise extends BaseEntity {
         return this.translatedName;
     }
 
-    public List<com.project.domain.workout.Set> getSets() {
-        return this.sets;
-    }
-
     public Set<MuscleGroup> getMuscleGroups() {
         return this.muscleGroups;
     }
@@ -119,20 +97,12 @@ public class Exercise extends BaseEntity {
         return this.imageUrl;
     }
 
-    public Set<Workout> getWorkouts() {
-        return this.workouts;
-    }
-
     public Set<Exercise> getVariations() {
         return this.variations;
     }
 
     public Set<Exercise> getExercises() {
         return this.exercises;
-    }
-
-    public Set<WorkoutTemplate> getWorkoutTemplates() {
-        return this.workoutTemplates;
     }
 
     public String getGifUrl() {
@@ -169,9 +139,5 @@ public class Exercise extends BaseEntity {
 
     public void addSynergisticMuscleGroupIds(List<String> ids) {
         this.synergisticMuscleGroupsIds.addAll(ids);
-    }
-
-    public void addSet(int repetitions, double weight) {
-        this.sets.add(com.project.domain.workout.Set.from(weight, repetitions, this));
     }
 }

@@ -36,3 +36,6 @@ flyway:
       locations:
         - classpath:db/migration
         - classpath:db/seed
+
+jackson:
+  serializationInclusion: ALWAYS
