@@ -1,24 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ContentResolver } from '../content';
+import { Content, ContentResolver } from '../content';
+import { Editor } from 'tinymce';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'gains-create-content',
   templateUrl: './create-content.component.html',
   styleUrls: ['./create-content.component.scss']
 })
-export class CreateContentComponent implements OnInit {
+export class CreateContentComponent implements OnInit, AfterViewInit {
+
+  private editor?: Editor;
 
   contentType?: string;
+  title?: string;
+  content?: Content;
 
-  constructor(private route: ActivatedRoute) {}
+  form = this.fb.group({});
+
+  constructor(private route: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.contentType = this.route.snapshot.params['type'];
-    this.getContent(this.contentType!);
+    this.content = this.getContent(this.contentType!);
+    this.resolveTitle(this.contentType!);
   }
 
-  getContent(contentType: string) {
+  ngAfterViewInit(): void {
+  }
+
+  getContent(contentType: string): Content {
     return ContentResolver[contentType];
+  }
+
+  resolveTitle(contentType: string) {
+    this.title = contentType === 'exercise' ? 'Ново упражнение' : 'Нова статия';
+  }
+
+  onEditorInit(ev: Editor) {
+    this.editor = ev;
   }
 }

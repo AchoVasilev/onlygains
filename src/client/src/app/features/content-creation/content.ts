@@ -7,7 +7,7 @@ import {
   threeImageTemplate,
 } from 'app/shared/models/text-editor/templates';
 
-export const ContentResolver: Content = {
+export const ContentResolver: ContentTypeResolver = {
   exercise: {
     template: exerciseTemplate,
     styling: exerciseTemplateStyling,
@@ -18,9 +18,11 @@ export const ContentResolver: Content = {
   },
 };
 
+export interface ContentTypeResolver {
+  [key: string]: Content;
+}
+
 export interface Content {
-  [key: string]: {
-    template: string;
-    styling: string;
-  };
+  template: string;
+  styling: string;
 }
