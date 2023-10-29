@@ -11,12 +11,15 @@ import { CommonModule } from '@angular/common';
 import { RaisedButtonComponent } from 'app/shared/components/buttons/raised-button/raised-button.component';
 import { SelectComponent } from 'app/shared/components/select/select.component';
 import { AutoCompleteComponent } from 'app/shared/components/auto-complete/auto-complete.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CreateContentComponent } from './create-content/create-content.component';
 
 @NgModule({
-  declarations: [CreatePostComponent, CreateExerciseComponent],
+  declarations: [CreatePostComponent, CreateExerciseComponent, CreateContentComponent],
   imports: [
     CommonModule,
     ContentCreationRoutingModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,

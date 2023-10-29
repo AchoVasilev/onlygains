@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
+import { CreateContentComponent } from './create-content/create-content.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,11 @@ const routes: Routes = [
         path: 'create/exercise',
         pathMatch: 'full',
         component: CreateExerciseComponent
+      },
+      {
+        path: 'create/content/:type',
+        pathMatch: 'full',
+        component: CreateContentComponent
       }
     ]
   }
