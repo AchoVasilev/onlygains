@@ -10,7 +10,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -23,7 +23,7 @@ public class Workout extends BaseEntity {
     @Id
     private final UUID id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "workout_template_id")
     private WorkoutTemplate workoutTemplate;
 
@@ -72,8 +72,6 @@ public class Workout extends BaseEntity {
     }
 
     public void finish() {
-        workoutTemplate.addWorkout(this);
-
         this.status = WorkoutStatus.Finished;
         this.finishedAt = Time.utcNow();
         this.setDuration();

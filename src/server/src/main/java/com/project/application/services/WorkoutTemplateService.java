@@ -15,35 +15,15 @@ import java.util.UUID;
 
 @Singleton
 public class WorkoutTemplateService {
-    private static final Logger log = LoggerProvider.getLogger(WorkoutTemplateService.class);
     private final WorkoutTemplateRepository workoutTemplateRepository;
-    private final ExerciseService exerciseService;
 
-    public WorkoutTemplateService(WorkoutTemplateRepository workoutTemplateRepository, ExerciseService exerciseService) {
+    public WorkoutTemplateService(WorkoutTemplateRepository workoutTemplateRepository) {
         this.workoutTemplateRepository = workoutTemplateRepository;
-        this.exerciseService = exerciseService;
     }
 
     @Transactional(readOnly = true)
     public WorkoutTemplate findById(UUID templateId) {
         return this.workoutTemplateRepository.findById(templateId)
                 .orElseThrow(() -> new EntityNotFoundException(WorkoutTemplate.class, templateId));
-    }
-
-    public WorkoutTemplateResource create(CreateWorkoutTemplateResource workoutTemplateResource) {
-        var template = new WorkoutTemplate(workoutTemplateResource.name());
-
-        workoutTemplateResource.exercises().forEach(workoutExerciseResource -> {
-            var exercise = this.exerciseService.getBy(workoutExerciseResource.id());
-            var sets = workoutExerciseResource.sets().stream().map(s -> WorkoutSet.from(s.weight(), s.repetitions())).toList();
-            var workoutExercise = WorkoutExercise.from(exercise, template, sets);
-
-            template.addExercise(workoutExercise);
-        });
-
-        this.workoutTemplateRepository.save(template);
-        log.info("Successfully created workout template. [workoutTemplateId={}]", template.getId());
-
-        return WorkoutTemplateResource.from(template);
     }
 }

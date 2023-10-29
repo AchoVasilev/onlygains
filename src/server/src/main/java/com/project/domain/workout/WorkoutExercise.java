@@ -23,14 +23,16 @@ public class WorkoutExercise extends BaseEntity {
 
     private UUID exerciseId;
 
+    private String name;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "exercise")
     private final List<WorkoutSet> sets;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Workout workout;
+    private WorkoutTemplate workoutTemplate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private WorkoutTemplate workoutTemplate;
+    private OriginalWorkoutTemplate originalWorkoutTemplate;
 
     protected WorkoutExercise() {
         super();
@@ -38,18 +40,23 @@ public class WorkoutExercise extends BaseEntity {
         this.sets = new ArrayList<>();
     }
 
-    protected WorkoutExercise(UUID exerciseId, Workout workout) {
+    protected WorkoutExercise(Exercise exercise) {
         this();
-        this.exerciseId = exerciseId;
-        this.workout = workout;
+        this.fromExercise(exercise);
         this.sets.add(WorkoutSet.from(0, 10));
         this.sets.get(0).setExercise(this);
     }
 
-    protected WorkoutExercise(UUID exerciseId, Workout workout, List<WorkoutSet> sets) {
+    protected WorkoutExercise(Exercise exercise, List<WorkoutSet> sets) {
         this();
-        this.exerciseId = exerciseId;
-        this.workout = workout;
+        this.fromExercise(exercise);
+        this.setSets(sets);
+    }
+
+    protected WorkoutExercise(Exercise exercise, OriginalWorkoutTemplate workoutTemplate, List<WorkoutSet> sets) {
+        this();
+        this.fromExercise(exercise);
+        this.originalWorkoutTemplate = workoutTemplate;
         this.setSets(sets);
     }
 
@@ -57,7 +64,6 @@ public class WorkoutExercise extends BaseEntity {
         this();
         this.exerciseId = exerciseId;
         this.workoutTemplate = workoutTemplate;
-        sets.forEach(s -> s.setExercise(this));
         this.setSets(sets);
     }
 
@@ -69,16 +75,20 @@ public class WorkoutExercise extends BaseEntity {
         return this.exerciseId;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public List<WorkoutSet> getSets() {
         return this.sets;
     }
 
-    public Workout getWorkout() {
-        return this.workout;
+    public WorkoutTemplate getWorkoutTemplate() {
+        return this.workoutTemplate;
     }
 
-    public WorkoutTemplate getWorkoutTemplate() {
-        return workoutTemplate;
+    public OriginalWorkoutTemplate getOriginalWorkoutTemplate() {
+        return this.originalWorkoutTemplate;
     }
 
     public void setWorkoutTemplate(WorkoutTemplate workoutTemplate) {
@@ -86,16 +96,20 @@ public class WorkoutExercise extends BaseEntity {
         this.setModifiedAt(Time.utcNow());
     }
 
-    public static WorkoutExercise from(Exercise exercise, Workout workout) {
-        return new WorkoutExercise(exercise.getId(), workout);
+    public static WorkoutExercise from(Exercise exercise) {
+        return new WorkoutExercise(exercise);
     }
 
-    public static WorkoutExercise from(Exercise exercise, Workout workout, List<WorkoutSet> sets) {
-        return new WorkoutExercise(exercise.getId(), workout, sets);
+    public static WorkoutExercise from(Exercise exercise, List<WorkoutSet> sets) {
+        return new WorkoutExercise(exercise, sets);
     }
 
     public static WorkoutExercise from(Exercise exercise, WorkoutTemplate workoutTemplate, List<WorkoutSet> sets) {
-        return new WorkoutExercise(exercise.getId(),workoutTemplate, sets);
+        return new WorkoutExercise(exercise.getId(), workoutTemplate, sets);
+    }
+
+    public static WorkoutExercise from(Exercise exercise, OriginalWorkoutTemplate workoutTemplate, List<WorkoutSet> sets) {
+        return new WorkoutExercise(exercise, workoutTemplate, sets);
     }
 
     public void updateSet(UUID setId, double weight, int repetitions) {
@@ -112,6 +126,11 @@ public class WorkoutExercise extends BaseEntity {
         set.setExercise(this);
         this.sets.add(set);
         this.setModifiedAt(Time.utcNow());
+    }
+
+    private void fromExercise(Exercise exercise) {
+        this.exerciseId = exercise.getId();
+        this.name = exercise.getName();
     }
 
     private void setSets(List<WorkoutSet> sets) {

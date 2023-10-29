@@ -3,7 +3,7 @@ package com.project.utilities;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-public class Time {
+public final class Time {
     private Time() {
     }
 

@@ -122,3 +122,6 @@ VALUES ('6136c851-79c7-41e8-9a8a-93e32ba1a085', 'Собствено тегло')
        ('d51865e0-3504-42d3-a959-f42086df1b1e', 'Стойка'),
        ('af2e8e6a-861b-4b1b-b7d1-81410dbcf1a5', 'Машина'),
        ('a2a812bb-738e-4a0b-8aa1-f197d9f58510', 'Уред');
+
+INSERT INTO original_workout_templates(id, name)
+VALUES ('a2a812bb-738e-4a0b-8aa1-f197d9f58510', 'empty');

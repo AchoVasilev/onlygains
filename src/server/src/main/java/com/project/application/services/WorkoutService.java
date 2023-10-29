@@ -6,10 +6,9 @@ import com.project.application.models.workout.WorkoutDetailsResource;
 import com.project.domain.workout.Workout;
 import com.project.domain.workout.WorkoutExercise;
 import com.project.domain.workout.WorkoutSet;
+import com.project.domain.workout.WorkoutTemplate;
 import com.project.infrastructure.data.WorkoutRepository;
 import com.project.infrastructure.exceptions.EntityNotFoundException;
-import com.project.messaging.messages.workout.WorkoutCreated;
-import com.project.messaging.publishing.EventPublisher;
 import io.micronaut.transaction.annotation.Transactional;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -20,28 +19,28 @@ import java.util.UUID;
 public class WorkoutService {
     private static final Logger log = LoggerProvider.getLogger(WorkoutService.class);
     private final WorkoutRepository workoutRepository;
+    private final OriginalWorkoutTemplateService originalWorkoutTemplateService;
     private final WorkoutTemplateService workoutTemplateService;
     private final ExerciseService exerciseService;
     private final WorkoutHistoryService workoutHistoryService;
-    private final EventPublisher eventPublisher;
 
     public WorkoutService(
             WorkoutRepository workoutRepository,
+            OriginalWorkoutTemplateService originalWorkoutTemplateService,
             WorkoutTemplateService workoutTemplateService,
             ExerciseService exerciseService,
-            WorkoutHistoryService workoutHistoryService,
-            EventPublisher eventPublisher) {
+            WorkoutHistoryService workoutHistoryService) {
         this.workoutRepository = workoutRepository;
+        this.originalWorkoutTemplateService = originalWorkoutTemplateService;
         this.workoutTemplateService = workoutTemplateService;
         this.exerciseService = exerciseService;
         this.workoutHistoryService = workoutHistoryService;
-        this.eventPublisher = eventPublisher;
     }
 
     @Transactional
-    public WorkoutDetailsResource start(UUID workoutTemplateId) {
-        var workoutTemplate = this.workoutTemplateService.findById(workoutTemplateId);
-        var startedWorkout = Workout.start(workoutTemplate);
+    public WorkoutDetailsResource start(UUID originalWorkoutTemplateId) {
+        var workoutTemplate = this.originalWorkoutTemplateService.findBy(originalWorkoutTemplateId);
+        var startedWorkout = Workout.start(WorkoutTemplate.from(workoutTemplate));
         var workout = this.workoutRepository.save(startedWorkout);
 
         log.info("Workout started. [workoutId={}]", workout.getId());
@@ -59,7 +58,7 @@ public class WorkoutService {
     }
 
     @Transactional
-    public void updateExerciseInWorkout(UpdateWorkoutExerciseResource workoutExerciseResource) {
+    public WorkoutDetailsResource updateExerciseInWorkout(UpdateWorkoutExerciseResource workoutExerciseResource) {
         var workout = this.findById(workoutExerciseResource.workoutId());
         var exercise = this.exerciseService.getBy(workoutExerciseResource.exerciseId());
 
@@ -72,36 +71,41 @@ public class WorkoutService {
                     }
                 });
 
-        this.workoutRepository.save(workout);
+        var result = this.workoutRepository.save(workout);
 
         log.info("Updated exercise in workout. [exerciseId={}, workoutId={}]", exercise.getId(), workout.getId());
+
+        return WorkoutDetailsResource.from(result);
     }
 
     @Transactional
-    public void addExerciseToWorkout(UUID workoutId, CreateWorkoutExerciseResource newExercise) {
+    public WorkoutDetailsResource addExerciseToWorkout(UUID workoutId, CreateWorkoutExerciseResource newExercise) {
         var exercise = this.exerciseService.getBy(newExercise.exerciseId());
         var workout = this.findById(workoutId);
         if (newExercise.sets().isEmpty()) {
-            workout.addExercise(WorkoutExercise.from(exercise, workout));
+            workout.addExercise(WorkoutExercise.from(exercise));
         } else {
             var sets = newExercise.sets().stream().map(s -> WorkoutSet.from(s.weight(), s.repetitions())).toList();
-            workout.addExercise(WorkoutExercise.from(exercise, workout, sets));
+            workout.addExercise(WorkoutExercise.from(exercise, sets));
         }
 
-        this.workoutRepository.save(workout);
-        this.eventPublisher.publishEvent(WorkoutCreated.from(workout));
+        var result = this.workoutRepository.save(workout);
         log.info("Added exercise to workout. [exerciseId={}, workoutId={}]", exercise.getId(), workout.getId());
+
+        return WorkoutDetailsResource.from(result);
     }
 
     @Transactional
-    public void finish(UUID workoutId) {
+    public WorkoutDetailsResource finish(UUID workoutId) {
         var workout = this.findById(workoutId);
         workout.finish();
 
-        this.workoutRepository.save(workout);
+        workout = this.workoutRepository.save(workout);
         this.workoutHistoryService.createHistoryFor(workout);
 
         log.info("Workout finished. [workoutId={}]", workout.getId());
+
+        return WorkoutDetailsResource.from(workout);
     }
 
     @Transactional
