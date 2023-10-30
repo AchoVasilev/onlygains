@@ -10,7 +10,7 @@ import {
 import { Editor } from 'tinymce';
 
 export const ContentResolver: ContentTypeResolver = {
-  exercise: {
+  exercises: {
     template: exerciseTemplate,
     styling: exerciseTemplateStyling,
     form: new FormGroup({
@@ -27,20 +27,59 @@ export const ContentResolver: ContentTypeResolver = {
       ),
       variations: new FormControl<string[]>([]),
     }),
-    patchForm: (editor) => {
+    patchForm(editor) {
       const gifUrl = editor?.dom.select('img')[0].getAttribute('src');
 
       const title = editor?.dom.select('h1')[0].textContent;
-      ContentResolver['exercise'].form.controls['name'].patchValue(title!);
-      ContentResolver['exercise'].form.controls['gifUrl'].patchValue(gifUrl);
+      this.form.controls['name'].patchValue(title!);
+      this.form.controls['gifUrl'].patchValue(gifUrl);
 
       const content = editor?.getContent();
-      ContentResolver['exercise'].form.controls['description'].setValue(
-        content
-      );
+      this.form.controls['description'].setValue(content);
+    },
+    onImageUpload(imageUrl) {
+      if (imageUrl.endsWith('gif')) {
+        this.form.controls['gifUrl'].patchValue(imageUrl);
+      } else {
+        ContentResolver['exercise'].form.controls['imageUrl'].patchValue(
+          imageUrl
+        );
+      }
+    },
+    onFormSubmit(editor) {
+      const title = editor?.dom.select('h1')[0].textContent;
+      this.form.controls['name'].patchValue(title!);
+
+      const {
+        name,
+        translatedName,
+        description,
+        gifUrl,
+        imageUrl,
+        equipment,
+        mainMuscleGroupsIds,
+        synergisticMuscleGroupsIds,
+        variations,
+      } = this.form.value;
+      const data = {
+        name,
+        translatedName,
+        description,
+        mainMuscleGroupsIds,
+        synergisticMuscleGroupsIds,
+        equipment,
+        gifUrl,
+        imageUrl,
+        variations,
+      };
+
+      return data;
+    },
+    onEditorInputChange(editor, input) {
+      this.form.controls['description'].patchValue(input);
     },
   },
-  post: {
+  posts: {
     template: threeImageTemplate,
     styling: threeImageTemplateStyling,
     form: new FormGroup({
@@ -51,7 +90,7 @@ export const ContentResolver: ContentTypeResolver = {
       tags: new FormControl<string[]>([]),
       imageUrls: new FormControl<string[]>([]),
     }),
-    patchForm: (editor) => {
+    patchForm(editor) {
       const imageUrls: string[] = [];
       editor?.dom.select('img').forEach((img) => {
         imageUrls.push(img.getAttribute('src')!);
@@ -68,11 +107,40 @@ export const ContentResolver: ContentTypeResolver = {
         });
       }
 
-      ContentResolver['post'].form.controls['title'].patchValue(title!);
-      ContentResolver['post'].form.controls['imageUrls'].patchValue(imageUrls);
+      this.form.controls['title'].patchValue(title!);
+      this.form.controls['imageUrls'].patchValue(imageUrls);
 
       const content = editor?.getContent();
-      ContentResolver['post'].form.controls['text'].setValue(content);
+      this.form.controls['text'].setValue(content);
+    },
+    onImageUpload(imageUrl) {
+      const imageUrls = this.form.controls['imageUrls'].value;
+      imageUrls.push(imageUrl);
+      this.form.controls['imageUrls'].patchValue(imageUrls);
+    },
+    onFormSubmit(editor) {
+      const titleContent = editor?.dom.select('h1')[0].textContent;
+      this.form.controls['title'].patchValue(titleContent!);
+
+      const pElement = editor?.dom.select('p.post-text')[0];
+      this.form.controls['previewText'].patchValue(pElement!.textContent);
+      const { title, text, imageUrls, categoryId, tags, previewText } =
+        this.form.value;
+      const data = {
+        title,
+        text,
+        tags,
+        categoryId,
+        imageUrls,
+        previewText,
+      };
+
+      return data;
+    },
+    onEditorInputChange(editor, input) {
+      const pElement = editor?.dom.select('p.post-text')[0].textContent;
+      this.form.controls['previewText'].patchValue(pElement!);
+      this.form.controls['text'].patchValue(input);
     },
   },
 };
@@ -86,4 +154,7 @@ export interface Content {
   styling: string;
   form: FormGroup;
   patchForm: (editor: Editor) => void;
+  onImageUpload: (imageUrl: string) => void;
+  onFormSubmit: (editor: Editor) => {};
+  onEditorInputChange: (editor: Editor, input: string) => void;
 }

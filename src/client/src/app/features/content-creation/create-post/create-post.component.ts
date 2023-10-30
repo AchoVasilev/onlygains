@@ -58,7 +58,6 @@ export class CreatePostComponent implements OnInit {
       imageUrls.push(img.getAttribute('src')!);
     });
 
-    const title = this.editor?.dom.select('h1')[0].textContent;
 
     const date = this.editor?.dom.select('#date')[0];
     if (date) {
@@ -67,7 +66,6 @@ export class CreatePostComponent implements OnInit {
     }
 
     this.imageUrls = [...this.imageUrls, ...imageUrls];
-    this.form.controls.title.patchValue(title!);
     this.form.controls.imageUrls.patchValue(this.imageUrls);
 
     const content = this.editor?.getContent();
@@ -93,16 +91,19 @@ export class CreatePostComponent implements OnInit {
       this.buildCategoryUrl()
     );
     this.categoryAnchor!.textContent = this.selectedCategory?.name!;
+    this.form.controls.categoryId.setValue(this.selectedCategory?.id!);
   }
 
   onSubmit() {
-    this.form.controls.categoryId.setValue(this.selectedCategory?.id!);
+    const titleContent = this.editor?.dom.select('h1')[0].textContent;
+    this.form.controls.title.patchValue(titleContent!);
+
     const pElement = this.editor?.dom.select('p.post-text')[0];
     this.form.controls.previewText.patchValue(pElement!.textContent);
     const { title, text, imageUrls, categoryId, tags, previewText } =
       this.form.value;
     const data = {
-      title,
+      title: titleContent,
       text,
       tags,
       categoryId,

@@ -8,11 +8,11 @@
         (inputChanged)="onEditorInputChange($event)"
         [styling]="content?.styling"
         [template]="content?.template"
-        folderUpload="exercises"
+        [folderUpload]="contentType!"
       >
       </gains-text-editor>
     </section>
-    <section>
+    <section *ngIf="contentType === 'exercises'"; else posts;>
       <section>
         <h4>Име на английски</h4>
         <mat-form-field appearance="fill">
@@ -65,3 +65,25 @@
     </section>
   </div>
 </form>
+
+<ng-container #posts>
+  <section class="category-select">
+    <h4>Избери категория</h4>
+    <gains-select
+      label="Категория"
+      [fullObjectValue]="true"
+      [control]="form.controls['categoryId']"
+      (selectionChange)="categorySelect($event)"
+      [selectableItems]="categories$ | async"
+    ></gains-select>
+  </section>
+  <section class="tags">
+    <h4>Избери тагове</h4>
+    <gains-select
+      label="Тагове"
+      [multiple]="true"
+      [selectableItems]="tags$ | async"
+      [control]="form.controls.tags"
+    ></gains-select>
+  </section>
+</ng-container>

@@ -1,6 +1,6 @@
 import { NgForOf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 import { Selectable } from 'app/shared/models/selectable';
@@ -21,7 +21,7 @@ export class SelectComponent {
   selectableItems?: Selectable[] | null;
 
   @Input({required: true})
-  control!: FormControl;
+  control!: AbstractControl;
 
   @Input()
   fullObjectValue: boolean = false;
