@@ -75,7 +75,7 @@ public class User extends BaseEntity {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return this.imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
@@ -88,5 +88,9 @@ public class User extends BaseEntity {
 
     public List<Post> getPosts() {
         return this.posts;
+    }
+
+    public List<Comment> getComments() {
+        return this.comments;
     }
 }

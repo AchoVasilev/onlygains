@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, signal } from '@angular/core';
 import { NgForOf } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,7 +27,7 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
   placeholder: string = '';
 
   @Input({required: true})
-  control!: FormControl
+  control!: AbstractControl
 
   @Input({required: true})
   items!: Selectable[] | null;
@@ -65,6 +65,10 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
     this.selectedItems.mutate(items => items.push(selected));
     this.variationInput!.nativeElement.value = '';
     this.control.patchValue(this.selectedItems().map(v => v.id));
+  }
+
+  getInputControl() {
+    return this.control as FormControl;
   }
 }
 

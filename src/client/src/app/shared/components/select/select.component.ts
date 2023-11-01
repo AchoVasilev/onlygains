@@ -35,4 +35,8 @@ export class SelectComponent {
   onSelectionChange(ev: MatSelectChange) {
     this.selectionChange.emit(ev.value);
   }
+
+  getInputControl() {
+    return this.control as FormControl;
+  }
 }

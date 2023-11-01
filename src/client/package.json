@@ -21,6 +21,8 @@
     "@angular/platform-browser-dynamic": "^16.2.2",
     "@angular/router": "^16.2.2",
     "@tinymce/tinymce-angular": "^7.0.0",
+    "chart.js": "^3.6.0",
+    "ng2-charts": "^4.1.1",
     "ngx-infinite-scroll": "^16.0.0",
     "rxjs": "~7.5.0",
     "tinymce": "^6.7.0",

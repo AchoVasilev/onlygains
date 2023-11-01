@@ -14,7 +14,7 @@
     <input
       placeholder="{{placeholder}}"
       #inputItem
-      [formControl]="control"
+      [formControl]="getInputControl()"
       [matChipInputFor]="chipGrid"
       [matAutocomplete]="auto"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
