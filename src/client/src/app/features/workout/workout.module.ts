@@ -1,18 +1,12 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {WorkoutRoutingModule} from './workout-routing.module';
-import { WorkoutDashboardComponent } from './workout-dashboard/workout-dashboard.component';
-
+import { WorkoutRoutingModule } from './workout-routing.module';
+import { HomeComponent } from './pages/home/home.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
-  declarations: [
-  
-    WorkoutDashboardComponent
-  ],
-  imports: [
-    CommonModule,
-    WorkoutRoutingModule
-  ]
+  declarations: [HomeComponent],
+  imports: [CommonModule, WorkoutRoutingModule, ChartComponent],
 })
-export class WorkoutModule { }
+export class WorkoutModule {}
