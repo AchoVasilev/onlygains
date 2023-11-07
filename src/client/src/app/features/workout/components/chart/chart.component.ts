@@ -23,4 +23,8 @@ export class ChartComponent {
 
   @Input()
   options?: ChartConfiguration<'bar'>['options'];
+
+  constructor() {
+
+  }
 }

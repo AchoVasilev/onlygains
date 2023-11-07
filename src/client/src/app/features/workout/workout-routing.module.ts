@@ -1,10 +1,17 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import { WorkoutDashboardComponent } from './pages/workout-dashboard/workout-dashboard.component';
 
 const routes: Routes = [
   {
     path: '',
-    children: []
+    children: [
+      {
+        path: 'dashboard',
+        component: WorkoutDashboardComponent,
+        pathMatch: 'full'
+      }
+    ]
   }
 ];
 
