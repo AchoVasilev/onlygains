@@ -1,4 +1,5 @@
-<aside class="side-bar-container">
+<ng-container *ngIf="!isWorkout; else workout">
+  <aside class="side-bar-container">
     <section
       class="categories-container"
       *ngIf="categories$ | async; else loading; let categories"
@@ -8,14 +9,16 @@
         <li class="category" *ngFor="let category of categories" trackById>
           <a
             mat-button
-            routerLink="/posts/list/Category/{{ category.translatedName }}/{{ category.id }}"
+            routerLink="/posts/list/Category/{{ category.translatedName }}/{{
+              category.id
+            }}"
             >{{ category.name }}</a
           >
         </li>
       </ul>
     </section>
     <section *ngIf="posts$ | async; else loading; let posts">
-      <h3 class="title">{{postsTitle}}</h3>
+      <h3 class="title">{{ postsTitle }}</h3>
       <article class="post" *ngFor="let post of posts" trackById>
         <img class="post-image" [src]="post.imageUrl" />
         <div class="post-wrapper">
@@ -53,7 +56,30 @@
       </section>
     </section>
   </aside>
-  
-  <ng-template #loading>
-    <mat-spinner value="70" diameter="30"></mat-spinner>
-  </ng-template>
+</ng-container>
+
+<ng-template #loading>
+  <mat-spinner value="70" diameter="30"></mat-spinner>
+</ng-template>
+
+<ng-template #workout>
+  <aside class="side-bar-container">
+    <ul>
+      <li>
+        <a routerLink="dashboard">Профил</a>
+      </li>
+      <li>
+        <a routerLink="history">История</a>
+      </li>
+      <li>
+        <a routerLink="workout">Тренировка</a>
+      </li>
+      <li>
+        <a routerLink="exercises">Упражнения</a>
+      </li>
+      <li>
+        <a routerLink="measurments">Мерки</a>
+      </li>
+    </ul>
+  </aside>
+</ng-template>

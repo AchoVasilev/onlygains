@@ -26,6 +26,8 @@ export class SideBarComponent implements OnInit{
   posts$?: Observable<PostViewResource[]>;
   @Input()
   postsTitle: string = 'Популярни теми';
+  @Input()
+  isWorkout: boolean = false;
 
   tags$?: Observable<TagViewResource[]> | null;
 
