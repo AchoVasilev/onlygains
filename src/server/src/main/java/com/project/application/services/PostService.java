@@ -48,10 +48,10 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostViewResource> getPostsBy(UUID id, int page, int size, PostQueryType postQueryType) {
+    public Page<PostViewResource> getPostsBy(UUID typeId, int page, int size, PostQueryType postQueryType) {
         return switch (postQueryType) {
-            case Tag -> this.getPostsByTag(id, page, size);
-            case Category -> this.getPostsBy(id, page, size);
+            case Tag -> this.getPostsByTag(typeId, page, size);
+            case Category -> this.getPostsBy(typeId, page, size);
         };
     }
 

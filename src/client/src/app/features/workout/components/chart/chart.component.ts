@@ -11,20 +11,30 @@ import { NgChartsModule } from 'ng2-charts';
   imports: [NgChartsModule],
 })
 export class ChartComponent {
-  
   @Input()
   plugins: Plugin<'bar', AnyObject>[] = [];
 
   @Input()
-  chartLegend: boolean = true;
+  chartLegend: boolean = false;
 
-  @Input({required: true})
+  @Input({ required: true })
   data!: ChartConfiguration<'bar'>['data'];
 
   @Input()
-  options?: ChartConfiguration<'bar'>['options'];
+  options?: ChartConfiguration<'bar'>['options'] = {
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          display: false,
+        },
+        grid: {
+          drawTicks: false,
+          drawBorder: false,
+        },
+      },
+    },
+  };
 
-  constructor() {
-
-  }
+  constructor() {}
 }

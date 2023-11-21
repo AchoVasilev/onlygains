@@ -9,10 +9,9 @@ import { ChartConfiguration } from 'chart.js';
 export class WorkoutDashboardComponent {
 
   data: ChartConfiguration<'bar'>['data'] = {
-    labels: [ '2006', '2007', '2008', '2009', '2010', '2011', '2012' ],
+    labels: [ '01/06', '07/13', '14/20', '21/27', '28/03' ],
     datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
-      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series B' }
+      { data: [ 1, 0, 1, 0, 1 ], label: 'Тренировки на седмица', backgroundColor: '#3f51b5' },
     ]
   };
 }

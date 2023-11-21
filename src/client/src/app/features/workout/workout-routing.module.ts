@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { WorkoutDashboardComponent } from './pages/workout-dashboard/workout-dashboard.component';
 
 const routes: Routes = [
@@ -9,14 +9,15 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: WorkoutDashboardComponent,
-        pathMatch: 'full'
-      }
-    ]
-  }
+        pathMatch: 'full',
+        title: 'Тренировъчен профил',
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class WorkoutRoutingModule { }
+export class WorkoutRoutingModule {}
