@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { WorkoutRoutingModule } from './workout-routing.module';
 import { WorkoutDashboardComponent } from './pages/workout-dashboard/workout-dashboard.component';
-import { BarChartComponent } from './components/pie-chart/bar-chart.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { SideBarComponent } from 'app/shared/components/side-bar/side-bar.component';
 
 @NgModule({
   declarations: [WorkoutDashboardComponent],
-  imports: [CommonModule, WorkoutRoutingModule, BarChartComponent],
+  imports: [CommonModule, WorkoutRoutingModule, BarChartComponent, SideBarComponent],
 })
 export class WorkoutModule {}

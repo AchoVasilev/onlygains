@@ -76,3 +76,13 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+// Workout side bar styling
+.body-measurements {
+  display: flex;
+  flex-direction: row;
+}
+
+.measurement {
+  padding-right: 0.5rem;
+}
