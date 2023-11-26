@@ -4,13 +4,13 @@ import { AnyObject } from 'chart.js/types/basic';
 import { NgChartsModule } from 'ng2-charts';
 
 @Component({
-  selector: 'gains-chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss'],
+  selector: 'gains-bar-chart',
+  templateUrl: './bar-chart.component.html',
+  styleUrls: ['./bar-chart.component.scss'],
   standalone: true,
-  imports: [NgChartsModule],
+  imports: [NgChartsModule]
 })
-export class ChartComponent {
+export class BarChartComponent {
   @Input()
   plugins: Plugin<'bar', AnyObject>[] = [];
 
