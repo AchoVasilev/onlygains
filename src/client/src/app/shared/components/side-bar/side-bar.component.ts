@@ -11,11 +11,12 @@ import { RouterModule } from '@angular/router';
 import { TagComponent } from '../tag/tag.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'gains-side-bar',
   standalone: true,
-  imports: [NgIf, NgForOf, AsyncPipe, RouterModule, TagComponent, MatProgressSpinnerModule, NgForTrackByIdDirective],
+  imports: [NgIf, NgForOf, AsyncPipe, RouterModule, TagComponent, MatProgressSpinnerModule, NgForTrackByIdDirective, MatButtonModule],
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss']
 })

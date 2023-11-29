@@ -78,11 +78,25 @@
 }
 
 // Workout side bar styling
-.body-measurements {
-  display: flex;
-  flex-direction: row;
-}
+.workout-side-bar {
+  background-color: #e0e0e0;
+  border-radius: $half-rem;
 
-.measurement {
-  padding-right: 0.5rem;
+  div.person {
+    padding-top: 1rem;
+  }
+
+  div.person,
+  ul {
+    padding-left: 1rem;
+  }
+
+  .body-measurements {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .measurement {
+    padding-right: 0.5rem;
+  }
 }
