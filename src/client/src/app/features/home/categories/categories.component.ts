@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CategoryViewResource } from 'app/shared/models/category';
 
 @Component({
-  selector: 'gains-categories',
+  selector: 'active-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })

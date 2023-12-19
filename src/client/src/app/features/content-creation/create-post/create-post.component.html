@@ -2,7 +2,7 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="form">
   <div class="form-items-container">
     <section class="editor-container">
-      <gains-text-editor
+      <active-text-editor
         (editorInit)="onEditorInit($event)"
         (imageUpload)="onImageUpload($event)"
         (inputChanged)="onEditorInputChange($event)"
@@ -10,33 +10,33 @@
         [template]="template"
         folderUpload="posts"
       >
-      </gains-text-editor>
+      </active-text-editor>
     </section>
     <section class="category-tags-container">
       <section class="category-select">
         <h4>Избери категория</h4>
-        <gains-select
+        <active-select
           label="Категория"
           [fullObjectValue]="true"
           [control]="form.controls.categoryId"
           (selectionChange)="categorySelect($event)"
           [selectableItems]="categories$ | async"
-        ></gains-select>
+        ></active-select>
       </section>
       <section class="tags">
         <h4>Избери тагове</h4>
-        <gains-select
+        <active-select
           label="Тагове"
           [multiple]="true"
           [selectableItems]="tags$ | async"
           [control]="form.controls.tags"
-        ></gains-select>
+        ></active-select>
       </section>
-      <gains-raised-button
+      <active-raised-button
         type="submit"
         color="primary"
         text="Създай"
-      ></gains-raised-button>
+      ></active-raised-button>
     </section>
   </div>
 </form>

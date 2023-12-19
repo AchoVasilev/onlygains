@@ -4,7 +4,7 @@ import { TagViewResource } from 'app/shared/models/tag';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'gains-tag',
+  selector: 'active-tag',
   standalone: true,
   imports: [NgIf, NgClass, RouterLink],
   templateUrl: './tag.component.html',

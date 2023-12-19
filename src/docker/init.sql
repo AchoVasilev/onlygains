@@ -1,1 +1,1 @@
-CREATE DATABASE onlygains;
+CREATE DATABASE myactivepal;

@@ -5,7 +5,7 @@ import { itemsPerPage } from 'app/shared/constants/data-constants';
 import { PostViewResource } from 'app/shared/models/post';
 
 @Component({
-  selector: 'gains-list-posts',
+  selector: 'active-list-posts',
   templateUrl: './list-posts.component.html',
   styleUrls: ['./list-posts.component.scss'],
 })

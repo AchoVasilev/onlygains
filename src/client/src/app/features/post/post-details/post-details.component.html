@@ -3,15 +3,15 @@
     <section class="post-container" [innerHTML]="post.text">
     </section>
       <section class="post-tags">
-        <gains-tag class="post-tag" urlPrefix="/posts" type="Tag" *ngFor="let tag of post.tags" [tag]="tag" trackById></gains-tag>
+        <active-tag class="post-tag" urlPrefix="/posts" type="Tag" *ngFor="let tag of post.tags" [tag]="tag" trackById></active-tag>
       </section>
     <!-- News Detail End -->
 
     <!-- Comment List Start -->
-   <gains-comments [comments]="this.post!.comments" [currentUserId]="post.createdBy.id"></gains-comments>
+   <active-comments [comments]="this.post!.comments" [currentUserId]="post.createdBy.id"></active-comments>
   </section>
   <!-- Comment Form End -->
   <section class="post-side-bar">
-    <gains-side-bar></gains-side-bar>
+    <active-side-bar></active-side-bar>
   </section>
 </div>

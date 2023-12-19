@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'gains-muscle-group',
+  selector: 'active-muscle-group',
   standalone: true,
   imports: [],
   templateUrl: './muscle-group.component.html',

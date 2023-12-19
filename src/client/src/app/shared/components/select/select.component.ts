@@ -6,7 +6,7 @@ import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-i
 import { Selectable } from 'app/shared/models/selectable';
 
 @Component({
-  selector: 'gains-select',
+  selector: 'active-select',
   standalone: true,
   imports: [ReactiveFormsModule, MatSelectModule, NgForOf, NgForTrackByIdDirective],
   templateUrl: './select.component.html',

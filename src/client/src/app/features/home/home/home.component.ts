@@ -6,7 +6,7 @@ import { CategoryViewResource } from 'app/shared/models/category';
 import { CardResource } from 'app/shared/models/card';
 
 @Component({
-  selector: 'gains-home',
+  selector: 'active-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [

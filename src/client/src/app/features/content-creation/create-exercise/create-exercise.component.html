@@ -2,7 +2,7 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="form">
   <div class="form-items-container">
     <section class="editor-container">
-      <gains-text-editor
+      <active-text-editor
         (editorInit)="onEditorInit($event)"
         (imageUpload)="onImageUpload($event)"
         (inputChanged)="onEditorInputChange($event)"
@@ -10,7 +10,7 @@
         [template]="template"
         folderUpload="exercises"
       >
-      </gains-text-editor>
+      </active-text-editor>
     </section>
     <section>
       <section>
@@ -22,46 +22,46 @@
       </section>
       <section>
         <h4>Избери уреди</h4>
-        <gains-select
+        <active-select
           label="Уреди"
           [selectableItems]="equipment$ | async"
           [control]="form.controls.equipment"
           [multiple]="true"
-        ></gains-select>
+        ></active-select>
       </section>
       <section>
         <h4>Избери основни мускулни групи</h4>
-        <gains-select
+        <active-select
           label="Мускулни групи"
           [selectableItems]="muscleGroups"
           [control]="form.controls.mainMuscleGroupsIds"
           [multiple]="true"
-        ></gains-select>
+        ></active-select>
       </section>
       <section>
         <h4>Избери допълнителни мускулни групи</h4>
-        <gains-select
+        <active-select
           label="Мускулни групи"
           [selectableItems]="muscleGroups"
           [control]="form.controls.synergisticMuscleGroupsIds"
           [multiple]="true"
-        ></gains-select>
+        ></active-select>
       </section>
       <section>
         <h4>Вариации</h4>
-        <gains-auto-complete
+        <active-auto-complete
           label="Вариации"
           placeholder="Търси вариации"
           [control]="form.controls.variations"
           [items]="variations$ | async"
           (onFieldInput)="onInput($event)"
-        ></gains-auto-complete>
+        ></active-auto-complete>
       </section>
-      <gains-raised-button
+      <active-raised-button
         type="submit"
         color="primary"
         text="Създай"
-      ></gains-raised-button>
+      ></active-raised-button>
     </section>
   </div>
 </form>

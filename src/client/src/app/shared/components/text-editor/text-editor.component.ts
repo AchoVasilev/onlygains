@@ -17,7 +17,7 @@ import { Editor } from 'tinymce';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'gains-text-editor',
+  selector: 'active-text-editor',
   standalone: true,
   imports: [EditorModule, FormsModule, ReactiveFormsModule, NgIf],
   providers: [

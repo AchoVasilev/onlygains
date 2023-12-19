@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 
 @Component({
-  selector: 'gains-workout-dashboard',
+  selector: 'active-workout-dashboard',
   templateUrl: './workout-dashboard.component.html',
   styleUrls: ['./workout-dashboard.component.scss']
 })

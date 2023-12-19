@@ -5,7 +5,7 @@ import { PostDetailsResource } from 'app/shared/models/post';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'gains-post-details',
+  selector: 'active-post-details',
   templateUrl: './post-details.component.html',
   styleUrls: ['./post-details.component.scss'],
   encapsulation: ViewEncapsulation.None,

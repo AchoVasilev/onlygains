@@ -8,22 +8,22 @@
         >
       </h6>
       <section>
-        <gains-icon-button
+        <active-icon-button
           class="vote-btn"
           color="primary"
           iconType="thumb_up"
-        ></gains-icon-button>
-        <gains-icon-button
+        ></active-icon-button>
+        <active-icon-button
           class="vote-btn"
           color="warn"
           iconType="thumb_down"
-        ></gains-icon-button>
+        ></active-icon-button>
       </section>
     </div>
     <p class="comment-text">
       {{ comment.text }}
     </p>
-    <gains-comment-form
+    <active-comment-form
       *ngIf="isEditing()"
       submitLabel="Update"
       [hasCancelButton]="true"
@@ -32,7 +32,7 @@
         updateComment.emit({ text: $event, commentId: comment.id })
       "
       (handleCancel)="onCancelReply()"
-    ></gains-comment-form>
+    ></active-comment-form>
     <section class="comment-actions">
       <button
         mat-raised-button
@@ -70,17 +70,17 @@
         Изтрий
       </button>
     </section>
-    <gains-comment-form
+    <active-comment-form
       *ngIf="isReplying()"
       submitLabel="Отговор"
       (handleSubmit)="addComment.emit({ text: $event, parentId: replyId })"
       [hasCancelButton]="true"
       (handleCancel)="onCancelReply()"
-    ></gains-comment-form>
+    ></active-comment-form>
   </article>
 
   <section class="replies" *ngIf="comment.replies.length > 0">
-    <gains-comment
+    <active-comment
       *ngFor="let reply of replies; trackById"
       [comment]="reply"
       (setActiveComment)="setActiveComment.emit($event)"
@@ -91,6 +91,6 @@
       [parentId]="comment.id"
       [replies]="comment.replies"
       [currentUserId]="currentUserId"
-    ></gains-comment>
+    ></active-comment>
   </section>
 </section>

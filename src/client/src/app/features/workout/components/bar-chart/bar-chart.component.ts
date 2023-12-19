@@ -4,7 +4,7 @@ import { AnyObject } from 'chart.js/types/basic';
 import { NgChartsModule } from 'ng2-charts';
 
 @Component({
-  selector: 'gains-bar-chart',
+  selector: 'active-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
   standalone: true,

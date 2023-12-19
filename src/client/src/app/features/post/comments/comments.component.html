@@ -1,7 +1,7 @@
 <!-- Comment List Start -->
 <section class="comments">
   <h3>Коментари</h3>
-  <gains-comment
+  <active-comment
   *ngFor="let rootComment of getRootComments(); trackById"
   [comment]="rootComment"
   [replies]="getReplies(rootComment)"
@@ -11,15 +11,15 @@
   (deleteComment)="deleteComment($event)"
   (updateComment)="updateComment($event)"
   [currentUserId]="currentUserId"
-  ></gains-comment>
+  ></active-comment>
 </section>
 <!-- Comment List End -->
 
 <!-- Comment Form Start -->
 <section class="add-comment">
   <h3>Оставете коментар</h3>
-  <gains-comment-form
+  <active-comment-form
     submitLabel="Коментирай"
     (handleSubmit)="onSubmit({ text: $event, commentId: null })"
-  ></gains-comment-form>
+  ></active-comment-form>
 </section>

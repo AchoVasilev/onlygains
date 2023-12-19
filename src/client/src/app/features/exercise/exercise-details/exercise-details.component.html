@@ -17,7 +17,7 @@
             </div>
           </section>
         </div>
-        <gains-muscle-group></gains-muscle-group>
+        <active-muscle-group></active-muscle-group>
       </section>
     </section>
     <section class="exercise-variations">
@@ -31,14 +31,14 @@
       </p>
     </section>
     <section class="similar-exercises">
-      <gains-similar-exercise
+      <active-similar-exercise
         *ngFor="let exercise of exercise.variations"
         [exercise]="exercise"
         trackById
-      ></gains-similar-exercise>
+      ></active-similar-exercise>
     </section>
   </section>
   <section class="exercise-sidebar">
-    <gains-side-bar postsTitle="Полезни теми"></gains-side-bar>
+    <active-side-bar postsTitle="Полезни теми"></active-side-bar>
   </section>
 </article>

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CardResource } from 'app/shared/models/card';
 
 @Component({
-  selector: 'gains-recent-post',
+  selector: 'active-recent-post',
   templateUrl: './recent-post.component.html',
   styleUrls: ['./recent-post.component.scss']
 })

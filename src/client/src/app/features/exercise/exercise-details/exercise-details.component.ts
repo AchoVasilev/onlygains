@@ -6,7 +6,7 @@ import {
 } from 'app/shared/models/exercise';
 
 @Component({
-  selector: 'gains-exercise-details',
+  selector: 'active-exercise-details',
   templateUrl: './exercise-details.component.html',
   styleUrls: ['./exercise-details.component.scss'],
 })

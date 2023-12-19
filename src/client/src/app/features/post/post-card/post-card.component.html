@@ -7,7 +7,7 @@
     />
   </div>
   <div class="card-body">
-    <gains-tag
+    <active-tag
       class="tag"
       [tag]="{
         name: post.categoryName,
@@ -16,7 +16,7 @@
       }"
       urlPrefix="/posts"
       type="Category"
-    ></gains-tag>
+    ></active-tag>
     <h4> <a routerLink="/posts/details/{{post.id}}/{{post.title}}">{{ post.title }}</a></h4>
     <p class="post-text">
       {{ post.previewText }}

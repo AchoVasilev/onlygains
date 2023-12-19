@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'gains-raised-button',
+  selector: 'active-raised-button',
   standalone: true,
   imports: [MatButtonModule],
   templateUrl: './raised-button.component.html',

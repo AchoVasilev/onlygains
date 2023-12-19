@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'gains-icon-button',
+  selector: 'active-icon-button',
   standalone: true,
   imports: [MatButtonModule, MatIconModule],
   templateUrl: './icon-button.component.html'

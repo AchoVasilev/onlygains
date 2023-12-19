@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular
 import { ExerciseListResource } from 'app/shared/models/exercise';
 
 @Component({
-  selector: 'gains-similar-exercise',
+  selector: 'active-similar-exercise',
   standalone: true,
   imports: [],
   templateUrl: './similar-exercise.component.html',

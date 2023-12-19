@@ -14,7 +14,7 @@ import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-i
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'gains-side-bar',
+  selector: 'active-side-bar',
   standalone: true,
   imports: [NgIf, NgForOf, AsyncPipe, RouterModule, TagComponent, MatProgressSpinnerModule, NgForTrackByIdDirective, MatButtonModule],
   templateUrl: './side-bar.component.html',

@@ -6,7 +6,7 @@ import {
 } from 'app/shared/models/comment';
 
 @Component({
-  selector: 'gains-comments',
+  selector: 'active-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
 })

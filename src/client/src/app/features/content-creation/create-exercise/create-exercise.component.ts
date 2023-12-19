@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 import { Editor } from 'tinymce';
 
 @Component({
-  selector: 'gains-create-exercise',
+  selector: 'active-create-exercise',
   templateUrl: './create-exercise.component.html',
   styleUrls: ['./create-exercise.component.scss'],
 })

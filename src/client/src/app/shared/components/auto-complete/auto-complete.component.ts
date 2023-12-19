@@ -11,7 +11,7 @@ import { Selectable } from 'app/shared/models/selectable';
 import { Subscription, debounceTime } from 'rxjs';
 
 @Component({
-  selector: 'gains-auto-complete',
+  selector: 'active-auto-complete',
   standalone: true,
   imports: [NgForOf, NgForTrackByIdDirective, ReactiveFormsModule, MatFormFieldModule, MatIconModule, MatAutocompleteModule, MatChipsModule],
   templateUrl: './auto-complete.component.html',

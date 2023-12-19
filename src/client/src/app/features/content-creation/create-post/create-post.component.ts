@@ -12,7 +12,7 @@ import { PostService } from 'app/core/services/post/post.service';
 import { threeImageTemplateStyling } from 'app/shared/models/text-editor/template-stylings';
 
 @Component({
-  selector: 'gains-create-post',
+  selector: 'active-create-post',
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.scss'],
 })
