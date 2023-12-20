@@ -35,7 +35,7 @@ public class ExerciseService {
     public ExerciseDetailsResource create(CreateExerciseResource exerciseResource) {
         var exerciseOpt = this.exerciseRepository.findByName(exerciseResource.name());
         if (exerciseOpt.isPresent()) {
-            throw new DuplicateEntryException(Exercise.class, exerciseOpt.get().getId());
+            throw new DuplicateEntryException(Exercise.class, exerciseOpt.get().id);
         }
 
         var exercise = new Exercise(exerciseResource.name(), exerciseResource.translatedName(), exerciseResource.description(), exerciseResource.imageUrl(), exerciseResource.gifUrl());

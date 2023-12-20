@@ -14,6 +14,6 @@ public class WorkoutHistoryService {
     }
 
     public void createHistoryFor(Workout workout) {
-        this.workoutHistoryRepository.save(new WorkoutHistory(workout.getId()));
+        this.workoutHistoryRepository.save(new WorkoutHistory(workout.id));
     }
 }

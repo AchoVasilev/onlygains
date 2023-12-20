@@ -14,7 +14,7 @@ public record WorkoutTemplateResource(UUID id, String name, List<WorkoutExercise
 
     public static WorkoutTemplateResource from(WorkoutTemplate template) {
         return new WorkoutTemplateResource(
-                template.getId(),
+                template.id,
                 template.getName(),
                 template.getExercises().stream().map(WorkoutExerciseDetailsResource::from).toList(),
                 template.getExercises().stream().map(WorkoutExercise::getId).toList(),

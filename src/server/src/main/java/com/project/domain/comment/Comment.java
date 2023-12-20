@@ -90,12 +90,12 @@ public class Comment extends BaseEntity {
 
     public void setParentId(UUID parentId) {
         this.parentId = parentId;
-        this.setUpdatedAt();
+        this.markAsUpdated();
     }
 
     public void reply(Comment comment) {
         comment.setParentId(this.id);
         this.replies.add(comment);
-        this.setUpdatedAt();
+        this.markAsUpdated();
     }
 }

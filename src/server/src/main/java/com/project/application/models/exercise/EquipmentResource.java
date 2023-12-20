@@ -8,6 +8,6 @@ import java.util.UUID;
 @Serdeable
 public record EquipmentResource(UUID id, String name) {
     public static EquipmentResource from(Equipment equipment) {
-        return new EquipmentResource(equipment.getId(), equipment.getName());
+        return new EquipmentResource(equipment.id, equipment.getName());
     }
 }

@@ -9,6 +9,6 @@ import java.util.UUID;
 @Serdeable
 public record ExerciseResource(UUID id, @Nullable String imageUrl, @Nullable String name, @Nullable String translatedName) {
     public static ExerciseResource from(Exercise exercise) {
-        return new ExerciseResource(exercise.getId(), exercise.getImageUrl(), exercise.getName(), exercise.getTranslatedName());
+        return new ExerciseResource(exercise.id, exercise.getImageUrl(), exercise.getName(), exercise.getTranslatedName());
     }
 }

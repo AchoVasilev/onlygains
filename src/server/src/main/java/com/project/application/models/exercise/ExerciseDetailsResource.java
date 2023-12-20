@@ -13,7 +13,7 @@ public record ExerciseDetailsResource(UUID id, String name, String gifUrl, Strin
                                       List<String> mainMuscleGroupsIds, List<String> synergisticMuscleGroupsIds) {
 
     public static ExerciseDetailsResource from(Exercise exercise) {
-        return new ExerciseDetailsResource(exercise.getId(), exercise.getName(),
+        return new ExerciseDetailsResource(exercise.id, exercise.getName(),
                 exercise.getGifUrl(), exercise.getTranslatedName(), exercise.getDescription(),
                 exercise.getMuscleGroups().stream().map(MuscleGroupDetailsResource::from).toList(),
                 exercise.getVariations().stream().map(ExerciseResource::from).toList(),

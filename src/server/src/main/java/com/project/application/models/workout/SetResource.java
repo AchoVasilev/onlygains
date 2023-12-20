@@ -8,6 +8,6 @@ import java.util.UUID;
 @Serdeable
 public record SetResource(UUID id, int repetitions, double weight) {
     public static SetResource from(WorkoutSet set) {
-        return new SetResource(set.getId(), set.getRepetitions(), set.getWeight().getWeight());
+        return new SetResource(set.getId(), set.repetitions, set.getWeight().getWeight());
     }
 }

@@ -23,7 +23,7 @@ public class ImageService {
     }
 
     public ImageResponseResource upload(String folder, CompletedFileUpload file) {
-        final var rootFolderName = "onlygains";
+        final var rootFolderName = "myactivepal";
         final var uploadFolder = String.format("%s/%s", rootFolderName, folder);
         try {
             var uploadedFile = this.convertMultipartToFile(file);

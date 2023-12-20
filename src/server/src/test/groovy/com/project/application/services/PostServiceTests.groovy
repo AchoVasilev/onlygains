@@ -6,8 +6,10 @@ import com.project.domain.image.PostImage
 import com.project.domain.post.Post
 import com.project.domain.user.Role
 import com.project.domain.user.User
+import com.project.infrastructure.data.CategoryRepository
 import com.project.infrastructure.data.PostRepository
 import com.project.infrastructure.data.RoleRepository
+import com.project.infrastructure.data.TagRepository
 import com.project.infrastructure.data.UserRepository
 import io.micronaut.data.model.Page
 import io.micronaut.data.model.Pageable
@@ -15,10 +17,10 @@ import spock.lang.Specification
 
 class PostServiceTests extends Specification {
     PostRepository postRepository = Mock(PostRepository)
-    CategoryService categoryService = Mock(CategoryService)
+    CategoryService categoryService = new CategoryService(Mock(CategoryRepository))
     RoleRepository roleRepository = Mock(RoleRepository)
     UserRepository userRepository = Mock(UserRepository)
-    TagService tagService = Mock(TagService)
+    TagService tagService = new TagService(Mock(TagRepository))
     PostService postService = new PostService(postRepository, categoryService, roleRepository, userRepository, tagService)
 
     def "getNewest gets the four newest posts"() {

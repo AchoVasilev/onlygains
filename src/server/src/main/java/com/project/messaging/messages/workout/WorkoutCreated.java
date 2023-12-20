@@ -21,9 +21,9 @@ public class WorkoutCreated extends ApplicationEventBase {
     }
 
     public static WorkoutCreated from(Workout workout) {
-        return new WorkoutCreated(workout.getId(), workout.getCreatedAt(),
+        return new WorkoutCreated(workout.id, workout.getCreatedAt(),
                 workout.getStatus().name(),
-                workout.getWorkoutTemplate() != null ? workout.getWorkoutTemplate().getId() : null);
+                workout.getWorkoutTemplate() != null ? workout.getWorkoutTemplate().id : null);
     }
 
     public UUID getId() {

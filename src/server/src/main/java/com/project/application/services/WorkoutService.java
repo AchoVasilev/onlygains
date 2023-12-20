@@ -43,7 +43,7 @@ public class WorkoutService {
         var startedWorkout = Workout.start(WorkoutTemplate.from(workoutTemplate));
         var workout = this.workoutRepository.save(startedWorkout);
 
-        log.info("Workout started. [workoutId={}]", workout.getId());
+        log.info("Workout started. [workoutId={}]", workout.id);
 
         return WorkoutDetailsResource.from(workout);
     }
@@ -52,7 +52,7 @@ public class WorkoutService {
     public WorkoutDetailsResource startEmptyWorkout() {
         var workout = this.workoutRepository.save(Workout.startEmptyWorkout());
 
-        log.info("Workout started. [workoutId={}]", workout.getId());
+        log.info("Workout started. [workoutId={}]", workout.id);
 
         return WorkoutDetailsResource.from(workout);
     }
@@ -65,15 +65,15 @@ public class WorkoutService {
         workoutExerciseResource.sets()
                 .forEach(set -> {
                     if (set.id() != null) {
-                        workout.updateExercise(exercise.getId(), set.id(), set.weight(), set.repetitions());
+                        workout.updateExercise(exercise.id, set.id(), set.weight(), set.repetitions());
                     } else {
-                        workout.addSetToExercise(exercise.getId(), set.weight(), set.repetitions());
+                        workout.addSetToExercise(exercise.id, set.weight(), set.repetitions());
                     }
                 });
 
         var result = this.workoutRepository.save(workout);
 
-        log.info("Updated exercise in workout. [exerciseId={}, workoutId={}]", exercise.getId(), workout.getId());
+        log.info("Updated exercise in workout. [exerciseId={}, workoutId={}]", exercise.id, workout.id);
 
         return WorkoutDetailsResource.from(result);
     }
@@ -90,7 +90,7 @@ public class WorkoutService {
         }
 
         var result = this.workoutRepository.save(workout);
-        log.info("Added exercise to workout. [exerciseId={}, workoutId={}]", exercise.getId(), workout.getId());
+        log.info("Added exercise to workout. [exerciseId={}, workoutId={}]", exercise.id, workout.id);
 
         return WorkoutDetailsResource.from(result);
     }
@@ -103,7 +103,7 @@ public class WorkoutService {
         workout = this.workoutRepository.save(workout);
         this.workoutHistoryService.createHistoryFor(workout);
 
-        log.info("Workout finished. [workoutId={}]", workout.getId());
+        log.info("Workout finished. [workoutId={}]", workout.id);
 
         return WorkoutDetailsResource.from(workout);
     }
@@ -115,7 +115,7 @@ public class WorkoutService {
         this.workoutRepository.save(workout);
         this.workoutHistoryService.createHistoryFor(workout);
 
-        log.info("Workout cancelled. [workoutId={}]", workout.getId());
+        log.info("Workout cancelled. [workoutId={}]", workout.id);
     }
 
     private Workout findById(UUID id) {

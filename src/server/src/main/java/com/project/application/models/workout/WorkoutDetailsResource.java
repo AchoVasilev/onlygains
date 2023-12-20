@@ -9,7 +9,7 @@ import java.util.UUID;
 @Serdeable
 public record WorkoutDetailsResource(UUID id, String workoutTemplateName) {
     public static WorkoutDetailsResource from(Workout workout) {
-        return new WorkoutDetailsResource(workout.getId(),
+        return new WorkoutDetailsResource(workout.id,
                 workout.getWorkoutTemplate() != null ? workout.getWorkoutTemplate().getName() : null);
     }
 }

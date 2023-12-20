@@ -9,7 +9,7 @@ import java.util.UUID;
 @Serdeable
 public record WorkoutExerciseDetailsResource(UUID id, UUID exerciseId, List<SetResource> sets) {
     public static WorkoutExerciseDetailsResource from(WorkoutExercise exercise) {
-        return new WorkoutExerciseDetailsResource(exercise.getId(), exercise.getExerciseId(), exercise.getSets().stream().map(SetResource::from)
+        return new WorkoutExerciseDetailsResource(exercise.id, exercise.getExerciseId(), exercise.getSets().stream().map(SetResource::from)
                 .toList());
     }
 }
