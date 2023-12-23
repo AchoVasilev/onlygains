@@ -15,7 +15,7 @@ interface PostRepository : CrudRepository<Post, UUID> {
     override fun deleteById(id: UUID)
 
     @Query(value = "SELECT * from posts p WHERE p.is_deleted = false ORDER BY p.created_at DESC LIMIT 4", nativeQuery = true)
-    fun findNewestFour(): List<Post?>?
+    fun findNewestFour(): List<Post>
 
     fun findByCategoryId(categoryId: UUID, pageable: Pageable): Page<Post>
 
@@ -29,7 +29,7 @@ interface PostRepository : CrudRepository<Post, UUID> {
             LIMIT 5
             
             """, nativeQuery = true)
-    fun mostPopularPosts(): List<Post>
+    fun findMostPopularPosts(): List<Post>
 
     @Query(value = "SELECT p FROM posts p JOIN tags t WHERE t.id = :tagId", countQuery = "SELECT COUNT(p.id) FROM posts p JOIN tags t WHERE t.id = :tagId")
     fun findPostsByTagId(tagId: UUID, pageable: Pageable): Page<Post>

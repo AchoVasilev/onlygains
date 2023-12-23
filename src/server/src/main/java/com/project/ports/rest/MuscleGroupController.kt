@@ -10,6 +10,6 @@ import io.micronaut.http.annotation.Get
 open class MuscleGroupController(private val muscleGroupService: MuscleGroupService) {
     @Get
     open fun getAll(): HttpResponse<List<MuscleGroupDetailsResource>> {
-        return HttpResponse.ok(muscleGroupService.all)
+        return HttpResponse.ok(muscleGroupService.getAll())
     }
 }

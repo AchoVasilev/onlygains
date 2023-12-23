@@ -12,7 +12,7 @@ class CategoryControllerTests extends BaseIntegrationTest {
         def result = httpClient.toBlocking().retrieve(HttpRequest.GET("/categories"), Argument.of(List.class, CategoryViewResource.class))
 
         then: "list is not empty"
-        result.size() > 0
+        result.size > 0
         result.each { it -> it instanceof CategoryViewResource }
     }
 }

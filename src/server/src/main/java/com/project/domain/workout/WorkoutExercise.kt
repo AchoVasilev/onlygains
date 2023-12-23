@@ -10,8 +10,6 @@ import jakarta.persistence.Id
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import java.util.UUID
-import java.util.function.Consumer
-import java.util.function.Predicate
 
 @Entity(name = "workout_exercises")
 class WorkoutExercise protected constructor() : BaseEntity() {
@@ -36,38 +34,25 @@ class WorkoutExercise protected constructor() : BaseEntity() {
 
     protected constructor(exercise: Exercise) : this() {
         this.fromExercise(exercise)
-        sets.add(WorkoutSet.Companion.from(0.0, 10))
+        sets.add(WorkoutSet.from(0.0, 10))
         sets[0].exercise = this
     }
 
     protected constructor(exercise: Exercise, sets: List<WorkoutSet>) : this() {
         this.fromExercise(exercise)
-        this.setSets(sets)
+        this.addSets(sets)
     }
 
     protected constructor(exercise: Exercise, workoutTemplate: OriginalWorkoutTemplate?, sets: List<WorkoutSet>) : this() {
         this.fromExercise(exercise)
         this.originalWorkoutTemplate = workoutTemplate
-        this.setSets(sets)
+        this.addSets(sets)
     }
 
     protected constructor(exerciseId: UUID?, workoutTemplate: WorkoutTemplate?, sets: List<WorkoutSet>) : this() {
         this.exerciseId = exerciseId
         this.workoutTemplate = workoutTemplate
-        this.setSets(sets)
-    }
-
-    fun getSets(): List<WorkoutSet> {
-        return this.sets
-    }
-
-    fun getWorkoutTemplate(): WorkoutTemplate? {
-        return this.workoutTemplate
-    }
-
-    fun setWorkoutTemplate(workoutTemplate: WorkoutTemplate?) {
-        this.workoutTemplate = workoutTemplate
-        this.modifiedAt = utcNow()
+        this.addSets(sets)
     }
 
     fun updateSet(setId: UUID, weight: Double, repetitions: Int) {
@@ -89,8 +74,8 @@ class WorkoutExercise protected constructor() : BaseEntity() {
         this.name = exercise.name
     }
 
-    private fun setSets(sets: List<WorkoutSet>) {
-        sets.forEach(Consumer { s: WorkoutSet -> s.exercise = this })
+    private fun addSets(sets: List<WorkoutSet>) {
+        sets.forEach { s: WorkoutSet -> s.exercise = this }
         this.sets.addAll(sets)
     }
 

@@ -22,12 +22,12 @@ open class ExerciseController(private val exerciseService: ExerciseService) {
     }
 
     @Get("/variations")
-    open fun getBy(@QueryValue search: String?): HttpResponse<List<ExerciseResource>> {
+    open fun getBy(@QueryValue search: String): HttpResponse<List<ExerciseResource>> {
         return HttpResponse.ok(exerciseService.getBy(search))
     }
 
     @Post
-    open fun create(@Body resource: @Valid CreateExerciseResource?): HttpResponse<ExerciseDetailsResource> {
+    open fun create(@Body @Valid resource: CreateExerciseResource): HttpResponse<ExerciseDetailsResource> {
         return HttpResponse.ok(exerciseService.create(resource))
     }
 }

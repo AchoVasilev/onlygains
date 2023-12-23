@@ -51,7 +51,7 @@ class PostServiceTests extends Specification {
         def result = postService.getPostBy(post.id)
 
         then: "result is correct"
-        result.id() == post.id
+        result.id == post.id
     }
 
     def "getPostsBy returns correct number"() {

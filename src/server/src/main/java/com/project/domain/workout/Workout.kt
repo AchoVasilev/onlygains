@@ -13,9 +13,7 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
 import java.time.Duration
 import java.time.ZonedDateTime
-import java.util.Optional
 import java.util.UUID
-import java.util.function.Predicate
 
 @Entity(name = "workouts")
 class Workout protected constructor() : BaseEntity() {
@@ -24,7 +22,7 @@ class Workout protected constructor() : BaseEntity() {
 
     @OneToOne
     @JoinColumn(name = "workout_template_id")
-    private var workoutTemplate: WorkoutTemplate? = null
+    var workoutTemplate: WorkoutTemplate? = null
 
     var finishedAt: ZonedDateTime? = null
         private set
@@ -84,15 +82,11 @@ class Workout protected constructor() : BaseEntity() {
         this.duration = Duration.between(this.createdAt, this.finishedAt)
     }
 
-    private fun setWorkoutTemplate(workoutTemplate: WorkoutTemplate) {
-        this.workoutTemplate = workoutTemplate
-    }
-
     companion object {
         @JvmStatic
         fun start(workoutTemplate: WorkoutTemplate): Workout {
             val workout = Workout()
-            workout.setWorkoutTemplate(workoutTemplate)
+            workout.workoutTemplate = workoutTemplate
             return workout
         }
 

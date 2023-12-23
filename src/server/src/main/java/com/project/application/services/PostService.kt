@@ -20,14 +20,13 @@ import jakarta.inject.Singleton
 import org.slf4j.Logger
 import java.util.Optional
 import java.util.UUID
-import java.util.function.Consumer
 
 @Singleton
 open class PostService(private val postRepository: PostRepository, private val categoryService: CategoryService, //TODO: remove this one
                   private val roleRepository: RoleRepository, private val userRepository: UserRepository, private val tagService: TagService) {
     @Transactional(readOnly = true)
     open fun getNewest(): List<PostViewResource> {
-        return postRepository.findNewestFour().map { post: Post? -> PostViewResource.from(post) }
+        return postRepository.findNewestFour().map { post: Post -> PostViewResource.from(post) }
     }
 
     @Transactional(readOnly = true)
@@ -41,7 +40,7 @@ open class PostService(private val postRepository: PostRepository, private val c
 
     @Transactional(readOnly = true)
     open fun getMostPopularPosts(): List<PostViewResource> {
-        return postRepository.mostPopularPosts.map { post: Post? -> PostViewResource.from(post) }
+        return postRepository.findMostPopularPosts().map { post: Post -> PostViewResource.from(post) }
     }
 
     @Transactional(readOnly = true)
@@ -71,7 +70,7 @@ open class PostService(private val postRepository: PostRepository, private val c
         user.addPost(post)
 
         val tags = tagService.getTags(postResource.tags)
-        tags.forEach(Consumer { tag: Tag? -> post.addTag(tag) })
+        tags.forEach( { tag: Tag -> post.addTag(tag) })
 
         postRepository.save(post)
         log.info("Post has been created, [postId={}]", post.id)
@@ -86,16 +85,17 @@ open class PostService(private val postRepository: PostRepository, private val c
 
         val post = postOptional.get()
         val similarImageUrls = post.postImages.stream().map { obj: PostImage -> obj.url }.toList() == postResource.imageUrls
-        return similarImageUrls && post.category.id == postResource.categoryId && post.title == postResource.title && post.text == postResource.text
+        return similarImageUrls && post.category!!.id == postResource.categoryId && post.title == postResource.title && post.text == postResource.text
     }
 
     private fun getPostsBy(categoryId: UUID, page: Int, size: Int): Page<PostViewResource> {
-        return postRepository.findByCategoryId(categoryId, Pageable.from(page, size)).map { post: Post? -> PostViewResource.from(post) }
+        return postRepository.findByCategoryId(categoryId, Pageable.from(page, size))
+                .map { post: Post -> PostViewResource.from(post) }
     }
 
     private fun getPostsByTag(tagId: UUID, page: Int, size: Int): Page<PostViewResource> {
         return postRepository.findPostsByTagId(tagId, Pageable.from(page, size))
-                .map { post: Post? -> PostViewResource.from(post) }
+                .map { post: Post -> PostViewResource.from(post) }
     }
 
     companion object {

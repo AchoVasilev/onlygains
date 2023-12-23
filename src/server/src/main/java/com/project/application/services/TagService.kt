@@ -16,7 +16,7 @@ open class TagService(private val tagRepository: TagRepository) {
     }
 
     @Transactional(readOnly = true)
-    open fun getTags(tagIds: List<UUID?>?): List<Tag> {
+    open fun getTags(tagIds: List<UUID>): List<Tag> {
         return tagRepository.findByIdIn(tagIds)
     }
 }

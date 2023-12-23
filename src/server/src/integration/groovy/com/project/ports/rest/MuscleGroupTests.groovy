@@ -11,7 +11,7 @@ class MuscleGroupTests extends BaseIntegrationTest {
         def result = httpClient.toBlocking().retrieve(HttpRequest.GET("/muscle-groups"), Argument.of(List.class, MuscleGroupDetailsResource.class))
 
         then: "result is not empty"
-        result.size() > 0
+        result.size > 0
         result.each {it -> it instanceof MuscleGroupDetailsResource}
     }
 }

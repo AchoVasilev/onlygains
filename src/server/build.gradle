@@ -63,7 +63,7 @@ dependencies {
     annotationProcessor("io.micronaut.validation:micronaut-validation-processor:${micronautValidationVersion}")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk21:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
 
     implementation("io.micronaut.serde:micronaut-serde-jackson:${micronautSerdeVersion}")
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa:${micronautDataVersion}")

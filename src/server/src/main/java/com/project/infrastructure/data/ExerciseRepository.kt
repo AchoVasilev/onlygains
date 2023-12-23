@@ -21,5 +21,5 @@ interface ExerciseRepository : CrudRepository<Exercise, UUID> {
             WHERE mg.name ILIKE concat('%', concat(:search, '%')) OR e.name ILIKE concat('%', concat(:search, '%'))
             GROUP BY e.id
             """, nativeQuery = true)
-    fun findSimilarExercises(search: String?): List<ExerciseResource?>?
+    fun findSimilarExercises(search: String): List<ExerciseResource>
 }

@@ -19,22 +19,22 @@ open class WorkoutController(private val workoutService: WorkoutService) {
     }
 
     @Post(value = "/start/{templateId}")
-    open fun start(@PathVariable templateId: UUID?): HttpResponse<WorkoutDetailsResource> {
+    open fun start(@PathVariable templateId: UUID): HttpResponse<WorkoutDetailsResource> {
         return HttpResponse.ok(workoutService.start(templateId))
     }
 
     @Post("/add-exercise/{workoutId}")
-    open fun addExercise(@PathVariable workoutId: UUID?, @Body workoutExerciseResource: CreateWorkoutExerciseResource?): HttpResponse<WorkoutDetailsResource> {
+    open fun addExercise(@PathVariable workoutId: UUID, @Body workoutExerciseResource: CreateWorkoutExerciseResource): HttpResponse<WorkoutDetailsResource> {
         return HttpResponse.ok(workoutService.addExerciseToWorkout(workoutId, workoutExerciseResource))
     }
 
     @Post("/update-exercise")
-    open fun updateExercise(workoutExerciseResource: UpdateWorkoutExerciseResource?): HttpResponse<WorkoutDetailsResource> {
+    open fun updateExercise(workoutExerciseResource: UpdateWorkoutExerciseResource): HttpResponse<WorkoutDetailsResource> {
         return HttpResponse.ok(workoutService.updateExerciseInWorkout(workoutExerciseResource))
     }
 
     @Post("/finish/{workoutId}")
-    open fun finish(@PathVariable workoutId: UUID?): HttpResponse<WorkoutDetailsResource> {
+    open fun finish(@PathVariable workoutId: UUID): HttpResponse<WorkoutDetailsResource> {
         return HttpResponse.ok(workoutService.finish(workoutId))
     }
 
