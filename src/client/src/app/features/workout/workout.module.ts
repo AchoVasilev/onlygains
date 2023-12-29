@@ -1,3 +1,4 @@
+import { CheckBoxComponent } from './../../shared/components/check-box/check-box.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -6,9 +7,34 @@ import { WorkoutDashboardComponent } from './pages/workout-dashboard/workout-das
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { SideBarComponent } from 'app/shared/components/side-bar/side-bar.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { CheckListComponent } from './components/check-list/check-list.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { CdkDrag, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [WorkoutDashboardComponent, UserDetailsComponent],
-  imports: [CommonModule, WorkoutRoutingModule, BarChartComponent, SideBarComponent],
+  declarations: [
+    WorkoutDashboardComponent,
+    UserDetailsComponent,
+    CheckListComponent,
+  ],
+  imports: [
+    CommonModule,
+    WorkoutRoutingModule,
+    BarChartComponent,
+    SideBarComponent,
+    CheckBoxComponent,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    CdkDropList,
+    CdkDrag,
+    CdkDragHandle
+  ],
 })
 export class WorkoutModule {}

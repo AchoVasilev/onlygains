@@ -1,0 +1,39 @@
+<ul cdkDropList (cdkDropListDropped)="drop($event)">
+  <li cdkDrag *ngFor="let item of checklistItems">
+    <div class="buttons-container">
+      <active-check-box [item]="item" #checkbox></active-check-box>
+      <div class="icons">
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Drag checklist item"
+          cdkDragHandle
+        >
+          <mat-icon>drag_handle</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="accent"
+          aria-label="Edit item from checklist"
+          (click)="onEdit($event)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="warn"
+          aria-label="Remove item from checklist"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div [formGroup]="group">
+      <mat-form-field appearance="fill" color="primary" class="asd">
+        <mat-label class="asd">Промяна на задача</mat-label>
+        <input matInput />
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+    </div>
+  </li>
+</ul>

@@ -1,0 +1,22 @@
+@use "variables" as *;
+
+ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+:host {
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: $bold-white;
+  }
+}
