@@ -1,3 +1,5 @@
+@use "variables" as *;
+
 .container {
     display: flex;
     padding: 2rem 4rem;
@@ -5,4 +7,18 @@
 
 .main-body {
     padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-template-rows: 2fr 2fr;
+    gap: $one-rem;
+
+}
+
+h3 {
+    text-align: center;
+    font-weight: 500;
+}
+
+section {
+    padding: $one-rem;
 }

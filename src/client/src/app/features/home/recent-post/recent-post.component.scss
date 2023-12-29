@@ -1,7 +1,6 @@
 @use "variables" as *;
 
 .card-text {
-  color: $light-gray;
   font-weight: bold;
   letter-spacing: 0.0125rem;
   padding-top: 0.5rem;
@@ -13,7 +12,6 @@
 
 .card-link,
 .card-link-secondary {
-  color: $light-gray;
   text-decoration: none;
   padding: 0;
   margin: 0;

@@ -83,12 +83,12 @@
   border-radius: $half-rem;
 
   div.person {
-    padding-top: 1rem;
+    padding-top: $one-rem;
   }
 
   div.person,
   ul {
-    padding-left: 1rem;
+    padding-left: $one-rem;
   }
 
   .body-measurements {
@@ -97,6 +97,10 @@
   }
 
   .measurement {
-    padding-right: 0.5rem;
+    padding-right: $half-rem;
+  }
+
+  li a {
+    color: $dark-gray;
   }
 }

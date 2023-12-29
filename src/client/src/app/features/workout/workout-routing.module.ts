@@ -10,7 +10,7 @@ const routes: Routes = [
         path: 'dashboard',
         component: WorkoutDashboardComponent,
         pathMatch: 'full',
-        title: 'Тренировъчен профил',
+        title: 'MyActivePal - тренировъчен профил',
       },
     ],
   },

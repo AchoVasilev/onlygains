@@ -1,0 +1,52 @@
+@use "variables" as *;
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5rem;
+
+  .inner-container {
+    padding: $one-rem;
+    background-color: $dark-white;
+    border-radius: 6px;
+  }
+
+  .red-text {
+    color: $red;
+  }
+
+  .orange-text {
+    color: $orange;
+  }
+
+  .blue-text {
+    color: $light-blue;
+  }
+
+  .green-text {
+    color: $green;
+  }
+
+  .info-title {
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: $half-rem;
+  }
+
+  div.unit-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  p.num {
+    font-weight: 700;
+    font-size: 1.7em;
+    color: #3c3563;
+  }
+
+  .secondary-text {
+    color: #929292;
+    font-size: 0.8em;
+  }
+}

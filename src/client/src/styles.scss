@@ -141,3 +141,15 @@ html, body {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
+.dark-gray-text {
+  color: $dark-gray;
+}
+
+.light-gray-text {
+  color: $light-gray;
+}
+
+.white-text {
+  color: $white;
+}

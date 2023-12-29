@@ -12,17 +12,28 @@ import { TagComponent } from '../tag/tag.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'active-side-bar',
   standalone: true,
-  imports: [NgIf, NgForOf, AsyncPipe, RouterModule, TagComponent, MatProgressSpinnerModule, NgForTrackByIdDirective, MatButtonModule],
+  imports: [
+    NgIf,
+    NgForOf,
+    AsyncPipe,
+    RouterModule,
+    TagComponent,
+    MatProgressSpinnerModule,
+    NgForTrackByIdDirective,
+    MatButtonModule,
+    MatIconModule
+  ],
   templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.scss']
+  styleUrls: ['./side-bar.component.scss'],
 })
-export class SideBarComponent implements OnInit{
+export class SideBarComponent implements OnInit {
   categories$?: Observable<CategoryViewResource[]>;
-  
+
   @Input()
   posts$?: Observable<PostViewResource[]>;
   @Input()
@@ -32,7 +43,11 @@ export class SideBarComponent implements OnInit{
 
   tags$?: Observable<TagViewResource[]> | null;
 
-  constructor(private categoryService: CategoryService, private postService: PostService, private tagService: TagService) {}
+  constructor(
+    private categoryService: CategoryService,
+    private postService: PostService,
+    private tagService: TagService
+  ) {}
 
   ngOnInit(): void {
     this.categories$ = this.categoryService.getCategories();

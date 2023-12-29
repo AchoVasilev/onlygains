@@ -10,12 +10,14 @@ const routes: Routes = [
       {
         path: 'create/post',
         pathMatch: 'full',
-        component: CreatePostComponent
+        component: CreatePostComponent,
+        title: 'MyActivePal - създай статия'
       },
       {
         path: 'create/exercise',
         pathMatch: 'full',
-        component: CreateExerciseComponent
+        component: CreateExerciseComponent,
+        title: 'MyActivePal - създай упражнение'
       }
     ]
   }

@@ -4,7 +4,7 @@
   <mat-card>
     <mat-card-header class="card-header">
       <mat-card-title class="card-title">
-        <a routerLink="/posts/details/{{card?.id}}/{{card?.title | snakeCase}}" class="card-link" mat-flat-button> {{ card?.title }} </a>
+        <a routerLink="/posts/details/{{card?.id}}/{{card?.title | snakeCase}}" class="card-link light-gray-text" mat-flat-button> {{ card?.title }} </a>
       </mat-card-title>
       <mat-card-subtitle class="card-subtitle">{{
         card?.subtitle
@@ -19,7 +19,7 @@
       />
     </a>
     <mat-card-content>
-      <p class="card-text">
+      <p class="card-text light-gray-text">
         {{ card?.text }}
       </p>
     </mat-card-content>
@@ -33,7 +33,7 @@
     </a>
     <mat-card-header class="card-header">
       <mat-card-title class="card-title">
-        <a routerLink="/posts/details/{{card?.id}}/{{card?.title | snakeCase}}" class="card-link-secondary" mat-flat-button>
+        <a routerLink="/posts/details/{{card?.id}}/{{card?.title | snakeCase}}" class="card-link-secondary light-gray-text" mat-flat-button>
           {{ card?.title }}
         </a>
       </mat-card-title>

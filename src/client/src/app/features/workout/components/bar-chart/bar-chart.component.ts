@@ -34,6 +34,7 @@ export class BarChartComponent {
         },
       },
     },
+    responsive: true,
   };
 
   constructor() {}
