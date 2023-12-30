@@ -26,15 +26,3 @@ h3 {
 section {
   padding: $one-rem;
 }
-
-.checklist-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: $one-rem;
-  
-  h3 {
-    margin: 0;
-  }
-}

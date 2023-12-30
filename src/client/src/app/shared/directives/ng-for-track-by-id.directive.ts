@@ -10,7 +10,6 @@ export class NgForTrackByIdDirective<T extends Item> {
   constructor(@Host() private ngFor: NgForOf<T>) {
     this.ngFor.ngForTrackBy = (index: number, item: T) => item.id;
   }
-
 }
 
 interface Item {

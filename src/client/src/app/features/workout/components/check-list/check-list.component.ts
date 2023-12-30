@@ -1,54 +1,69 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, QueryList, ViewChildren } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { CheckBoxComponent } from 'app/shared/components/check-box/check-box.component';
-import { CheckListDetailsResource } from 'app/shared/models/checklist';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CreateTodoItemResource, TodoItemDetailsResource } from 'app/shared/models/checklist';
 
 @Component({
   selector: 'active-check-list',
   templateUrl: './check-list.component.html',
-  styleUrls: ['./check-list.component.scss']
+  styleUrls: ['./check-list.component.scss'],
 })
-export class CheckListComponent {
-
+export class CheckListComponent implements OnInit {
   group = new FormGroup({
-    checkListItem: new FormControl<string>('')
+    checkListItem: new FormControl<string>('', Validators.required),
   });
 
-  @Input()
-  checklistItems: CheckListDetailsResource[] = [
-    {
-      id: 'asd',
-      name: 'first'
-    }, 
-    {
-      id: 'fasd',
-      name: 'second'
-    },
-    {
-      id: 'aaa',
-      name: 'third'
-    },
-    {
-      id: 'bbb',
-      name: 'fourth'
-    },
-    {
-      id: 'ccc',
-      name: 'fifth'
-    },
-    {
-      id: 'ddd',
-      name: 'sixth'
-    }
-  ]
+  hiddenElements: { [key: string]: boolean } = {};
 
-  //TODO: emit this as event
-  drop(event: CdkDragDrop<CheckListDetailsResource>) {
-    moveItemInArray(this.checklistItems, event.previousIndex, event.currentIndex);
+  @Output() itemChecked = new EventEmitter<string>();
+  @Output() itemCreated = new EventEmitter<CreateTodoItemResource>();
+
+  @Input({required: true})
+  checklistItems: TodoItemDetailsResource[] | null = [];
+
+  ngOnInit(): void {
+    this.checklistItems?.forEach((item) => {
+      this.hiddenElements[item.id] = false;
+    });
   }
 
-  onEdit(event: MouseEvent) {
-    console.log(event)
+  //TODO: emit this as event
+  drop(event: CdkDragDrop<TodoItemDetailsResource>) {
+    moveItemInArray(
+      this.checklistItems!,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
+
+  onChecked(itemId: string, checked: boolean) {
+    this.itemChecked.emit(itemId);
+  }
+
+  onEdit(itemId: string, itemName: string) {
+    this.toggleElementVisibility(itemId);
+    this.group.patchValue({ checkListItem: itemName });
+  }
+
+  onDelete(itemId: string) {
+    this.checklistItems = this.checklistItems!.filter(item => item.id !== itemId);
+  }
+
+  onOutsideClick(itemId: string) {
+    if (this.hiddenElements[itemId]) {
+      this.toggleElementVisibility(itemId);
+    }
+  }
+
+  onBlur(itemId: string) {
+    this.toggleElementVisibility(itemId);
+    if (!this.group.controls.checkListItem.pristine && this.group.controls.checkListItem.valid) {
+      const {checkListItem} = this.group.value;
+      this.itemCreated.emit({name: checkListItem!});
+    }
+  }
+
+  private toggleElementVisibility(itemId: string) {
+    this.hiddenElements[itemId] = !this.hiddenElements[itemId];
   }
 }

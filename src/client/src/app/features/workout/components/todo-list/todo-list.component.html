@@ -1,0 +1,24 @@
+<section>
+  <div class="checklist-header">
+    <h3 class="dark-gray-text">Задачи за деня</h3>
+    <button mat-icon-button color="primary" aria-label="Add item to todo list" (click)="showForm()">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+  <div [formGroup]="formGroup" *ngIf="shouldShow">
+    <mat-form-field appearance="fill" color="primary" ngDefaultControl>
+      <mat-label>Добавяне на задача</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        (blur)="onBlur()"
+      />
+      <mat-icon matSuffix>mode_edit</mat-icon>
+    </mat-form-field>
+  </div>
+  <active-check-list
+    [checklistItems]="todoItems"
+    (itemChecked)="onItemChecked($event)"
+    (itemCreated)="onItemCreated($event)"
+  ></active-check-list>
+</section>

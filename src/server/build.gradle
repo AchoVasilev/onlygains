@@ -1,9 +1,13 @@
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.9.21"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.9.21"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.9.21"
+
+    id("com.google.devtools.ksp") version "1.9.21-1.0.15"
+
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.micronaut.application") version "4.2.0"
-    id("io.micronaut.aot") version "4.2.0"
+    id("io.micronaut.application") version "4.2.1"
+    id("io.micronaut.aot") version "4.2.1"
 }
 
 ext {
@@ -15,6 +19,7 @@ ext {
     micronautSpockVersion = "4.1.1"
     micronautInjectGroovyVersion = "4.2.1"
     micronautHttpClientVersion = "4.2.1"
+    micronautKotlinRuntime = "4.1.0"
 
     postgresVersion = "42.7.1"
 
@@ -28,7 +33,7 @@ ext {
     javaDotEnvVersion = "5.2.2"
     testContainersVersion = "1.19.3"
 
-    kotlinVersion = "1.9.21"
+    kotlinJacksonVersion = "2.16.1"
 }
 
 apply plugin: 'groovy'
@@ -58,13 +63,13 @@ testing {
 }
 
 dependencies {
-    annotationProcessor("io.micronaut.serde:micronaut-serde-processor:${micronautSerdeVersion}")
-    annotationProcessor("io.micronaut.data:micronaut-data-processor:${micronautDataVersion}")
-    annotationProcessor("io.micronaut.validation:micronaut-validation-processor:${micronautValidationVersion}")
+    ksp("io.micronaut.serde:micronaut-serde-processor:${micronautSerdeVersion}")
+    ksp("io.micronaut.data:micronaut-data-processor:${micronautDataVersion}")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
 
+    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime:${micronautKotlinRuntime}")
     implementation("io.micronaut.serde:micronaut-serde-jackson:${micronautSerdeVersion}")
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa:${micronautDataVersion}")
     implementation("io.micronaut.data:micronaut-data-jdbc:${micronautDataVersion}")
@@ -84,6 +89,7 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic:${logbackVersion}")
     runtimeOnly("org.yaml:snakeyaml:${snakeYmlVersion}")
     runtimeOnly("org.postgresql:postgresql:${postgresVersion}")
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:${kotlinJacksonVersion}")
 
     testImplementation("io.micronaut:micronaut-http-client:${micronautHttpClientVersion}")
     testImplementation("io.micronaut:micronaut-inject-groovy:${micronautInjectGroovyVersion}")
@@ -93,7 +99,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.project.Application")
+    mainClass.set("com.project.ApplicationKt")
 }
 
 java {

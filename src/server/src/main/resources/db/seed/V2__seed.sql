@@ -125,3 +125,9 @@ VALUES ('6136c851-79c7-41e8-9a8a-93e32ba1a085', 'Собствено тегло')
 
 INSERT INTO original_workout_templates(id, name)
 VALUES ('a2a812bb-738e-4a0b-8aa1-f197d9f58510', 'empty');
+
+INSERT INTO todo_items(id, name)
+VALUES ('a2a812bb-738a-4a0b-8aa1-f197d9f58511', 'Тренирай'),
+       ('a2a812bb-738b-4a0b-8aa2-f197d9f58512', 'Пий достатъчно вода'),
+       ('a2a812bb-738c-4a0b-8aa3-f197d9f58513', 'Храни се здравословно'),
+       ('a2a812bb-738d-4a0b-8aa4-f197d9f58514', 'Прочети поне 10 страници');

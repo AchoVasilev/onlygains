@@ -14,12 +14,16 @@ import { CdkDrag, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
+import { ClickOutsideDirective } from 'app/shared/directives/click-outside.directive';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
 
 @NgModule({
   declarations: [
     WorkoutDashboardComponent,
     UserDetailsComponent,
     CheckListComponent,
+    TodoListComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,9 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     CdkDropList,
     CdkDrag,
-    CdkDragHandle
+    CdkDragHandle,
+    NgForTrackByIdDirective,
+    ClickOutsideDirective
   ],
 })
 export class WorkoutModule {}

@@ -7,7 +7,6 @@ import { AppComponent } from './app/app.component';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +15,6 @@ import { NgChartsModule } from 'ng2-charts';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgChartsModule,
     HeaderComponent,
     FooterComponent,
   ],

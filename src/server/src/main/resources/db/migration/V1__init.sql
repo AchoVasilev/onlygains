@@ -170,7 +170,7 @@ CREATE TABLE workouts
     id                  UUID,
     workout_template_id UUID,
     finished_at         TIMESTAMPTZ,
-    duration INTERVAL DEFAULT NULL,
+    duration            INTERVAL             DEFAULT NULL,
     status              VARCHAR(15),
     created_at          TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at         TIMESTAMPTZ,
@@ -272,4 +272,18 @@ CREATE TABLE exercises_equipment
     equipment_id UUID,
 
     CONSTRAINT exercise_equipment_id PRIMARY KEY (exercise_id, equipment_id)
+);
+
+CREATE TABLE todo_items
+(
+    id          UUID,
+    name        VARCHAR,
+    is_done     BOOLEAN     NOT NULL DEFAULT FALSE,
+    user_id     UUID,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at TIMESTAMPTZ,
+    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
+
+    CONSTRAINT pk_todo_item_id PRIMARY KEY (id),
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
 );

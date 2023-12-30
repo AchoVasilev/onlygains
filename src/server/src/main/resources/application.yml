@@ -21,8 +21,9 @@ datasources:
 
 jpa:
   default:
-    packages-to-scan:
-      - 'com.project.domain'
+    entity-scan:
+      packages:
+        - 'com.project.domain'
     properties:
       hibernate:
         hbm2ddl:

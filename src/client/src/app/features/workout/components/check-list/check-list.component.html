@@ -1,39 +1,49 @@
 <ul cdkDropList (cdkDropListDropped)="drop($event)">
-  <li cdkDrag *ngFor="let item of checklistItems">
-    <div class="buttons-container">
-      <active-check-box [item]="item" #checkbox></active-check-box>
-      <div class="icons">
-        <button
-          mat-icon-button
-          color="primary"
-          aria-label="Drag checklist item"
-          cdkDragHandle
-        >
-          <mat-icon>drag_handle</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          color="accent"
-          aria-label="Edit item from checklist"
-          (click)="onEdit($event)"
-        >
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          color="warn"
-          aria-label="Remove item from checklist"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
+  <li
+    cdkDrag
+    *ngFor="let item of checklistItems; trackById"
+  >
+    <div clickOutside (clickOutside)="onOutsideClick(item.id)">
+      <div class="buttons-container">
+        <active-check-box [item]="item" (checked)="onChecked(item.id, $event)"></active-check-box>
+        <div class="icons">
+          <button
+            mat-icon-button
+            color="primary"
+            aria-label="Drag checklist item"
+            cdkDragHandle
+          >
+            <mat-icon>drag_handle</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="accent"
+            aria-label="Edit item from checklist"
+            (click)="onEdit(item.id, item.name)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            aria-label="Remove item from checklist"
+            (click)="onDelete(item.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
-    </div>
-    <div [formGroup]="group">
-      <mat-form-field appearance="fill" color="primary" class="asd">
-        <mat-label class="asd">Промяна на задача</mat-label>
-        <input matInput />
-        <mat-icon matSuffix>mode_edit</mat-icon>
-      </mat-form-field>
+      <div [formGroup]="group" *ngIf="hiddenElements[item.id]">
+        <mat-form-field appearance="fill" color="primary" ngDefaultControl>
+          <mat-label>Промяна на задача</mat-label>
+          <input
+            matInput
+            formControlName="checkListItem"
+            (blur)="onBlur(item.id)"
+          />
+          <mat-icon matSuffix>mode_edit</mat-icon>
+        </mat-form-field>
+      </div>
     </div>
   </li>
 </ul>

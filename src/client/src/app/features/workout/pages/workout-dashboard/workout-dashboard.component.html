@@ -2,19 +2,11 @@
   <active-side-bar [isWorkout]="true"></active-side-bar>
   <div class="main-body">
     <div class="checklist">
-      <section>
-        <div class="checklist-header">
-          <h3 class="dark-gray-text">Задачи за деня</h3>
-          <button
-            mat-icon-button
-            color="primary"
-            aria-label="Add item to checklist"
-          >
-            <mat-icon>add_circle</mat-icon>
-          </button>
-        </div>
-        <active-check-list></active-check-list>
-      </section>
+        <active-todo-list
+          [todoItems]="todoItems$ | async"
+          (itemChecked)="onItemChecked($event)"
+          (itemCreated)="onItemCreated($event)"
+        ></active-todo-list>
     </div>
     <div class="info">
       <section>

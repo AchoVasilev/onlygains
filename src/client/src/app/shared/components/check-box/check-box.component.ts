@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'active-check-box',
@@ -8,6 +8,13 @@ import { Component, Input } from '@angular/core';
 })
 export class CheckBoxComponent {
 
+  @Output() checked = new EventEmitter<boolean>();
+  
   @Input({required: true})
-  item!: {name: string, id: string};
+  item!: {name: string, id: string, isDone: boolean};
+
+  onChange(event: Event) {
+    const eventTarget = event.target as HTMLInputElement;
+    this.checked.emit(eventTarget.checked);
+  }
 }
