@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TodoItemService } from 'app/core/services/todo/todo-item.service';
 import {
   CreateTodoItemResource,
+  EditTodoItemResource,
   TodoItemDetailsResource,
 } from 'app/shared/models/checklist';
 import { ChartConfiguration } from 'chart.js';
@@ -46,12 +47,24 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
   };
 
   onItemChecked(itemId: string) {
-    this.todoItemService.checkItem(itemId);
+    this.todoItemService.checkItem(itemId).subscribe((item) => {
+      this.itemSubject.next(item);
+    });
   }
 
   onItemCreated(item: CreateTodoItemResource) {
     this.todoItemService.createItem(item).subscribe((item) => {
       this.itemSubject.next(item);
     });
+  }
+
+  onItemEdited(item: EditTodoItemResource) {
+    this.todoItemService.editItem(item).subscribe((item) => {
+      this.itemSubject.next(item);
+    })
+  }
+
+  onItemDeleted(itemId: string) {
+    this.todoItemService.deleteItem(itemId);
   }
 }

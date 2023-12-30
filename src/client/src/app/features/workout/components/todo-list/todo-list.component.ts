@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreateTodoItemResource, TodoItemDetailsResource } from 'app/shared/models/checklist';
+import { CreateTodoItemResource, EditTodoItemResource, TodoItemDetailsResource } from 'app/shared/models/checklist';
 
 @Component({
   selector: 'active-todo-list',
@@ -14,6 +14,8 @@ export class TodoListComponent {
 
   @Output() itemChecked = new EventEmitter<string>();
   @Output() itemCreated = new EventEmitter<CreateTodoItemResource>();
+  @Output() itemDeleted = new EventEmitter<string>();
+  @Output() itemEdited = new EventEmitter<EditTodoItemResource>();
 
   shouldShow = false;
 
@@ -25,8 +27,12 @@ export class TodoListComponent {
     this.itemChecked.emit(itemId);
   }
 
-  onItemCreated(item: CreateTodoItemResource) {
-    this.itemCreated.emit(item);
+  onItemEdited(item: EditTodoItemResource) {
+    this.itemEdited.emit(item);
+  }
+
+  onItemDeleted(itemId: string) {
+    this.itemDeleted.emit(itemId);
   }
 
   showForm() {

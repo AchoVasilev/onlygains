@@ -2,6 +2,8 @@ package com.project.application.models.todoitem
 
 import io.micronaut.serde.annotation.Serdeable
 import jakarta.validation.constraints.NotNull
+import java.util.UUID
 
 @Serdeable
-data class CreateTodoItemResource(@NotNull val name: String)
+data class EditTodoItemResource(@NotNull val name: String, @NotNull val id: UUID) {
+}

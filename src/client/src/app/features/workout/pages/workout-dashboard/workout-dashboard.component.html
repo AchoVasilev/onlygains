@@ -6,6 +6,8 @@
           [todoItems]="todoItems$ | async"
           (itemChecked)="onItemChecked($event)"
           (itemCreated)="onItemCreated($event)"
+          (itemDeleted)="onItemDeleted($event)"
+          (itemEdited)="onItemEdited($event)"
         ></active-todo-list>
     </div>
     <div class="info">

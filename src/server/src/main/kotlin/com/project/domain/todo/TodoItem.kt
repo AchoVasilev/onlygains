@@ -31,4 +31,9 @@ class TodoItem protected constructor() : BaseEntity(){
         this.isDone = !this.isDone
         this.markAsUpdated()
     }
+
+    fun updateName(name: String) {
+        this.name = name
+        this.markAsUpdated()
+    }
 }

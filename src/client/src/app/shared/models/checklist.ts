@@ -7,3 +7,8 @@ export interface TodoItemDetailsResource {
 export interface CreateTodoItemResource {
     name: string
 }
+
+export interface EditTodoItemResource {
+    id: string,
+    name: string
+}

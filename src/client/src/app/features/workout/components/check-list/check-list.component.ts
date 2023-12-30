@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreateTodoItemResource, TodoItemDetailsResource } from 'app/shared/models/checklist';
+import { EditTodoItemResource, TodoItemDetailsResource } from 'app/shared/models/checklist';
 
 @Component({
   selector: 'active-check-list',
@@ -16,7 +16,8 @@ export class CheckListComponent implements OnInit {
   hiddenElements: { [key: string]: boolean } = {};
 
   @Output() itemChecked = new EventEmitter<string>();
-  @Output() itemCreated = new EventEmitter<CreateTodoItemResource>();
+  @Output() itemEdited = new EventEmitter<EditTodoItemResource>();
+  @Output() itemDeleted = new EventEmitter<string>();
 
   @Input({required: true})
   checklistItems: TodoItemDetailsResource[] | null = [];
@@ -47,6 +48,7 @@ export class CheckListComponent implements OnInit {
 
   onDelete(itemId: string) {
     this.checklistItems = this.checklistItems!.filter(item => item.id !== itemId);
+    this.itemDeleted.emit(itemId);
   }
 
   onOutsideClick(itemId: string) {
@@ -59,7 +61,7 @@ export class CheckListComponent implements OnInit {
     this.toggleElementVisibility(itemId);
     if (!this.group.controls.checkListItem.pristine && this.group.controls.checkListItem.valid) {
       const {checkListItem} = this.group.value;
-      this.itemCreated.emit({name: checkListItem!});
+      this.itemEdited.emit({name: checkListItem!, id: itemId});
     }
   }
 

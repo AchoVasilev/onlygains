@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateTodoItemResource, TodoItemDetailsResource } from 'app/shared/models/checklist';
+import { CreateTodoItemResource, EditTodoItemResource, TodoItemDetailsResource } from 'app/shared/models/checklist';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
@@ -16,11 +16,19 @@ export class TodoItemService {
     return this.http.get<TodoItemDetailsResource[]>(this.apiUrl);
   }
 
-  checkItem(itemId: string) {
-    this.http.patch(`${this.apiUrl}/${itemId}`, {}).subscribe();
+  checkItem(itemId: string): Observable<TodoItemDetailsResource> {
+    return this.http.patch<TodoItemDetailsResource>(`${this.apiUrl}/${itemId}`, {});
   }
 
   createItem(item: CreateTodoItemResource): Observable<TodoItemDetailsResource> {
     return this.http.post<TodoItemDetailsResource>(this.apiUrl, item);
+  }
+
+  editItem(item: EditTodoItemResource): Observable<TodoItemDetailsResource> {
+    return this.http.put<TodoItemDetailsResource>(`${this.apiUrl}/${item.id}`, item)
+  }
+
+  deleteItem(id: string) {
+    this.http.delete(`${this.apiUrl}/${id}`).subscribe();
   }
 }

@@ -16,5 +16,6 @@ abstract class BaseEntity protected constructor() {
 
     fun markAsDeleted() {
         this.isDeleted = true
+        this.markAsUpdated()
     }
 }
