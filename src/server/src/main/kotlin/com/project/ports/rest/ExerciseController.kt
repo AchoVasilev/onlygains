@@ -18,7 +18,7 @@ import java.util.UUID
 open class ExerciseController(private val exerciseService: ExerciseService) {
     @Get(uri = "/{id}")
     open fun getById(@PathVariable("id") id: UUID): HttpResponse<ExerciseDetailsResource> {
-        return HttpResponse.ok(ExerciseDetailsResource.from(exerciseService.getBy(id)))
+        return HttpResponse.ok(exerciseService.getBy(id))
     }
 
     @Get("/variations")

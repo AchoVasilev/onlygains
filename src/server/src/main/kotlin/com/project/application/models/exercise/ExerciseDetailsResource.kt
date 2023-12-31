@@ -7,7 +7,7 @@ import io.micronaut.serde.annotation.Serdeable
 import java.util.UUID
 
 @Serdeable
-data class ExerciseDetailsResource(val id: UUID, val name: String?, val gifUrl: String?, val translatedName: String?,
+data class ExerciseDetailsResource private constructor(val id: UUID, val name: String?, val gifUrl: String?, val translatedName: String?,
                               val description: String?, val muscleGroups: List<MuscleGroupDetailsResource>,
                               val variations: List<ExerciseResource>, val equipment: List<EquipmentResource>,
                               val mainMuscleGroupsIds: List<String>, val synergisticMuscleGroupsIds: List<String>) {

@@ -63,7 +63,7 @@ class WorkoutExercise protected constructor() : BaseEntity() {
     }
 
     fun addSet(repetitions: Int, weight: Double) {
-        val set: WorkoutSet = WorkoutSet(weight, repetitions)
+        val set = WorkoutSet(weight, repetitions)
         set.exercise = this
         sets.add(set)
         this.modifiedAt = utcNow()

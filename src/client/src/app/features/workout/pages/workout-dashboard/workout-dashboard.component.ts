@@ -14,7 +14,7 @@ import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
   styleUrls: ['./workout-dashboard.component.scss'],
 })
 export class WorkoutDashboardComponent implements OnInit, OnDestroy {
-  private itemSubject = new BehaviorSubject<TodoItemDetailsResource>(null!);
+  private itemSubject = new BehaviorSubject<void>(null!);
   private itemtemObservable$ = this.itemSubject.asObservable();
   private destroy$ = new Subject<void>();
 
@@ -47,24 +47,26 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
   };
 
   onItemChecked(itemId: string) {
-    this.todoItemService.checkItem(itemId).subscribe((item) => {
-      this.itemSubject.next(item);
-    });
+    this.todoItemService
+      .checkItem(itemId)
+      .subscribe(() => this.itemSubject.next());
   }
 
   onItemCreated(item: CreateTodoItemResource) {
-    this.todoItemService.createItem(item).subscribe((item) => {
-      this.itemSubject.next(item);
-    });
+    this.todoItemService
+      .createItem(item)
+      .subscribe(() => this.itemSubject.next());
   }
 
   onItemEdited(item: EditTodoItemResource) {
-    this.todoItemService.editItem(item).subscribe((item) => {
-      this.itemSubject.next(item);
-    })
+    this.todoItemService
+      .editItem(item)
+      .subscribe(() => this.itemSubject.next());
   }
 
   onItemDeleted(itemId: string) {
-    this.todoItemService.deleteItem(itemId);
+    this.todoItemService
+      .deleteItem(itemId)
+      .subscribe(() => this.itemSubject.next());
   }
 }

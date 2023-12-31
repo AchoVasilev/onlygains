@@ -28,7 +28,7 @@ export class TodoItemService {
     return this.http.put<TodoItemDetailsResource>(`${this.apiUrl}/${item.id}`, item)
   }
 
-  deleteItem(id: string) {
-    this.http.delete(`${this.apiUrl}/${id}`).subscribe();
+  deleteItem(id: string) : Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

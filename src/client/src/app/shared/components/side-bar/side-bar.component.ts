@@ -9,10 +9,10 @@ import { TagViewResource } from 'app/shared/models/tag';
 import { Observable } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { TagComponent } from '../tag/tag.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'active-side-bar',
@@ -23,10 +23,10 @@ import { MatIconModule } from '@angular/material/icon';
     AsyncPipe,
     RouterModule,
     TagComponent,
-    MatProgressSpinnerModule,
     NgForTrackByIdDirective,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    SpinnerComponent
   ],
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss'],

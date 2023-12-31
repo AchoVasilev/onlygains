@@ -47,7 +47,6 @@ export class CheckListComponent implements OnInit {
   }
 
   onDelete(itemId: string) {
-    this.checklistItems = this.checklistItems!.filter(item => item.id !== itemId);
     this.itemDeleted.emit(itemId);
   }
 

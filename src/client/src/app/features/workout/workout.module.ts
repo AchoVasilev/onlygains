@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 import { ClickOutsideDirective } from 'app/shared/directives/click-outside.directive';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { SpinnerComponent } from 'app/shared/components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { TodoListComponent } from './components/todo-list/todo-list.component';
     CdkDrag,
     CdkDragHandle,
     NgForTrackByIdDirective,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    SpinnerComponent,
   ],
 })
 export class WorkoutModule {}

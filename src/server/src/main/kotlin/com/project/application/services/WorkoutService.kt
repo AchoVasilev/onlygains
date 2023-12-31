@@ -46,7 +46,7 @@ open class WorkoutService(
     @Transactional
     open fun updateExerciseInWorkout(workoutExerciseResource: UpdateWorkoutExerciseResource): WorkoutDetailsResource {
         val workout = this.findById(workoutExerciseResource.workoutId)
-        val exercise = exerciseService.getBy(workoutExerciseResource.exerciseId)
+        val exercise = exerciseService.getById(workoutExerciseResource.exerciseId)
 
         workoutExerciseResource.sets
                 .forEach { set: WorkoutSetResource ->
@@ -66,7 +66,7 @@ open class WorkoutService(
 
     @Transactional
     open fun addExerciseToWorkout(workoutId: UUID, newExercise: CreateWorkoutExerciseResource): WorkoutDetailsResource {
-        val exercise = exerciseService.getBy(newExercise.exerciseId)
+        val exercise = exerciseService.getById(newExercise.exerciseId)
         val workout = this.findById(workoutId)
         if (newExercise.sets.isEmpty()) {
             workout.addExercise(WorkoutExercise.from(exercise))

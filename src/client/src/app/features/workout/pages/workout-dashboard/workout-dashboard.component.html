@@ -2,17 +2,18 @@
   <active-side-bar [isWorkout]="true"></active-side-bar>
   <div class="main-body">
     <div class="checklist">
-        <active-todo-list
-          [todoItems]="todoItems$ | async"
-          (itemChecked)="onItemChecked($event)"
-          (itemCreated)="onItemCreated($event)"
-          (itemDeleted)="onItemDeleted($event)"
-          (itemEdited)="onItemEdited($event)"
-        ></active-todo-list>
+      <active-todo-list
+      [todoItems]="todoItems$ | async"
+      (itemChecked)="onItemChecked($event)"
+      (itemCreated)="onItemCreated($event)"
+      (itemDeleted)="onItemDeleted($event)"
+      (itemEdited)="onItemEdited($event)"
+      ></active-todo-list>
     </div>
     <div class="info">
       <section>
         <h3 class="dark-gray-text">Тренировки</h3>
+        <active-spinner></active-spinner>
         <active-bar-chart [data]="data"></active-bar-chart>
       </section>
       <section>

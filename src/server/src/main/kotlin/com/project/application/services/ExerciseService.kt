@@ -7,16 +7,16 @@ import com.project.domain.workout.Exercise
 import com.project.infrastructure.data.ExerciseRepository
 import com.project.infrastructure.exceptions.DuplicateEntryException
 import com.project.infrastructure.exceptions.EntityNotFoundException
+import io.micronaut.transaction.annotation.ReadOnly
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
 import java.util.UUID
 
 @Singleton
 open class ExerciseService(private val exerciseRepository: ExerciseRepository, private val muscleGroupService: MuscleGroupService, private val equipmentService: EquipmentService) {
-    @Transactional(readOnly = true)
-    open fun getBy(id: UUID): Exercise {
-        return exerciseRepository.findById(id)
-                .orElseThrow { EntityNotFoundException(Exercise::class, id) }
+    @ReadOnly
+    open fun getBy(id: UUID): ExerciseDetailsResource {
+        return ExerciseDetailsResource.from(getById(id))
     }
 
     @Transactional
@@ -62,5 +62,11 @@ open class ExerciseService(private val exerciseRepository: ExerciseRepository, p
     @Transactional(readOnly = true)
     open fun getBy(ids: List<UUID>): List<Exercise> {
         return exerciseRepository.findByIdIn(ids)
+    }
+
+    @ReadOnly
+    open fun getById(id: UUID) : Exercise {
+        return exerciseRepository.findById(id)
+            .orElseThrow { EntityNotFoundException(Exercise::class, id) }
     }
 }

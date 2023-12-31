@@ -1,18 +1,17 @@
 <article class="exercise-container" *ngIf="exercise">
   <section class="exercise-section">
-    <section [innerHTML]="exercise.description">
-    </section>
+    <section [innerHTML]="exercise.description"></section>
     <section class="exercise-muscle-groups">
       <h2 class="exercise-subheading">Използвани мускулни групи</h2>
       <section class="exercise-muscle-group">
         <div>
           <section class="exercise-main-muscle-groups">
-            <div *ngFor="let muscle of getMainMuscleGroups() trackById">
+            <div *ngFor="let muscle of getMainMuscleGroups(); trackById">
               <p>Целева група: {{ muscle.translatedName }}</p>
             </div>
           </section>
           <section class="exercise-synergist-muscle-groups">
-            <div *ngFor="let muscle of getSynergists() trackById">
+            <div *ngFor="let muscle of getSynergists(); trackById">
               <p>Спомагателна група: {{ muscle.translatedName }}</p>
             </div>
           </section>
@@ -21,13 +20,11 @@
       </section>
     </section>
     <section class="exercise-variations">
-      <h2 class="exercise-subheading">
-        Standing Dumbbell Shoulder Press Variations
-      </h2>
+      <h2 class="exercise-subheading">Вариации на {{ exercise.name }}</h2>
       <p>
-        Variations of the standing dumbbell shoulder press can help add variety
-        to your shoulder workout routine and target the muscles from different
-        angles. Here are some common variations to consider:
+        Вариациите на <strong>{{ exercise.name | lowercase }}</strong> ще добавят разнообразие в тренировките
+        и ще работите мускулатурата от различни ъгли. Ето някои вариации, които
+        може да използвате:
       </p>
     </section>
     <section class="similar-exercises">
