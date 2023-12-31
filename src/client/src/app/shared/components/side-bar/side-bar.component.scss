@@ -81,6 +81,7 @@
 .workout-side-bar {
   background-color: #e0e0e0;
   border-radius: $half-rem;
+  height: 100%;
 
   div.person {
     padding-top: $one-rem;
@@ -89,6 +90,10 @@
   div.person,
   ul {
     padding-left: $one-rem;
+  }
+
+  ul li {
+    padding: $half-rem 0;
   }
 
   .body-measurements {
@@ -102,5 +107,6 @@
 
   li a {
     color: $dark-gray;
+    font-size: 16px;
   }
 }

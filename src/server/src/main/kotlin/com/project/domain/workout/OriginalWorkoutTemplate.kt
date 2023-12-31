@@ -15,7 +15,7 @@ class OriginalWorkoutTemplate protected constructor() : BaseEntity() {
         private set
 
     @OneToMany(mappedBy = "originalWorkoutTemplate")
-    val exercises: MutableList<WorkoutExercise> = ArrayList()
+    val exercises: MutableList<WorkoutExercise> = mutableListOf()
 
     constructor(name: String?, exercises: List<WorkoutExercise>?) : this() {
         this.name = name

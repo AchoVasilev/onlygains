@@ -1,0 +1,45 @@
+<div clickOutside (clickOutside)="onOutsideClick()">
+  <div class="buttons-container">
+    <active-check-box
+      [item]="item"
+      (checked)="onChecked(item.id, $event)"
+    ></active-check-box>
+    <div class="icons">
+      <button
+        mat-icon-button
+        color="primary"
+        aria-label="Drag checklist item"
+        cdkDragHandle
+      >
+        <mat-icon>drag_handle</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="accent"
+        aria-label="Edit item from checklist"
+        (click)="onEdit(item.name)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="warn"
+        aria-label="Remove item from checklist"
+        (click)="onDelete(item.id)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div [formGroup]="group" *ngIf="showForm">
+    <mat-form-field appearance="fill" color="primary" ngDefaultControl>
+      <mat-label>Промяна на задача</mat-label>
+      <input
+        matInput
+        formControlName="checkListItem"
+        (blur)="onBlur(item.id)"
+      />
+      <mat-icon matSuffix>mode_edit</mat-icon>
+    </mat-form-field>
+  </div>
+</div>

@@ -12,7 +12,7 @@ class Role protected constructor(): BaseEntity() {
     var name: String? = null
         private set
 
-    constructor(name: String?) : this() {
+    constructor(name: String) : this() {
         this.name = name
     }
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
+import jakarta.persistence.OneToOne
 import java.util.UUID
 
 @Entity(name = "users")
@@ -27,7 +28,7 @@ class User protected constructor() : BaseEntity() {
     @ManyToOne
     var role: Role? = null
         private set
-    @JvmField
+
     var imageUrl: String? = null
 
     @OneToMany(mappedBy = "user")
@@ -38,6 +39,9 @@ class User protected constructor() : BaseEntity() {
 
     @OneToMany(mappedBy = "user")
     val todoItems: MutableList<TodoItem> = mutableListOf()
+
+    @OneToOne
+    val workoutProfile: WorkoutProfile = WorkoutProfile(this)
 
     val firstName: String?
         get() = fullName!!.firstName

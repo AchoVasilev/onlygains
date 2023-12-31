@@ -2,8 +2,8 @@
   <active-side-bar [isWorkout]="true"></active-side-bar>
   <div class="main-body">
     <div class="checklist">
-      <active-todo-list
-      [todoItems]="todoItems$ | async"
+      <active-todo-list *ngIf="todoItems$ | async as items; else loading"
+      [todoItems]="items"
       (itemChecked)="onItemChecked($event)"
       (itemCreated)="onItemCreated($event)"
       (itemDeleted)="onItemDeleted($event)"
@@ -13,7 +13,6 @@
     <div class="info">
       <section>
         <h3 class="dark-gray-text">Тренировки</h3>
-        <active-spinner></active-spinner>
         <active-bar-chart [data]="data"></active-bar-chart>
       </section>
       <section>
@@ -23,3 +22,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <active-spinner class="centered"></active-spinner>
+</ng-template>

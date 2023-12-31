@@ -70,7 +70,7 @@ open class PostService(private val postRepository: PostRepository, private val c
         user.addPost(post)
 
         val tags = tagService.getTags(postResource.tags)
-        tags.forEach( { tag: Tag -> post.addTag(tag) })
+        tags.forEach { tag: Tag -> post.addTag(tag) }
 
         postRepository.save(post)
         log.info("Post has been created, [postId={}]", post.id)

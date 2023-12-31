@@ -20,6 +20,7 @@ open class TodoItemService(private val todoItemRepository: TodoItemRepository) {
             .map { TodoItemDetailsResource(it.id, it.name!!, it.isDone) }
     }
 
+    //TODO: If user interacts with any of the seeded items, first add them to his collection.
     @Transactional
     open fun changeDoneStatus(itemId: UUID) : TodoItemDetailsResource {
         var item = this.getItem(itemId)

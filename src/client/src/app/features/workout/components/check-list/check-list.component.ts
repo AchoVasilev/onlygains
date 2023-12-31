@@ -1,70 +1,109 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+  query,
+  animateChild,
+  stagger,
+} from '@angular/animations';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { EditTodoItemResource, TodoItemDetailsResource } from 'app/shared/models/checklist';
+import {
+  EditTodoItemResource,
+  TodoItemDetailsResource,
+} from 'app/shared/models/checklist';
 
 @Component({
   selector: 'active-check-list',
   templateUrl: './check-list.component.html',
   styleUrls: ['./check-list.component.scss'],
+  animations: [
+    trigger('items', [
+      transition(':enter', [
+        style({ opacity: 0 }), // initial
+        animate(
+          '700ms ease-out',
+          style({ opacity: 1 })
+        ), // final
+      ]),
+      transition(':leave', [
+        style({ opacity: 1, height: '*' }),
+        animate(
+          '700ms ease-in',
+          style({
+            opacity: 0,
+            height: '0px',
+            margin: '0px',
+          })
+        ),
+      ]),
+    ]),
+    trigger('rotate', [
+      state('default', style({ transform: 'rotate(0)' })),
+      state('rotated', style({ transform: 'rotate(180deg' })),
+      transition('default<=>rotated', animate('200ms')),
+    ]),
+    trigger('list', [
+      transition(':enter', [
+        query('@items', stagger(100, animateChild()), { optional: true }),
+      ]),
+    ]),
+  ],
 })
 export class CheckListComponent implements OnInit {
-  group = new FormGroup({
-    checkListItem: new FormControl<string>('', Validators.required),
-  });
-
-  hiddenElements: { [key: string]: boolean } = {};
-
   @Output() itemChecked = new EventEmitter<string>();
   @Output() itemEdited = new EventEmitter<EditTodoItemResource>();
   @Output() itemDeleted = new EventEmitter<string>();
 
-  @Input({required: true})
+  @Input({ required: true })
   checklistItems: TodoItemDetailsResource[] | null = [];
 
+  visibleItems: TodoItemDetailsResource[] = [];
+  hiddenItems: TodoItemDetailsResource[] = [];
+  isExpanded = false;
+
   ngOnInit(): void {
-    this.checklistItems?.forEach((item) => {
-      this.hiddenElements[item.id] = false;
-    });
+    this.visibleItems = this.checklistItems?.slice(0, 10) || [];
+    this.hiddenItems = this.checklistItems?.slice(10) || [];
   }
 
   //TODO: emit this as event
-  drop(event: CdkDragDrop<TodoItemDetailsResource>) {
-    moveItemInArray(
-      this.checklistItems!,
-      event.previousIndex,
-      event.currentIndex
-    );
+  drop(event: CdkDragDrop<TodoItemDetailsResource[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
   }
 
-  onChecked(itemId: string, checked: boolean) {
+  onChecked(itemId: string) {
     this.itemChecked.emit(itemId);
   }
 
-  onEdit(itemId: string, itemName: string) {
-    this.toggleElementVisibility(itemId);
-    this.group.patchValue({ checkListItem: itemName });
+  onEdit(item: EditTodoItemResource) {
+    this.itemEdited.emit({ name: item.name, id: item.id });
   }
 
   onDelete(itemId: string) {
     this.itemDeleted.emit(itemId);
   }
 
-  onOutsideClick(itemId: string) {
-    if (this.hiddenElements[itemId]) {
-      this.toggleElementVisibility(itemId);
-    }
-  }
-
-  onBlur(itemId: string) {
-    this.toggleElementVisibility(itemId);
-    if (!this.group.controls.checkListItem.pristine && this.group.controls.checkListItem.valid) {
-      const {checkListItem} = this.group.value;
-      this.itemEdited.emit({name: checkListItem!, id: itemId});
-    }
-  }
-
-  private toggleElementVisibility(itemId: string) {
-    this.hiddenElements[itemId] = !this.hiddenElements[itemId];
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
   }
 }

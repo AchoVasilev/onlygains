@@ -13,7 +13,7 @@ class WorkoutHistory protected constructor(): BaseEntity() {
     var workoutId: UUID? = null
         private set
 
-    constructor(workoutId: UUID?) : this() {
+    constructor(workoutId: UUID) : this() {
         this.workoutId = workoutId
     }
 }

@@ -1,33 +1,41 @@
-.spinner {
-  animation: rotate 2s linear infinite;
-  z-index: 2;
-  width: 50px;
-  height: 50px;
+$loader-colors: dodgerblue, mediumspringgreen, rgb(240, 70, 104), rgb(243, 163, 92), chocolate, rgb(133, 3, 24);
+$loader-dash: 63;
+$loader-duration: length($loader-colors) * 1s;
+$loader-duration-alt: calc($loader-duration / length($loader-colors));
+$loader-keyframe: calc(1 / (length($loader-colors) * 2) * 100);
 
-  & .path {
-    stroke: hsl(210, 86%, 67%);
-    stroke-linecap: round;
-    animation: dash 1.5s ease-in-out infinite;
+.loader {
+  animation: loader-turn $loader-duration-alt linear infinite;
+  padding: 1rem;
+  max-width: 80px;
+  width: 100%;
+
+  @keyframes loader-turn {
+    50% { transform: rotate(180deg) }
+    100% { transform: rotate(720deg) }
   }
 }
 
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
+.loader__value {
+  animation: loader-stroke $loader-duration linear infinite; 
+  fill: none;
+  stroke-dasharray: $loader-dash;
+  stroke-dashoffset: $loader-dash;
+  stroke-linecap: round;
+  stroke-width: 4;
 
-@keyframes dash {
-  0% {
-    stroke-dasharray: 1, 150;
-    stroke-dashoffset: 0;
+  @for $i from 1 through length($loader-colors) {
+    &:nth-child(#{$i}) {
+      stroke: nth($loader-colors, $i);
+      
+      @if $i > 1 {
+        animation-delay: ($i - 1) * $loader-duration-alt;
+      }
+    }
   }
-  50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -35;
-  }
-  100% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -124;
+  
+  @keyframes loader-stroke {
+    #{$loader-keyframe * 1%} { stroke-dashoffset: 0 }
+    #{$loader-keyframe * 2%}, 100% { stroke-dashoffset: $loader-dash }
   }
 }

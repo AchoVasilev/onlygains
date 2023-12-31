@@ -18,6 +18,7 @@ import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-i
 import { ClickOutsideDirective } from 'app/shared/directives/click-outside.directive';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { SpinnerComponent } from 'app/shared/components/spinner/spinner.component';
+import { CheckListItemComponent } from './components/check-list-item/check-list-item.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SpinnerComponent } from 'app/shared/components/spinner/spinner.componen
     UserDetailsComponent,
     CheckListComponent,
     TodoListComponent,
+    CheckListItemComponent,
   ],
   imports: [
     CommonModule,
