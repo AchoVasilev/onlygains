@@ -7,23 +7,15 @@ import jakarta.persistence.Enumerated
 
 @Embeddable
 class Weight {
-    var weight: Double = 0.0
+    var weight: Double? = null
         private set
 
     @Enumerated(EnumType.STRING)
-    var weightType: WeightType? = null
-        private set
+    val weightType: WeightType = WeightType.KG
 
-    private constructor(weight: Double) {
+    constructor(weight: Double) {
         this.weight = weight
-        this.weightType = WeightType.KG
     }
 
     protected constructor()
-
-    companion object {
-        fun from(weight: Double): Weight {
-            return Weight(weight)
-        }
-    }
 }

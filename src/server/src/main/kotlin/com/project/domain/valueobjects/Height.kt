@@ -4,21 +4,18 @@ import jakarta.persistence.Embeddable
 
 @Embeddable
 class Height {
-    var height: Double = 0.0
+    var height: Double? = null
         private set
 
     val heightType: String = "cm"
 
-    private constructor(height: Double) {
+    constructor(height: Double) {
         this.height = height
     }
 
     protected constructor()
 
-    companion object {
-        @JvmStatic
-        fun from(height: Double) : Height {
-            return Height(height)
-        }
+    fun toMeters(): Double {
+        return this.height!! / 100
     }
 }
