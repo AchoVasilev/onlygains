@@ -14,7 +14,7 @@ class WorkoutTemplate() : BaseEntity() {
     @Id
     val id: UUID = UUID.randomUUID()
 
-    var name: String?
+    var name: String = "EMPTY ${createdAt.format(formatterFrom(DATE_FORMAT))}"
         private set
 
     var originalWorkoutTemplateId: UUID? = null
@@ -22,10 +22,6 @@ class WorkoutTemplate() : BaseEntity() {
 
     @OneToMany(mappedBy = "workoutTemplate")
     val exercises: MutableList<WorkoutExercise?> = mutableListOf()
-
-    init {
-        this.name = createdAt.format(formatterFrom(DATE_FORMAT))
-    }
 
     protected constructor(template: OriginalWorkoutTemplate) : this() {
         this.name = template.name

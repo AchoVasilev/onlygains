@@ -26,12 +26,12 @@ class WorkoutSet protected constructor() : BaseEntity() {
     var exercise: WorkoutExercise? = null
 
     constructor(weight: Double, repetitions: Int) : this() {
-        this.weight = Weight.from(weight)
+        this.weight = Weight(weight)
         this.repetitions = repetitions
     }
 
     fun changeWeight(weight: Double) {
-        this.weight = Weight.from(weight)
+        this.weight = Weight(weight)
     }
 
     fun changeRepetitions(repetitions: Int) {

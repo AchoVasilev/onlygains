@@ -11,16 +11,17 @@ CREATE TABLE roles
 
 CREATE TABLE users
 (
-    id          UUID,
-    email       VARCHAR(50) NOT NULL,
-    password    VARCHAR     NOT NULL,
-    first_name  VARCHAR(50) NOT NULL,
-    last_name   VARCHAR(50) NOT NULL,
-    image_url   VARCHAR,
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
-    modified_at TIMESTAMPTZ,
-    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
-    role_id     UUID,
+    id                 UUID,
+    email              VARCHAR(50) NOT NULL,
+    password           VARCHAR     NOT NULL,
+    first_name         VARCHAR(50) NOT NULL,
+    last_name          VARCHAR(50) NOT NULL,
+    image_url          VARCHAR,
+    workout_profile_id UUID,
+    created_at         TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at        TIMESTAMPTZ,
+    is_deleted         BOOLEAN     NOT NULL DEFAULT FALSE,
+    role_id            UUID,
 
     CONSTRAINT pk_user_id PRIMARY KEY (id),
     CONSTRAINT fk_role_id FOREIGN KEY (role_id) REFERENCES roles (id)
@@ -287,3 +288,27 @@ CREATE TABLE todo_items
     CONSTRAINT pk_todo_item_id PRIMARY KEY (id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
 );
+
+CREATE TABLE workout_profile
+(
+    id           UUID,
+    user_id      UUID,
+    age          INTEGER,
+    gender       CHAR,
+    weight       NUMERIC(4, 2),
+    weight_type  VARCHAR(2),
+    height       NUMERIC(4, 2),
+    height_type  VARCHAR(2),
+    body_fat     NUMERIC(2, 2),
+    percent      CHAR,
+    bmi          NUMERIC(4, 2),
+    calories     NUMERIC(6, 2),
+    unit_type    VARCHAR(5),
+    bmr_equation VARCHAR,
+
+    created_at   TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at  TIMESTAMPTZ,
+    is_deleted   BOOLEAN     NOT NULL DEFAULT FALSE,
+
+    CONSTRAINT pk_workout_profile_id PRIMARY KEY (id)
+)

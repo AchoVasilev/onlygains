@@ -1,10 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialogService } from 'app/core/services/dialog/mat-dialog/mat-dialog.service';
 import { TodoItemService } from 'app/core/services/todo/todo-item.service';
+import { WorkoutProfileService } from 'app/core/services/user/workout-profile/workout-profile.service';
+import { BodyMassService } from 'app/core/services/workout/body-mass/body-mass.service';
+import { CreateBmiResource } from 'app/shared/models/bmi';
 import {
   CreateTodoItemResource,
   EditTodoItemResource,
   TodoItemDetailsResource,
 } from 'app/shared/models/checklist';
+import { UserWorkoutProfileDetailsResource } from 'app/shared/models/user';
 import { ChartConfiguration } from 'chart.js';
 import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
 
@@ -19,8 +24,13 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   todoItems$!: Observable<TodoItemDetailsResource[]>;
+  user?: UserWorkoutProfileDetailsResource;
 
-  constructor(private todoItemService: TodoItemService) {}
+  constructor(
+    private todoItemService: TodoItemService,
+    private bodyMassService: BodyMassService,
+    private workoutProfileService: WorkoutProfileService
+  ) {}
 
   ngOnInit(): void {
     this.todoItems$ = this.todoItemService.getAll();
@@ -28,6 +38,8 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
     this.itemtemObservable$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.todoItems$ = this.todoItems$.pipe(map((items) => items));
     });
+
+    this.getUser();
   }
 
   ngOnDestroy(): void {
@@ -45,6 +57,11 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
       },
     ],
   };
+
+  getUser() {
+    this.workoutProfileService.getById('af2e8e6a-861b-4b1b-b7d1-81410dbcf1b6')
+      .subscribe(user => this.user = user);
+  }
 
   onItemChecked(itemId: string) {
     this.todoItemService
@@ -68,5 +85,16 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
     this.todoItemService
       .deleteItem(itemId)
       .subscribe(() => this.itemSubject.next());
+  }
+
+  onCalculateBmi() {
+    if (this.user?.weight?.weight && this.user.height?.height) {
+      const resource: CreateBmiResource = {
+        weight: this.user.weight.weight,
+        height: this.user.height.height
+      };
+
+      this.bodyMassService.calculateBmi(this.user.id, resource)
+    }
   }
 }

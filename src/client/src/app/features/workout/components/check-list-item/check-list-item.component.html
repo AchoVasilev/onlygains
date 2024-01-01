@@ -5,30 +5,29 @@
       (checked)="onChecked(item.id, $event)"
     ></active-check-box>
     <div class="icons">
-      <button
-        mat-icon-button
+      <active-icon-button
+        iconType="drag_handle"
         color="primary"
-        aria-label="Drag checklist item"
+        ariaLabel="Drag checklist item"
+        classStyling="cursor-all-scroll"
         cdkDragHandle
       >
-        <mat-icon>drag_handle</mat-icon>
-      </button>
-      <button
-        mat-icon-button
+      </active-icon-button>
+      <active-icon-button
         color="accent"
-        aria-label="Edit item from checklist"
+        ariaLabel="Edit item from checklist"
+        iconType="edit"
         (click)="onEdit(item.name)"
       >
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button
+      </active-icon-button>
+      <active-icon-button
         mat-icon-button
         color="warn"
-        aria-label="Remove item from checklist"
+        ariaLabel="Remove item from checklist"
         (click)="onDelete(item.id)"
+        iconType="delete"
       >
-        <mat-icon>delete</mat-icon>
-      </button>
+      </active-icon-button>
     </div>
   </div>
   <div [formGroup]="group" *ngIf="showForm">

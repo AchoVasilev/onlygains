@@ -10,7 +10,7 @@ data class WorkoutSetResource(val id: UUID?, val repetitions: Int, val weight: D
     companion object {
         @JvmStatic
         fun from(set: WorkoutSet): WorkoutSetResource {
-            return WorkoutSetResource(set.id, set.repetitions, set.weight!!.weight)
+            return WorkoutSetResource(set.id, set.repetitions, set.weight!!.weight!!)
         }
     }
 }

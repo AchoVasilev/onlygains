@@ -1,38 +1,46 @@
 <section class="container">
-    <article class="inner-container">
-        <p class="info-title orange-text">Тегло</p>
-        <div class="unit-container">
-            <p class="num">110</p>
-            <p class="secondary-text">кг</p>
-        </div>
-    </article>
-    <article class="inner-container">
-        <p class="info-title blue-text">Височина</p>
-        <div class="unit-container">
-            <p class="num">178</p>
-            <p class="secondary-text">см</p>
-        </div>
-    </article>
-    <article class="inner-container">
-        <p class="info-title red-text">Възраст</p>
-        <div class="unit-container">
-            <p class="num">31</p>
-            <p class="secondary-text">г.</p>
-        </div>
-    </article>
-    <article class="inner-container">
-        <p class="info-title green-text">BMI</p>
-        <p class="num">10.5</p>
-    </article>
-    <article class="inner-container">
-        <p class="info-title green-text">Цел</p>
-        <p class="num">Сваляне на кг</p>
-    </article>
-    <article class="inner-container">
-        <p class="info-title red-text">BMR</p>
-        <div class="unit-container">
-            <p class="num">3121</p>
-            <p class="secondary-text">kcal</p>
-        </div>
-    </article>
+  <article class="inner-container">
+    <p class="info-title orange-text">Тегло</p>
+    <div class="unit-container">
+      <p class="num">{{ user?.weight?.weight }}</p>
+      <p class="secondary-text">{{ user?.weight?.unitType }}</p>
+    </div>
+  </article>
+  <article class="inner-container">
+    <p class="info-title blue-text">Височина</p>
+    <div class="unit-container">
+      <p class="num">{{ user?.height?.height }}</p>
+      <p class="secondary-text">{{ user?.height?.unitType }}</p>
+    </div>
+  </article>
+  <article class="inner-container">
+    <p class="info-title red-text">Възраст</p>
+    <div class="unit-container">
+      <p class="num">{{ user?.age }}</p>
+      <p class="secondary-text">г.</p>
+    </div>
+  </article>
+  <article class="inner-container">
+    <p class="info-title green-text">BMI</p>
+    <p class="num" *ngIf="user?.bmi">{{ user?.bmi }}</p>
+    <div class="active-button" *ngIf="!user?.bmi">
+      <active-icon-button
+        iconType="calculate"
+        ariaLabel="calculate my bmi"
+        classStyling="large-icon-button"
+        (click)="onCalculateBmiClick()"
+      ></active-icon-button>
+    </div>
+  </article>
+  <article class="inner-container">
+    <p class="info-title green-text">Цел</p>
+    <p class="num">Сваляне на кг</p>
+  </article>
+  <article class="inner-container">
+    <p class="info-title red-text">BMR</p>
+    <div class="unit-container">
+      <p class="num">3121</p>
+      <p class="secondary-text">kcal</p>
+    </div>
+  </article>
 </section>

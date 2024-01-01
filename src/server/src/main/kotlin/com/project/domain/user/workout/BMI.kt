@@ -12,7 +12,7 @@ class BMI {
     protected constructor()
 
     constructor(height: Height, weight: Weight) {
-        this.bmi = this.calculateBmi(height.toMeters(), weight.weight)
+        this.bmi = this.calculateBmi(height.toMeters(), weight.weight!!)
     }
 
     private fun calculateBmi(height: Double, weight: Double) : Double {

@@ -99,6 +99,7 @@ open class PostService(private val postRepository: PostRepository, private val c
     }
 
     companion object {
+        @JvmStatic
         private val log: Logger = LoggerProvider.getLogger(PostService::class.java)
     }
 }

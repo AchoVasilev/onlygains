@@ -2,12 +2,13 @@
   <active-side-bar [isWorkout]="true"></active-side-bar>
   <div class="main-body">
     <div class="checklist">
-      <active-todo-list *ngIf="todoItems$ | async as items; else loading"
-      [todoItems]="items"
-      (itemChecked)="onItemChecked($event)"
-      (itemCreated)="onItemCreated($event)"
-      (itemDeleted)="onItemDeleted($event)"
-      (itemEdited)="onItemEdited($event)"
+      <active-todo-list
+        *ngIf="todoItems$ | async as items; else loading"
+        [todoItems]="items"
+        (itemChecked)="onItemChecked($event)"
+        (itemCreated)="onItemCreated($event)"
+        (itemDeleted)="onItemDeleted($event)"
+        (itemEdited)="onItemEdited($event)"
       ></active-todo-list>
     </div>
     <div class="info">
@@ -17,7 +18,7 @@
       </section>
       <section>
         <h3 class="dark-gray-text">Моята информация</h3>
-        <active-user-details></active-user-details>
+        <active-user-details [user]="user" (calculateBmi)="onCalculateBmi()"></active-user-details>
       </section>
     </div>
   </div>

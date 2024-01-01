@@ -4,14 +4,12 @@ import com.project.domain.BaseEntity
 import com.project.domain.comment.Comment
 import com.project.domain.post.Post
 import com.project.domain.todo.TodoItem
-import com.project.domain.user.workout.WorkoutProfile
 import com.project.domain.valueobjects.FullName
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
-import jakarta.persistence.OneToOne
 import java.util.UUID
 
 @Entity(name = "users")
@@ -41,8 +39,7 @@ class User protected constructor() : BaseEntity() {
     @OneToMany(mappedBy = "user")
     val todoItems: MutableList<TodoItem> = mutableListOf()
 
-    @OneToOne
-    val workoutProfile: WorkoutProfile = WorkoutProfile(this)
+    var workoutProfileId: UUID? = null
 
     val firstName: String?
         get() = fullName!!.firstName

@@ -9,7 +9,6 @@ import { SideBarComponent } from 'app/shared/components/side-bar/side-bar.compon
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { CheckListComponent } from './components/check-list/check-list.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { CdkDrag, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +18,8 @@ import { ClickOutsideDirective } from 'app/shared/directives/click-outside.direc
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { SpinnerComponent } from 'app/shared/components/spinner/spinner.component';
 import { CheckListItemComponent } from './components/check-list-item/check-list-item.component';
+import { IconButtonComponent } from 'app/shared/components/buttons/icon-button/icon-button.component';
+import { BmiDialogComponent } from './components/bmi-dialog/bmi-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { CheckListItemComponent } from './components/check-list-item/check-list-
     CheckListComponent,
     TodoListComponent,
     CheckListItemComponent,
+    BmiDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,6 @@ import { CheckListItemComponent } from './components/check-list-item/check-list-
     SideBarComponent,
     CheckBoxComponent,
     MatIconModule,
-    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
@@ -45,6 +46,7 @@ import { CheckListItemComponent } from './components/check-list-item/check-list-
     NgForTrackByIdDirective,
     ClickOutsideDirective,
     SpinnerComponent,
+    IconButtonComponent
   ],
 })
 export class WorkoutModule {}

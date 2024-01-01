@@ -37,13 +37,12 @@
 
 <section class="button" *ngIf="hiddenItems.length">
   <div [@rotate]="isExpanded ? 'rotated' : 'default'">
-    <button
-      mat-icon-button
+    <active-icon-button
       color="primary"
-      aria-label="Expand todo list"
+      ariaLabel="Expand todo list"
       (click)="toggleExpand()"
+      iconType="keyboard_arrow_down"
     >
-      <mat-icon>keyboard_arrow_down</mat-icon>
-    </button>
+    </active-icon-button>
   </div>
 </section>
