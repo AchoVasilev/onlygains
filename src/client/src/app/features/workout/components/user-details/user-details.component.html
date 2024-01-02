@@ -2,7 +2,8 @@
   <article class="inner-container">
     <p class="info-title orange-text">Тегло</p>
     <div class="unit-container">
-      <p class="num">{{ user?.weight?.weight }}</p>
+      <!-- <p class="num">{{ user?.weight?.weight }}</p> -->
+      <active-inline-edit class="num max-size" [data]="{weight: user?.weight?.weight}" (submitData)="onSubmitData($event)"></active-inline-edit>
       <p class="secondary-text">{{ user?.weight?.unitType }}</p>
     </div>
   </article>

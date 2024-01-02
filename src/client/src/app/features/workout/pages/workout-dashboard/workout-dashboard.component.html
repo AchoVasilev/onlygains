@@ -18,7 +18,11 @@
       </section>
       <section>
         <h3 class="dark-gray-text">Моята информация</h3>
-        <active-user-details [user]="user" (calculateBmi)="onCalculateBmi()"></active-user-details>
+        <active-user-details
+          [user]="user"
+          (calculateBmi)="onCalculateBmi()"
+          (updateProfile)="onUpdateProfile($event)"
+        ></active-user-details>
       </section>
     </div>
   </div>

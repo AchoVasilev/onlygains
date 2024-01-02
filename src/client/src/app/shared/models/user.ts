@@ -17,3 +17,11 @@ export interface UserWorkoutProfileDetailsResource {
     bmi?: number,
     bmr?: BmrDetailsResource
 }
+
+export interface UpdateWorkoutProfileResource {
+    height?: number,
+    weight?: number,
+    gender?: number,
+    age?: number,
+    bodyFat?: number
+}

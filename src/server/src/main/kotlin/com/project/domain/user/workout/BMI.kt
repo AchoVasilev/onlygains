@@ -3,6 +3,7 @@ package com.project.domain.user.workout
 import com.project.domain.valueobjects.Height
 import com.project.domain.valueobjects.Weight
 import jakarta.persistence.Embeddable
+import kotlin.math.ceil
 
 @Embeddable
 class BMI {
@@ -16,6 +17,6 @@ class BMI {
     }
 
     private fun calculateBmi(height: Double, weight: Double) : Double {
-        return weight / (height * height)
+        return ceil(weight / (height * height))
     }
 }

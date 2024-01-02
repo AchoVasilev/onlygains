@@ -1,0 +1,11 @@
+<p *ngIf="!editMode" (click)="toggleEditMode()" class="cell max-size">
+  {{ dataValue }}
+</p>
+<input
+  class="input max-size"
+  *ngIf="editMode"
+  type="text"
+  (focusout)="onFocusOut()"
+  (keydown.enter)="onEnterPress($event)"
+  [(ngModel)]="inputValue"
+/>

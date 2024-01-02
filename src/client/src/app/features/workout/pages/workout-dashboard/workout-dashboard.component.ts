@@ -8,7 +8,10 @@ import {
   EditTodoItemResource,
   TodoItemDetailsResource,
 } from 'app/shared/models/checklist';
-import { UserWorkoutProfileDetailsResource } from 'app/shared/models/user';
+import {
+  UpdateWorkoutProfileResource,
+  UserWorkoutProfileDetailsResource,
+} from 'app/shared/models/user';
 import { ChartConfiguration } from 'chart.js';
 import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
@@ -19,19 +22,19 @@ import { NgIf, AsyncPipe } from '@angular/common';
 import { SideBarComponent } from '../../../../shared/components/side-bar/side-bar.component';
 
 @Component({
-    selector: 'active-workout-dashboard',
-    templateUrl: './workout-dashboard.component.html',
-    styleUrls: ['./workout-dashboard.component.scss'],
-    standalone: true,
-    imports: [
-        SideBarComponent,
-        NgIf,
-        TodoListComponent,
-        BarChartComponent,
-        UserDetailsComponent,
-        SpinnerComponent,
-        AsyncPipe,
-    ],
+  selector: 'active-workout-dashboard',
+  templateUrl: './workout-dashboard.component.html',
+  styleUrls: ['./workout-dashboard.component.scss'],
+  standalone: true,
+  imports: [
+    SideBarComponent,
+    NgIf,
+    TodoListComponent,
+    BarChartComponent,
+    UserDetailsComponent,
+    SpinnerComponent,
+    AsyncPipe,
+  ],
 })
 export class WorkoutDashboardComponent implements OnInit, OnDestroy {
   private itemSubject = new BehaviorSubject<void>(null!);
@@ -74,8 +77,9 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
   };
 
   getUser() {
-    this.workoutProfileService.getById('af2e8e6a-861b-4b1b-b7d1-81410dbcf1b6')
-      .subscribe(user => this.user = user);
+    this.workoutProfileService
+      .getById('af2e8e6a-861b-4b1b-b7d1-81410dbcf1b6')
+      .subscribe((user) => (this.user = user));
   }
 
   onItemChecked(itemId: string) {
@@ -106,10 +110,16 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
     if (this.user?.weight?.weight && this.user.height?.height) {
       const resource: CreateBmiResource = {
         weight: this.user.weight.weight,
-        height: this.user.height.height
+        height: this.user.height.height,
       };
 
-      this.bodyMassService.calculateBmi(this.user.id, resource)
+      this.bodyMassService.calculateBmi(this.user.id, resource);
     }
+  }
+
+  onUpdateProfile(resource: UpdateWorkoutProfileResource) {
+    this.workoutProfileService
+      .updateProfile(this.user!.id, resource)
+      .subscribe((res) => (this.user = res));
   }
 }

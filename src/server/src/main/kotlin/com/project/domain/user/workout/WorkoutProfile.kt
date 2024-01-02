@@ -2,6 +2,7 @@ package com.project.domain.user.workout
 
 import com.project.application.models.user.workout.CreateBmiResource
 import com.project.application.models.user.workout.CreateBmrResource
+import com.project.application.models.user.workout.UpdateWorkoutProfileResource
 import com.project.domain.BaseEntity
 import com.project.domain.user.Gender
 import com.project.domain.user.workout.bmr.BMR
@@ -61,6 +62,14 @@ class WorkoutProfile protected constructor() : BaseEntity() {
     }
 
     fun updateIfNeeded(resource: CreateBmrResource) {
+        if (resource.bodyFat != null) this.bodyFat = BodyFat(resource.bodyFat)
+        if (resource.height != null) this.height = Height(resource.height)
+        if (resource.weight != null) this.weight = Weight(resource.weight)
+        if (resource.gender != null) this.gender = resource.gender
+        if (resource.age != null) this.age = resource.age
+    }
+
+    fun updateIfNeeded(resource: UpdateWorkoutProfileResource) {
         if (resource.bodyFat != null) this.bodyFat = BodyFat(resource.bodyFat)
         if (resource.height != null) this.height = Height(resource.height)
         if (resource.weight != null) this.weight = Weight(resource.weight)
