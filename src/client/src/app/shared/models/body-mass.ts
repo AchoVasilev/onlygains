@@ -17,3 +17,8 @@ export interface CreateBmiResource {
     weight: number,
     height: number
 }
+
+export interface BmrDetailsResource {
+  calories: number,
+  unitType: string
+}

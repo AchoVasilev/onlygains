@@ -12,8 +12,14 @@ open class WorkoutProfileService(private val workoutProfileRepository: WorkoutPr
     //TODO: rework
     @Transactional
     open fun getBy(userId: UUID): WorkoutProfileDetailsResource {
-        var profile = this.createProfile()
-        profile = this.saveProfile(profile)
+        var profile: WorkoutProfile
+        val all = this.workoutProfileRepository.findAll()
+        if (all.isEmpty()) {
+            profile = this.createProfile()
+            profile = this.saveProfile(profile)
+        } else {
+            profile = all[0]
+        }
 
         return WorkoutProfileDetailsResource.from(profile)
     }

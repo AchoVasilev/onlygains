@@ -3,7 +3,7 @@ import { MatDialogService } from 'app/core/services/dialog/mat-dialog/mat-dialog
 import { TodoItemService } from 'app/core/services/todo/todo-item.service';
 import { WorkoutProfileService } from 'app/core/services/user/workout-profile/workout-profile.service';
 import { BodyMassService } from 'app/core/services/workout/body-mass/body-mass.service';
-import { CreateBmiResource } from 'app/shared/models/bmi';
+import { CreateBmiResource } from 'app/shared/models/body-mass';
 import {
   CreateTodoItemResource,
   EditTodoItemResource,

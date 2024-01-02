@@ -1,4 +1,4 @@
-import { BodyFat, Weight, Height } from "./bmi"
+import { BodyFat, Weight, Height, BmrDetailsResource } from "./body-mass"
 
 export interface UserViewResource {
     id: string,
@@ -15,5 +15,5 @@ export interface UserWorkoutProfileDetailsResource {
     gender?: string,
     age?: number
     bmi?: number,
-    bmr?: number
+    bmr?: BmrDetailsResource
 }

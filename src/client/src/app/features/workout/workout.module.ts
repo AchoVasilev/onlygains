@@ -20,6 +20,7 @@ import { SpinnerComponent } from 'app/shared/components/spinner/spinner.componen
 import { CheckListItemComponent } from './components/check-list-item/check-list-item.component';
 import { IconButtonComponent } from 'app/shared/components/buttons/icon-button/icon-button.component';
 import { BmiDialogComponent } from './components/bmi-dialog/bmi-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { BmiDialogComponent } from './components/bmi-dialog/bmi-dialog.component
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDialogModule,
     ReactiveFormsModule,
     CdkDropList,
     CdkDrag,
