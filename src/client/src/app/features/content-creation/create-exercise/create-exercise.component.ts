@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EquipmentService } from 'app/core/services/equipment/equipment.service';
 import { ExerciseService } from 'app/core/services/exercise/exercise.service';
 import { MuscleGroupService } from 'app/core/services/muscle-group/muscle-group.service';
@@ -13,11 +13,29 @@ import { exerciseTemplateStyling } from 'app/shared/models/text-editor/template-
 import { exerciseTemplate } from 'app/shared/models/text-editor/templates';
 import { Observable } from 'rxjs';
 import { Editor } from 'tinymce';
+import { AsyncPipe } from '@angular/common';
+import { RaisedButtonComponent } from '../../../shared/components/buttons/raised-button/raised-button.component';
+import { AutoCompleteComponent } from '../../../shared/components/auto-complete/auto-complete.component';
+import { SelectComponent } from '../../../shared/components/select/select.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { TextEditorComponent } from '../../../shared/components/text-editor/text-editor.component';
 
 @Component({
-  selector: 'active-create-exercise',
-  templateUrl: './create-exercise.component.html',
-  styleUrls: ['./create-exercise.component.scss'],
+    selector: 'active-create-exercise',
+    templateUrl: './create-exercise.component.html',
+    styleUrls: ['./create-exercise.component.scss'],
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        TextEditorComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        SelectComponent,
+        AutoCompleteComponent,
+        RaisedButtonComponent,
+        AsyncPipe,
+    ],
 })
 export class CreateExerciseComponent {
   template: string = exerciseTemplate;

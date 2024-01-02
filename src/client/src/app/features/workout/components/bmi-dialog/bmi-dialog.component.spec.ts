@@ -8,8 +8,8 @@ describe('BmiDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BmiDialogComponent]
-    });
+    imports: [BmiDialogComponent]
+});
     fixture = TestBed.createComponent(BmiDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

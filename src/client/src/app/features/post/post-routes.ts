@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { ListPostsComponent } from './list-posts/list-posts.component';
 import { resolveTitle } from 'app/core/title-resolvers/posts-title-resolvers';
 
-const routes: Routes = [
+const POST_ROUTES: Routes = [
   {
     path: '',
     children: [
@@ -23,8 +22,4 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class PostRoutingModule { }
+export default POST_ROUTES;

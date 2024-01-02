@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { WorkoutDashboardComponent } from './pages/workout-dashboard/workout-dashboard.component';
 
-const routes: Routes = [
+const WORKOUT_ROUTES: Routes = [
   {
     path: '',
     children: [
@@ -16,8 +15,4 @@ const routes: Routes = [
   },
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class WorkoutRoutingModule {}
+export default WORKOUT_ROUTES;

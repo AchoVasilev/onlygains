@@ -4,11 +4,20 @@ import {
   CommentEmittedType,
   CommentViewResource,
 } from 'app/shared/models/comment';
+import { CommentFormComponent } from '../comment-form/comment-form.component';
+import { CommentComponent } from '../comment/comment.component';
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'active-comments',
-  templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.scss'],
+    selector: 'active-comments',
+    templateUrl: './comments.component.html',
+    styleUrls: ['./comments.component.scss'],
+    standalone: true,
+    imports: [
+        NgFor,
+        CommentComponent,
+        CommentFormComponent,
+    ],
 })
 export class CommentsComponent {
   @Input() comments?: CommentViewResource[];

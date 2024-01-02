@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Editor } from 'tinymce';
 import { threeImageTemplate } from 'app/shared/models/text-editor/templates';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CategoryService } from 'app/core/services/category/category.service';
 import { TagService } from 'app/core/services/tag/tag.service';
 import { CategoryDTO, CategoryViewResource } from 'app/shared/models/category';
@@ -10,11 +10,23 @@ import { TagViewResource } from 'app/shared/models/tag';
 import { environment } from '../../../../environments/environment';
 import { PostService } from 'app/core/services/post/post.service';
 import { threeImageTemplateStyling } from 'app/shared/models/text-editor/template-stylings';
+import { AsyncPipe } from '@angular/common';
+import { RaisedButtonComponent } from '../../../shared/components/buttons/raised-button/raised-button.component';
+import { SelectComponent } from '../../../shared/components/select/select.component';
+import { TextEditorComponent } from '../../../shared/components/text-editor/text-editor.component';
 
 @Component({
-  selector: 'active-create-post',
-  templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.scss'],
+    selector: 'active-create-post',
+    templateUrl: './create-post.component.html',
+    styleUrls: ['./create-post.component.scss'],
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        TextEditorComponent,
+        SelectComponent,
+        RaisedButtonComponent,
+        AsyncPipe,
+    ],
 })
 export class CreatePostComponent implements OnInit {
   template: string = threeImageTemplate;

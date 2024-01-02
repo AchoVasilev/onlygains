@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 
-const routes: Routes = [
+const CONTENT_CREATION_ROUTES: Routes = [
   {
     path: '',
     children: [
@@ -23,8 +22,4 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class ContentCreationRoutingModule { }
+export default CONTENT_CREATION_ROUTES;

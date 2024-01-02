@@ -3,11 +3,22 @@ import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'app/core/services/post/post.service';
 import { itemsPerPage } from 'app/shared/constants/data-constants';
 import { PostViewResource } from 'app/shared/models/post';
+import { SideBarComponent } from '../../../shared/components/side-bar/side-bar.component';
+import { PostCardComponent } from '../post-card/post-card.component';
+import { NgFor } from '@angular/common';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
-  selector: 'active-list-posts',
-  templateUrl: './list-posts.component.html',
-  styleUrls: ['./list-posts.component.scss'],
+    selector: 'active-list-posts',
+    templateUrl: './list-posts.component.html',
+    styleUrls: ['./list-posts.component.scss'],
+    standalone: true,
+    imports: [
+        InfiniteScrollModule,
+        NgFor,
+        PostCardComponent,
+        SideBarComponent,
+    ],
 })
 export class ListPostsComponent implements OnInit {
   items: PostViewResource[] = [];

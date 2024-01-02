@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogService } from 'app/core/services/dialog/mat-dialog/mat-dialog.service';
 import { TodoItemService } from 'app/core/services/todo/todo-item.service';
 import { WorkoutProfileService } from 'app/core/services/user/workout-profile/workout-profile.service';
 import { BodyMassService } from 'app/core/services/workout/body-mass/body-mass.service';
@@ -12,11 +11,27 @@ import {
 import { UserWorkoutProfileDetailsResource } from 'app/shared/models/user';
 import { ChartConfiguration } from 'chart.js';
 import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
+import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
+import { UserDetailsComponent } from '../../components/user-details/user-details.component';
+import { BarChartComponent } from '../../components/bar-chart/bar-chart.component';
+import { TodoListComponent } from '../../components/todo-list/todo-list.component';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { SideBarComponent } from '../../../../shared/components/side-bar/side-bar.component';
 
 @Component({
-  selector: 'active-workout-dashboard',
-  templateUrl: './workout-dashboard.component.html',
-  styleUrls: ['./workout-dashboard.component.scss'],
+    selector: 'active-workout-dashboard',
+    templateUrl: './workout-dashboard.component.html',
+    styleUrls: ['./workout-dashboard.component.scss'],
+    standalone: true,
+    imports: [
+        SideBarComponent,
+        NgIf,
+        TodoListComponent,
+        BarChartComponent,
+        UserDetailsComponent,
+        SpinnerComponent,
+        AsyncPipe,
+    ],
 })
 export class WorkoutDashboardComponent implements OnInit, OnDestroy {
   private itemSubject = new BehaviorSubject<void>(null!);

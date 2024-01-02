@@ -1,11 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { EditTodoItemResource, TodoItemDetailsResource } from 'app/shared/models/checklist';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgIf } from '@angular/common';
+import { CdkDragHandle } from '@angular/cdk/drag-drop';
+import { IconButtonComponent } from '../../../../shared/components/buttons/icon-button/icon-button.component';
+import { CheckBoxComponent } from '../../../../shared/components/check-box/check-box.component';
+import { ClickOutsideDirective } from '../../../../shared/directives/click-outside.directive';
 
 @Component({
-  selector: 'active-check-list-item',
-  templateUrl: './check-list-item.component.html',
-  styleUrls: ['./check-list-item.component.scss']
+    selector: 'active-check-list-item',
+    templateUrl: './check-list-item.component.html',
+    styleUrls: ['./check-list-item.component.scss'],
+    standalone: true,
+    imports: [ClickOutsideDirective, CheckBoxComponent, IconButtonComponent, CdkDragHandle, NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })
 export class CheckListItemComponent {
 

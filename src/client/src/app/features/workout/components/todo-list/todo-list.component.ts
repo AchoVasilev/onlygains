@@ -1,12 +1,20 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CreateTodoItemResource, EditTodoItemResource, TodoItemDetailsResource } from 'app/shared/models/checklist';
+import { CheckListComponent } from '../check-list/check-list.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgIf, DecimalPipe } from '@angular/common';
+import { IconButtonComponent } from '../../../../shared/components/buttons/icon-button/icon-button.component';
 
 @Component({
-  selector: 'active-todo-list',
-  templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'active-todo-list',
+    templateUrl: './todo-list.component.html',
+    styleUrls: ['./todo-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [IconButtonComponent, NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, CheckListComponent, DecimalPipe]
 })
 export class TodoListComponent {
 

@@ -4,11 +4,26 @@ import { ExerciseService } from 'app/core/services/exercise/exercise.service';
 import {
   ExerciseDetailsResource,
 } from 'app/shared/models/exercise';
+import { SideBarComponent } from '../../../shared/components/side-bar/side-bar.component';
+import { NgForTrackByIdDirective } from '../../../shared/directives/ng-for-track-by-id.directive';
+import { SimilarExerciseComponent } from '../../../shared/components/similar-exercise/similar-exercise.component';
+import { MuscleGroupComponent } from '../../../shared/components/muscle-group/muscle-group.component';
+import { NgIf, NgFor, LowerCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'active-exercise-details',
-  templateUrl: './exercise-details.component.html',
-  styleUrls: ['./exercise-details.component.scss'],
+    selector: 'active-exercise-details',
+    templateUrl: './exercise-details.component.html',
+    styleUrls: ['./exercise-details.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        MuscleGroupComponent,
+        SimilarExerciseComponent,
+        NgForTrackByIdDirective,
+        SideBarComponent,
+        LowerCasePipe,
+    ],
 })
 export class ExerciseDetailsComponent implements OnInit {
   exercise?: ExerciseDetailsResource;

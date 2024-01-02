@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 
-const routes: Routes = [
+const EXERCISE_ROUTES: Routes = [
   {
     path: '',
     children: [
@@ -15,8 +14,4 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class ExerciseRoutingModule { }
+export default EXERCISE_ROUTES;

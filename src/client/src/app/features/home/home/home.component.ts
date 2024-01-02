@@ -4,14 +4,19 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { CategoryViewResource } from 'app/shared/models/category';
 import { CardResource } from 'app/shared/models/card';
+import { AsyncPipe } from '@angular/common';
+import { CategoriesComponent } from '../categories/categories.component';
+import { RecentPostsComponent } from '../recent-posts/recent-posts.component';
+import { InspirationalComponent } from '../inspirational/inspirational.component';
+import { IntroComponent } from '../intro/intro.component';
 
 @Component({
-  selector: 'active-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  animations: [
-    
-  ]
+    selector: 'active-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    animations: [],
+    standalone: true,
+    imports: [IntroComponent, InspirationalComponent, RecentPostsComponent, CategoriesComponent, AsyncPipe]
 })
 export class HomeComponent implements OnInit {
 

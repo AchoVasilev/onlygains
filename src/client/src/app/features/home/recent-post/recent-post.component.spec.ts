@@ -8,8 +8,8 @@ describe('RecentPostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RecentPostComponent ]
-    })
+    imports: [RecentPostComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(RecentPostComponent);

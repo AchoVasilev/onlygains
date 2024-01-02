@@ -4,11 +4,23 @@ import {
   ActiveCommentType,
   CommentViewResource,
 } from 'app/shared/models/comment';
+import { DateAgoPipe } from '../../../shared/pipes/date-ago/date-ago.pipe';
+import { CommentFormComponent } from '../comment-form/comment-form.component';
+import { NgIf, NgFor } from '@angular/common';
+import { IconButtonComponent } from '../../../shared/components/buttons/icon-button/icon-button.component';
 
 @Component({
-  selector: 'active-comment',
-  templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.scss'],
+    selector: 'active-comment',
+    templateUrl: './comment.component.html',
+    styleUrls: ['./comment.component.scss'],
+    standalone: true,
+    imports: [
+        IconButtonComponent,
+        NgIf,
+        CommentFormComponent,
+        NgFor,
+        DateAgoPipe,
+    ],
 })
 export class CommentComponent {
   @Input() comment!: CommentViewResource;
