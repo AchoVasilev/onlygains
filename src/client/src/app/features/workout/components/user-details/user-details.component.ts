@@ -40,13 +40,10 @@ export class UserDetailsComponent {
         resource.weight = data.value as number;
         break;
       case 'height':
-        console.log('h');
         resource.height = data.value as number;
         break;
     }
 
-    console.log(data);
-    console.log(resource);
     this.updateProfile.emit(resource);
   }
 }

@@ -1,11 +1,19 @@
 <p *ngIf="!editMode" (click)="toggleEditMode()" class="cell max-size">
   {{ dataValue }}
 </p>
-<input
-  class="input max-size"
-  *ngIf="editMode"
-  type="text"
-  (focusout)="onFocusOut()"
-  (keydown.enter)="onEnterPress($event)"
-  [(ngModel)]="inputValue"
-/>
+
+<form *ngIf="editMode">
+  <mat-form-field appearance="outline" class="max-size">
+    <mat-label>{{ label }}</mat-label>
+    <input
+      autofocus
+      class="input max-size"
+      matInput
+      type="text"
+      name="input"
+      [(ngModel)]="inputValue"
+      (focusout)="onFocusOut()"
+      (keydown.enter)="onEnterPress($event)"
+    />
+  </mat-form-field>
+</form>

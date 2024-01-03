@@ -3,7 +3,12 @@
     <p class="info-title orange-text">Тегло</p>
     <div class="unit-container">
       <!-- <p class="num">{{ user?.weight?.weight }}</p> -->
-      <active-inline-edit class="num max-size" [data]="{weight: user?.weight?.weight}" (submitData)="onSubmitData($event)"></active-inline-edit>
+      <active-inline-edit
+        class="num max-size"
+        [data]="{ weight: user?.weight?.weight }"
+        label="Тегло в кг"
+        (submitData)="onSubmitData($event)"
+      ></active-inline-edit>
       <p class="secondary-text">{{ user?.weight?.unitType }}</p>
     </div>
   </article>
@@ -40,16 +45,16 @@
   <article class="inner-container">
     <p class="info-title red-text">BMR</p>
     <div class="unit-container" *ngIf="user?.bmr?.calories">
-      <p class="num">{{user?.bmr?.calories}}</p>
-      <p class="secondary-text">{{user?.bmr?.unitType}}</p>
+      <p class="num">{{ user?.bmr?.calories }}</p>
+      <p class="secondary-text">{{ user?.bmr?.unitType }}</p>
     </div>
     <div class="active-button" *ngIf="!user?.bmr?.calories">
-        <active-icon-button
-          iconType="calculate"
-          ariaLabel="calculate my bmr"
-          classStyling="large-icon-button"
-          (click)="onCalculateBmrClick()"
-        ></active-icon-button>
-      </div>
+      <active-icon-button
+        iconType="calculate"
+        ariaLabel="calculate my bmr"
+        classStyling="large-icon-button"
+        (click)="onCalculateBmrClick()"
+      ></active-icon-button>
+    </div>
   </article>
 </section>
