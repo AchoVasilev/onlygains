@@ -5,9 +5,10 @@
       <!-- <p class="num">{{ user?.weight?.weight }}</p> -->
       <active-inline-edit
         class="num max-size"
-        [data]="{ weight: user?.weight?.weight }"
+        [value]="user?.weight?.weight"
         label="Тегло в кг"
-        (submitData)="onSubmitData($event)"
+        (update)="onSubmitData()"
+        [control]="form.controls.weight"
       ></active-inline-edit>
       <p class="secondary-text">{{ user?.weight?.unitType }}</p>
     </div>

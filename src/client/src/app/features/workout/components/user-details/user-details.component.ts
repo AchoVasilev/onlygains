@@ -5,7 +5,8 @@ import {
 } from 'app/shared/models/user';
 import { IconButtonComponent } from '../../../../shared/components/buttons/icon-button/icon-button.component';
 import { NgIf } from '@angular/common';
-import { EditData, InlineEditComponent } from 'app/shared/components/inline-edit/inline-edit.component';
+import { InlineEditComponent } from 'app/shared/components/inline-edit/inline-edit.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'active-user-details',
@@ -15,6 +16,15 @@ import { EditData, InlineEditComponent } from 'app/shared/components/inline-edit
   imports: [NgIf, IconButtonComponent, InlineEditComponent],
 })
 export class UserDetailsComponent {
+
+  form = new FormGroup({
+    weight: new FormControl<number | null>(null, [Validators.min(10), Validators.max(500)]),
+    height: new FormControl<number | null>(null, [Validators.min(10), Validators.max(500)]),
+    age: new FormControl<number | null>(null, [Validators.min(1), Validators.max(130)]),
+    bodyFat: new FormControl<number | null>(null, [Validators.min(1), Validators.max(100)]),
+    gender: new FormControl<string | null>(null)
+  });
+
   @Input({ required: true }) user!:
     | UserWorkoutProfileDetailsResource
     | undefined;
@@ -31,19 +41,9 @@ export class UserDetailsComponent {
     this.calculateBmr.emit();
   }
 
-  onSubmitData(data: EditData) {
-    console.log(data)
-    let resource: UpdateWorkoutProfileResource = {};
+  onSubmitData() {
+    const {weight, height, age, bodyFat, gender} = this.form.value;
 
-    switch (data.key) {
-      case 'weight':
-        resource.weight = data.value as number;
-        break;
-      case 'height':
-        resource.height = data.value as number;
-        break;
-    }
-
-    this.updateProfile.emit(resource);
+    this.updateProfile.emit({weight, height, age, bodyFat, gender});
   }
 }
