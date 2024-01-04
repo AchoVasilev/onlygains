@@ -9,6 +9,7 @@
         label="Тегло в кг"
         (update)="onSubmitData()"
         [control]="form.controls.weight"
+        errorMessage="Въведете число между 10 и 100"
       ></active-inline-edit>
       <p class="secondary-text">{{ user?.weight?.unitType }}</p>
     </div>

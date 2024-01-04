@@ -21,7 +21,7 @@ export class InlineEditComponent {
   @Input({ required: true }) value: any;
   @Input({ required: true }) control!: FormControl;
   @Input() type: 'textbox' | 'textarea' = 'textbox';
-  @Input() errorMessage?: 'string';
+  @Input() errorMessage?: string = 'Невалидни данни';
   @Input({ required: true }) label?: string = '';
 
   @Output() update = new EventEmitter<void>();
@@ -35,9 +35,12 @@ export class InlineEditComponent {
 
   toggleEditMode() {
     this.mode = 'edit';
+    this.control.patchValue(this.value);
   }
 
   onFocusOut() {
+    console.log(this.control);
+    //check for empty string
     if (this.control?.valid) {
       this.mode = 'view';
       this.update.emit();

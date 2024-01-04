@@ -26,5 +26,6 @@
       (focusout)="onFocusOut()"
       (keydown.enter)="onEnterPress($event)"
     ></textarea>
+    <mat-error *ngIf="control.invalid">{{ errorMessage }}</mat-error>
   </mat-form-field>
 </div>

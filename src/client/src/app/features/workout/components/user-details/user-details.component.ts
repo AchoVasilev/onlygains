@@ -18,7 +18,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class UserDetailsComponent {
 
   form = new FormGroup({
-    weight: new FormControl<number | null>(null, [Validators.min(10), Validators.max(500)]),
+    weight: new FormControl<number | null>(null, [Validators.pattern('/^\d+$/'), Validators.min(10), Validators.max(500)]),
     height: new FormControl<number | null>(null, [Validators.min(10), Validators.max(500)]),
     age: new FormControl<number | null>(null, [Validators.min(1), Validators.max(130)]),
     bodyFat: new FormControl<number | null>(null, [Validators.min(1), Validators.max(100)]),
