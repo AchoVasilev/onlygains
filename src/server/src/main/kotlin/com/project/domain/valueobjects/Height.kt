@@ -9,13 +9,13 @@ class Height {
 
     val heightType: String = "cm"
 
-    constructor(height: Double) {
+    constructor(height: Double?) {
         this.height = height
     }
 
     protected constructor()
 
     fun toMeters(): Double {
-        return this.height!! / 100
+        return this.height?.div(100) ?: 0.0
     }
 }

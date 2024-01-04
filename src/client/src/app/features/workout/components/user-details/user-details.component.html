@@ -2,35 +2,48 @@
   <article class="inner-container">
     <p class="info-title orange-text">Тегло</p>
     <div class="unit-container">
-      <!-- <p class="num">{{ user?.weight?.weight }}</p> -->
       <active-inline-edit
         class="num max-size"
         [value]="user?.weight?.weight"
         label="Тегло в кг"
         (update)="onSubmitData()"
         [control]="form.controls.weight"
-        errorMessage="Въведете число между 10 и 100"
+        errorMessage="Въведете число между 10 и 500"
       ></active-inline-edit>
-      <p class="secondary-text">{{ user?.weight?.unitType }}</p>
+      <p class="secondary-text">{{ user?.weight?.weightType }}</p>
     </div>
   </article>
   <article class="inner-container">
     <p class="info-title blue-text">Височина</p>
     <div class="unit-container">
-      <p class="num">{{ user?.height?.height }}</p>
-      <p class="secondary-text">{{ user?.height?.unitType }}</p>
+      <active-inline-edit
+        class="num max-size"
+        [value]="user?.height?.height"
+        label="Височина в см"
+        (update)="onSubmitData()"
+        [control]="form.controls.height"
+        errorMessage="Въведете число между 10 и 300"
+      ></active-inline-edit>
+      <p class="secondary-text">{{ user?.height?.heightType }}</p>
     </div>
   </article>
   <article class="inner-container">
     <p class="info-title red-text">Възраст</p>
     <div class="unit-container">
-      <p class="num">{{ user?.age }}</p>
+      <active-inline-edit
+        class="num max-size"
+        [value]="user?.age"
+        label="Възраст"
+        (update)="onSubmitData()"
+        [control]="form.controls.age"
+        errorMessage="Въведете число между 1 и 130"
+      ></active-inline-edit>
       <p class="secondary-text">г.</p>
     </div>
   </article>
   <article class="inner-container">
     <p class="info-title green-text">BMI</p>
-    <p class="num" *ngIf="user?.bmi">{{ user?.bmi }}</p>
+    <p class="num small-padding" *ngIf="user?.bmi">{{ user?.bmi }}</p>
     <div class="active-button" *ngIf="!user?.bmi">
       <active-icon-button
         iconType="calculate"

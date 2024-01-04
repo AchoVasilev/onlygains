@@ -5,12 +5,12 @@ export interface BodyFat {
 
 export interface Height {
   height: number;
-  unitType: string;
+  heightType: string;
 }
 
 export interface Weight {
   weight: number;
-  unitType: string;
+  weightType: string;
 }
 
 export interface CreateBmiResource {

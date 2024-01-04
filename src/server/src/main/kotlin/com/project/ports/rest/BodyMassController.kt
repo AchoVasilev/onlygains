@@ -1,6 +1,5 @@
 package com.project.ports.rest
 
-import com.project.application.models.user.workout.CreateBmiResource
 import com.project.application.models.user.workout.CreateBmrResource
 import com.project.application.models.user.workout.WorkoutProfileDetailsResource
 import com.project.application.services.BodyMassService
@@ -20,7 +19,7 @@ open class BodyMassController(private val bodyMassService: BodyMassService) {
     }
 
     @Post("/bmi/{profileId}")
-    open fun calculateBmi(@PathVariable profileId: UUID, @Body resource: CreateBmiResource): HttpResponse<WorkoutProfileDetailsResource> {
-        return HttpResponse.ok(this.bodyMassService.calculateBmi(profileId, resource))
+    open fun calculateBmi(@PathVariable profileId: UUID): HttpResponse<WorkoutProfileDetailsResource> {
+        return HttpResponse.ok(this.bodyMassService.calculateBmi(profileId))
     }
 }

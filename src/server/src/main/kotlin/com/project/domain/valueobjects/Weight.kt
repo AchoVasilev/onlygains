@@ -13,7 +13,7 @@ class Weight {
     @Enumerated(EnumType.STRING)
     val weightType: WeightType = WeightType.KG
 
-    constructor(weight: Double) {
+    constructor(weight: Double?) {
         this.weight = weight
     }
 

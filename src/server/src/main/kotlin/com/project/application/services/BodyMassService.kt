@@ -1,6 +1,5 @@
 package com.project.application.services
 
-import com.project.application.models.user.workout.CreateBmiResource
 import com.project.application.models.user.workout.CreateBmrResource
 import com.project.application.models.user.workout.WorkoutProfileDetailsResource
 import io.micronaut.transaction.annotation.Transactional
@@ -25,9 +24,8 @@ open class BodyMassService(
     }
 
     @Transactional
-    open fun calculateBmi(profileId: UUID, bmiResource: CreateBmiResource): WorkoutProfileDetailsResource {
+    open fun calculateBmi(profileId: UUID): WorkoutProfileDetailsResource {
         var profile = this.workoutProfileService.getMockProfile()
-        profile.updateIfNeeded(bmiResource)
         profile.calculateBmi()
 
         profile = this.workoutProfileService.saveProfile(profile)

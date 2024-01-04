@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TodoItemService } from 'app/core/services/todo/todo-item.service';
 import { WorkoutProfileService } from 'app/core/services/user/workout-profile/workout-profile.service';
 import { BodyMassService } from 'app/core/services/workout/body-mass/body-mass.service';
-import { CreateBmiResource } from 'app/shared/models/body-mass';
 import {
   CreateTodoItemResource,
   EditTodoItemResource,
@@ -107,13 +106,9 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
   }
 
   onCalculateBmi() {
-    if (this.user?.weight?.weight && this.user.height?.height) {
-      const resource: CreateBmiResource = {
-        weight: this.user.weight.weight,
-        height: this.user.height.height,
-      };
-
-      this.bodyMassService.calculateBmi(this.user.id, resource);
+    if (!!this.user?.weight?.weight && !!this.user.height?.height) {
+      this.bodyMassService.calculateBmi(this.user.id)
+        .subscribe((res) => (this.user = res));
     }
   }
 

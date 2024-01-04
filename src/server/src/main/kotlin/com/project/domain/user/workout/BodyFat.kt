@@ -10,7 +10,7 @@ class BodyFat {
 
     protected constructor()
 
-    constructor(bodyFat: Double) {
+    constructor(bodyFat: Double?) {
         this.bodyFat = bodyFat
     }
 

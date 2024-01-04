@@ -29,8 +29,16 @@ open class WorkoutProfileService(private val workoutProfileRepository: WorkoutPr
     //TODO: remove
     @Transactional
     open fun getMockProfile(): WorkoutProfile {
-        val profile = this.createProfile()
-        return this.saveProfile(profile)
+        var profile: WorkoutProfile
+        val all = this.workoutProfileRepository.findAll()
+        if (all.isEmpty()) {
+            profile = this.createProfile()
+            profile = this.saveProfile(profile)
+        } else {
+            profile = all[0]
+        }
+
+        return profile
     }
 
     private fun createProfile(): WorkoutProfile {

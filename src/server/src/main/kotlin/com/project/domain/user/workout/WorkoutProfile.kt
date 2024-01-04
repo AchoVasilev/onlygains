@@ -1,11 +1,11 @@
 package com.project.domain.user.workout
 
-import com.project.application.models.user.workout.CreateBmiResource
 import com.project.application.models.user.workout.CreateBmrResource
 import com.project.application.models.user.workout.UpdateWorkoutProfileResource
 import com.project.domain.BaseEntity
 import com.project.domain.user.Gender
 import com.project.domain.user.workout.bmr.BMR
+import com.project.domain.valueobjects.EntityId
 import com.project.domain.valueobjects.Height
 import com.project.domain.valueobjects.Weight
 import jakarta.persistence.Embedded
@@ -18,7 +18,7 @@ import java.util.UUID
 @Entity
 class WorkoutProfile protected constructor() : BaseEntity() {
     @Id
-    val id: UUID = UUID.randomUUID()
+    val id: EntityId = EntityId()
 //    @ManyToMany
 //    val workoutTemplates: List<WorkoutTemplate> = listOf()
 //    @OneToOne
@@ -70,15 +70,10 @@ class WorkoutProfile protected constructor() : BaseEntity() {
     }
 
     fun updateIfNeeded(resource: UpdateWorkoutProfileResource) {
-        if (resource.bodyFat != null) this.bodyFat = BodyFat(resource.bodyFat)
-        if (resource.height != null) this.height = Height(resource.height)
-        if (resource.weight != null) this.weight = Weight(resource.weight)
-        if (resource.gender != null) this.gender = resource.gender
-        if (resource.age != null) this.age = resource.age
-    }
-
-    fun updateIfNeeded(resource: CreateBmiResource) {
-        if (resource.height != null) this.height = Height(resource.height)
-        if (resource.weight != null) this.weight = Weight(resource.weight)
+        this.bodyFat = BodyFat(resource.bodyFat)
+        this.height = Height(resource.height)
+        this.weight = Weight(resource.weight)
+        this.gender = resource.gender
+        this.age = resource.age
     }
 }

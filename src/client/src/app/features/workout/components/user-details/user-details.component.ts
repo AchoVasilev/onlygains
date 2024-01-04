@@ -7,6 +7,7 @@ import { IconButtonComponent } from '../../../../shared/components/buttons/icon-
 import { NgIf } from '@angular/common';
 import { InlineEditComponent } from 'app/shared/components/inline-edit/inline-edit.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { isNumberValidator } from 'app/shared/validators/number-validator';
 
 @Component({
   selector: 'active-user-details',
@@ -18,10 +19,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class UserDetailsComponent {
 
   form = new FormGroup({
-    weight: new FormControl<number | null>(null, [Validators.pattern('/^\d+$/'), Validators.min(10), Validators.max(500)]),
-    height: new FormControl<number | null>(null, [Validators.min(10), Validators.max(500)]),
-    age: new FormControl<number | null>(null, [Validators.min(1), Validators.max(130)]),
-    bodyFat: new FormControl<number | null>(null, [Validators.min(1), Validators.max(100)]),
+    weight: new FormControl<number | null>(null, [isNumberValidator(), Validators.min(10), Validators.max(500)]),
+    height: new FormControl<number | null>(null, [isNumberValidator(), Validators.min(10), Validators.max(300)]),
+    age: new FormControl<number | null>(null, [isNumberValidator(), Validators.min(1), Validators.max(130)]),
+    bodyFat: new FormControl<number | null>(null, [isNumberValidator(), Validators.min(1), Validators.max(100)]),
     gender: new FormControl<string | null>(null)
   });
 

@@ -1,12 +1,13 @@
 package com.project.application.models.user.workout
 
 import com.project.domain.user.workout.WorkoutProfile
+import com.project.domain.valueobjects.EntityId
 import io.micronaut.serde.annotation.Serdeable
 import java.util.UUID
 
 @Serdeable
 data class WorkoutProfileDetailsResource(
-    val id: UUID,
+    val id: EntityId,
     val userId: UUID,
     val weight: WeightDetailsResource,
     val height: HeightDetailsResource,

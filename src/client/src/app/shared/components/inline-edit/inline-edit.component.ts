@@ -39,9 +39,12 @@ export class InlineEditComponent {
   }
 
   onFocusOut() {
-    console.log(this.control);
     //check for empty string
     if (this.control?.valid) {
+      if (this.control.value === '') {
+        this.control.patchValue(null);
+      }
+
       this.mode = 'view';
       this.update.emit();
     }

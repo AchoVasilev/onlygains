@@ -37,12 +37,18 @@
   div.unit-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .small-padding {
+    padding: $half-rem;
   }
 
   .num {
     font-weight: 700;
     font-size: 1.7em;
     color: #3c3563;
+    margin-right: $half-rem;
   }
 
   .secondary-text {
