@@ -17,13 +17,28 @@ import { isNumberValidator } from 'app/shared/validators/number-validator';
   imports: [NgIf, IconButtonComponent, InlineEditComponent],
 })
 export class UserDetailsComponent {
-
   form = new FormGroup({
-    weight: new FormControl<number | null>(null, [isNumberValidator(), Validators.min(10), Validators.max(500)]),
-    height: new FormControl<number | null>(null, [isNumberValidator(), Validators.min(10), Validators.max(300)]),
-    age: new FormControl<number | null>(null, [isNumberValidator(), Validators.min(1), Validators.max(130)]),
-    bodyFat: new FormControl<number | null>(null, [isNumberValidator(), Validators.min(1), Validators.max(100)]),
-    gender: new FormControl<string | null>(null)
+    weight: new FormControl<number | null>(null, [
+      isNumberValidator(),
+      Validators.min(10),
+      Validators.max(500),
+    ]),
+    height: new FormControl<number | null>(null, [
+      isNumberValidator(),
+      Validators.min(10),
+      Validators.max(300),
+    ]),
+    age: new FormControl<number | null>(null, [
+      isNumberValidator(),
+      Validators.min(1),
+      Validators.max(130),
+    ]),
+    bodyFat: new FormControl<number | null>(null, [
+      isNumberValidator(),
+      Validators.min(1),
+      Validators.max(100),
+    ]),
+    gender: new FormControl<string | null>(null),
   });
 
   @Input({ required: true }) user!:
@@ -43,8 +58,9 @@ export class UserDetailsComponent {
   }
 
   onSubmitData() {
-    const {weight, height, age, bodyFat, gender} = this.form.value;
+    const { weight, height, age, bodyFat, gender } = this.form.value;
 
-    this.updateProfile.emit({weight, height, age, bodyFat, gender});
+    console.log({ weight, height, age, bodyFat, gender })
+    this.updateProfile.emit({ weight, height, age, bodyFat, gender });
   }
 }

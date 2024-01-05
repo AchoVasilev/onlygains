@@ -1,8 +1,9 @@
 import { NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { TooltipComponent } from '../tooltip/tooltip.component';
 
 @Component({
   selector: 'active-inline-edit',
@@ -13,11 +14,13 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
+    TooltipComponent
   ],
   templateUrl: './inline-edit.component.html',
   styleUrls: ['./inline-edit.component.scss'],
 })
-export class InlineEditComponent {
+export class InlineEditComponent implements OnChanges {
+
   @Input({ required: true }) value: any;
   @Input({ required: true }) control!: FormControl;
   @Input() type: 'textbox' | 'textarea' = 'textbox';
@@ -33,9 +36,12 @@ export class InlineEditComponent {
     return !!this.value;
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.control.patchValue(this.value);
+  }
+
   toggleEditMode() {
     this.mode = 'edit';
-    this.control.patchValue(this.value);
   }
 
   onFocusOut() {

@@ -8,14 +8,14 @@ export interface UserViewResource {
 
 export interface UserWorkoutProfileDetailsResource {
   id: string;
-  userId?: string;
-  bodyFat?: BodyFat;
-  weight?: Weight;
-  height?: Height;
-  gender?: string;
-  age?: number;
-  bmi?: number;
-  bmr?: BmrDetailsResource;
+  userId: string | null;
+  bodyFat: BodyFat | null;
+  weight: Weight | null;
+  height: Height | null;
+  gender: string | null;
+  age: number | null;
+  bmi: number | null;
+  bmr: BmrDetailsResource | null;
 }
 
 export interface UpdateWorkoutProfileResource {
