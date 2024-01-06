@@ -10,6 +10,11 @@
     padding: $one-rem;
     background-color: $dark-white;
     border-radius: 6px;
+
+    .info-text-container {
+      display: flex;
+      gap: $half-rem;
+    }
   }
 
   .red-text {
@@ -66,4 +71,9 @@
 .active-button:hover {
   transform: scale(1.5);
   transition: 1s ease-in-out;
+}
+
+.error {
+  border: 2px solid $red !important;
+  transition: 0.4s ease-in-out;
 }

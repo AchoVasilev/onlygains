@@ -1,6 +1,5 @@
 package com.project.domain.user.workout
 
-import com.project.application.models.user.workout.CreateBmrResource
 import com.project.application.models.user.workout.UpdateWorkoutProfileResource
 import com.project.domain.BaseEntity
 import com.project.domain.user.Gender
@@ -53,20 +52,13 @@ class WorkoutProfile protected constructor() : BaseEntity() {
         this.userId = userId
     }
 
-    fun calculateBmr(bmrEquation: BMREquation) {
-        this.bmr = BMR(bmrEquation, this.gender!!, this.weight!!, this.height!!, this.age!!, this.bodyFat)
+    fun calculateBmr(bmrEquation: BMREquation, activityLevel: ActivityLevel) {
+        this.bmr =
+            BMR(bmrEquation, this.gender!!, this.weight!!, this.height!!, this.age!!, activityLevel, this.bodyFat)
     }
 
     fun calculateBmi() {
         this.bmi = BMI(this.height!!, this.weight!!)
-    }
-
-    fun updateIfNeeded(resource: CreateBmrResource) {
-        if (resource.bodyFat != null) this.bodyFat = BodyFat(resource.bodyFat)
-        if (resource.height != null) this.height = Height(resource.height)
-        if (resource.weight != null) this.weight = Weight(resource.weight)
-        if (resource.gender != null) this.gender = resource.gender
-        if (resource.age != null) this.age = resource.age
     }
 
     fun updateIfNeeded(resource: UpdateWorkoutProfileResource) {
@@ -75,5 +67,9 @@ class WorkoutProfile protected constructor() : BaseEntity() {
         this.weight = Weight(resource.weight)
         this.gender = resource.gender
         this.age = resource.age
+
+        if (this.height?.height == null || this.weight?.weight == null) {
+            this.bmi = null
+        }
     }
 }

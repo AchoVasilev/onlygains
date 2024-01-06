@@ -106,10 +106,9 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
   }
 
   onCalculateBmi() {
-    if (!!this.user?.weight?.weight && !!this.user.height?.height) {
-      this.bodyMassService.calculateBmi(this.user.id)
-        .subscribe((res) => (this.user = res));
-    }
+    this.bodyMassService
+      .calculateBmi(this.user!.id)
+      .subscribe((res) => (this.user = res));
   }
 
   onUpdateProfile(resource: UpdateWorkoutProfileResource) {

@@ -1,40 +1,51 @@
-/* COLORS */
-$white: #ffffff;
-$gray-light: #cdd2d6;
-$black: #000000;
-$blue: #05a8ff;
-$orange: #ff7033;
-$red: #f7404f;
-$green: #49c562;
+@use "variables" as *;
 $shadow: rgba(205, 210, 214, 0.8);
+.btn {
+  align-items: center;
+  box-sizing: border-box;
+  color: $light-gray;
+  display: flex;
+  letter-spacing: 2px;
+  transition: all .3s ease;
+  &:hover {
+    border-color: $light-gray;
+  }
+}
 
 .tooltip {
   position: relative;
   overflow: hidden;
+  
   &:hover {
     cursor: pointer;
     overflow: visible;
+
     .tooltip-content {
       opacity: 1;
     }
   }
 
   .tooltip-content {
-    background: $blue;
+    background: $light-gray;
     box-shadow: 0 5px 25px 5px $shadow;
     box-sizing: border-box;
     color: $white;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.2;
     letter-spacing: 1px;
-    max-width: 200px;
+    cursor: text;
+    white-space: pre-line;
+    max-width: 400px;
+    width: max-content;
     min-width: 145px;
-    padding: 1em;
+    padding: $one-rem;
     position: absolute;
     opacity: 0;
     transition: all 0.3s ease;
+    border-radius: 5px;
+
     &::after {
-      background: $blue;
+      background: $light-gray;
       content: "";
       height: 10px;
       position: absolute;
@@ -45,12 +56,12 @@ $shadow: rgba(205, 210, 214, 0.8);
 
   &.top {
     .tooltip-content {
-      bottom: calc(100% + 0.1rem);
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: calc($max-size + $half-rem);
+      left: $half-size;
+      transform: translateX(-$half-size);
       &::after {
         bottom: -5px;
-        left: 50%;
+        left: $half-size;
         margin-left: -5px;
       }
     }
@@ -59,7 +70,7 @@ $shadow: rgba(205, 210, 214, 0.8);
   &.bottom {
     .tooltip-content {
       bottom: calc(-100% - 2rem);
-      left: 50%;
+      left: $half-size;
       transform: translateX(-75%);
       &::after {
         top: -5px;
@@ -69,33 +80,26 @@ $shadow: rgba(205, 210, 214, 0.8);
 
   &.right {
     .tooltip-content {
-      left: calc(100% + 0.5rem);
-      top: 50%;
-      transform: translateY(-50%);
+      left: calc($max-size + 0.5rem);
+      top: $half-size;
+      transform: translateY(-$half-size);
       &::after {
         left: -5px;
         margin-top: -5px;
-        top: 50%;
+        top: $half-size;
       }
     }
   }
   &.left {
     .tooltip-content {
-      right: calc(100% + 0.5rem);
-      top: 50%;
-      transform: translateY(-50%);
+      right: calc($max-size + $half-rem);
+      top: $half-size;
+      transform: translateY(-$half-size);
       &::after {
         right: -5px;
         margin-top: -5px;
-        top: 50%;
+        top: $half-size;
       }
     }
   }
 }
-
-.tooltip-text {
-    font-size: 14px;
-    padding: 0.1rem 0.2rem;
-    border: 2px solid;
-    border-radius: 100%;
-  }

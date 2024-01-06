@@ -1,5 +1,5 @@
 <section class="container">
-  <article class="inner-container">
+  <article class="inner-container" #weight>
     <p class="info-title orange-text">Тегло</p>
     <div class="unit-container">
       <active-inline-edit
@@ -13,7 +13,7 @@
       <p class="secondary-text">{{ user?.weight?.weightType }}</p>
     </div>
   </article>
-  <article class="inner-container">
+  <article class="inner-container" #height>
     <p class="info-title blue-text">Височина</p>
     <div class="unit-container">
       <active-inline-edit
@@ -27,7 +27,7 @@
       <p class="secondary-text">{{ user?.height?.heightType }}</p>
     </div>
   </article>
-  <article class="inner-container">
+  <article class="inner-container" #age>
     <p class="info-title red-text">Възраст</p>
     <div class="unit-container">
       <active-inline-edit
@@ -42,7 +42,10 @@
     </div>
   </article>
   <article class="inner-container">
-    <p class="info-title green-text">BMI</p>
+    <section class="info-text-container">
+      <p class="info-title green-text">BMI</p>
+      <active-tooltip [text]="bmiText"></active-tooltip>
+    </section>
     <p class="num small-padding" *ngIf="user?.bmi">{{ user?.bmi }}</p>
     <div class="active-button" *ngIf="!user?.bmi">
       <active-icon-button
@@ -58,7 +61,10 @@
     <p class="num">Сваляне на кг</p>
   </article>
   <article class="inner-container">
-    <p class="info-title red-text">BMR</p>
+    <section class="info-text-container">
+      <p class="info-title red-text">BMR</p>
+      <active-tooltip [text]="bmrText"></active-tooltip>
+    </section>
     <div class="unit-container" *ngIf="user?.bmr?.calories">
       <p class="num">{{ user?.bmr?.calories }}</p>
       <p class="secondary-text">{{ user?.bmr?.unitType }}</p>

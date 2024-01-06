@@ -10,6 +10,6 @@ import { NgClass, NgIf } from '@angular/common';
 })
 export class TooltipComponent {
 
-  @Input() text?: string;
-  @Input() position?: string;
+  @Input({required: true}) text?: string;
+  @Input() position?: string = 'top';
 }

@@ -305,6 +305,7 @@ CREATE TABLE workout_profile
     calories     NUMERIC(8, 2),
     unit_type    VARCHAR(5),
     bmr_equation VARCHAR,
+    activity_level VARCHAR,
 
     created_at   TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at  TIMESTAMPTZ,

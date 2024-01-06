@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { TooltipComponent } from '../tooltip/tooltip.component';
 
 @Component({
   selector: 'active-inline-edit',
@@ -14,7 +13,6 @@ import { TooltipComponent } from '../tooltip/tooltip.component';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
-    TooltipComponent
   ],
   templateUrl: './inline-edit.component.html',
   styleUrls: ['./inline-edit.component.scss'],

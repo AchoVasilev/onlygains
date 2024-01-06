@@ -10,13 +10,11 @@ import java.util.UUID
 open class BodyMassService(
     private val workoutProfileService: WorkoutProfileService
 ) {
-
     @Transactional
     open fun calculateBmr(profileId: UUID, bmrResource: CreateBmrResource): WorkoutProfileDetailsResource {
-
+        log.info("Calculating BMR. [profileId={}]", profileId)
         var profile = this.workoutProfileService.getMockProfile()
-        profile.updateIfNeeded(bmrResource)
-        profile.calculateBmr(bmrResource.bmrEquation)
+        profile.calculateBmr(bmrResource.bmrEquation, bmrResource.activityLevel)
 
         profile = this.workoutProfileService.saveProfile(profile)
 
@@ -31,5 +29,10 @@ open class BodyMassService(
         profile = this.workoutProfileService.saveProfile(profile)
 
         return WorkoutProfileDetailsResource.from(profile)
+    }
+
+    companion object {
+        @JvmStatic
+        val log = LoggerProvider.getLogger(BodyMassService::class.java)
     }
 }
