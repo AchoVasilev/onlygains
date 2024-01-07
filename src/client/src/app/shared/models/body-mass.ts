@@ -22,3 +22,8 @@ export interface BmrDetailsResource {
   calories: number,
   unitType: string
 }
+
+export interface BmiFormula {
+  name: string,
+  description: string
+}

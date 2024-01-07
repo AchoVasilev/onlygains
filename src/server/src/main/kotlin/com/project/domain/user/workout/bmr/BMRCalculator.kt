@@ -22,6 +22,7 @@ val mifflinStJoerBmrCalculator =
     }
 
 val katchMcArdleBmrCalculator = BMRCalculator { _: Gender, weight: Weight, _: Height, _: Int, bodyFat: BodyFat? ->
-    val leanBodyMass = (1 - bodyFat!!.fromPercent()) * weight.weight!!
+    requireNotNull(bodyFat)
+    val leanBodyMass = (1 - bodyFat.fromPercent()) * weight.weight!!
     370 + (9.82 * leanBodyMass)
 }

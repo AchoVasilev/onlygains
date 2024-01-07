@@ -52,12 +52,19 @@ class WorkoutProfile protected constructor() : BaseEntity() {
         this.userId = userId
     }
 
-    fun calculateBmr(bmrEquation: BMREquation, activityLevel: ActivityLevel) {
+    fun calculateBmr(bmrEquation: BMREquation, activityLevel: ActivityLevel?) {
+        requireNotNull(this.gender)
+        requireNotNull(this.weight)
+        requireNotNull(this.height)
+        requireNotNull(this.age)
+
         this.bmr =
             BMR(bmrEquation, this.gender!!, this.weight!!, this.height!!, this.age!!, activityLevel, this.bodyFat)
     }
 
     fun calculateBmi() {
+        requireNotNull(this.weight)
+        requireNotNull(this.weight)
         this.bmi = BMI(this.height!!, this.weight!!)
     }
 

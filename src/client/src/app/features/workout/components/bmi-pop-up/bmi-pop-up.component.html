@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Hi</h1>
+<div mat-dialog-content>
+  <section>
+    <mat-radio-group
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group"
+      [(ngModel)]="bmiFormula"
+    >
+
+    <mat-radio-button *ngFor="let key of bmiFormulas | keyvalue" [value]="key.key">
+        {{key.value.name}}
+    </mat-radio-button>
+    </mat-radio-group>
+  </section>
+  <!-- <mat-form-field appearance="outline" class="max-size">
+        <mat-label>{{ label }}</mat-label>
+        <input
+          autofocus
+          class="input max-size"
+          matInput
+          type="text"
+          name="input"
+          (focusout)="onFocusOut()"
+          (keydown.enter)="onEnterPress($event)"
+        />
+      </mat-form-field> -->
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="bmiFormulas" cdkFocusInitial>Ok</button>
+  </div>
+</div>

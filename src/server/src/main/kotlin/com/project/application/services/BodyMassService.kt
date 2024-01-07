@@ -23,7 +23,9 @@ open class BodyMassService(
 
     @Transactional
     open fun calculateBmi(profileId: UUID): WorkoutProfileDetailsResource {
+        log.info("Calculating BMI. [profileId]={}", profileId)
         var profile = this.workoutProfileService.getMockProfile()
+
         profile.calculateBmi()
 
         profile = this.workoutProfileService.saveProfile(profile)

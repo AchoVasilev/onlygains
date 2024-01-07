@@ -30,7 +30,7 @@ class BMR protected constructor() {
         weight: Weight,
         height: Height,
         age: Int,
-        activityLevel: ActivityLevel,
+        activityLevel: ActivityLevel?,
         bodyFat: BodyFat? = null
     ) : this() {
         this.bmrEquation = bmrEquation
