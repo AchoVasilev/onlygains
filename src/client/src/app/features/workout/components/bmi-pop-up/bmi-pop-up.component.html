@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Hi</h1>
+<h1 mat-dialog-title>Калкулирай своя BMI</h1>
 <div mat-dialog-content>
-  <div  class="content">
+  <div class="content">
     <section>
       <mat-radio-group
         aria-labelledby="radio buttons"
@@ -15,12 +15,16 @@
           >
             {{ key.value.name }}
           </mat-radio-button>
-          <active-tooltip [text]="key.value.description"></active-tooltip>
+          <active-tooltip
+            [text]="key.value.description"
+            position="right"
+          ></active-tooltip>
         </li>
       </mat-radio-group>
     </section>
     <section>
-      <mat-radio-group [(ngModel)]="gender">
+      <h3>Изберете пол при раждане</h3>
+      <mat-radio-group [(ngModel)]="gender" class="gender">
         <mat-radio-button value="M">M</mat-radio-button>
         <mat-radio-button value="F">F</mat-radio-button>
       </mat-radio-group>
@@ -39,9 +43,9 @@
       </mat-form-field> -->
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button (click)="onNoClick()">Отказ</button>
     <button mat-button [mat-dialog-close]="bmiFormulas" cdkFocusInitial>
-      Ok
+      Калкулирай
     </button>
   </div>
 </div>

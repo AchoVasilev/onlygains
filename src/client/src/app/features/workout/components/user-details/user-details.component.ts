@@ -109,7 +109,6 @@ export class UserDetailsComponent {
   openDialog() {
     const dialogRef = this.dialog.open(BmiPopUpComponent, {
       data: {name: 'random', description: 'random random'},
-      width: '400px'
     });
   }
 
