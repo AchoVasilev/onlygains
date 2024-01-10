@@ -6,100 +6,14 @@ $shadow: rgba(205, 210, 214, 0.8);
   color: $light-gray;
   display: flex;
   letter-spacing: 2px;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   &:hover {
     border-color: $light-gray;
   }
 }
 
 .tooltip {
-  position: relative;
-  overflow: hidden;
-  
   &:hover {
     cursor: pointer;
-    overflow: visible;
-
-    .tooltip-content {
-      opacity: 1;
-    }
-  }
-
-  .tooltip-content {
-    background: $light-gray;
-    box-shadow: 0 5px 25px 5px $shadow;
-    box-sizing: border-box;
-    color: $white;
-    font-size: 14px;
-    line-height: 1.2;
-    letter-spacing: 1px;
-    cursor: text;
-    white-space: pre-line;
-    max-width: 400px;
-    width: max-content;
-    min-width: 145px;
-    padding: $one-rem;
-    position: absolute;
-    opacity: 0;
-    transition: all 0.3s ease;
-    border-radius: 5px;
-
-    &::after {
-      background: $light-gray;
-      content: "";
-      height: 10px;
-      position: absolute;
-      transform: rotate(45deg);
-      width: 10px;
-    }
-  }
-
-  &.top {
-    .tooltip-content {
-      bottom: calc($max-size + $half-rem);
-      left: $half-size;
-      transform: translateX(-$half-size);
-      &::after {
-        bottom: -5px;
-        left: $half-size;
-        margin-left: -5px;
-      }
-    }
-  }
-
-  &.bottom {
-    .tooltip-content {
-      bottom: calc(-100% - 2rem);
-      left: $half-size;
-      transform: translateX(-75%);
-      &::after {
-        top: -5px;
-      }
-    }
-  }
-
-  &.right {
-    .tooltip-content {
-      left: calc($max-size + 0.5rem);
-      top: $half-size;
-      transform: translateY(-$half-size);
-      &::after {
-        left: -5px;
-        margin-top: -5px;
-        top: $half-size;
-      }
-    }
-  }
-  &.left {
-    .tooltip-content {
-      right: calc($max-size + $half-rem);
-      top: $half-size;
-      transform: translateY(-$half-size);
-      &::after {
-        right: -5px;
-        margin-top: -5px;
-        top: $half-size;
-      }
-    }
   }
 }
