@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BmiPopUpComponent } from './bmi-pop-up.component';
+import { BmrPageComponent } from './bmr-page.component';
 
-describe('BmiPopUpComponent', () => {
-  let component: BmiPopUpComponent;
-  let fixture: ComponentFixture<BmiPopUpComponent>;
+describe('BmrPageComponent', () => {
+  let component: BmrPageComponent;
+  let fixture: ComponentFixture<BmrPageComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BmiPopUpComponent]
+      imports: [BmrPageComponent]
     });
-    fixture = TestBed.createComponent(BmiPopUpComponent);
+    fixture = TestBed.createComponent(BmrPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

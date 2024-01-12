@@ -2,7 +2,6 @@
 $shadow: rgba(205, 210, 214, 0.8);
 .btn {
   align-items: center;
-  box-sizing: border-box;
   color: $light-gray;
   display: flex;
   letter-spacing: 2px;
@@ -13,6 +12,8 @@ $shadow: rgba(205, 210, 214, 0.8);
 }
 
 .tooltip {
+  width: 20px;
+  height: 20px;
   &:hover {
     cursor: pointer;
   }

@@ -16,8 +16,7 @@ import { NgIf } from '@angular/common';
 import { InlineEditComponent } from 'app/shared/components/inline-edit/inline-edit.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { isNumberValidator } from 'app/shared/validators/number-validator';
-import { BmiPopUpComponent } from '../bmi-pop-up/bmi-pop-up.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'active-user-details',
@@ -29,7 +28,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     IconButtonComponent,
     InlineEditComponent,
     TooltipComponent,
-    MatDialogModule
   ],
 })
 export class UserDetailsComponent {
@@ -66,10 +64,9 @@ export class UserDetailsComponent {
     | undefined;
 
   @Output() calculateBmi = new EventEmitter<void>();
-  @Output() calculateBmr = new EventEmitter<void>();
   @Output() updateProfile = new EventEmitter<UpdateWorkoutProfileResource>();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private router: Router) {}
 
   onCalculateBmiClick() {
     const validWeight = !!this.user?.weight?.weight;
@@ -88,10 +85,8 @@ export class UserDetailsComponent {
     const validHeight = !!this.user?.height?.height;
     const validAge = !!this.user?.age;
 
-    this.openDialog();
-
     if (validWeight && validHeight && validAge) {
-      this.calculateBmr.emit();
+      this.router.navigateByUrl('/workouts/bmr');
       return;
     }
 
@@ -104,12 +99,6 @@ export class UserDetailsComponent {
     this.handleFields(!!weight, !!height, !!age);
 
     this.updateProfile.emit({ weight, height, age, bodyFat, gender });
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(BmiPopUpComponent, {
-      data: {name: 'random', description: 'random random'},
-    });
   }
 
   private handleFields(

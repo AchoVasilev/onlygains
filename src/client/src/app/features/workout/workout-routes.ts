@@ -4,14 +4,21 @@ import { WorkoutDashboardComponent } from './pages/workout-dashboard/workout-das
 const WORKOUT_ROUTES: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: 'dashboard',
-        component: WorkoutDashboardComponent,
-        pathMatch: 'full',
-        title: 'MyActivePal - тренировъчен профил',
-      },
-    ],
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
+    path: 'dashboard',
+    component: WorkoutDashboardComponent,
+    pathMatch: 'full',
+    title: 'MyActivePal - тренировъчен профил',
+  },
+  {
+    path: 'bmr',
+    loadComponent: () =>
+      import('./pages/bmr-page/bmr-page.component').then(
+        (c) => c.BmrPageComponent
+      ),
   },
 ];
 
