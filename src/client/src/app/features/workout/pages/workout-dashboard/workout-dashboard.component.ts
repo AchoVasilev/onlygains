@@ -17,7 +17,7 @@ import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.
 import { UserDetailsComponent } from '../../components/user-details/user-details.component';
 import { BarChartComponent } from '../../components/bar-chart/bar-chart.component';
 import { TodoListComponent } from '../../components/todo-list/todo-list.component';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { SideBarComponent } from '../../../../shared/components/side-bar/side-bar.component';
 
 @Component({
@@ -27,7 +27,6 @@ import { SideBarComponent } from '../../../../shared/components/side-bar/side-ba
   standalone: true,
   imports: [
     SideBarComponent,
-    NgIf,
     TodoListComponent,
     BarChartComponent,
     UserDetailsComponent,

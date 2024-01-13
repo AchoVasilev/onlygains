@@ -30,7 +30,9 @@
       </active-icon-button>
     </div>
   </div>
-  <div [formGroup]="group" *ngIf="showForm">
+  @if (showForm) {
+
+  <div [formGroup]="group">
     <mat-form-field appearance="fill" color="primary" ngDefaultControl>
       <mat-label>Промяна на задача</mat-label>
       <input
@@ -41,4 +43,5 @@
       <mat-icon matSuffix>mode_edit</mat-icon>
     </mat-form-field>
   </div>
+  }
 </div>

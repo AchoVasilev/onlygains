@@ -12,7 +12,6 @@ import {
   UserWorkoutProfileDetailsResource,
 } from 'app/shared/models/user';
 import { IconButtonComponent } from '../../../../shared/components/buttons/icon-button/icon-button.component';
-import { NgIf } from '@angular/common';
 import { InlineEditComponent } from 'app/shared/components/inline-edit/inline-edit.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { isNumberValidator } from 'app/shared/validators/number-validator';
@@ -24,7 +23,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-details.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
     IconButtonComponent,
     InlineEditComponent,
     TooltipComponent,

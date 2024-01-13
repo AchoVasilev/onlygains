@@ -2,14 +2,17 @@
   <active-side-bar [isWorkout]="true"></active-side-bar>
   <div class="main-body">
     <div class="checklist">
+      @if (todoItems$ | async; as items) {
       <active-todo-list
-        *ngIf="todoItems$ | async as items; else loading"
         [todoItems]="items"
         (itemChecked)="onItemChecked($event)"
         (itemCreated)="onItemCreated($event)"
         (itemDeleted)="onItemDeleted($event)"
         (itemEdited)="onItemEdited($event)"
       ></active-todo-list>
+      } @else {
+      <active-spinner class="centered"></active-spinner>
+      }
     </div>
     <div class="info">
       <section>
@@ -27,7 +30,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #loading>
-  <active-spinner class="centered"></active-spinner>
-</ng-template>

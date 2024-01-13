@@ -1,6 +1,16 @@
 <section>
   <active-intro></active-intro>
+  @defer (on viewport) {
   <active-inspirational></active-inspirational>
+  } @placeholder {
+  <active-spinner class="centered"></active-spinner>
+  } @defer (on viewport) {
   <active-recent-posts [cardResources]="posts$ | async"></active-recent-posts>
+  } @placeholder {
+  <active-spinner class="centered"></active-spinner>
+  } @defer (on viewport) {
   <active-categories [categories]="categories$ | async"></active-categories>
+  } @placeholder {
+  <active-spinner class="centered"></active-spinner>
+  }
 </section>

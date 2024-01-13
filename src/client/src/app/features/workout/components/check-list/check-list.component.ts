@@ -16,7 +16,6 @@ import {
 } from 'app/shared/models/checklist';
 import { IconButtonComponent } from '../../../../shared/components/buttons/icon-button/icon-button.component';
 import { CheckListItemComponent } from '../check-list-item/check-list-item.component';
-import { NgFor, NgIf } from '@angular/common';
 
 @Component({
     selector: 'active-check-list',
@@ -51,10 +50,8 @@ import { NgFor, NgIf } from '@angular/common';
     standalone: true,
     imports: [
         CdkDropList,
-        NgFor,
         CdkDrag,
         CheckListItemComponent,
-        NgIf,
         IconButtonComponent,
     ],
 })

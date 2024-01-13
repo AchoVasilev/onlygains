@@ -5,7 +5,7 @@ import { CheckListComponent } from '../check-list/check-list.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgIf, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { IconButtonComponent } from '../../../../shared/components/buttons/icon-button/icon-button.component';
 
 @Component({
@@ -14,7 +14,7 @@ import { IconButtonComponent } from '../../../../shared/components/buttons/icon-
     styleUrls: ['./todo-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [IconButtonComponent, NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, CheckListComponent, DecimalPipe]
+    imports: [IconButtonComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, CheckListComponent, DecimalPipe]
 })
 export class TodoListComponent {
 

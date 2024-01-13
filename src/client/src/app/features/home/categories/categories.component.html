@@ -4,7 +4,8 @@
       <h2>Нашите категории</h2>
     </div>
     <div class="service-container">
-      <div class="box" *ngFor="let category of categories; trackById">
+      @for (category of categories; track category) {
+      <div class="box">
         <img
           class="category-image"
           [src]="category.imageUrl"
@@ -13,13 +14,16 @@
         <h6 class="visible-heading">{{ category.name }}</h6>
         <div class="link-box">
           <a
-            routerLink="/posts/categories/{{category.translatedName}}/{{category.id}}"
+            routerLink="/posts/categories/{{ category.translatedName }}/{{
+              category.id
+            }}"
           >
             <img src="/assets/images/link.png" alt="link image" />
           </a>
           <h6>{{ category.name }}</h6>
         </div>
       </div>
+      }
     </div>
   </div>
 </section>

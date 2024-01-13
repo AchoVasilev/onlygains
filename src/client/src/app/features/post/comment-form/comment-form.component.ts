@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'active-comment-form',
     templateUrl: './comment-form.component.html',
     styleUrls: ['./comment-form.component.scss'],
     standalone: true,
-    imports: [ReactiveFormsModule, NgIf],
+    imports: [ReactiveFormsModule],
 })
 export class CommentFormComponent implements OnInit{
 

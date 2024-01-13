@@ -23,8 +23,8 @@
     <p class="comment-text">
       {{ comment.text }}
     </p>
+    @if (isEditing()) {
     <active-comment-form
-      *ngIf="isEditing()"
       submitLabel="Update"
       [hasCancelButton]="true"
       [initialText]="comment.text"
@@ -33,11 +33,13 @@
       "
       (handleCancel)="onCancelReply()"
     ></active-comment-form>
+    }
     <section class="comment-actions">
+      @if (canReply && !(isEditing() || isReplying())) {
+
       <button
         mat-raised-button
         color="primary"
-        *ngIf="canReply && !(isEditing() || isReplying())"
         class="comment-action"
         (click)="
           setActiveComment.emit({
@@ -48,9 +50,9 @@
       >
         Отговори
       </button>
+      } @if (canEdit) {
       <button
         mat-raised-button
-        *ngIf="canEdit"
         class="comment-action"
         (click)="
           setActiveComment.emit({
@@ -61,27 +63,31 @@
       >
         Промени
       </button>
+      } @if (canDelete) {
       <button
         mat-raised-button
-        *ngIf="canDelete"
         class="comment-action"
         (click)="deleteComment.emit(comment.id)"
       >
         Изтрий
       </button>
+      }
     </section>
+    @if (isReplying()) {
+
     <active-comment-form
-      *ngIf="isReplying()"
       submitLabel="Отговор"
       (handleSubmit)="addComment.emit({ text: $event, parentId: replyId })"
       [hasCancelButton]="true"
       (handleCancel)="onCancelReply()"
     ></active-comment-form>
+    }
   </article>
 
-  <section class="replies" *ngIf="comment.replies.length > 0">
+  @if (comment.replies.length > 0) {
+  <section class="replies">
+    @for (reply of replies; track reply) {
     <active-comment
-      *ngFor="let reply of replies; trackById"
       [comment]="reply"
       (setActiveComment)="setActiveComment.emit($event)"
       [activeComment]="activeComment"
@@ -92,5 +98,7 @@
       [replies]="comment.replies"
       [currentUserId]="currentUserId"
     ></active-comment>
+    }
   </section>
+  }
 </section>

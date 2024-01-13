@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { CategoryService } from 'app/core/services/category/category.service';
 import { PostService } from 'app/core/services/post/post.service';
 import { TagService } from 'app/core/services/tag/tag.service';
@@ -9,7 +9,6 @@ import { TagViewResource } from 'app/shared/models/tag';
 import { Observable } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { TagComponent } from '../tag/tag.component';
-import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { SpinnerComponent } from '../spinner/spinner.component';
@@ -18,12 +17,9 @@ import { SpinnerComponent } from '../spinner/spinner.component';
   selector: 'active-side-bar',
   standalone: true,
   imports: [
-    NgIf,
-    NgForOf,
     AsyncPipe,
     RouterModule,
     TagComponent,
-    NgForTrackByIdDirective,
     MatButtonModule,
     MatIconModule,
     SpinnerComponent

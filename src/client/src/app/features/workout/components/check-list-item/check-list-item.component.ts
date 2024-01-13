@@ -4,7 +4,6 @@ import { EditTodoItemResource, TodoItemDetailsResource } from 'app/shared/models
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgIf } from '@angular/common';
 import { CdkDragHandle } from '@angular/cdk/drag-drop';
 import { IconButtonComponent } from '../../../../shared/components/buttons/icon-button/icon-button.component';
 import { CheckBoxComponent } from '../../../../shared/components/check-box/check-box.component';
@@ -15,7 +14,7 @@ import { ClickOutsideDirective } from '../../../../shared/directives/click-outsi
     templateUrl: './check-list-item.component.html',
     styleUrls: ['./check-list-item.component.scss'],
     standalone: true,
-    imports: [ClickOutsideDirective, CheckBoxComponent, IconButtonComponent, CdkDragHandle, NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
+    imports: [ClickOutsideDirective, CheckBoxComponent, IconButtonComponent, CdkDragHandle, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })
 export class CheckListItemComponent {
 

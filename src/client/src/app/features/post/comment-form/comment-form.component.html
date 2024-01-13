@@ -1,14 +1,18 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <textarea matInput class="comment-form-textarea" formControlName="text"></textarea>
-  <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+  <textarea
+    matInput
+    class="comment-form-textarea"
+    formControlName="text"
+  ></textarea>
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    [disabled]="form.invalid"
+  >
     {{ submitLabel }}
   </button>
-  <button
-    *ngIf="hasCancelButton"
-    mat-flat-button
-    color="warn"
-    (click)="onCancel()"
-  >
-    Откажи
-  </button>
+  @if (hasCancelButton) {
+  <button mat-flat-button color="warn" (click)="onCancel()">Откажи</button>
+  }
 </form>

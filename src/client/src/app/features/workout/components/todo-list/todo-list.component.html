@@ -11,13 +11,16 @@
     >
     </active-icon-button>
   </div>
-  <div [formGroup]="formGroup" *ngIf="shouldShow">
-    <mat-form-field appearance="fill" color="primary" ngDefaultControl>
-      <mat-label>Добавяне на задача</mat-label>
-      <input matInput formControlName="name" (blur)="onBlur()" />
-      <mat-icon matSuffix>mode_edit</mat-icon>
-    </mat-form-field>
-  </div>
+  @if (shouldShow) {
+
+    <div [formGroup]="formGroup">
+      <mat-form-field appearance="fill" color="primary" ngDefaultControl>
+        <mat-label>Добавяне на задача</mat-label>
+        <input matInput formControlName="name" (blur)="onBlur()" />
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+    </div>
+  }
   <active-check-list
     [checklistItems]="todoItems"
     (itemChecked)="onItemChecked($event)"

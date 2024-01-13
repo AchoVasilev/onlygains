@@ -6,7 +6,6 @@ import {
 } from 'app/shared/models/comment';
 import { DateAgoPipe } from '../../../shared/pipes/date-ago/date-ago.pipe';
 import { CommentFormComponent } from '../comment-form/comment-form.component';
-import { NgIf, NgFor } from '@angular/common';
 import { IconButtonComponent } from '../../../shared/components/buttons/icon-button/icon-button.component';
 
 @Component({
@@ -16,9 +15,7 @@ import { IconButtonComponent } from '../../../shared/components/buttons/icon-but
     standalone: true,
     imports: [
         IconButtonComponent,
-        NgIf,
         CommentFormComponent,
-        NgFor,
         DateAgoPipe,
     ],
 })

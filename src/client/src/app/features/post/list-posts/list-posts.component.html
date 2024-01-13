@@ -9,9 +9,9 @@
     infiniteScrollContainer=".mat-typography"
     [fromRoot]="true"
   >
-    <div *ngFor="let post of items; trackById">
-      <active-post-card [post]="post"></active-post-card>
-    </div>
+  @for (post of items; track post) {
+    <active-post-card [post]="post"></active-post-card>
+  }
   </section>
   <section class="side-bar">
     <active-side-bar></active-side-bar>

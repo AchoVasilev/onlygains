@@ -1,33 +1,28 @@
 <mat-form-field>
-    <mat-label>{{label}}</mat-label>
-    <mat-chip-grid #chipGrid aria-label="Fruit selection">
-      <mat-chip-row
-        *ngFor="let variation of selectedItems()" trackById
-        (removed)="remove(variation)"
-      >
-        {{ variation.name }}
-        <button matChipRemove [attr.aria-label]="'remove ' + variation.name">
-          <mat-icon>cancel</mat-icon>
-        </button>
-      </mat-chip-row>
-    </mat-chip-grid>
-    <input
-      placeholder="{{placeholder}}"
-      #inputItem
-      [formControl]="getInputControl()"
-      [matChipInputFor]="chipGrid"
-      [matAutocomplete]="auto"
-      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-    />
-    <mat-autocomplete
-      #auto="matAutocomplete"
-      (optionSelected)="selected($event)"
-    >
-      <mat-option
-        *ngFor="let variation of items" trackById
-        [value]="variation"
-      >
-        {{ variation.name }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <mat-label>{{ label }}</mat-label>
+  <mat-chip-grid #chipGrid aria-label="Fruit selection">
+    @for (variation of selectedItems(); track variation) {
+    <mat-chip-row (removed)="remove(variation)">
+      {{ variation.name }}
+      <button matChipRemove [attr.aria-label]="'remove ' + variation.name">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+    }
+  </mat-chip-grid>
+  <input
+    placeholder="{{ placeholder }}"
+    #inputItem
+    [formControl]="getInputControl()"
+    [matChipInputFor]="chipGrid"
+    [matAutocomplete]="auto"
+    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+  />
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    @for (variation of items; track variation) {
+    <mat-option [value]="variation">
+      {{ variation.name }}
+    </mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>

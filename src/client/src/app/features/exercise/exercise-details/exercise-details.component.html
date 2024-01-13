@@ -1,41 +1,53 @@
-<article class="exercise-container" *ngIf="exercise">
+@if (exercise) {
+<article class="exercise-container">
   <section class="exercise-section">
     <section [innerHTML]="exercise.description"></section>
     <section class="exercise-muscle-groups">
-      <h2 class="exercise-subheading">Използвани мускулни групи</h2>
+      <h2 #muscleGroupsTitle class="exercise-subheading">
+        Използвани мускулни групи
+      </h2>
+      @defer (on viewport(muscleGroupsTitle)){
       <section class="exercise-muscle-group">
         <div>
           <section class="exercise-main-muscle-groups">
-            <div *ngFor="let muscle of getMainMuscleGroups(); trackById">
+            @for (muscle of getMainMuscleGroups(); track muscle) {
+            <div>
               <p>Целева група: {{ muscle.translatedName }}</p>
             </div>
+            }
           </section>
           <section class="exercise-synergist-muscle-groups">
-            <div *ngFor="let muscle of getSynergists(); trackById">
+            @for (muscle of getSynergists(); track muscle) {
+            <div>
               <p>Спомагателна група: {{ muscle.translatedName }}</p>
             </div>
+            }
           </section>
         </div>
         <active-muscle-group></active-muscle-group>
       </section>
+      }
     </section>
     <section class="exercise-variations">
-      <h2 class="exercise-subheading">Вариации на {{ exercise.name }}</h2>
+      <h2 #variationsTitle class="exercise-subheading">
+        Вариации на {{ exercise.name }}
+      </h2>
       <p>
-        Вариациите на <strong>{{ exercise.name | lowercase }}</strong> ще добавят разнообразие в тренировките
-        и ще работите мускулатурата от различни ъгли. Ето някои вариации, които
-        може да използвате:
+        Вариациите на <strong>{{ exercise.name | lowercase }}</strong> ще
+        добавят разнообразие в тренировките и ще работите мускулатурата от
+        различни ъгли. Ето някои вариации, които може да използвате:
       </p>
     </section>
+    @defer (on viewport(variationsTitle)){
     <section class="similar-exercises">
-      <active-similar-exercise
-        *ngFor="let exercise of exercise.variations"
-        [exercise]="exercise"
-        trackById
-      ></active-similar-exercise>
+      @for (variation of exercise.variations; track variation) {
+      <active-similar-exercise [exercise]="variation"></active-similar-exercise>
+      }
     </section>
+    }
   </section>
   <section class="exercise-sidebar">
     <active-side-bar postsTitle="Полезни теми"></active-side-bar>
   </section>
 </article>
+}

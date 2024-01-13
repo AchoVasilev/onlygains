@@ -11,5 +11,4 @@ import { HeaderComponent } from '../core/header/header.component';
     imports: [HeaderComponent, RouterOutlet, FooterComponent]
 })
 export class AppComponent {
-  title = 'OnlyGains';
 }

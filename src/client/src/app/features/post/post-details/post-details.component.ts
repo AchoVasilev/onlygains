@@ -5,9 +5,9 @@ import { PostDetailsResource } from 'app/shared/models/post';
 import { Observable } from 'rxjs';
 import { SideBarComponent } from '../../../shared/components/side-bar/side-bar.component';
 import { CommentsComponent } from '../comments/comments.component';
-import { NgForTrackByIdDirective } from '../../../shared/directives/ng-for-track-by-id.directive';
 import { TagComponent } from '../../../shared/components/tag/tag.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { SpinnerComponent } from 'app/shared/components/spinner/spinner.component';
 
 @Component({
     selector: 'active-post-details',
@@ -16,13 +16,11 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
     encapsulation: ViewEncapsulation.None,
     standalone: true,
     imports: [
-        NgIf,
-        NgFor,
         TagComponent,
-        NgForTrackByIdDirective,
         CommentsComponent,
         SideBarComponent,
         AsyncPipe,
+        SpinnerComponent
     ],
 })
 export class PostDetailsComponent implements OnInit {

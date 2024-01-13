@@ -9,6 +9,7 @@ import { CategoriesComponent } from '../categories/categories.component';
 import { RecentPostsComponent } from '../recent-posts/recent-posts.component';
 import { InspirationalComponent } from '../inspirational/inspirational.component';
 import { IntroComponent } from '../intro/intro.component';
+import { SpinnerComponent } from 'app/shared/components/spinner/spinner.component';
 
 @Component({
     selector: 'active-home',
@@ -16,7 +17,7 @@ import { IntroComponent } from '../intro/intro.component';
     styleUrls: ['./home.component.scss'],
     animations: [],
     standalone: true,
-    imports: [IntroComponent, InspirationalComponent, RecentPostsComponent, CategoriesComponent, AsyncPipe]
+    imports: [IntroComponent, InspirationalComponent, RecentPostsComponent, CategoriesComponent, AsyncPipe, SpinnerComponent]
 })
 export class HomeComponent implements OnInit {
 
@@ -41,6 +42,6 @@ export class HomeComponent implements OnInit {
           text: p.previewText
         }
       }))
-    )
+    );
   }
 }

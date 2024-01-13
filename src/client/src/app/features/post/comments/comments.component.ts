@@ -14,7 +14,6 @@ import { NgFor } from '@angular/common';
     styleUrls: ['./comments.component.scss'],
     standalone: true,
     imports: [
-        NgFor,
         CommentComponent,
         CommentFormComponent,
     ],

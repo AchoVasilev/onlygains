@@ -1,5 +1,4 @@
-import { NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -8,7 +7,6 @@ import { MatInputModule } from '@angular/material/input';
   selector: 'active-inline-edit',
   standalone: true,
   imports: [
-    NgIf,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,

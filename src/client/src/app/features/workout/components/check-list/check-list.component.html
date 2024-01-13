@@ -6,7 +6,8 @@
   [cdkDropListConnectedTo]="[hiddenList]"
   @list
 >
-  <li cdkDrag *ngFor="let item of visibleItems; trackById" @items>
+  @for (item of visibleItems; track item) {
+  <li cdkDrag @items>
     <active-check-list-item
       [item]="item"
       (itemChecked)="onChecked($event)"
@@ -14,6 +15,7 @@
       (itemDeleted)="onDelete($event)"
     ></active-check-list-item>
   </li>
+  }
 </ul>
 <ul
   cdkDropList
@@ -23,8 +25,12 @@
   [cdkDropListConnectedTo]="[visibleList]"
   @list
 >
-  <div *ngIf="isExpanded" @items>
-    <li cdkDrag *ngFor="let item of hiddenItems; trackById">
+  @if (isExpanded) {
+
+  <div @items>
+    @for (item of hiddenItems; track item) {
+
+    <li>
       <active-check-list-item
         [item]="item"
         (itemChecked)="onChecked($event)"
@@ -32,10 +38,13 @@
         (itemDeleted)="onDelete($event)"
       ></active-check-list-item>
     </li>
+    }
   </div>
+  }
 </ul>
 
-<section class="button" *ngIf="hiddenItems.length">
+@if (hiddenItems.length) {
+<section class="button">
   <div [@rotate]="isExpanded ? 'rotated' : 'default'">
     <active-icon-button
       color="primary"
@@ -46,3 +55,4 @@
     </active-icon-button>
   </div>
 </section>
+}

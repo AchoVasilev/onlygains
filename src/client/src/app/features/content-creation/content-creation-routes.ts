@@ -1,25 +1,18 @@
 import { Routes } from '@angular/router';
-import { CreatePostComponent } from './create-post/create-post.component';
-import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 
 const CONTENT_CREATION_ROUTES: Routes = [
   {
-    path: '',
-    children: [
-      {
-        path: 'create/post',
-        pathMatch: 'full',
-        component: CreatePostComponent,
-        title: 'MyActivePal - създай статия'
-      },
-      {
-        path: 'create/exercise',
-        pathMatch: 'full',
-        component: CreateExerciseComponent,
-        title: 'MyActivePal - създай упражнение'
-      }
-    ]
-  }
+    path: 'create/post',
+    pathMatch: 'full',
+    loadComponent: () => import('./create-post/create-post.component').then(c => c.CreatePostComponent),
+    title: 'MyActivePal - създай статия',
+  },
+  {
+    path: 'create/exercise',
+    pathMatch: 'full',
+    loadComponent: () => import('./create-exercise/create-exercise.component').then(c => c.CreateExerciseComponent),
+    title: 'MyActivePal - създай упражнение',
+  },
 ];
 
 export default CONTENT_CREATION_ROUTES;

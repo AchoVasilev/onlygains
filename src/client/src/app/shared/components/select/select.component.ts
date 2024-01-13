@@ -1,14 +1,12 @@
-import { NgForOf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { NgForTrackByIdDirective } from 'app/shared/directives/ng-for-track-by-id.directive';
 import { Selectable } from 'app/shared/models/selectable';
 
 @Component({
   selector: 'active-select',
   standalone: true,
-  imports: [ReactiveFormsModule, MatSelectModule, NgForOf, NgForTrackByIdDirective],
+  imports: [ReactiveFormsModule, MatSelectModule],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })

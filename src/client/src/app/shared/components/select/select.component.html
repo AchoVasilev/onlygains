@@ -1,8 +1,23 @@
 <mat-form-field>
-  <mat-label>{{label}}</mat-label>
-  <mat-select [multiple]="multiple" (selectionChange)="onSelectionChange($event)" [formControl]="getInputControl()">
-    <mat-option *ngFor="let item of selectableItems" trackById [value]="fullObjectValue ? {id: item.id, name: item.name, translatedName: item.translatedName} : item.id ?? item.name"
-      >{{item.name}}</mat-option
+  <mat-label>{{ label }}</mat-label>
+  <mat-select
+    [multiple]="multiple"
+    (selectionChange)="onSelectionChange($event)"
+    [formControl]="getInputControl()"
+  >
+    @for (item of selectableItems; track item) {
+    <mat-option
+      [value]="
+        fullObjectValue
+          ? {
+              id: item.id,
+              name: item.name,
+              translatedName: item.translatedName
+            }
+          : item.id ?? item.name
+      "
+      >{{ item.name }}</mat-option
     >
+    }
   </mat-select>
 </mat-form-field>
