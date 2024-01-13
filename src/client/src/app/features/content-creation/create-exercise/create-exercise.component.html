@@ -24,7 +24,7 @@
         <h4>Избери уреди</h4>
         <active-select
           label="Уреди"
-          [selectableItems]="equipment$ | async"
+          [selectableItems]="equipment"
           [control]="form.controls.equipment"
           [multiple]="true"
         ></active-select>
@@ -53,7 +53,7 @@
           label="Вариации"
           placeholder="Търси вариации"
           [control]="form.controls.variations"
-          [items]="variations$ | async"
+          [items]="variations"
           (onFieldInput)="onInput($event)"
         ></active-auto-complete>
       </section>

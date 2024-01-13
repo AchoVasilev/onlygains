@@ -6,7 +6,7 @@
   <section class="categories-container">
     <h3 class="title">Категории</h3>
     <ul class="categories">
-      @for (category of categories; track category) {
+      @for (category of categories; track category.id) {
       <li class="category">
         <a
           mat-button
@@ -25,7 +25,7 @@
 
   <section>
     <h3 class="title">{{ postsTitle }}</h3>
-    @for (post of posts; track post) {
+    @for (post of posts; track post.id) {
     <article class="post">
       <img class="post-image" [src]="post.imageUrl" />
       <div class="post-wrapper">
@@ -57,13 +57,12 @@
   <section>
     <h3 class="title">Всички тагове</h3>
     <section class="sidebar-tags">
-      @for (tag of tags; track tag) {
+      @for (tag of tags; track tag.id) {
       <active-tag
         class="sidebar-tag"
         [tag]="tag"
         urlPrefix="/posts"
         type="Tag"
-        trackById
       ></active-tag>
       }
     </section>

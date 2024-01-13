@@ -86,7 +86,7 @@
 
   @if (comment.replies.length > 0) {
   <section class="replies">
-    @for (reply of replies; track reply) {
+    @for (reply of replies; track reply.id) {
     <active-comment
       [comment]="reply"
       (setActiveComment)="setActiveComment.emit($event)"

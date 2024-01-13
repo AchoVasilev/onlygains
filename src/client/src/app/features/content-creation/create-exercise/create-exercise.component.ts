@@ -1,19 +1,14 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { EquipmentService } from 'app/core/services/equipment/equipment.service';
-import { ExerciseService } from 'app/core/services/exercise/exercise.service';
-import { MuscleGroupService } from 'app/core/services/muscle-group/muscle-group.service';
-import { CategoryDTO } from 'app/shared/models/category';
 import { EquipmentResource } from 'app/shared/models/equipment';
 import {
+  CreateExerciseResource,
   ExerciseResource,
   MuscleGroupDetailsResource,
 } from 'app/shared/models/exercise';
 import { exerciseTemplateStyling } from 'app/shared/models/text-editor/template-stylings';
 import { exerciseTemplate } from 'app/shared/models/text-editor/templates';
-import { Observable } from 'rxjs';
 import { Editor } from 'tinymce';
-import { AsyncPipe } from '@angular/common';
 import { RaisedButtonComponent } from '../../../shared/components/buttons/raised-button/raised-button.component';
 import { AutoCompleteComponent } from '../../../shared/components/auto-complete/auto-complete.component';
 import { SelectComponent } from '../../../shared/components/select/select.component';
@@ -22,31 +17,39 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { TextEditorComponent } from '../../../shared/components/text-editor/text-editor.component';
 
 @Component({
-    selector: 'active-create-exercise',
-    templateUrl: './create-exercise.component.html',
-    styleUrls: ['./create-exercise.component.scss'],
-    standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        TextEditorComponent,
-        MatFormFieldModule,
-        MatInputModule,
-        SelectComponent,
-        AutoCompleteComponent,
-        RaisedButtonComponent,
-        AsyncPipe,
-    ],
+  selector: 'active-create-exercise',
+  templateUrl: './create-exercise.component.html',
+  styleUrls: ['./create-exercise.component.scss'],
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    TextEditorComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    SelectComponent,
+    AutoCompleteComponent,
+    RaisedButtonComponent,
+  ],
 })
 export class CreateExerciseComponent {
   template: string = exerciseTemplate;
   styling: string = exerciseTemplateStyling;
   editor?: Editor;
 
-  equipment$?: Observable<EquipmentResource[]>;
+  @Input({required: true})
+  equipment: EquipmentResource[] | null = [];
 
-  selectedCategory?: CategoryDTO;
-  muscleGroups: MuscleGroupDetailsResource[] = [];
-  variations$?: Observable<ExerciseResource[]>;
+  @Input({required: true})
+  muscleGroups: MuscleGroupDetailsResource[] | null = [];
+
+  @Input({required: true})
+  variations: ExerciseResource[] | null = [];
+
+  @Output()
+  input = new EventEmitter<string>();
+
+  @Output()
+  submit = new EventEmitter<CreateExerciseResource>();
 
   form = this.fb.group({
     name: this.fb.control<string>('', [Validators.required]),
@@ -65,23 +68,7 @@ export class CreateExerciseComponent {
 
   @ViewChild('variationInput') variationInput?: ElementRef<HTMLInputElement>;
 
-  constructor(
-    private fb: FormBuilder,
-    private readonly equipmentService: EquipmentService,
-    private readonly muscleGroupService: MuscleGroupService,
-    private readonly exerciseService: ExerciseService
-  ) {}
-
-  ngOnInit(): void {
-    this.equipment$ = this.equipmentService.getAll();
-    this.getMuscleGroups();
-  }
-
-  getMuscleGroups() {
-    return this.muscleGroupService
-      .getAll()
-      .subscribe((gr) => (this.muscleGroups = gr));
-  }
+  constructor(private fb: FormBuilder) {}
 
   onEditorInit(ev: Editor) {
     this.editor = ev;
@@ -104,8 +91,8 @@ export class CreateExerciseComponent {
     }
   }
 
-  onInput(ev: any) {
-    this.variations$ = this.exerciseService.getVariations(ev);
+  onInput(ev: string) {
+    this.input.emit(ev);
   }
 
   onEditorInputChange(ev: string) {
@@ -125,7 +112,7 @@ export class CreateExerciseComponent {
       equipment,
       mainMuscleGroupsIds,
       synergisticMuscleGroupsIds,
-      variations
+      variations,
     } = this.form.value;
     const data = {
       name,
@@ -136,9 +123,10 @@ export class CreateExerciseComponent {
       equipment,
       gifUrl,
       imageUrl,
-      variations
+      variations,
     };
 
-    this.exerciseService.createExercise(data).subscribe();
+    this.submit.emit(data);
+    this.form.reset();
   }
 }

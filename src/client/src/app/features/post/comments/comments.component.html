@@ -1,7 +1,7 @@
 <!-- Comment List Start -->
 <section class="comments">
   <h3>Коментари</h3>
-  @for (rootComment of getRootComments(); track rootComment) {
+  @for (rootComment of getRootComments(); track rootComment.id) {
   <active-comment
     [comment]="rootComment"
     [replies]="getReplies(rootComment)"

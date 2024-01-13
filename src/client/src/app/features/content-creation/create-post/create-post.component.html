@@ -20,7 +20,7 @@
           [fullObjectValue]="true"
           [control]="form.controls.categoryId"
           (selectionChange)="categorySelect($event)"
-          [selectableItems]="categories$ | async"
+          [selectableItems]="categories"
         ></active-select>
       </section>
       <section class="tags">
@@ -28,7 +28,7 @@
         <active-select
           label="Тагове"
           [multiple]="true"
-          [selectableItems]="tags$ | async"
+          [selectableItems]="tags"
           [control]="form.controls.tags"
         ></active-select>
       </section>

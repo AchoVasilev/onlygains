@@ -4,7 +4,7 @@
       <h2>Нашите категории</h2>
     </div>
     <div class="service-container">
-      @for (category of categories; track category) {
+      @for (category of categories; track category.id) {
       <div class="box">
         <img
           class="category-image"

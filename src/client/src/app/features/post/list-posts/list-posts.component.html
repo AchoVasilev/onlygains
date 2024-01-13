@@ -9,7 +9,7 @@
     infiniteScrollContainer=".mat-typography"
     [fromRoot]="true"
   >
-  @for (post of items; track post) {
+  @for (post of items; track post.id) {
     <active-post-card [post]="post"></active-post-card>
   }
   </section>

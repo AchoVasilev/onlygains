@@ -30,10 +30,10 @@ export interface PostDetailsResource {
 }
 
 export interface CreatePostResource {
-    title?: string,
-    text?: string,
-    previewText?: string,
-    tags?: string[],
-    categoryId?: string,
-    imageUrls?: string[]
+    title?: string | null,
+    text?: string | null,
+    previewText?: string | null,
+    tags?: string[] | null,
+    categoryId?: string | null,
+    imageUrls?: string[] | null
 }

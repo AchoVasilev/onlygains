@@ -5,7 +5,7 @@
     <section class="post-container" [innerHTML]="post.text"></section>
     @defer (on viewport) {
     <section class="post-tags">
-      @for (tag of post.tags; track tag) {
+      @for (tag of post.tags; track tag.id) {
       <active-tag
         class="post-tag"
         urlPrefix="/posts"

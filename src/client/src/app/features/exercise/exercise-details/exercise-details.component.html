@@ -10,14 +10,14 @@
       <section class="exercise-muscle-group">
         <div>
           <section class="exercise-main-muscle-groups">
-            @for (muscle of getMainMuscleGroups(); track muscle) {
+            @for (muscle of getMainMuscleGroups(); track muscle.id) {
             <div>
               <p>Целева група: {{ muscle.translatedName }}</p>
             </div>
             }
           </section>
           <section class="exercise-synergist-muscle-groups">
-            @for (muscle of getSynergists(); track muscle) {
+            @for (muscle of getSynergists(); track muscle.id) {
             <div>
               <p>Спомагателна група: {{ muscle.translatedName }}</p>
             </div>
@@ -40,7 +40,7 @@
     </section>
     @defer (on viewport(variationsTitle)){
     <section class="similar-exercises">
-      @for (variation of exercise.variations; track variation) {
+      @for (variation of exercise.variations; track variation.id) {
       <active-similar-exercise [exercise]="variation"></active-similar-exercise>
       }
     </section>

@@ -5,7 +5,7 @@
     (selectionChange)="onSelectionChange($event)"
     [formControl]="getInputControl()"
   >
-    @for (item of selectableItems; track item) {
+    @for (item of selectableItems; track item.id) {
     <mat-option
       [value]="
         fullObjectValue

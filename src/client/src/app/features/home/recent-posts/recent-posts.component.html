@@ -10,7 +10,7 @@
       ></active-recent-post>
     </article>
     <article class="secondary-post-container">
-      @for (card of cardResources.slice(1); track card) {
+      @for (card of cardResources.slice(1); track card.id) {
       <div class="secondary-card">
         <active-recent-post [card]="card" [isMain]="false"></active-recent-post>
       </div>

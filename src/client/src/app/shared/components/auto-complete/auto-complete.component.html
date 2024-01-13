@@ -1,7 +1,7 @@
 <mat-form-field>
   <mat-label>{{ label }}</mat-label>
   <mat-chip-grid #chipGrid aria-label="Fruit selection">
-    @for (variation of selectedItems(); track variation) {
+    @for (variation of selectedItems(); track variation.id) {
     <mat-chip-row (removed)="remove(variation)">
       {{ variation.name }}
       <button matChipRemove [attr.aria-label]="'remove ' + variation.name">
@@ -19,7 +19,7 @@
     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
   />
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    @for (variation of items; track variation) {
+    @for (variation of items; track variation.id) {
     <mat-option [value]="variation">
       {{ variation.name }}
     </mat-option>
