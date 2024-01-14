@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'active-bmr-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './bmr-page.component.html',
   styleUrls: ['./bmr-page.component.scss']
 })

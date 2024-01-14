@@ -18,7 +18,6 @@ import { UserDetailsComponent } from '../../components/user-details/user-details
 import { BarChartComponent } from '../../components/bar-chart/bar-chart.component';
 import { TodoListComponent } from '../../components/todo-list/todo-list.component';
 import { AsyncPipe } from '@angular/common';
-import { SideBarComponent } from '../../../../shared/components/side-bar/side-bar.component';
 
 @Component({
   selector: 'active-workout-dashboard',
@@ -26,7 +25,6 @@ import { SideBarComponent } from '../../../../shared/components/side-bar/side-ba
   styleUrls: ['./workout-dashboard.component.scss'],
   standalone: true,
   imports: [
-    SideBarComponent,
     TodoListComponent,
     BarChartComponent,
     UserDetailsComponent,

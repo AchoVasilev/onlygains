@@ -1,20 +1,15 @@
 @use "variables" as *;
 
-.container {
-  display: flex;
-  padding: 2rem 4rem;
-}
-
 .main-body {
   padding-left: 2rem;
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: $max-size;
 
   .checklist,
   .info {
     flex-grow: 1;
-    flex-basis: calc(100% / 2);
+    flex-basis: calc($max-size / 2);
   }
 }
 
@@ -31,10 +26,10 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50%;
+  height: $half-size;
 }
 
 .chart {
   display: block;
-  width: 100%;
+  width: $max-size;
 }
