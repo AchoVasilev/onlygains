@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use 'variables' as *;
 
 .exercise-container {
   padding-top: 5rem;
@@ -33,8 +33,8 @@
   }
 }
 
-.exercise-main-muscle-groups, .exercise-synergist-muscle-groups {
-  
+.exercise-main-muscle-groups,
+.exercise-synergist-muscle-groups {
   p {
     padding-top: $half-rem;
     padding-bottom: $half-rem;
@@ -78,13 +78,13 @@ active-muscle-group {
   }
 
   li:before {
-    content: counter(item) ". ";
+    content: counter(item) '. ';
   }
 }
 
 .exercise-tips-list {
   li:before {
-    content: "•";
+    content: '•';
     color: $dark-gray;
     padding: $half-rem;
   }

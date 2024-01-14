@@ -1,7 +1,4 @@
-import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-} from '@angular/router';
+import type { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 
 export const resolveTitle: ResolveFn<string> = (
   route: ActivatedRouteSnapshot

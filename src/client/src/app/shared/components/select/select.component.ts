@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
+import type {
   AbstractControl,
-  FormControl,
+  FormControl} from '@angular/forms';
+import {
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { Selectable } from 'app/shared/models/selectable';
+import type { MatSelectChange} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import type { Selectable } from 'app/shared/models/selectable';
 
 @Component({
   selector: 'active-select',
@@ -29,7 +31,7 @@ export class SelectComponent {
 
   @Input()
   multiple: boolean = false;
-
+  st = '';
   @Output()
   selectionChange = new EventEmitter<object>();
 

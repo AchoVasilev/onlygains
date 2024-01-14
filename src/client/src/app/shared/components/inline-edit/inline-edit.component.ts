@@ -1,5 +1,14 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import type {
+  OnChanges,
+  SimpleChanges} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
+import type { FormControl} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
@@ -16,7 +25,6 @@ import { MatInputModule } from '@angular/material/input';
   styleUrls: ['./inline-edit.component.scss'],
 })
 export class InlineEditComponent implements OnChanges {
-
   @Input({ required: true }) value: any;
   @Input({ required: true }) control!: FormControl;
   @Input() type: 'textbox' | 'textarea' = 'textbox';
@@ -32,7 +40,7 @@ export class InlineEditComponent implements OnChanges {
     return !!this.value;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_: SimpleChanges): void {
     this.control.patchValue(this.value);
   }
 

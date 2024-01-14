@@ -23,7 +23,7 @@ jpa:
   default:
     entity-scan:
       packages:
-        - 'com.project.domain'
+        - "com.project.domain"
     properties:
       hibernate:
         hbm2ddl:

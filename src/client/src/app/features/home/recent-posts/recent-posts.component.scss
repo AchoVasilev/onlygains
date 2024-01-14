@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use 'variables' as *;
 
 .recent-posts {
   padding: 6rem;
@@ -13,7 +13,7 @@
 
 .primary-post-container {
   max-width: 68%;
-  height: $max-size
+  height: $max-size;
 }
 
 .secondary-post-container {

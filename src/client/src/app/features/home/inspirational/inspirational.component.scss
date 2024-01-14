@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use 'variables' as *;
 
 .inspirational {
   display: flex;
@@ -18,13 +18,13 @@
 }
 
 .image-wrapper {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .image-wrapper img {
-    transition: all .5s;
+  transition: all 0.5s;
 }
 
 .image-wrapper img:hover {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }

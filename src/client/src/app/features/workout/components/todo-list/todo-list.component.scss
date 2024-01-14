@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use 'variables' as *;
 
 h3 {
   text-align: center;
@@ -22,12 +22,11 @@ section {
 }
 
 mat-form-field {
-    width: 100%;
+  width: 100%;
+}
+
+:host {
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: $bold-white;
   }
-  
-  :host {
-    ::ng-deep .mat-mdc-text-field-wrapper {
-      background-color: $bold-white;
-    }
-  }
-  
+}

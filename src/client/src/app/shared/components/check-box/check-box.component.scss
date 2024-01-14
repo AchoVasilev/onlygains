@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use 'variables' as *;
 
 div {
   padding: $one-rem;
@@ -22,13 +22,14 @@ label {
     border-radius: 50%;
     vertical-align: -6px;
     margin-right: 10px;
-    transition: background-color 150ms 200ms,
+    transition:
+      background-color 150ms 200ms,
       transform 350ms cubic-bezier(0.78, -1.22, 0.17, 1.89); // custom ease effect for bouncy animation
 
     // Now we'll create the "tick" using pseudo elements - those will be basically two lines that will be rotated to form the "tick"
 
     &:before {
-      content: "";
+      content: '';
       width: 0px;
       height: 2px;
       border-radius: 2px; // so that the tick has nice rounded look
@@ -42,7 +43,7 @@ label {
     }
 
     &:after {
-      content: "";
+      content: '';
       width: 0;
       height: 2px;
       border-radius: 2px; // so that the tick has nice rounded look
@@ -76,7 +77,7 @@ label {
   }
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   display: none; // hide the system checkbox
 
   // Let's add some effects after the checkbox is checked
@@ -86,7 +87,7 @@ input[type="checkbox"] {
       text-decoration: line-through;
       color: $light-gray;
       font-weight: 600;
-      
+
       span {
         background-color: #fff;
         transform: scale(1.25); // enlarge the box

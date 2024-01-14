@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 .muscle-groups-container {
   width: $max-size;
@@ -24,7 +24,7 @@
     opacity: 0.5;
     fill: $light-blue !important;
   }
-  
+
   .muscles-helper {
     display: none;
   }
