@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,css,html}\""
+    "prepare": "cd .. && cd .. && husky install src/client/.husky && husky set .husky/pre-commit \"npx lint-staged\""
   },
   "private": true,
   "dependencies": {
@@ -61,13 +61,12 @@
   "lint-staged": {
     "src/**/*.{js,ts,scss,md,html,json}": [
       "prettier --write",
-      "git add"
+      "eslint --fix"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "ng lint && lint-staged",
-      "pre-push": "ng build --prod"
+      "pre-commit": "ng lint && lint-staged"
     }
   }
 }

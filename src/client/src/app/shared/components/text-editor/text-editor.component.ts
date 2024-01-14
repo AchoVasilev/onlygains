@@ -74,7 +74,7 @@ export class TextEditorComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.styling) {
-      this.editorConfig!.images_upload_handler = (blobInfo) =>
+      this.editorConfig!.images_upload_handler = blobInfo =>
         this.onUpload(blobInfo);
       this.editorConfig!.file_picker_callback = (callback, value, meta) =>
         this.onFilePick(callback, value, meta);
@@ -123,9 +123,12 @@ export class TextEditorComponent implements OnInit {
   }
 
   onUpload(blobInfo: any) {
-    const upload$ = this.imageService.upload(blobInfo.blob(), this.folderUpload);
-    const result = new Promise<string>((resolve) => {
-      upload$.subscribe((image) => {
+    const upload$ = this.imageService.upload(
+      blobInfo.blob(),
+      this.folderUpload
+    );
+    const result = new Promise<string>(resolve => {
+      upload$.subscribe(image => {
         this.imageUpload.emit(image.url);
         resolve(image.url);
       });
