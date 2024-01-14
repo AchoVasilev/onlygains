@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "prepare": "cd .. && cd .. && husky install src/client/.husky && husky set .husky/pre-commit \"npx lint-staged\""
+    "prepare": "cd .. && cd .. && husky install src/client/.husky"
   },
   "private": true,
   "dependencies": {
@@ -62,7 +62,8 @@
     "src/**/*.{js,ts,scss,md,html,json}": [
       "prettier --write",
       "eslint --fix"
-    ]
+    ],
+    "*.js": "eslint --cache --fix"
   },
   "husky": {
     "hooks": {
