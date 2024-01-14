@@ -8,7 +8,7 @@ import { NgChartsModule } from 'ng2-charts';
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
   standalone: true,
-  imports: [NgChartsModule]
+  imports: [NgChartsModule],
 })
 export class BarChartComponent {
   @Input()

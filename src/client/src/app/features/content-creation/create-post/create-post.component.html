@@ -8,8 +8,7 @@
         (inputChanged)="onEditorInputChange($event)"
         [styling]="styling"
         [template]="template"
-        folderUpload="posts"
-      >
+        folderUpload="posts">
       </active-text-editor>
     </section>
     <section class="category-tags-container">
@@ -20,8 +19,7 @@
           [fullObjectValue]="true"
           [control]="form.controls.categoryId"
           (selectionChange)="categorySelect($event)"
-          [selectableItems]="categories"
-        ></active-select>
+          [selectableItems]="categories"></active-select>
       </section>
       <section class="tags">
         <h4>Избери тагове</h4>
@@ -29,14 +27,12 @@
           label="Тагове"
           [multiple]="true"
           [selectableItems]="tags"
-          [control]="form.controls.tags"
-        ></active-select>
+          [control]="form.controls.tags"></active-select>
       </section>
       <active-raised-button
         type="submit"
         color="primary"
-        text="Създай"
-      ></active-raised-button>
+        text="Създай"></active-raised-button>
     </section>
   </div>
 </form>

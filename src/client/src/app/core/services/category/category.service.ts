@@ -5,13 +5,12 @@ import { environment } from '../../../../environments/environment';
 import { CategoryViewResource } from 'app/shared/models/category';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoryService {
-
   private apiUrl: string = environment.apiUrl + '/categories';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getCategories(): Observable<CategoryViewResource[]> {
     return this.http.get<CategoryViewResource[]>(this.apiUrl);

@@ -7,8 +7,6 @@ import { SideBarComponent } from 'app/shared/components/side-bar/side-bar.compon
   standalone: true,
   imports: [RouterOutlet, SideBarComponent],
   templateUrl: './workout.component.html',
-  styleUrl: './workout.component.scss'
+  styleUrl: './workout.component.scss',
 })
-export class WorkoutComponent {
-
-}
+export class WorkoutComponent {}

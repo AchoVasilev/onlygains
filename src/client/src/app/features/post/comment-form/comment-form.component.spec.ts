@@ -8,8 +8,8 @@ describe('CommentFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [CommentFormComponent]
-});
+      imports: [CommentFormComponent],
+    });
     fixture = TestBed.createComponent(CommentFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

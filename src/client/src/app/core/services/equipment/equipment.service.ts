@@ -5,13 +5,12 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EquipmentService {
-
   private apiUrl = environment.apiUrl + '/equipment';
 
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) {}
 
   getAll(): Observable<EquipmentResource[]> {
     return this.http.get<EquipmentResource[]>(this.apiUrl);

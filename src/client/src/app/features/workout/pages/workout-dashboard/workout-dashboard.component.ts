@@ -50,7 +50,7 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
     this.todoItems$ = this.todoItemService.getAll();
 
     this.itemtemObservable$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.todoItems$ = this.todoItems$.pipe(map((items) => items));
+      this.todoItems$ = this.todoItems$.pipe(map(items => items));
     });
 
     this.getUser();
@@ -75,7 +75,7 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
   getUser() {
     this.workoutProfileService
       .getById('af2e8e6a-861b-4b1b-b7d1-81410dbcf1b6')
-      .subscribe((user) => (this.user = user));
+      .subscribe(user => (this.user = user));
   }
 
   onItemChecked(itemId: string) {
@@ -105,12 +105,12 @@ export class WorkoutDashboardComponent implements OnInit, OnDestroy {
   onCalculateBmi() {
     this.bodyMassService
       .calculateBmi(this.user!.id)
-      .subscribe((res) => (this.user = res));
+      .subscribe(res => (this.user = res));
   }
 
   onUpdateProfile(resource: UpdateWorkoutProfileResource) {
     this.workoutProfileService
       .updateProfile(this.user!.id, resource)
-      .subscribe((res) => (this.user = res));
+      .subscribe(res => (this.user = res));
   }
 }

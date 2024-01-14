@@ -8,12 +8,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class BodyMassService {
-
   private apiUrl = environment.apiUrl + '/body-mass';
 
   constructor(private http: HttpClient) {}
 
-  calculateBmi(workoutProfileId: string): Observable<UserWorkoutProfileDetailsResource> {
-    return this.http.post<UserWorkoutProfileDetailsResource>(`${this.apiUrl}/bmi/${workoutProfileId}`, {});
+  calculateBmi(
+    workoutProfileId: string
+  ): Observable<UserWorkoutProfileDetailsResource> {
+    return this.http.post<UserWorkoutProfileDetailsResource>(
+      `${this.apiUrl}/bmi/${workoutProfileId}`,
+      {}
+    );
   }
 }

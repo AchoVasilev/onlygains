@@ -1,3 +1,2 @@
 import { Selectable } from './selectable';
-export interface TagViewResource extends Selectable {
-}
+export interface TagViewResource extends Selectable {}

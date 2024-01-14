@@ -8,7 +8,7 @@ describe('BmrPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BmrPageComponent]
+      imports: [BmrPageComponent],
     });
     fixture = TestBed.createComponent(BmrPageComponent);
     component = fixture.componentInstance;

@@ -22,11 +22,7 @@ import { Router } from '@angular/router';
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
   standalone: true,
-  imports: [
-    IconButtonComponent,
-    InlineEditComponent,
-    TooltipComponent,
-  ],
+  imports: [IconButtonComponent, InlineEditComponent, TooltipComponent],
 })
 export class UserDetailsComponent {
   @ViewChild('weight') private weightElement?: ElementRef<HTMLElement>;
@@ -128,7 +124,7 @@ export class UserDetailsComponent {
   get bmiText() {
     return `BMI (Body Mass Index) е проста калкулация, която използва ръста и теглото на човека.
       BMI резултат от 25.0 и нагоре се счита за надномрено тегло, а за здравословен се счита между 18.5 и 24.9.
-      BMI не се използва при трениращите хора, бременните, възрастните или децата, защото BMI не взима предвид дали теглото е мускулна маса или подкожна мазнина.`
+      BMI не се използва при трениращите хора, бременните, възрастните или децата, защото BMI не взима предвид дали теглото е мускулна маса или подкожна мазнина.`;
   }
 
   get bmrText() {

@@ -1,131 +1,127 @@
 @if (!isWorkout) {
-
-<aside class="side-bar-container">
-  @if (categories$ | async; as categories) {
-
-  <section class="categories-container">
-    <h3 class="title">Категории</h3>
-    <ul class="categories">
-      @for (category of categories; track category.id) {
-      <li class="category">
-        <a
-          mat-button
-          routerLink="/posts/list/Category/{{ category.translatedName }}/{{
-            category.id
-          }}"
-          >{{ category.name }}</a
+  <aside class="side-bar-container">
+    @if (categories$ | async; as categories) {
+      <section class="categories-container">
+        <h3 class="title">Категории</h3>
+        <ul class="categories">
+          @for (category of categories; track category.id) {
+            <li class="category">
+              <a
+                mat-button
+                routerLink="/posts/list/Category/{{
+                  category.translatedName
+                }}/{{ category.id }}"
+                >{{ category.name }}</a
+              >
+            </li>
+          }
+        </ul>
+      </section>
+    } @else {
+      <active-spinner></active-spinner>
+    }
+    @if (posts$ | async; as posts) {
+      <section>
+        <h3 class="title">{{ postsTitle }}</h3>
+        @for (post of posts; track post.id) {
+          <article class="post">
+            <img class="post-image" [src]="post.imageUrl" [alt]="post.title" />
+            <div class="post-wrapper">
+              <div>
+                <active-tag
+                  [tag]="{
+                    name: post.categoryName,
+                    id: post.categoryId,
+                    translatedName: post.categoryNameTranslation
+                  }"
+                  urlPrefix="/posts"
+                  type="Category"></active-tag>
+              </div>
+              <a
+                mat-button
+                class="post-title"
+                routerLink="/posts/details/{{ post.id }}/{{ post.title }}"
+                >{{ post.title }}</a
+              >
+            </div>
+          </article>
+        }
+      </section>
+    } @else {
+      <active-spinner></active-spinner>
+    }
+    @if (tags$ | async; as tags) {
+      <section>
+        <h3 class="title">Всички тагове</h3>
+        <section class="sidebar-tags">
+          @for (tag of tags; track tag.id) {
+            <active-tag
+              class="sidebar-tag"
+              [tag]="tag"
+              urlPrefix="/posts"
+              type="Tag"></active-tag>
+          }
+        </section>
+      </section>
+    } @else {
+      <active-spinner></active-spinner>
+    }
+  </aside>
+} @else {
+  <aside class="side-bar-container workout-side-bar">
+    <div class="person">
+      <section>
+        <p>Пешо Гошев</p>
+        <p>31 години</p>
+      </section>
+      <div class="body-measurements">
+        <section class="measurement">
+          <p>Килограми</p>
+          <p>115 кг</p>
+        </section>
+        <section class="measurement">
+          <p>Височина</p>
+          <p>178 см</p>
+        </section>
+      </div>
+    </div>
+    <ul>
+      <li>
+        <a mat-button href="">
+          <mat-icon color="primary">dashboard</mat-icon>
+          <span> Профил</span></a
         >
       </li>
-      }
-    </ul>
-  </section>
-  } @else {
-  <active-spinner></active-spinner>
-  } @if (posts$ | async; as posts) {
-
-  <section>
-    <h3 class="title">{{ postsTitle }}</h3>
-    @for (post of posts; track post.id) {
-    <article class="post">
-      <img class="post-image" [src]="post.imageUrl" />
-      <div class="post-wrapper">
-        <div>
-          <active-tag
-            [tag]="{
-              name: post.categoryName,
-              id: post.categoryId,
-              translatedName: post.categoryNameTranslation
-            }"
-            urlPrefix="/posts"
-            type="Category"
-          ></active-tag>
-        </div>
-        <a
-          mat-button
-          class="post-title"
-          routerLink="/posts/details/{{ post.id }}/{{ post.title }}"
-          >{{ post.title }}</a
+      <li>
+        <a mat-button href="">
+          <mat-icon color="accent">star</mat-icon>
+          <span> Цели</span></a
         >
-      </div>
-    </article>
-    }
-  </section>
-  } @else {
-  <active-spinner></active-spinner>
-  } @if (tags$ |async; as tags) {
-
-  <section>
-    <h3 class="title">Всички тагове</h3>
-    <section class="sidebar-tags">
-      @for (tag of tags; track tag.id) {
-      <active-tag
-        class="sidebar-tag"
-        [tag]="tag"
-        urlPrefix="/posts"
-        type="Tag"
-      ></active-tag>
-      }
-    </section>
-  </section>
-  } @else {
-  <active-spinner></active-spinner>
-  }
-</aside>
-} @else {
-<aside class="side-bar-container workout-side-bar">
-  <div class="person">
-    <section>
-      <p>Пешо Гошев</p>
-      <p>31 години</p>
-    </section>
-    <div class="body-measurements">
-      <section class="measurement">
-        <p>Килограми</p>
-        <p>115 кг</p>
-      </section>
-      <section class="measurement">
-        <p>Височина</p>
-        <p>178 см</p>
-      </section>
-    </div>
-  </div>
-  <ul>
-    <li>
-      <a mat-button href="">
-        <mat-icon color="primary">dashboard</mat-icon>
-        <span> Профил</span></a
-      >
-    </li>
-    <li>
-      <a mat-button href="">
-        <mat-icon color="accent">star</mat-icon>
-        <span> Цели</span></a
-      >
-    </li>
-    <li>
-      <a mat-button href="">
-        <mat-icon color="primary">fitness_center</mat-icon>
-        <span> Тренировки</span></a
-      >
-    </li>
-    <li>
-      <a mat-button href="">
-        <mat-icon color="primary">fitness_center</mat-icon>
-        <span> Упражнения</span></a
-      >
-    </li>
-    <li>
-      <a mat-button href="">
-        <mat-icon color="accent">military_tech</mat-icon>
-        <span> Постижения</span></a
-      >
-    </li>
-    <li>
-      <a mat-button href="">
-        <mat-icon color="primary">pie_chart_outlined</mat-icon>
-        <span> Статистики</span></a
-      >
-    </li>
-  </ul>
-</aside>
+      </li>
+      <li>
+        <a mat-button href="">
+          <mat-icon color="primary">fitness_center</mat-icon>
+          <span> Тренировки</span></a
+        >
+      </li>
+      <li>
+        <a mat-button href="">
+          <mat-icon color="primary">fitness_center</mat-icon>
+          <span> Упражнения</span></a
+        >
+      </li>
+      <li>
+        <a mat-button href="">
+          <mat-icon color="accent">military_tech</mat-icon>
+          <span> Постижения</span></a
+        >
+      </li>
+      <li>
+        <a mat-button href="">
+          <mat-icon color="primary">pie_chart_outlined</mat-icon>
+          <span> Статистики</span></a
+        >
+      </li>
+    </ul>
+  </aside>
 }

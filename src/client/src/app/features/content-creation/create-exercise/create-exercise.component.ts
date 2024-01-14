@@ -1,4 +1,11 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EquipmentResource } from 'app/shared/models/equipment';
 import {
@@ -36,20 +43,20 @@ export class CreateExerciseComponent {
   styling: string = exerciseTemplateStyling;
   editor?: Editor;
 
-  @Input({required: true})
+  @Input({ required: true })
   equipment: EquipmentResource[] | null = [];
 
-  @Input({required: true})
+  @Input({ required: true })
   muscleGroups: MuscleGroupDetailsResource[] | null = [];
 
-  @Input({required: true})
+  @Input({ required: true })
   variations: ExerciseResource[] | null = [];
 
   @Output()
-  input = new EventEmitter<string>();
+  filter = new EventEmitter<string>();
 
   @Output()
-  submit = new EventEmitter<CreateExerciseResource>();
+  create = new EventEmitter<CreateExerciseResource>();
 
   form = this.fb.group({
     name: this.fb.control<string>('', [Validators.required]),
@@ -91,8 +98,8 @@ export class CreateExerciseComponent {
     }
   }
 
-  onInput(ev: string) {
-    this.input.emit(ev);
+  onInput(ev: any) {
+    this.filter.emit(ev);
   }
 
   onEditorInputChange(ev: string) {
@@ -126,7 +133,7 @@ export class CreateExerciseComponent {
       variations,
     };
 
-    this.submit.emit(data);
+    this.create.emit(data);
     this.form.reset();
   }
 }

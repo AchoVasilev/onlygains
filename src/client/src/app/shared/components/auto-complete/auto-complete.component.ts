@@ -1,6 +1,24 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, signal } from '@angular/core';
-import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  signal,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  MatAutocompleteModule,
+  MatAutocompleteSelectedEvent,
+} from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,39 +29,44 @@ import { Subscription, debounceTime } from 'rxjs';
 @Component({
   selector: 'active-auto-complete',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatIconModule, MatAutocompleteModule, MatChipsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+  ],
   templateUrl: './auto-complete.component.html',
   styleUrls: ['./auto-complete.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutoCompleteComponent implements OnInit, OnDestroy {
- 
-  @Input({required: true})
+  @Input({ required: true })
   label: string = '';
 
-  @Input({required: true})
+  @Input({ required: true })
   placeholder: string = '';
 
-  @Input({required: true})
-  control!: AbstractControl
+  @Input({ required: true })
+  control!: AbstractControl;
 
-  @Input({required: true})
+  @Input({ required: true })
   items!: Selectable[] | null;
 
   selectedItems = signal<Selectable[]>([]);
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  
+
   @ViewChild('inputItem') variationInput?: ElementRef<HTMLInputElement>;
 
   valueChangesSubscription$?: Subscription;
 
   @Output()
-  onFieldInput: EventEmitter<string> = new EventEmitter();
+  fieldInput: EventEmitter<string> = new EventEmitter();
 
   ngOnInit(): void {
     this.valueChangesSubscription$ = this.control.valueChanges
       .pipe(debounceTime(200))
-      .subscribe(val => this.onFieldInput.emit(val));
+      .subscribe(val => this.fieldInput.emit(val));
   }
 
   ngOnDestroy(): void {
@@ -69,4 +92,3 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
     return this.control as FormControl;
   }
 }
-

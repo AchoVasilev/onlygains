@@ -1,33 +1,29 @@
 @if (mode === 'view') {
-<p (click)="toggleEditMode()" class="view max-size">
-  {{ value }}
-</p>
+  <p (click)="toggleEditMode()" class="view max-size">
+    {{ value }}
+  </p>
 } @else {
-<mat-form-field appearance="outline" class="max-size">
-  <mat-label>{{ label }}</mat-label>
-  <input
-    *ngIf="type === 'textbox'"
-    autofocus
-    class="input max-size"
-    matInput
-    [type]="type"
-    name="input"
-    [formControl]="control!"
-    (focusout)="onFocusOut()"
-    (keydown.enter)="onEnterPress($event)"
-  />
-  <textarea
-    *ngIf="type === 'textarea'"
-    autofocus
-    class="input max-size"
-    matInput
-    name="input"
-    [formControl]="control!"
-    (focusout)="onFocusOut()"
-    (keydown.enter)="onEnterPress($event)"
-  ></textarea>
-  @if (control.invalid) {
-    <mat-error>{{ errorMessage }}</mat-error>
-  }
-</mat-form-field>
+  <mat-form-field appearance="outline" class="max-size">
+    <mat-label>{{ label }}</mat-label>
+    <input
+      *ngIf="type === 'textbox'"
+      class="input max-size"
+      matInput
+      [type]="type"
+      name="input"
+      [formControl]="control!"
+      (focusout)="onFocusOut()"
+      (keydown.enter)="onEnterPress($event)" />
+    <textarea
+      *ngIf="type === 'textarea'"
+      class="input max-size"
+      matInput
+      name="input"
+      [formControl]="control!"
+      (focusout)="onFocusOut()"
+      (keydown.enter)="onEnterPress($event)"></textarea>
+    @if (control.invalid) {
+      <mat-error>{{ errorMessage }}</mat-error>
+    }
+  </mat-form-field>
 }

@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Selectable } from 'app/shared/models/selectable';
 
@@ -11,14 +15,13 @@ import { Selectable } from 'app/shared/models/selectable';
   styleUrls: ['./select.component.scss'],
 })
 export class SelectComponent {
-
-  @Input({required: true})
+  @Input({ required: true })
   label?: string;
 
-  @Input({required: true})
+  @Input({ required: true })
   selectableItems?: Selectable[] | null;
 
-  @Input({required: true})
+  @Input({ required: true })
   control!: AbstractControl;
 
   @Input()
@@ -28,7 +31,7 @@ export class SelectComponent {
   multiple: boolean = false;
 
   @Output()
-  selectionChange: EventEmitter<any> = new EventEmitter();
+  selectionChange = new EventEmitter<object>();
 
   onSelectionChange(ev: MatSelectChange) {
     this.selectionChange.emit(ev.value);

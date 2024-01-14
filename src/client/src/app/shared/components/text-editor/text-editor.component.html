@@ -1,8 +1,8 @@
-<editor *ngIf="editorConfig"
-(onChange)="onEditorChange()"
-[init]="editorConfig"
-[initialValue]="template"
-[(ngModel)]="source"
-(onInit)="onEditorInit($event)"
->
+<editor
+  *ngIf="editorConfig"
+  (onChange)="onEditorChange()"
+  [init]="editorConfig"
+  [initialValue]="template"
+  [(ngModel)]="source"
+  (onInit)="onEditorInit($event)">
 </editor>

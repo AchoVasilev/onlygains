@@ -42,7 +42,8 @@ viewBox="0 0 256 256"
 })
 export class TooltipComponent {
   @Input({ required: true }) text?: string;
-  @Input() position: 'left' | 'right' | 'above' | 'below' | 'before' | 'after' = 'right';
+  @Input() position: 'left' | 'right' | 'above' | 'below' | 'before' | 'after' =
+    'right';
 
   constructor(
     private iconRegistry: MatIconRegistry,

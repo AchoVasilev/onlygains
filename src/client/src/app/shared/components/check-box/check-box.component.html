@@ -1,7 +1,12 @@
 <div>
-  <input type="checkbox" [id]="item.id" [name]="item.name" [checked]="item.isDone" (change)="onChange($event)" />
+  <input
+    type="checkbox"
+    [id]="item.id"
+    [name]="item.name"
+    [checked]="item.isDone"
+    (change)="onChange($event)" />
   <label [for]="item.id" class="dark-gray-text">
     <span><!-- This span is needed to create the "checkbox" element --></span
-    >{{item.name}}
+    >{{ item.name }}
   </label>
 </div>

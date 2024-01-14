@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   ActiveComment,
   ActiveCommentType,
@@ -9,17 +9,13 @@ import { CommentFormComponent } from '../comment-form/comment-form.component';
 import { IconButtonComponent } from '../../../shared/components/buttons/icon-button/icon-button.component';
 
 @Component({
-    selector: 'active-comment',
-    templateUrl: './comment.component.html',
-    styleUrls: ['./comment.component.scss'],
-    standalone: true,
-    imports: [
-        IconButtonComponent,
-        CommentFormComponent,
-        DateAgoPipe,
-    ],
+  selector: 'active-comment',
+  templateUrl: './comment.component.html',
+  styleUrls: ['./comment.component.scss'],
+  standalone: true,
+  imports: [IconButtonComponent, CommentFormComponent, DateAgoPipe],
 })
-export class CommentComponent {
+export class CommentComponent implements OnInit {
   @Input() comment!: CommentViewResource;
   @Input() activeComment!: ActiveComment | null;
   @Input() replies!: CommentViewResource[];

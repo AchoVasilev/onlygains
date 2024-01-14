@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   imports: [NgIf, NgClass, RouterLink],
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagComponent {
   private stylingClasses: string[] = ['tag-brown', 'tag-blue', 'tag-red'];
@@ -34,7 +34,7 @@ export class TagComponent {
     this.currentIndex = this.getRandomNumberBetween(0, 3);
     this.stylingClass = this.stylingClasses[this.currentIndex];
     this.currentIndex = (this.currentIndex + 1) % this.stylingClasses.length;
-    
+
     return this.stylingClass;
   }
 

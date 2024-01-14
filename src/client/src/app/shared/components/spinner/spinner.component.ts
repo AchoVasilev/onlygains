@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'active-spinner',
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.scss'],
-  standalone: true
+  standalone: true,
 })
-export class SpinnerComponent {
-
-}
+export class SpinnerComponent {}

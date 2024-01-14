@@ -10,25 +10,26 @@ import { AsyncPipe } from '@angular/common';
 import { SpinnerComponent } from 'app/shared/components/spinner/spinner.component';
 
 @Component({
-    selector: 'active-post-details',
-    templateUrl: './post-details.component.html',
-    styleUrls: ['./post-details.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [
-        TagComponent,
-        CommentsComponent,
-        SideBarComponent,
-        AsyncPipe,
-        SpinnerComponent
-    ],
+  selector: 'active-post-details',
+  templateUrl: './post-details.component.html',
+  styleUrls: ['./post-details.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    TagComponent,
+    CommentsComponent,
+    SideBarComponent,
+    AsyncPipe,
+    SpinnerComponent,
+  ],
 })
 export class PostDetailsComponent implements OnInit {
   post$?: Observable<PostDetailsResource>;
 
   constructor(
     private postService: PostService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.post$ = this.postService.getById(this.route.snapshot.params['id']);

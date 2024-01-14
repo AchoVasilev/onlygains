@@ -1,15 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
-    selector: 'active-comment-form',
-    templateUrl: './comment-form.component.html',
-    styleUrls: ['./comment-form.component.scss'],
-    standalone: true,
-    imports: [ReactiveFormsModule],
+  selector: 'active-comment-form',
+  templateUrl: './comment-form.component.html',
+  styleUrls: ['./comment-form.component.scss'],
+  standalone: true,
+  imports: [ReactiveFormsModule],
 })
-export class CommentFormComponent implements OnInit{
-
+export class CommentFormComponent implements OnInit {
   @Input() submitLabel!: string;
   @Input() hasCancelButton: boolean = false;
   @Input() initialText: string = '';

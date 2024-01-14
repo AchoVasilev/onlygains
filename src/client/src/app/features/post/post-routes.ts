@@ -11,15 +11,15 @@ const POST_ROUTES: Routes = [
         path: 'details/:id/:title',
         component: PostDetailsComponent,
         pathMatch: 'full',
-        title: resolveTitle
+        title: resolveTitle,
       },
       {
         path: 'list/:itemType/:itemName/:itemId',
         component: ListPostsComponent,
         pathMatch: 'full',
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];
 
 export default POST_ROUTES;

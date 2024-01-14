@@ -1,4 +1,7 @@
-import { CreatePostResource, PostDetailsResource } from 'app/shared/models/post';
+import {
+  CreatePostResource,
+  PostDetailsResource,
+} from 'app/shared/models/post';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
@@ -23,7 +26,9 @@ export class PostService {
   }
 
   getById(postId: string): Observable<PostDetailsResource> {
-    return this.http.get<PostDetailsResource>(`${this.apiUrl}/details/${postId}`);
+    return this.http.get<PostDetailsResource>(
+      `${this.apiUrl}/details/${postId}`
+    );
   }
 
   getPostsBy(
@@ -36,12 +41,12 @@ export class PostService {
         params: {
           page,
           size,
-          type: PostQueryType.Category
+          type: PostQueryType.Category,
         },
       })
       .pipe(
-        map((res: any) => {
-          return res.content;
+        map(res => {
+          return res;
         })
       );
   }
@@ -56,12 +61,12 @@ export class PostService {
         params: {
           page,
           size,
-          type: PostQueryType.Tag
+          type: PostQueryType.Tag,
         },
       })
       .pipe(
-        map((res: any) => {
-          return res.content;
+        map(res => {
+          return res;
         })
       );
   }

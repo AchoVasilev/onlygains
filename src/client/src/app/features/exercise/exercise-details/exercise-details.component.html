@@ -1,53 +1,54 @@
 @if (exercise) {
-<article class="exercise-container">
-  <section class="exercise-section">
-    <section [innerHTML]="exercise.description"></section>
-    <section class="exercise-muscle-groups">
-      <h2 #muscleGroupsTitle class="exercise-subheading">
-        Използвани мускулни групи
-      </h2>
-      @defer (on viewport(muscleGroupsTitle)){
-      <section class="exercise-muscle-group">
-        <div>
-          <section class="exercise-main-muscle-groups">
-            @for (muscle of getMainMuscleGroups(); track muscle.id) {
+  <article class="exercise-container">
+    <section class="exercise-section">
+      <section [innerHTML]="exercise.description"></section>
+      <section class="exercise-muscle-groups">
+        <h2 #muscleGroupsTitle class="exercise-subheading">
+          Използвани мускулни групи
+        </h2>
+        @defer (on viewport(muscleGroupsTitle)) {
+          <section class="exercise-muscle-group">
             <div>
-              <p>Целева група: {{ muscle.translatedName }}</p>
+              <section class="exercise-main-muscle-groups">
+                @for (muscle of getMainMuscleGroups(); track muscle.id) {
+                  <div>
+                    <p>Целева група: {{ muscle.translatedName }}</p>
+                  </div>
+                }
+              </section>
+              <section class="exercise-synergist-muscle-groups">
+                @for (muscle of getSynergists(); track muscle.id) {
+                  <div>
+                    <p>Спомагателна група: {{ muscle.translatedName }}</p>
+                  </div>
+                }
+              </section>
             </div>
-            }
+            <active-muscle-group></active-muscle-group>
           </section>
-          <section class="exercise-synergist-muscle-groups">
-            @for (muscle of getSynergists(); track muscle.id) {
-            <div>
-              <p>Спомагателна група: {{ muscle.translatedName }}</p>
-            </div>
-            }
-          </section>
-        </div>
-        <active-muscle-group></active-muscle-group>
+        }
       </section>
+      <section class="exercise-variations">
+        <h2 #variationsTitle class="exercise-subheading">
+          Вариации на {{ exercise.name }}
+        </h2>
+        <p>
+          Вариациите на <strong>{{ exercise.name | lowercase }}</strong> ще
+          добавят разнообразие в тренировките и ще работите мускулатурата от
+          различни ъгли. Ето някои вариации, които може да използвате:
+        </p>
+      </section>
+      @defer (on viewport(variationsTitle)) {
+        <section class="similar-exercises">
+          @for (variation of exercise.variations; track variation.id) {
+            <active-similar-exercise
+              [exercise]="variation"></active-similar-exercise>
+          }
+        </section>
       }
     </section>
-    <section class="exercise-variations">
-      <h2 #variationsTitle class="exercise-subheading">
-        Вариации на {{ exercise.name }}
-      </h2>
-      <p>
-        Вариациите на <strong>{{ exercise.name | lowercase }}</strong> ще
-        добавят разнообразие в тренировките и ще работите мускулатурата от
-        различни ъгли. Ето някои вариации, които може да използвате:
-      </p>
+    <section class="exercise-sidebar">
+      <active-side-bar postsTitle="Полезни теми"></active-side-bar>
     </section>
-    @defer (on viewport(variationsTitle)){
-    <section class="similar-exercises">
-      @for (variation of exercise.variations; track variation.id) {
-      <active-similar-exercise [exercise]="variation"></active-similar-exercise>
-      }
-    </section>
-    }
-  </section>
-  <section class="exercise-sidebar">
-    <active-side-bar postsTitle="Полезни теми"></active-side-bar>
-  </section>
-</article>
+  </article>
 }

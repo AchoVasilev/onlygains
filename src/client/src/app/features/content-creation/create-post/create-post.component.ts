@@ -21,26 +21,26 @@ import { CreatePostResource } from 'app/shared/models/post';
     TextEditorComponent,
     SelectComponent,
     RaisedButtonComponent,
-  ]
+  ],
 })
 export class CreatePostComponent {
   template: string = threeImageTemplate;
   styling: string = threeImageTemplateStyling;
   editor?: Editor;
 
-  @Input({required: true})
+  @Input({ required: true })
   categories: CategoryViewResource[] | null = [];
 
-  @Input({required: true})
+  @Input({ required: true })
   tags: TagViewResource[] | null = [];
 
   @Output()
-  submit = new EventEmitter<CreatePostResource>();
+  create = new EventEmitter<CreatePostResource>();
 
   selectedCategory?: CategoryDTO;
   imageUrls: string[] = [];
 
-  private categoryAnchor?: HTMLElement;
+  private categoryAnchor!: HTMLElement;
 
   form = this.fb.group({
     title: this.fb.control<string>('', [Validators.required]),
@@ -51,16 +51,14 @@ export class CreatePostComponent {
     imageUrls: this.fb.control<string[]>([]),
   });
 
-  constructor(
-    private fb: FormBuilder
-  ) {}
+  constructor(private fb: FormBuilder) {}
 
   onEditorInit(ev: Editor) {
     this.editor = ev;
     this.categoryAnchor = this.editor!.dom.select('a.post-tag')[0];
 
     const imageUrls: string[] = [];
-    this.editor?.dom.select('img').forEach((img) => {
+    this.editor?.dom.select('img').forEach(img => {
       imageUrls.push(img.getAttribute('src')!);
     });
 
@@ -111,7 +109,7 @@ export class CreatePostComponent {
     const { title, text, imageUrls, categoryId, tags, previewText } =
       this.form.value;
     const data = {
-      title: titleContent,
+      title,
       text,
       tags,
       categoryId,
@@ -119,7 +117,7 @@ export class CreatePostComponent {
       previewText,
     };
 
-    this.submit.emit(data);
+    this.create.emit(data);
     this.form.reset();
   }
 

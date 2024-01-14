@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TagService {
   private apiUrl: string = environment.apiUrl + '/tags';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getTags(): Observable<TagViewResource[]> {
     return this.http.get<TagViewResource[]>(this.apiUrl);

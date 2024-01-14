@@ -8,8 +8,7 @@
         (inputChanged)="onEditorInputChange($event)"
         [styling]="styling"
         [template]="template"
-        folderUpload="exercises"
-      >
+        folderUpload="exercises">
       </active-text-editor>
     </section>
     <section>
@@ -26,8 +25,7 @@
           label="Уреди"
           [selectableItems]="equipment"
           [control]="form.controls.equipment"
-          [multiple]="true"
-        ></active-select>
+          [multiple]="true"></active-select>
       </section>
       <section>
         <h4>Избери основни мускулни групи</h4>
@@ -35,8 +33,7 @@
           label="Мускулни групи"
           [selectableItems]="muscleGroups"
           [control]="form.controls.mainMuscleGroupsIds"
-          [multiple]="true"
-        ></active-select>
+          [multiple]="true"></active-select>
       </section>
       <section>
         <h4>Избери допълнителни мускулни групи</h4>
@@ -44,8 +41,7 @@
           label="Мускулни групи"
           [selectableItems]="muscleGroups"
           [control]="form.controls.synergisticMuscleGroupsIds"
-          [multiple]="true"
-        ></active-select>
+          [multiple]="true"></active-select>
       </section>
       <section>
         <h4>Вариации</h4>
@@ -54,14 +50,12 @@
           placeholder="Търси вариации"
           [control]="form.controls.variations"
           [items]="variations"
-          (onFieldInput)="onInput($event)"
-        ></active-auto-complete>
+          (onFieldInput)="onInput($event)"></active-auto-complete>
       </section>
       <active-raised-button
         type="submit"
         color="primary"
-        text="Създай"
-      ></active-raised-button>
+        text="Създай"></active-raised-button>
     </section>
   </div>
 </form>

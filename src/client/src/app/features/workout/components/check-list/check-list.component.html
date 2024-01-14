@@ -4,17 +4,15 @@
   (cdkDropListDropped)="drop($event)"
   [cdkDropListData]="visibleItems"
   [cdkDropListConnectedTo]="[hiddenList]"
-  @list
->
+  @list>
   @for (item of visibleItems; track item.id) {
-  <li cdkDrag @items>
-    <active-check-list-item
-      [item]="item"
-      (itemChecked)="onChecked($event)"
-      (itemEdited)="onEdit($event)"
-      (itemDeleted)="onDelete($event)"
-    ></active-check-list-item>
-  </li>
+    <li cdkDrag @items>
+      <active-check-list-item
+        [item]="item"
+        (itemChecked)="onChecked($event)"
+        (itemEdited)="onEdit($event)"
+        (itemDeleted)="onDelete($event)"></active-check-list-item>
+    </li>
   }
 </ul>
 <ul
@@ -23,36 +21,31 @@
   (cdkDropListDropped)="drop($event)"
   [cdkDropListData]="hiddenItems"
   [cdkDropListConnectedTo]="[visibleList]"
-  @list
->
+  @list>
   @if (isExpanded) {
-
-  <div @items>
-    @for (item of hiddenItems; track item.id) {
-
-    <li>
-      <active-check-list-item
-        [item]="item"
-        (itemChecked)="onChecked($event)"
-        (itemEdited)="onEdit($event)"
-        (itemDeleted)="onDelete($event)"
-      ></active-check-list-item>
-    </li>
-    }
-  </div>
+    <div @items>
+      @for (item of hiddenItems; track item.id) {
+        <li>
+          <active-check-list-item
+            [item]="item"
+            (itemChecked)="onChecked($event)"
+            (itemEdited)="onEdit($event)"
+            (itemDeleted)="onDelete($event)"></active-check-list-item>
+        </li>
+      }
+    </div>
   }
 </ul>
 
 @if (hiddenItems.length) {
-<section class="button">
-  <div [@rotate]="isExpanded ? 'rotated' : 'default'">
-    <active-icon-button
-      color="primary"
-      ariaLabel="Expand todo list"
-      (click)="toggleExpand()"
-      iconType="keyboard_arrow_down"
-    >
-    </active-icon-button>
-  </div>
-</section>
+  <section class="button">
+    <div [@rotate]="isExpanded ? 'rotated' : 'default'">
+      <active-icon-button
+        color="primary"
+        ariaLabel="Expand todo list"
+        (click)="toggleExpand()"
+        iconType="keyboard_arrow_down">
+      </active-icon-button>
+    </div>
+  </section>
 }

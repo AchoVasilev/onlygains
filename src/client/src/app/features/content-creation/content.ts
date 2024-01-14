@@ -92,7 +92,7 @@ export const ContentResolver: ContentTypeResolver = {
     }),
     patchForm(editor) {
       const imageUrls: string[] = [];
-      editor?.dom.select('img').forEach((img) => {
+      editor?.dom.select('img').forEach(img => {
         imageUrls.push(img.getAttribute('src')!);
       });
 
@@ -155,6 +155,6 @@ export interface Content {
   form: FormGroup;
   patchForm: (editor: Editor) => void;
   onImageUpload: (imageUrl: string) => void;
-  onFormSubmit: (editor: Editor) => {};
+  onFormSubmit: (editor: Editor) => object;
   onEditorInputChange: (editor: Editor, input: string) => void;
 }

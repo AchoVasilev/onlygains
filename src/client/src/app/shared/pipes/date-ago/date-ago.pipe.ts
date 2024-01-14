@@ -3,10 +3,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'dateAgo',
-  standalone: true
+  standalone: true,
 })
 export class DateAgoPipe extends DatePipe implements PipeTransform {
-  override transform(value: any, args?: any): any {
+  override transform(value: any): any {
     if (value) {
       const seconds = Math.floor((+new Date() - +new Date(value)) / 1000);
       if (seconds < 29) {
@@ -22,12 +22,11 @@ export class DateAgoPipe extends DatePipe implements PipeTransform {
         } else if (counter <= 5) {
           return `Преди ${counter} дни`; // plural (2 days ago)
         } else {
-          return super.transform(value, 'dd.MM.yyyy');
+          return super.transform(value, 'dd.MM.yyyy')?.toString();
         }
-      } else if(seconds < dayInSeconds) {
+      } else if (seconds < dayInSeconds) {
         return `Преди по-малко от 1 ден`;
       }
     }
-
   }
 }

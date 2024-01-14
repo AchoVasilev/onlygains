@@ -8,7 +8,7 @@ describe('InlineEditComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [InlineEditComponent]
+      imports: [InlineEditComponent],
     });
     fixture = TestBed.createComponent(InlineEditComponent);
     component = fixture.componentInstance;

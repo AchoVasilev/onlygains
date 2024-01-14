@@ -2,12 +2,12 @@
   <mat-label>{{ label }}</mat-label>
   <mat-chip-grid #chipGrid aria-label="Fruit selection">
     @for (variation of selectedItems(); track variation.id) {
-    <mat-chip-row (removed)="remove(variation)">
-      {{ variation.name }}
-      <button matChipRemove [attr.aria-label]="'remove ' + variation.name">
-        <mat-icon>cancel</mat-icon>
-      </button>
-    </mat-chip-row>
+      <mat-chip-row (removed)="remove(variation)">
+        {{ variation.name }}
+        <button matChipRemove [attr.aria-label]="'remove ' + variation.name">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
     }
   </mat-chip-grid>
   <input
@@ -16,13 +16,12 @@
     [formControl]="getInputControl()"
     [matChipInputFor]="chipGrid"
     [matAutocomplete]="auto"
-    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-  />
+    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
     @for (variation of items; track variation.id) {
-    <mat-option [value]="variation">
-      {{ variation.name }}
-    </mat-option>
+      <mat-option [value]="variation">
+        {{ variation.name }}
+      </mat-option>
     }
   </mat-autocomplete>
 </mat-form-field>

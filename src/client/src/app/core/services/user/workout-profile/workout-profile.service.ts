@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UpdateWorkoutProfileResource, UserWorkoutProfileDetailsResource } from 'app/shared/models/user';
+import {
+  UpdateWorkoutProfileResource,
+  UserWorkoutProfileDetailsResource,
+} from 'app/shared/models/user';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
@@ -13,10 +16,18 @@ export class WorkoutProfileService {
   constructor(private http: HttpClient) {}
 
   getById(profileId: string): Observable<UserWorkoutProfileDetailsResource> {
-    return this.http.get<UserWorkoutProfileDetailsResource>(`${this.apiUrl}/${profileId}/workout-profile`)
+    return this.http.get<UserWorkoutProfileDetailsResource>(
+      `${this.apiUrl}/${profileId}/workout-profile`
+    );
   }
 
-  updateProfile(profileId: string, resource: UpdateWorkoutProfileResource): Observable<UserWorkoutProfileDetailsResource> {
-    return this.http.patch<UserWorkoutProfileDetailsResource>(`${this.apiUrl}/${profileId}/workout-profile`, resource);
+  updateProfile(
+    profileId: string,
+    resource: UpdateWorkoutProfileResource
+  ): Observable<UserWorkoutProfileDetailsResource> {
+    return this.http.patch<UserWorkoutProfileDetailsResource>(
+      `${this.apiUrl}/${profileId}/workout-profile`,
+      resource
+    );
   }
 }

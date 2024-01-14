@@ -8,8 +8,7 @@
         label="Тегло в кг"
         (update)="onSubmitData()"
         [control]="form.controls.weight"
-        errorMessage="Въведете число между 10 и 500"
-      ></active-inline-edit>
+        errorMessage="Въведете число между 10 и 500"></active-inline-edit>
       <p class="secondary-text">{{ user?.weight?.weightType }}</p>
     </div>
   </article>
@@ -22,8 +21,7 @@
         label="Височина в см"
         (update)="onSubmitData()"
         [control]="form.controls.height"
-        errorMessage="Въведете число между 10 и 300"
-      ></active-inline-edit>
+        errorMessage="Въведете число между 10 и 300"></active-inline-edit>
       <p class="secondary-text">{{ user?.height?.heightType }}</p>
     </div>
   </article>
@@ -36,8 +34,7 @@
         label="Възраст"
         (update)="onSubmitData()"
         [control]="form.controls.age"
-        errorMessage="Въведете число между 1 и 130"
-      ></active-inline-edit>
+        errorMessage="Въведете число между 1 и 130"></active-inline-edit>
       <p class="secondary-text">г.</p>
     </div>
   </article>
@@ -47,17 +44,15 @@
       <active-tooltip [text]="bmiText"></active-tooltip>
     </section>
     @if (user?.bmi) {
-    <p class="num small-padding">{{ user?.bmi }}</p>
+      <p class="num small-padding">{{ user?.bmi }}</p>
     } @else {
-
-    <div class="active-button">
-      <active-icon-button
-        iconType="calculate"
-        ariaLabel="calculate my bmi"
-        classStyling="large-icon-button"
-        (click)="onCalculateBmiClick()"
-      ></active-icon-button>
-    </div>
+      <div class="active-button">
+        <active-icon-button
+          iconType="calculate"
+          ariaLabel="calculate my bmi"
+          classStyling="large-icon-button"
+          (click)="onCalculateBmiClick()"></active-icon-button>
+      </div>
     }
   </article>
   <article class="inner-container">
@@ -70,20 +65,18 @@
       <active-tooltip [text]="bmrText"></active-tooltip>
     </section>
     @if (user?.bmr?.calories) {
-
-    <div class="unit-container">
-      <p class="num">{{ user?.bmr?.calories }}</p>
-      <p class="secondary-text">{{ user?.bmr?.unitType }}</p>
-    </div>
+      <div class="unit-container">
+        <p class="num">{{ user?.bmr?.calories }}</p>
+        <p class="secondary-text">{{ user?.bmr?.unitType }}</p>
+      </div>
     } @else {
-    <div class="active-button">
-      <active-icon-button
-        iconType="calculate"
-        ariaLabel="calculate my bmr"
-        classStyling="large-icon-button"
-        (click)="onCalculateBmrClick()"
-      ></active-icon-button>
-    </div>
+      <div class="active-button">
+        <active-icon-button
+          iconType="calculate"
+          ariaLabel="calculate my bmr"
+          classStyling="large-icon-button"
+          (click)="onCalculateBmrClick()"></active-icon-button>
+      </div>
     }
   </article>
 </section>

@@ -8,7 +8,7 @@ describe('MuscleGroupComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MuscleGroupComponent]
+      imports: [MuscleGroupComponent],
     });
     fixture = TestBed.createComponent(MuscleGroupComponent);
     component = fixture.componentInstance;

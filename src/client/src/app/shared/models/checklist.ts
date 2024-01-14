@@ -1,14 +1,14 @@
 export interface TodoItemDetailsResource {
-    id: string,
-    name: string,
-    isDone: boolean
+  id: string;
+  name: string;
+  isDone: boolean;
 }
 
 export interface CreateTodoItemResource {
-    name: string
+  name: string;
 }
 
 export interface EditTodoItemResource {
-    id: string,
-    name: string
+  id: string;
+  name: string;
 }

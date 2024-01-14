@@ -10,7 +10,7 @@ const WORKOUT_ROUTES: Routes = [
       {
         path: '',
         redirectTo: 'dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'dashboard',
@@ -22,12 +22,11 @@ const WORKOUT_ROUTES: Routes = [
         path: 'bmr',
         loadComponent: () =>
           import('./pages/bmr-page/bmr-page.component').then(
-            (c) => c.BmrPageComponent
+            c => c.BmrPageComponent
           ),
       },
-    ]
+    ],
   },
-  
 ];
 
 export default WORKOUT_ROUTES;

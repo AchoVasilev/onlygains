@@ -7,11 +7,10 @@
     (scrolled)="onScroll()"
     [scrollWindow]="false"
     infiniteScrollContainer=".mat-typography"
-    [fromRoot]="true"
-  >
-  @for (post of items; track post.id) {
-    <active-post-card [post]="post"></active-post-card>
-  }
+    [fromRoot]="true">
+    @for (post of items; track post.id) {
+      <active-post-card [post]="post"></active-post-card>
+    }
   </section>
   <section class="side-bar">
     <active-side-bar></active-side-bar>

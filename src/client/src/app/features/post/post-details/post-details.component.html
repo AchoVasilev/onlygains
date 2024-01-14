@@ -1,38 +1,35 @@
 @if (post$ | async; as post) {
+  <div class="post-page-container">
+    <section class="post-comment-container">
+      <section class="post-container" [innerHTML]="post.text"></section>
+      @defer (on viewport) {
+        <section class="post-tags">
+          @for (tag of post.tags; track tag.id) {
+            <active-tag
+              class="post-tag"
+              urlPrefix="/posts"
+              type="Tag"
+              [tag]="tag"></active-tag>
+          }
+        </section>
+      } @placeholder {
+        <active-spinner></active-spinner>
+      }
 
-<div class="post-page-container">
-  <section class="post-comment-container">
-    <section class="post-container" [innerHTML]="post.text"></section>
-    @defer (on viewport) {
-    <section class="post-tags">
-      @for (tag of post.tags; track tag.id) {
-      <active-tag
-        class="post-tag"
-        urlPrefix="/posts"
-        type="Tag"
-        [tag]="tag"
-      ></active-tag>
+      <!-- News Detail End -->
+
+      <!-- Comment List Start -->
+      @defer (on viewport) {
+        <active-comments
+          [comments]="this.post!.comments"
+          [currentUserId]="post.createdBy.id"></active-comments>
+      } @placeholder {
+        <active-spinner></active-spinner>
       }
     </section>
-    } @placeholder {
-    <active-spinner></active-spinner>
-    }
-
-    <!-- News Detail End -->
-
-    <!-- Comment List Start -->
-    @defer (on viewport) {
-    <active-comments
-      [comments]="this.post!.comments"
-      [currentUserId]="post.createdBy.id"
-    ></active-comments>
-    } @placeholder {
-    <active-spinner></active-spinner>
-    }
-  </section>
-  <!-- Comment Form End -->
-  <section class="post-side-bar">
-    <active-side-bar></active-side-bar>
-  </section>
-</div>
+    <!-- Comment Form End -->
+    <section class="post-side-bar">
+      <active-side-bar></active-side-bar>
+    </section>
+  </div>
 }

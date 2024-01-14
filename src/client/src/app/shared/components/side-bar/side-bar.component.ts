@@ -22,7 +22,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
     TagComponent,
     MatButtonModule,
     MatIconModule,
-    SpinnerComponent
+    SpinnerComponent,
   ],
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss'],

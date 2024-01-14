@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { ExerciseListResource } from 'app/shared/models/exercise';
 
 @Component({
@@ -6,10 +12,9 @@ import { ExerciseListResource } from 'app/shared/models/exercise';
   standalone: true,
   imports: [],
   templateUrl: './similar-exercise.component.html',
-  styleUrls: ['./similar-exercise.component.scss']
+  styleUrls: ['./similar-exercise.component.scss'],
 })
-export class SimilarExerciseComponent implements AfterViewInit{
-
+export class SimilarExerciseComponent implements AfterViewInit {
   @ViewChild('equipment') equipmentElement!: ElementRef;
 
   @Input()

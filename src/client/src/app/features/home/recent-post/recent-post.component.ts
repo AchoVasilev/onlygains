@@ -5,11 +5,11 @@ import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-    selector: 'active-recent-post',
-    templateUrl: './recent-post.component.html',
-    styleUrls: ['./recent-post.component.scss'],
-    standalone: true,
-    imports: [MatCardModule, RouterLink, SnakeCasePipe]
+  selector: 'active-recent-post',
+  templateUrl: './recent-post.component.html',
+  styleUrls: ['./recent-post.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, RouterLink, SnakeCasePipe],
 })
 export class RecentPostComponent {
   @Input()

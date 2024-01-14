@@ -8,10 +8,10 @@ const EXERCISE_ROUTES: Routes = [
       {
         path: ':id/:name',
         component: ExerciseDetailsComponent,
-        pathMatch: 'full'
-      }
-    ]
-  }
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];
 
 export default EXERCISE_ROUTES;

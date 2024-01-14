@@ -17,14 +17,14 @@ export class MuscleGroupComponent implements OnInit {
   synergists = ['Rear-deltoids', 'Abs', 'Obliques', 'Chest', 'Triceps'];
 
   ngOnInit(): void {
-    this.document.querySelectorAll('.muscle-groups svg g g[id]').forEach((gr) => {
+    this.document.querySelectorAll('.muscle-groups svg g g[id]').forEach(gr => {
       if (this.synergists.includes(gr.id)) {
-        let children = Array.from(gr.children);
+        const children = Array.from(gr.children);
         children.forEach(child => child.classList.add('light-red'));
       }
 
       if (this.mainGroups.includes(gr.id)) {
-        let children = Array.from(gr.children);
+        const children = Array.from(gr.children);
         children.forEach(child => child.classList.add('red'));
       }
     });

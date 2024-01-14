@@ -15,6 +15,7 @@ import {
 import { ImageService } from 'app/core/services/image/image.service';
 import { Editor } from 'tinymce';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EventObj } from '@tinymce/tinymce-angular/editor/Events';
 
 @Component({
   selector: 'active-text-editor',
@@ -85,12 +86,12 @@ export class TextEditorComponent implements OnInit {
     }
   }
 
-  onEditorInit(event: any) {
+  onEditorInit(event: EventObj<any>) {
     this.editor = event.editor;
     this.editorInit.emit(this.editor);
   }
 
-  onFilePick(callback: any, value: any, meta: any) {
+  onFilePick(callback: Function, value: any, meta: any) {
     const input = this.document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');

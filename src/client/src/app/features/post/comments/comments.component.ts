@@ -6,17 +6,13 @@ import {
 } from 'app/shared/models/comment';
 import { CommentFormComponent } from '../comment-form/comment-form.component';
 import { CommentComponent } from '../comment/comment.component';
-import { NgFor } from '@angular/common';
 
 @Component({
-    selector: 'active-comments',
-    templateUrl: './comments.component.html',
-    styleUrls: ['./comments.component.scss'],
-    standalone: true,
-    imports: [
-        CommentComponent,
-        CommentFormComponent,
-    ],
+  selector: 'active-comments',
+  templateUrl: './comments.component.html',
+  styleUrls: ['./comments.component.scss'],
+  standalone: true,
+  imports: [CommentComponent, CommentFormComponent],
 })
 export class CommentsComponent {
   @Input() comments?: CommentViewResource[];
@@ -38,11 +34,11 @@ export class CommentsComponent {
   }
 
   addComment($event: { text: string; parentId: string | null }) {
-    console.log($event)
+    console.log($event);
   }
 
   getRootComments() {
-    return this.comments?.filter((comment) => comment?.parentId === null);
+    return this.comments?.filter(comment => comment?.parentId === null);
   }
 
   getReplies(comment: CommentViewResource): CommentViewResource[] {

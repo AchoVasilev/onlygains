@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [MatButtonModule, MatIconModule, NgClass],
   templateUrl: './icon-button.component.html',
-  styleUrls: ['./icon-button.component.scss']
+  styleUrls: ['./icon-button.component.scss'],
 })
 export class IconButtonComponent {
   @Input()
@@ -21,5 +21,5 @@ export class IconButtonComponent {
   ariaLabel: string = '';
 
   @Input()
-  classStyling?: 'large-icon-button' | 'cursor-all-scroll' | ''
+  classStyling?: 'large-icon-button' | 'cursor-all-scroll' | '';
 }

@@ -12,7 +12,7 @@ import { Subscription, filter, fromEvent } from 'rxjs';
 
 @Directive({
   selector: '[clickOutside]',
-  standalone: true
+  standalone: true,
 })
 export class ClickOutsideDirective implements AfterViewInit, OnDestroy {
   @Output() clickOutside = new EventEmitter<void>();
@@ -27,7 +27,7 @@ export class ClickOutsideDirective implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.documentClickSubscription = fromEvent(this.document, 'click')
       .pipe(
-        filter((event) => {
+        filter(event => {
           return !this.isInside(event.target as HTMLElement);
         })
       )

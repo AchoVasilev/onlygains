@@ -2,46 +2,40 @@
   <div class="buttons-container">
     <active-check-box
       [item]="item"
-      (checked)="onChecked(item.id, $event)"
-    ></active-check-box>
+      (checked)="onChecked(item.id)"></active-check-box>
     <div class="icons">
       <active-icon-button
         iconType="drag_handle"
         color="primary"
         ariaLabel="Drag checklist item"
         classStyling="cursor-all-scroll"
-        cdkDragHandle
-      >
+        cdkDragHandle>
       </active-icon-button>
       <active-icon-button
         color="accent"
         ariaLabel="Edit item from checklist"
         iconType="edit"
-        (click)="onEdit(item.name)"
-      >
+        (click)="onEdit(item.name)">
       </active-icon-button>
       <active-icon-button
         mat-icon-button
         color="warn"
         ariaLabel="Remove item from checklist"
         (click)="onDelete(item.id)"
-        iconType="delete"
-      >
+        iconType="delete">
       </active-icon-button>
     </div>
   </div>
   @if (showForm) {
-
-  <div [formGroup]="group">
-    <mat-form-field appearance="fill" color="primary" ngDefaultControl>
-      <mat-label>Промяна на задача</mat-label>
-      <input
-        matInput
-        formControlName="checkListItem"
-        (blur)="onBlur(item.id)"
-      />
-      <mat-icon matSuffix>mode_edit</mat-icon>
-    </mat-form-field>
-  </div>
+    <div [formGroup]="group">
+      <mat-form-field appearance="fill" color="primary" ngDefaultControl>
+        <mat-label>Промяна на задача</mat-label>
+        <input
+          matInput
+          formControlName="checkListItem"
+          (blur)="onBlur(item.id)" />
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+    </div>
   }
 </div>

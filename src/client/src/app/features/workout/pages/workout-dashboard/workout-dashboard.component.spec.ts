@@ -8,8 +8,8 @@ describe('WorkoutDashboardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [WorkoutDashboardComponent]
-});
+      imports: [WorkoutDashboardComponent],
+    });
     fixture = TestBed.createComponent(WorkoutDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

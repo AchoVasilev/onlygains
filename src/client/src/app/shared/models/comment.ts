@@ -1,4 +1,4 @@
-import { UserViewResource } from "./user";
+import { UserViewResource } from './user';
 
 export interface CommentViewResource {
   id: string;
@@ -10,8 +10,8 @@ export interface CommentViewResource {
 }
 
 export interface CommentEmittedType {
-  text: string,
-  commentId: string | null
+  text: string;
+  commentId: string | null;
 }
 
 export interface ActiveComment {

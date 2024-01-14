@@ -8,8 +8,8 @@ describe('PieChartComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [BarChartComponent]
-});
+      imports: [BarChartComponent],
+    });
     fixture = TestBed.createComponent(BarChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

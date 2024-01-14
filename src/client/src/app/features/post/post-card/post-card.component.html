@@ -1,40 +1,38 @@
 @if (post) {
-<article class="card">
-  <div class="card-header">
-    <img
-      [src]="post.imageUrl"
-      alt="{{ post.title }} image"
-      class="card-image"
-    />
-  </div>
-  <div class="card-body">
-    <active-tag
-      class="tag"
-      [tag]="{
-        name: post.categoryName,
-        id: post.categoryId,
-        translatedName: post.categoryNameTranslation
-      }"
-      urlPrefix="/posts"
-      type="Category"
-    ></active-tag>
-    <h4>
-      <a routerLink="/posts/details/{{ post.id }}/{{ post.title }}">{{
-        post.title
-      }}</a>
-    </h4>
-    <p class="post-text">
-      {{ post.previewText }}
-    </p>
-  </div>
-  <div class="card-footer">
-    <div class="user">
-      <img [src]="post.creatorImageUrl" alt="user image" class="user-image" />
-      <div class="user-info">
-        <h5>{{ post.createdBy }}</h5>
-        <small>{{ post.createdAt | dateAgo }}</small>
+  <article class="card">
+    <div class="card-header">
+      <img
+        [src]="post.imageUrl"
+        alt="{{ post.title }} image"
+        class="card-image" />
+    </div>
+    <div class="card-body">
+      <active-tag
+        class="tag"
+        [tag]="{
+          name: post.categoryName,
+          id: post.categoryId,
+          translatedName: post.categoryNameTranslation
+        }"
+        urlPrefix="/posts"
+        type="Category"></active-tag>
+      <h4>
+        <a routerLink="/posts/details/{{ post.id }}/{{ post.title }}">{{
+          post.title
+        }}</a>
+      </h4>
+      <p class="post-text">
+        {{ post.previewText }}
+      </p>
+    </div>
+    <div class="card-footer">
+      <div class="user">
+        <img [src]="post.creatorImageUrl" alt="user image" class="user-image" />
+        <div class="user-info">
+          <h5>{{ post.createdBy }}</h5>
+          <small>{{ post.createdAt | dateAgo }}</small>
+        </div>
       </div>
     </div>
-  </div>
-</article>
+  </article>
 }

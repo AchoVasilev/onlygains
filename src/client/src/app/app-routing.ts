@@ -4,7 +4,7 @@ export const APPLICATION_ROUTES: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'home',
@@ -16,7 +16,8 @@ export const APPLICATION_ROUTES: Routes = [
   },
   {
     path: 'content',
-    loadChildren: () => import('./features/content-creation/content-creation-routes'),
+    loadChildren: () =>
+      import('./features/content-creation/content-creation-routes'),
   },
   {
     path: 'exercises',
@@ -28,6 +29,9 @@ export const APPLICATION_ROUTES: Routes = [
   },
   {
     path: '**',
-    loadComponent: () => import('./shared/components/not-found/not-found.component').then(c => c.NotFoundComponent)
-  }
-]
+    loadComponent: () =>
+      import('./shared/components/not-found/not-found.component').then(
+        c => c.NotFoundComponent
+      ),
+  },
+];

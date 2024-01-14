@@ -4,8 +4,8 @@ import { CreateContentComponent } from './create-content/create-content.componen
 const CONTENT_CREATION_ROUTES: Routes = [
   {
     path: '',
-    component: CreateContentComponent
-  }
+    component: CreateContentComponent,
+  },
 ];
 
 export default CONTENT_CREATION_ROUTES;

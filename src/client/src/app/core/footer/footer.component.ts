@@ -8,8 +8,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule]
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule],
 })
-export class FooterComponent {
-
-}
+export class FooterComponent {}

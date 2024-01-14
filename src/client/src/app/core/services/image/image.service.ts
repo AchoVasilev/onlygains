@@ -5,17 +5,20 @@ import { Observable } from 'rxjs';
 import { ImageResponseResource } from 'app/shared/models/image';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImageService {
   private apiUrl: string = environment.apiUrl + '/images';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   upload(file: File, folder: string): Observable<ImageResponseResource> {
     const formData = new FormData();
     formData.append('file', file, file.name);
 
-    return this.http.post<ImageResponseResource>(`${this.apiUrl}/${folder}`, formData);
+    return this.http.post<ImageResponseResource>(
+      `${this.apiUrl}/${folder}`,
+      formData
+    );
   }
 }

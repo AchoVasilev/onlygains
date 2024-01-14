@@ -1,29 +1,27 @@
-  <div class="main-body">
-    <div class="checklist">
-      @if (todoItems$ | async; as items) {
+<div class="main-body">
+  <div class="checklist">
+    @if (todoItems$ | async; as items) {
       <active-todo-list
         [todoItems]="items"
         (itemChecked)="onItemChecked($event)"
         (itemCreated)="onItemCreated($event)"
         (itemDeleted)="onItemDeleted($event)"
-        (itemEdited)="onItemEdited($event)"
-      ></active-todo-list>
-      } @else {
+        (itemEdited)="onItemEdited($event)"></active-todo-list>
+    } @else {
       <active-spinner class="centered"></active-spinner>
-      }
-    </div>
-    <div class="info">
-      <section>
-        <h3 class="dark-gray-text">Тренировки</h3>
-        <active-bar-chart class="chart" [data]="data"></active-bar-chart>
-      </section>
-      <section>
-        <h3 class="dark-gray-text">Моята информация</h3>
-        <active-user-details
-          [user]="user"
-          (calculateBmi)="onCalculateBmi()"
-          (updateProfile)="onUpdateProfile($event)"
-        ></active-user-details>
-      </section>
-    </div>
+    }
   </div>
+  <div class="info">
+    <section>
+      <h3 class="dark-gray-text">Тренировки</h3>
+      <active-bar-chart class="chart" [data]="data"></active-bar-chart>
+    </section>
+    <section>
+      <h3 class="dark-gray-text">Моята информация</h3>
+      <active-user-details
+        [user]="user"
+        (calculateBmi)="onCalculateBmi()"
+        (updateProfile)="onUpdateProfile($event)"></active-user-details>
+    </section>
+  </div>
+</div>

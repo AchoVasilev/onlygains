@@ -8,7 +8,7 @@ describe('SimilarExerciseComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SimilarExerciseComponent]
+      imports: [SimilarExerciseComponent],
     });
     fixture = TestBed.createComponent(SimilarExerciseComponent);
     component = fixture.componentInstance;

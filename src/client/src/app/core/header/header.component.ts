@@ -9,8 +9,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, RouterLink]
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule, RouterLink],
 })
-export class HeaderComponent {
-
-}
+export class HeaderComponent {}

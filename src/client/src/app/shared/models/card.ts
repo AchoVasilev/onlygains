@@ -4,14 +4,14 @@ export interface CardResource {
   imageUrl?: string;
   title?: string;
   subtitle?: string;
-  text?: string
+  text?: string;
 }
 
 export interface SideCardResource {
-  id: string,
-  title: string,
-  createdAt: string,
-  additionalUrl: string,
-  additionalUrlName: string,
-  imageUrl: string
+  id: string;
+  title: string;
+  createdAt: string;
+  additionalUrl: string;
+  additionalUrlName: string;
+  imageUrl: string;
 }

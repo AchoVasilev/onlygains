@@ -5,11 +5,11 @@ import { RouterLink } from '@angular/router';
 import { TagComponent } from '../../../shared/components/tag/tag.component';
 
 @Component({
-    selector: 'active-post-card',
-    templateUrl: './post-card.component.html',
-    styleUrls: ['./post-card.component.scss'],
-    standalone: true,
-    imports: [TagComponent, RouterLink, DateAgoPipe]
+  selector: 'active-post-card',
+  templateUrl: './post-card.component.html',
+  styleUrls: ['./post-card.component.scss'],
+  standalone: true,
+  imports: [TagComponent, RouterLink, DateAgoPipe],
 })
 export class PostCardComponent {
   @Input()

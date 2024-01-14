@@ -2,17 +2,15 @@
   <textarea
     matInput
     class="comment-form-textarea"
-    formControlName="text"
-  ></textarea>
+    formControlName="text"></textarea>
   <button
     mat-flat-button
     color="primary"
     type="submit"
-    [disabled]="form.invalid"
-  >
+    [disabled]="form.invalid">
     {{ submitLabel }}
   </button>
   @if (hasCancelButton) {
-  <button mat-flat-button color="warn" (click)="onCancel()">Откажи</button>
+    <button mat-flat-button color="warn" (click)="onCancel()">Откажи</button>
   }
 </form>

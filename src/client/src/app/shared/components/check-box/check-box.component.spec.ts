@@ -8,8 +8,8 @@ describe('CheckBoxComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [CheckBoxComponent]
-});
+      imports: [CheckBoxComponent],
+    });
     fixture = TestBed.createComponent(CheckBoxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

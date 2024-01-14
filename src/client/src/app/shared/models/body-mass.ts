@@ -14,16 +14,16 @@ export interface Weight {
 }
 
 export interface CreateBmiResource {
-    weight: number,
-    height: number
+  weight: number;
+  height: number;
 }
 
 export interface BmrDetailsResource {
-  calories: number,
-  unitType: string
+  calories: number;
+  unitType: string;
 }
 
 export interface BmiFormula {
-  name: string,
-  description: string
+  name: string;
+  description: string;
 }

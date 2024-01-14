@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './bmr-page.component.html',
-  styleUrls: ['./bmr-page.component.scss']
+  styleUrls: ['./bmr-page.component.scss'],
 })
-export class BmrPageComponent {
-
-}
+export class BmrPageComponent {}

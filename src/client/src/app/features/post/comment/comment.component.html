@@ -11,94 +11,86 @@
         <active-icon-button
           class="vote-btn"
           color="primary"
-          iconType="thumb_up"
-        ></active-icon-button>
+          iconType="thumb_up"></active-icon-button>
         <active-icon-button
           class="vote-btn"
           color="warn"
-          iconType="thumb_down"
-        ></active-icon-button>
+          iconType="thumb_down"></active-icon-button>
       </section>
     </div>
     <p class="comment-text">
       {{ comment.text }}
     </p>
     @if (isEditing()) {
-    <active-comment-form
-      submitLabel="Update"
-      [hasCancelButton]="true"
-      [initialText]="comment.text"
-      (handleSubmit)="
-        updateComment.emit({ text: $event, commentId: comment.id })
-      "
-      (handleCancel)="onCancelReply()"
-    ></active-comment-form>
+      <active-comment-form
+        submitLabel="Update"
+        [hasCancelButton]="true"
+        [initialText]="comment.text"
+        (handleSubmit)="
+          updateComment.emit({ text: $event, commentId: comment.id })
+        "
+        (handleCancel)="onCancelReply()"></active-comment-form>
     }
     <section class="comment-actions">
       @if (canReply && !(isEditing() || isReplying())) {
-
-      <button
-        mat-raised-button
-        color="primary"
-        class="comment-action"
-        (click)="
-          setActiveComment.emit({
-            id: comment.id,
-            type: activeCommentType.replying
-          })
-        "
-      >
-        Отговори
-      </button>
-      } @if (canEdit) {
-      <button
-        mat-raised-button
-        class="comment-action"
-        (click)="
-          setActiveComment.emit({
-            id: comment.id,
-            type: activeCommentType.editing
-          })
-        "
-      >
-        Промени
-      </button>
-      } @if (canDelete) {
-      <button
-        mat-raised-button
-        class="comment-action"
-        (click)="deleteComment.emit(comment.id)"
-      >
-        Изтрий
-      </button>
+        <button
+          mat-raised-button
+          color="primary"
+          class="comment-action"
+          (click)="
+            setActiveComment.emit({
+              id: comment.id,
+              type: activeCommentType.replying
+            })
+          ">
+          Отговори
+        </button>
+      }
+      @if (canEdit) {
+        <button
+          mat-raised-button
+          class="comment-action"
+          (click)="
+            setActiveComment.emit({
+              id: comment.id,
+              type: activeCommentType.editing
+            })
+          ">
+          Промени
+        </button>
+      }
+      @if (canDelete) {
+        <button
+          mat-raised-button
+          class="comment-action"
+          (click)="deleteComment.emit(comment.id)">
+          Изтрий
+        </button>
       }
     </section>
     @if (isReplying()) {
-
-    <active-comment-form
-      submitLabel="Отговор"
-      (handleSubmit)="addComment.emit({ text: $event, parentId: replyId })"
-      [hasCancelButton]="true"
-      (handleCancel)="onCancelReply()"
-    ></active-comment-form>
+      <active-comment-form
+        submitLabel="Отговор"
+        (handleSubmit)="addComment.emit({ text: $event, parentId: replyId })"
+        [hasCancelButton]="true"
+        (handleCancel)="onCancelReply()"></active-comment-form>
     }
   </article>
 
   @if (comment.replies.length > 0) {
-  <section class="replies">
-    @for (reply of replies; track reply.id) {
-    <active-comment
-      [comment]="reply"
-      (setActiveComment)="setActiveComment.emit($event)"
-      [activeComment]="activeComment"
-      (updateComment)="updateComment.emit($event)"
-      (deleteComment)="deleteComment.emit($event)"
-      (addComment)="addComment.emit($event)"
-      [parentId]="comment.id"
-      [replies]="comment.replies"
-      [currentUserId]="currentUserId"
-    ></active-comment>
-    }
-  </section>
+    <section class="replies">
+      @for (reply of replies; track reply.id) {
+        <active-comment
+          [comment]="reply"
+          (setActiveComment)="setActiveComment.emit($event)"
+          [activeComment]="activeComment"
+          (updateComment)="updateComment.emit($event)"
+          (deleteComment)="deleteComment.emit($event)"
+          (addComment)="addComment.emit($event)"
+          [parentId]="comment.id"
+          [replies]="comment.replies"
+          [currentUserId]="currentUserId"></active-comment>
+      }
+    </section>
   }
 </section>
