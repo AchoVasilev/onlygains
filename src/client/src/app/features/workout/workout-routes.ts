@@ -1,5 +1,5 @@
-import { Routes } from '@angular/router';
-import { WorkoutDashboardComponent } from './pages/workout-dashboard/workout-dashboard.component';
+import type { Routes } from '@angular/router';
+import { WorkoutDashboardComponent } from './components/workout-dashboard/workout-dashboard.component';
 import { WorkoutComponent } from './pages/workout/workout.component';
 
 const WORKOUT_ROUTES: Routes = [
@@ -17,13 +17,6 @@ const WORKOUT_ROUTES: Routes = [
         component: WorkoutDashboardComponent,
         pathMatch: 'full',
         title: 'MyActivePal - тренировъчен профил',
-      },
-      {
-        path: 'bmr',
-        loadComponent: () =>
-          import('./pages/bmr-page/bmr-page.component').then(
-            c => c.BmrPageComponent
-          ),
       },
     ],
   },

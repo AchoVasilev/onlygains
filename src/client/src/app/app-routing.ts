@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 
 export const APPLICATION_ROUTES: Routes = [
   {
@@ -26,6 +26,10 @@ export const APPLICATION_ROUTES: Routes = [
   {
     path: 'workouts',
     loadChildren: () => import('./features/workout/workout-routes'),
+  },
+  {
+    path: 'calculators',
+    loadChildren: () => import('./features/calculators/calculators-routes'),
   },
   {
     path: '**',

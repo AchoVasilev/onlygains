@@ -1,22 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TodoItemService } from 'app/core/services/todo/todo-item.service';
-import { WorkoutProfileService } from 'app/core/services/user/workout-profile/workout-profile.service';
-import { BodyMassService } from 'app/core/services/workout/body-mass/body-mass.service';
-import {
+import type { OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import type { TodoItemService } from 'app/core/services/todo/todo-item.service';
+import type { WorkoutProfileService } from 'app/core/services/user/workout-profile/workout-profile.service';
+import type { BodyMassService } from 'app/core/services/workout/body-mass/body-mass.service';
+import type {
   CreateTodoItemResource,
   EditTodoItemResource,
   TodoItemDetailsResource,
 } from 'app/shared/models/checklist';
-import {
+import type {
   UpdateWorkoutProfileResource,
   UserWorkoutProfileDetailsResource,
 } from 'app/shared/models/user';
-import { ChartConfiguration } from 'chart.js';
-import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
+import type { ChartConfiguration } from 'chart.js';
+import type { Observable } from 'rxjs';
+import { BehaviorSubject, Subject, map, takeUntil } from 'rxjs';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
-import { UserDetailsComponent } from '../../components/user-details/user-details.component';
-import { BarChartComponent } from '../../components/bar-chart/bar-chart.component';
-import { TodoListComponent } from '../../components/todo-list/todo-list.component';
+import { UserDetailsComponent } from '../user-details/user-details.component';
+import { BarChartComponent } from '../bar-chart/bar-chart.component';
+import { TodoListComponent } from '../todo-list/todo-list.component';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
