@@ -1,13 +1,6 @@
-import type {
-  OnChanges,
-  SimpleChanges} from '@angular/core';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core';
-import type { FormControl} from '@angular/forms';
+import type { OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import type { FormControl } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

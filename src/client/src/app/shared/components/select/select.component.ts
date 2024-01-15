@@ -1,11 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import type {
-  AbstractControl,
-  FormControl} from '@angular/forms';
-import {
-  ReactiveFormsModule,
-} from '@angular/forms';
-import type { MatSelectChange} from '@angular/material/select';
+import type { AbstractControl, FormControl } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import type { MatSelectChange } from '@angular/material/select';
 import { MatSelectModule } from '@angular/material/select';
 import type { Selectable } from 'app/shared/models/selectable';
 

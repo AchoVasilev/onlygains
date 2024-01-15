@@ -1,19 +1,19 @@
-import type { OnDestroy, OnInit } from '@angular/core';
+import { OnDestroy, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import type { TodoItemService } from 'app/core/services/todo/todo-item.service';
-import type { WorkoutProfileService } from 'app/core/services/user/workout-profile/workout-profile.service';
-import type { BodyMassService } from 'app/core/services/workout/body-mass/body-mass.service';
-import type {
+import { TodoItemService } from 'app/core/services/todo/todo-item.service';
+import { WorkoutProfileService } from 'app/core/services/user/workout-profile/workout-profile.service';
+import { BodyMassService } from 'app/core/services/workout/body-mass/body-mass.service';
+import {
   CreateTodoItemResource,
   EditTodoItemResource,
   TodoItemDetailsResource,
 } from 'app/shared/models/checklist';
-import type {
+import {
   UpdateWorkoutProfileResource,
   UserWorkoutProfileDetailsResource,
 } from 'app/shared/models/user';
-import type { ChartConfiguration } from 'chart.js';
-import type { Observable } from 'rxjs';
+import { ChartConfiguration } from 'chart.js';
+import { Observable } from 'rxjs';
 import { BehaviorSubject, Subject, map, takeUntil } from 'rxjs';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { UserDetailsComponent } from '../user-details/user-details.component';
