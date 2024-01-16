@@ -158,3 +158,13 @@ body {
   width: $max-size;
   height: $max-size;
 }
+
+.page-container {
+  display: flex;
+  padding-right: 4rem;
+
+  section.content {
+    flex: 1;
+    padding: 1rem 0rem;
+  }
+}
