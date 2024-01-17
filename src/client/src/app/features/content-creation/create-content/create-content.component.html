@@ -4,7 +4,7 @@
       <active-create-post
         [categories]="categories$ | async"
         [tags]="tags$ | async"
-        (submit)="onPostSbumit($event)"></active-create-post>
+        (create)="onPostSbumit($event)"></active-create-post>
     </ng-template>
   </mat-tab>
   <mat-tab label="Създай упражнение">
@@ -13,8 +13,8 @@
         [equipment]="equipment$ | async"
         [muscleGroups]="muscleGroups$ | async"
         [variations]="variations$ | async"
-        (input)="onExerciseSearch($event)"
-        (submit)="onExerciseSubmit($event)"></active-create-exercise>
+        (filter)="onExerciseSearch($event)"
+        (create)="onExerciseSubmit($event)"></active-create-exercise>
     </ng-template>
   </mat-tab>
 </mat-tab-group>

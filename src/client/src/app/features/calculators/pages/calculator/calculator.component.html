@@ -1,6 +1,8 @@
-<div class="container">
-  <active-side-bar [isWorkout]="true"></active-side-bar>
+<div class="page-container">
   <section>
+    <active-side-bar [isWorkout]="true"></active-side-bar>
+  </section>
+  <section class="content">
     <router-outlet></router-outlet>
   </section>
 </div>

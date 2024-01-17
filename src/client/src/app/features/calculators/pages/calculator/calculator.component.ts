@@ -7,6 +7,5 @@ import { SideBarComponent } from 'app/shared/components/side-bar/side-bar.compon
   standalone: true,
   imports: [RouterOutlet, SideBarComponent],
   templateUrl: './calculator.component.html',
-  styleUrl: './calculator.component.scss',
 })
 export class CalculatorComponent {}
