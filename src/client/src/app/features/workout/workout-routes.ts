@@ -18,6 +18,34 @@ const WORKOUT_ROUTES: Routes = [
         pathMatch: 'full',
         title: 'MyActivePal - тренировъчен профил',
       },
+      {
+        path: 'calculators',
+        children: [
+          {
+            path: '',
+            redirectTo: 'bmi',
+            pathMatch: 'full',
+          },
+          {
+            path: 'bmi',
+            loadComponent: () =>
+              import('./components/calculators/bmi/bmi.component').then(
+                c => c.BmiComponent
+              ),
+            pathMatch: 'full',
+            title: 'MyActivePal - BMI',
+          },
+          {
+            path: 'bmr',
+            loadComponent: () =>
+              import('./components/calculators/bmr/bmr.component').then(
+                c => c.BmrComponent
+              ),
+            pathMatch: 'full',
+            title: 'MyActivePal - BMR',
+          },
+        ],
+      },
     ],
   },
 ];

@@ -1,11 +1,24 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { isNumberValidator } from 'app/shared/validators/number-validator';
 
 @Component({
   selector: 'active-bmi',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
   templateUrl: './bmi.component.html',
   styleUrl: './bmi.component.scss',
 })

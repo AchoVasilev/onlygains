@@ -28,10 +28,6 @@ export const APPLICATION_ROUTES: Routes = [
     loadChildren: () => import('./features/workout/workout-routes'),
   },
   {
-    path: 'calculators',
-    loadChildren: () => import('./features/calculators/calculators-routes'),
-  },
-  {
     path: '**',
     loadComponent: () =>
       import('./shared/components/not-found/not-found.component').then(
