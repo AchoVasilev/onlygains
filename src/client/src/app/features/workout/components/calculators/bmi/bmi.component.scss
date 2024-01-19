@@ -1,1 +1,59 @@
 @use 'variables' as *;
+
+$border-radius: 6px;
+
+.container {
+  height: $max-size;
+  width: $max-size;
+  margin: $one-rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    color: $light-gray;
+    font-size: 24px;
+  }
+
+  .bmi-content {
+    padding: 2rem;
+    background-color: #ece7d0;
+    border-radius: $border-radius;
+    max-width: 70%;
+
+    .content {
+      display: flex;
+      flex-direction: row;
+      gap: 4rem;
+
+      section {
+        flex: 1 1 0px;
+      }
+
+      .text {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+      }
+
+      .right-section {
+        background-color: #ddd8bf;
+        padding: 2rem;
+        border-radius: $border-radius;
+
+        .result {
+          padding: $one-rem;
+          line-height: 2rem;
+          background-color: #ece7d0;
+          font-weight: 700;
+          font-size: 18px;
+          border-radius: $border-radius;
+        }
+      }
+    }
+  }
+
+  .form-field {
+    width: 100%;
+  }
+}

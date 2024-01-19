@@ -1,14 +1,37 @@
-<section>
-  <h2>BMI Калкулатор</h2>
-  <form [formGroup]="form">
-    <mat-form-field appearance="outline">
-      <mat-label>Outline form field</mat-label>
-      <input matInput placeholder="Placeholder" />
-    </mat-form-field>
+<section class="container">
+  <section class="bmi-content">
+    <section class="content">
+      <section>
+        <h2>BMI Калкулатор</h2>
+        <form [formGroup]="form">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Outline form field</mat-label>
+            <input matInput placeholder="Placeholder" />
+            <span matTextSuffix>kg</span>
+          </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Outline form field</mat-label>
-      <input matInput placeholder="Placeholder" />
-    </mat-form-field>
-  </form>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Outline form field</mat-label>
+            <input matInput placeholder="Placeholder" />
+            <span matTextSuffix>cm</span>
+          </mat-form-field>
+        </form>
+      </section>
+      <section class="right-section">
+        <h3>Твоят BMI е:</h3>
+        <p class="result">221</p>
+        <p class="text">
+          GATE(Graduate Aptitude in Engineering) is one the most important and
+          in-demand entrance exam for engineering graduates in our country.
+          Geeksforgeeks is here to guide you through the GATE Computer Science
+          Engineering preparation. Geeksforgeeks brings you the Complete GATE
+          preparation course GATE-CS Test Series 2022, which will help the GATE
+          aspirants to boost their GATE score and AIR.An extensive Online Test
+          Series for GATE CSE to boost your preparation. Test series is designed
+          considering the pattern of previous years GATE papers and ensures to
+          resemble with the standard of GATE 2022 exam.
+        </p>
+      </section>
+    </section>
+  </section>
 </section>
