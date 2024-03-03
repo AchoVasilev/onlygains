@@ -1,6 +1,6 @@
 package com.project.domain.user
 
-import com.project.domain.BaseEntity
+import com.project.common.BaseEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import java.util.UUID

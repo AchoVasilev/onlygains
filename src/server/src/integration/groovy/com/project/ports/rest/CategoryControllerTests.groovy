@@ -1,7 +1,7 @@
 package com.project.ports.rest
 
 import com.project.BaseIntegrationTest
-import com.project.application.models.category.CategoryViewResource
+import com.project.posts.application.models.category.CategoryViewResource
 import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpRequest
 

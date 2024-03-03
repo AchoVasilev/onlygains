@@ -1,6 +1,6 @@
 package com.project.domain.workout
 
-import com.project.domain.BaseEntity
+import com.project.common.BaseEntity
 import com.project.domain.valueobjects.Weight
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity

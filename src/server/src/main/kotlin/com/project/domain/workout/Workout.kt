@@ -1,6 +1,6 @@
 package com.project.domain.workout
 
-import com.project.domain.BaseEntity
+import com.project.common.BaseEntity
 import com.project.infrastructure.converters.DurationToIntervalConverter
 import com.project.utilities.FindUtil.findByProperty
 import com.project.utilities.Time.utcNow

@@ -1,12 +1,12 @@
 package com.project.common.result
 
-class OperationResult<T>(val value: T? = null) {
+open class OperationResult<T>(val value: T? = null) {
 
     private constructor(value: T, successMessage: String) : this(value) {
         this.successMessage = successMessage
     }
 
-    private constructor(status: ResultStatus): this() {
+    private constructor(status: ResultStatus) : this() {
         this.status = status
     }
 

@@ -1,25 +1,25 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.9.21"
-    id("org.jetbrains.kotlin.plugin.allopen") version "1.9.21"
-    id("org.jetbrains.kotlin.plugin.jpa") version "1.9.21"
+    id("org.jetbrains.kotlin.jvm") version "1.9.22"
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.9.22"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.9.22"
 
-    id("com.google.devtools.ksp") version "1.9.21-1.0.15"
+    id("com.google.devtools.ksp") version "1.9.22-1.0.17"
 
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.micronaut.application") version "4.2.1"
-    id("io.micronaut.aot") version "4.2.1"
+    id("io.micronaut.application") version "4.3.3"
+    id("io.micronaut.aot") version "4.3.3"
 }
 
 ext {
-    micronautDataVersion = "4.4.0"
-    micronautSerdeVersion = "2.4.0"
-    micronautHikariVersion = "5.4.0"
-    micronautValidationVersion = "3.10.3"
-    micronautFlywayVersion = "6.2.1"
-    micronautSpockVersion = "4.1.1"
-    micronautInjectGroovyVersion = "4.2.1"
-    micronautHttpClientVersion = "4.2.1"
-    micronautKotlinRuntime = "4.1.0"
+    micronautDataVersion = "4.6.0"
+    micronautSerdeVersion = '2.7.1'
+    micronautHikariVersion = "5.4.1"
+    micronautValidationVersion = '4.4.1'
+    micronautFlywayVersion = "7.1.0"
+    micronautSpockVersion = '4.2.0'
+    micronautInjectGroovyVersion = '4.3.0'
+    micronautHttpClientVersion = '4.3.1'
+    micronautKotlinRuntime = '4.2.0'
 
     postgresVersion = "42.7.1"
 
@@ -31,7 +31,7 @@ ext {
 
     cloudinaryVersion = "1.36.0"
     javaDotEnvVersion = "5.2.2"
-    testContainersVersion = "1.19.3"
+    testContainersVersion = '1.19.4'
 
     kotlinJacksonVersion = "2.16.1"
 }
@@ -86,6 +86,7 @@ dependencies {
 
     implementation platform("org.testcontainers:testcontainers-bom:${testContainersVersion}")
 
+    runtimeOnly("org.flywaydb:flyway-database-postgresql")
     runtimeOnly("ch.qos.logback:logback-classic:${logbackVersion}")
     runtimeOnly("org.yaml:snakeyaml:${snakeYmlVersion}")
     runtimeOnly("org.postgresql:postgresql:${postgresVersion}")

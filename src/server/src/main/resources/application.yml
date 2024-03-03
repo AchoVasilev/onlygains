@@ -23,7 +23,11 @@ jpa:
   default:
     entity-scan:
       packages:
-        - "com.project.domain"
+        - 'com.project'
+        - 'com.project.posts'
+        - 'com.project.posts.domain'
+        - 'com.project.posts.domain.category'
+        - 'com.project.posts.domain.Category'
     properties:
       hibernate:
         hbm2ddl:

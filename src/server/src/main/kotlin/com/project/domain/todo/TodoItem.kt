@@ -1,6 +1,6 @@
 package com.project.domain.todo
 
-import com.project.domain.BaseEntity
+import com.project.common.BaseEntity
 import com.project.domain.user.User
 import jakarta.persistence.Entity
 import jakarta.persistence.Id

@@ -1,15 +1,11 @@
 package com.project.domain.user
 
-import com.project.domain.BaseEntity
-import com.project.domain.comment.Comment
-import com.project.domain.post.Post
-import com.project.domain.todo.TodoItem
+import com.project.common.BaseEntity
 import com.project.domain.valueobjects.FullName
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.ManyToOne
-import jakarta.persistence.OneToMany
 import java.util.UUID
 
 @Entity(name = "users")
@@ -30,15 +26,6 @@ class User protected constructor() : BaseEntity() {
 
     var imageUrl: String? = null
 
-    @OneToMany(mappedBy = "user")
-    val posts: MutableList<Post> = mutableListOf()
-
-    @OneToMany(mappedBy = "user")
-    val comments: List<Comment> = listOf()
-
-    @OneToMany(mappedBy = "user")
-    val todoItems: MutableList<TodoItem> = mutableListOf()
-
     var workoutProfileId: UUID? = null
 
     val firstName: String?
@@ -56,9 +43,5 @@ class User protected constructor() : BaseEntity() {
 
     fun getFullName(): String {
         return fullName!!.fullName
-    }
-
-    fun addPost(post: Post) {
-        posts.add(post)
     }
 }

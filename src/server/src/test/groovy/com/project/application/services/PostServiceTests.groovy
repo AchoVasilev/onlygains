@@ -1,15 +1,18 @@
 package com.project.application.services
 
-import com.project.common.enums.PostQueryType
-import com.project.domain.category.Category
-import com.project.domain.image.PostImage
-import com.project.domain.post.Post
+import com.project.posts.application.PostQueryType
+import com.project.posts.application.CategoryService
+import com.project.posts.application.PostService
+import com.project.posts.application.TagService
+import com.project.posts.domain.Category
+import com.project.posts.domain.PostImage
+import com.project.posts.domain.Post
 import com.project.domain.user.Role
 import com.project.domain.user.User
-import com.project.infrastructure.data.CategoryRepository
-import com.project.infrastructure.data.PostRepository
+import com.project.posts.domain.CategoryRepository
+import com.project.posts.domain.PostRepository
 import com.project.infrastructure.data.RoleRepository
-import com.project.infrastructure.data.TagRepository
+import com.project.posts.domain.TagRepository
 import com.project.infrastructure.data.UserRepository
 import io.micronaut.data.model.Page
 import io.micronaut.data.model.Pageable
@@ -67,7 +70,7 @@ class PostServiceTests extends Specification {
         def pageSize = 4
         def page = 1
 
-        1 * postRepository.findByCategoryId(_, _) >> Page.of(List.of(post1, post2, post3, post4), Pageable.from(page, pageSize), 5)
+        1 * postRepository.findAllByCategoryId(_, _) >> Page.of(List.of(post1, post2, post3, post4), Pageable.from(page, pageSize), 5)
 
         when: "calling the service method"
         def result = postService.getPostsBy(post1.category.id, page, pageSize, PostQueryType.Category)

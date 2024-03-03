@@ -1,6 +1,6 @@
 package com.project.domain.workout
 
-import com.project.domain.BaseEntity
+import com.project.common.BaseEntity
 import com.project.infrastructure.converters.StringToListConverter
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column

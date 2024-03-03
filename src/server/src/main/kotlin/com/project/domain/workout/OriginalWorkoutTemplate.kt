@@ -1,7 +1,7 @@
 package com.project.domain.workout
 
 import com.project.common.Constants
-import com.project.domain.BaseEntity
+import com.project.common.BaseEntity
 import com.project.utilities.DateTimeFormatterUtil
 import jakarta.persistence.Entity
 import jakarta.persistence.Id

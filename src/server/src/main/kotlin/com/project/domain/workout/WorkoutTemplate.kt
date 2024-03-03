@@ -1,7 +1,7 @@
 package com.project.domain.workout
 
 import com.project.common.Constants.DATE_FORMAT
-import com.project.domain.BaseEntity
+import com.project.common.BaseEntity
 import com.project.utilities.DateTimeFormatterUtil.formatterFrom
 import com.project.utilities.Time.utcNow
 import jakarta.persistence.Entity

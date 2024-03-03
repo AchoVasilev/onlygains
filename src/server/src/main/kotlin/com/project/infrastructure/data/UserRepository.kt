@@ -6,4 +6,6 @@ import io.micronaut.data.repository.CrudRepository
 import java.util.UUID
 
 @Repository
-interface UserRepository : CrudRepository<User, UUID>
+interface UserRepository : CrudRepository<User, UUID> {
+    fun findAllByIdIn(ids: List<UUID?>): List<User>
+}

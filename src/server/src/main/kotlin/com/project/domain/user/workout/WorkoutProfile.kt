@@ -1,7 +1,7 @@
 package com.project.domain.user.workout
 
 import com.project.application.models.user.workout.UpdateWorkoutProfileResource
-import com.project.domain.BaseEntity
+import com.project.common.BaseEntity
 import com.project.domain.user.Gender
 import com.project.domain.user.workout.bmr.BMR
 import com.project.domain.valueobjects.EntityId
