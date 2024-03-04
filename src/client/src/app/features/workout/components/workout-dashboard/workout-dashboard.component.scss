@@ -22,13 +22,6 @@ section {
   padding: $one-rem;
 }
 
-.centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: $half-size;
-}
-
 .chart {
   display: block;
   width: $max-size;

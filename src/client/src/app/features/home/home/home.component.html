@@ -11,7 +11,15 @@
     <active-spinner class="centered"></active-spinner>
   }
   @defer (on viewport) {
-    <active-categories [categories]="categories$ | async"></active-categories>
+    <section class="service-section layout-padding">
+      <div class="container">
+        <div class="heading-container">
+          <h2>Нашите категории</h2>
+        </div>
+        <active-categories
+          [categories]="categories$ | async"></active-categories>
+      </div>
+    </section>
   } @placeholder {
     <active-spinner class="centered"></active-spinner>
   }

@@ -2,7 +2,7 @@ package com.project.posts.application
 
 import com.project.posts.application.models.tag.TagViewResource
 import com.project.posts.domain.Tag
-import com.project.posts.domain.TagRepository
+import com.project.posts.infrastructure.TagRepository
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
 import java.util.UUID

@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { CategoryViewResource } from 'app/shared/models/category';
-import { RouterLink } from '@angular/router';
+import { CategoryComponent } from '../category/category.component';
 
 @Component({
   selector: 'active-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
   standalone: true,
-  imports: [RouterLink],
+  imports: [CategoryComponent],
 })
 export class CategoriesComponent {
-  @Input()
+  @Input({ required: true })
   categories?: CategoryViewResource[] | null;
 }

@@ -2,12 +2,15 @@
 
 .inspirational {
   display: flex;
-  padding: 4rem 8rem;
+  padding: 4rem 18rem;
   justify-content: space-between;
 }
 
 .text {
-  font-size: $one-rem;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 28px;
+  color: #191919;
   letter-spacing: 0.15rem;
   display: flex;
   flex-direction: column;

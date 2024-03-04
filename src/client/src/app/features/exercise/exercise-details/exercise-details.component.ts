@@ -52,7 +52,7 @@ export class ExerciseDetailsComponent implements OnInit {
   }
 
   getVariations() {
-    if (this.exercise?.variations) {
-    }
+    // if (this.exercise?.variations) {
+    // }
   }
 }

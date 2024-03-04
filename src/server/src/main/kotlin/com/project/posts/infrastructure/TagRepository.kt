@@ -1,4 +1,4 @@
-package com.project.posts.domain
+package com.project.posts.infrastructure
 
 import com.project.posts.domain.Tag
 import io.micronaut.data.annotation.Repository

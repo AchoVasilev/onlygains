@@ -12,7 +12,7 @@ import com.project.posts.application.models.post.PostViewResource
 import com.project.posts.domain.PostImage
 import com.project.posts.domain.Post
 import com.project.posts.domain.Tag
-import com.project.posts.domain.PostRepository
+import com.project.posts.infrastructure.PostRepository
 import io.micronaut.data.model.Page
 import io.micronaut.data.model.Pageable
 import io.micronaut.transaction.annotation.Transactional

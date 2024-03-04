@@ -1,0 +1,25 @@
+@use 'variables' as *;
+
+.box {
+  color: $white;
+  margin: 1%;
+  background-color: $light-gray-xl;
+  border-radius: 6px;
+  overflow: hidden;
+
+  a {
+    text-decoration: none;
+  }
+
+  .heading {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: $one-rem;
+    color: $dark-gray;
+  }
+
+  .category-image {
+    width: $max-size;
+    height: 30rem;
+  }
+}

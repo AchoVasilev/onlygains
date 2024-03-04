@@ -6,7 +6,7 @@ export interface CategoryViewResource {
 }
 
 export interface CategoryDTO {
-  id?: string;
-  translatedName?: string;
-  name?: string;
+  id: string;
+  translatedName: string;
+  name: string;
 }

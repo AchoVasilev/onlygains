@@ -1,0 +1,28 @@
+<!-- <div class="box">
+  <img class="category-image" [src]="category?.imageUrl" alt="category image" />
+  <h6 class="visible-heading">{{ category?.name }}</h6>
+  <div class="link-box">
+    <a
+      routerLink="/posts/categories/{{ category?.translatedName }}/{{
+        category?.id
+      }}">
+      <img src="/assets/images/link.png" alt="link image" />
+    </a>
+    <h6>{{ category?.name }}</h6>
+  </div>
+</div> -->
+
+<mat-card class="box">
+  <a
+    routerLink="/posts/categories/{{ category?.translatedName }}/{{
+      category?.id
+    }}">
+    <img
+      class="category-image"
+      [src]="category?.imageUrl"
+      alt="category image" />
+    <mat-card-header>
+      <mat-card-title class="heading">{{ category?.name }}</mat-card-title>
+    </mat-card-header>
+  </a>
+</mat-card>

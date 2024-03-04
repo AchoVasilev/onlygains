@@ -37,10 +37,10 @@ export class CreatePostComponent {
   @Output()
   create = new EventEmitter<CreatePostResource>();
 
-  selectedCategory?: CategoryDTO;
+  selectedCategory?: CategoryDTO | null;
   imageUrls: string[] = [];
 
-  private categoryAnchor!: HTMLElement;
+  private categoryAnchor?: HTMLElement;
 
   form = this.fb.group({
     title: this.fb.control<string>('', [Validators.required]),
@@ -89,15 +89,17 @@ export class CreatePostComponent {
     this.form.controls.text.patchValue(ev);
   }
 
-  categorySelect(ev: any) {
+  categorySelect(ev: CategoryDTO) {
     this.selectedCategory = ev;
     this.editor!.dom.setAttrib(
       this.categoryAnchor!,
       'href',
       this.buildCategoryUrl()
     );
-    this.categoryAnchor!.textContent = this.selectedCategory?.name!;
-    this.form.controls.categoryId.setValue(this.selectedCategory?.id!);
+
+    //@ts-ignore
+    this.categoryAnchor?.textContent = this.selectedCategory?.name;
+    this.form.controls.categoryId.setValue(this.selectedCategory?.id);
   }
 
   onSubmit() {

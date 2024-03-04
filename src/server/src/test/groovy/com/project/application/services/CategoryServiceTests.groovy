@@ -2,7 +2,7 @@ package com.project.application.services
 
 import com.project.posts.application.CategoryService
 import com.project.posts.domain.Category
-import com.project.posts.domain.CategoryRepository
+import com.project.posts.infrastructure.CategoryRepository
 import spock.lang.Specification
 
 class CategoryServiceTests extends Specification {

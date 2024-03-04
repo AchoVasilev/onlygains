@@ -19,22 +19,26 @@ export class CommentsComponent {
   activeComment!: ActiveComment | null;
 
   @Input() currentUserId!: string;
-  onSubmit(comment: CommentEmittedType): void {}
+  onSubmit(comment: CommentEmittedType): void {
+    console.log(comment);
+  }
 
   setActiveComment(comment: ActiveComment | null) {
     this.activeComment = comment;
   }
 
-  updateComment($event: { text: string; commentId: string }) {
+  updateComment(comment: { text: string; commentId: string }) {
+    console.log(comment);
     throw new Error('Method not implemented.');
   }
 
-  deleteComment($event: string) {
+  deleteComment(commentId: string) {
+    console.log(commentId);
     throw new Error('Method not implemented.');
   }
 
-  addComment($event: { text: string; parentId: string | null }) {
-    console.log($event);
+  addComment(comment: { text: string; parentId: string | null }) {
+    console.log(comment);
   }
 
   getRootComments() {

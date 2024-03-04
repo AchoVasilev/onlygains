@@ -91,7 +91,8 @@ export class TextEditorComponent implements OnInit {
     this.editorInit.emit(this.editor);
   }
 
-  onFilePick(callback: Function, value: any, meta: any) {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  onFilePick(callback: Function, _value: any, _meta: any) {
     const input = this.document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');

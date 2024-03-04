@@ -137,9 +137,8 @@ table {
 
 html,
 body {
-  background-color: rgb(211, 208, 208);
+  background-color: $light-gray-xl;
   overflow-x: hidden;
-  overflow-y: scroll;
 }
 
 .dark-gray-text {
@@ -167,4 +166,11 @@ body {
     flex: 1;
     padding: 1rem 0rem;
   }
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: $half-size;
 }

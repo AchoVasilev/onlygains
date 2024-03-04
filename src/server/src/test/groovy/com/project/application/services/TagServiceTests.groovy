@@ -2,7 +2,7 @@ package com.project.application.services
 
 import com.project.posts.application.TagService
 import com.project.posts.domain.Tag
-import com.project.posts.domain.TagRepository
+import com.project.posts.infrastructure.TagRepository
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Specification
 

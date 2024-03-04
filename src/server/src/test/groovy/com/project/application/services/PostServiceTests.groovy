@@ -9,10 +9,10 @@ import com.project.posts.domain.PostImage
 import com.project.posts.domain.Post
 import com.project.domain.user.Role
 import com.project.domain.user.User
-import com.project.posts.domain.CategoryRepository
-import com.project.posts.domain.PostRepository
+import com.project.posts.infrastructure.CategoryRepository
+import com.project.posts.infrastructure.PostRepository
 import com.project.infrastructure.data.RoleRepository
-import com.project.posts.domain.TagRepository
+import com.project.posts.infrastructure.TagRepository
 import com.project.infrastructure.data.UserRepository
 import io.micronaut.data.model.Page
 import io.micronaut.data.model.Pageable

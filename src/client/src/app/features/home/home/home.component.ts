@@ -5,7 +5,7 @@ import { Observable, map } from 'rxjs';
 import { CategoryViewResource } from 'app/shared/models/category';
 import { CardResource } from 'app/shared/models/card';
 import { AsyncPipe } from '@angular/common';
-import { CategoriesComponent } from '../categories/categories.component';
+import { CategoriesComponent } from '../../../shared/components/categories/categories.component';
 import { RecentPostsComponent } from '../recent-posts/recent-posts.component';
 import { InspirationalComponent } from '../inspirational/inspirational.component';
 import { IntroComponent } from '../intro/intro.component';

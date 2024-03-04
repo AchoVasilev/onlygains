@@ -98,7 +98,7 @@ export class CreateExerciseComponent {
     }
   }
 
-  onInput(ev: any) {
+  onInput(ev: string) {
     this.filter.emit(ev);
   }
 
