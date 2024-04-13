@@ -1,4 +1,4 @@
-package com.project.utilities.extensions
+package com.project.common.extensions
 
 import com.project.common.BaseController
 import com.project.common.result.OperationResult

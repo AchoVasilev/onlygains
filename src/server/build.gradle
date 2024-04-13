@@ -1,9 +1,9 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.9.22"
-    id("org.jetbrains.kotlin.plugin.allopen") version "1.9.22"
-    id("org.jetbrains.kotlin.plugin.jpa") version "1.9.22"
+    id("org.jetbrains.kotlin.jvm") version "1.9.23"
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.9.23"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.9.23"
 
-    id("com.google.devtools.ksp") version "1.9.22-1.0.17"
+    id("com.google.devtools.ksp") version "1.9.23-1.0.20"
 
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.3.3"
@@ -11,29 +11,32 @@ plugins {
 }
 
 ext {
-    micronautDataVersion = "4.6.0"
-    micronautSerdeVersion = '2.7.1'
-    micronautHikariVersion = "5.4.1"
-    micronautValidationVersion = '4.4.1'
-    micronautFlywayVersion = "7.1.0"
+    micronautDataVersion = '4.7.0'
+    micronautSerdeVersion = '2.9.0'
+    micronautHikariVersion = '5.6.0'
+    micronautValidationVersion = '4.5.0'
+    micronautFlywayVersion = '7.2.0'
     micronautSpockVersion = '4.2.0'
-    micronautInjectGroovyVersion = '4.3.0'
-    micronautHttpClientVersion = '4.3.1'
-    micronautKotlinRuntime = '4.2.0'
+    micronautInjectGroovyVersion = '4.4.1'
+    micronautHttpClientVersion = '4.4.1'
+    micronautKotlinRuntime = '4.3.0'
+    micronautSecurityVersion = '4.6.9'
 
-    postgresVersion = "42.7.1"
+    postgresVersion = '42.7.3'
 
     jakartaPersistanceVersion = "3.1.0"
-    jakartaAnnotationVersion = "2.1.1"
+    jakartaAnnotationVersion = '3.0.0'
 
     snakeYmlVersion = "2.2"
-    logbackVersion = "1.4.14"
+    logbackVersion = '1.5.2'
 
-    cloudinaryVersion = "1.36.0"
+    cloudinaryVersion = '1.38.0'
     javaDotEnvVersion = "5.2.2"
-    testContainersVersion = '1.19.4'
+    testContainersVersion = '1.19.7'
 
-    kotlinJacksonVersion = "2.16.1"
+    kotlinJacksonVersion = '2.17.0'
+
+    bouncyCastleVersion = '1.78'
 }
 
 apply plugin: 'groovy'
@@ -83,6 +86,11 @@ dependencies {
     implementation("com.cloudinary:cloudinary-core:${cloudinaryVersion}")
     implementation("com.cloudinary:cloudinary-http44:${cloudinaryVersion}")
     implementation("io.github.cdimascio:java-dotenv:${javaDotEnvVersion}")
+
+    implementation("org.bouncycastle:bcprov-jdk18on:${bouncyCastleVersion}")
+
+    implementation("io.micronaut.security:micronaut-security-jwt:${micronautSecurityVersion}")
+    annotationProcessor("io.micronaut.security:micronaut-security-annotations:${micronautSecurityVersion}")
 
     implementation platform("org.testcontainers:testcontainers-bom:${testContainersVersion}")
 

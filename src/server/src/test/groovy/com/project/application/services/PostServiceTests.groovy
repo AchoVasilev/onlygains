@@ -1,19 +1,17 @@
 package com.project.application.services
 
-import com.project.posts.application.PostQueryType
+import com.project.infrastructure.data.RoleRepository
+import com.project.infrastructure.data.UserRepository
 import com.project.posts.application.CategoryService
+import com.project.posts.application.PostQueryType
 import com.project.posts.application.PostService
 import com.project.posts.application.TagService
 import com.project.posts.domain.Category
-import com.project.posts.domain.PostImage
 import com.project.posts.domain.Post
-import com.project.domain.user.Role
-import com.project.domain.user.User
+import com.project.posts.domain.PostImage
 import com.project.posts.infrastructure.CategoryRepository
 import com.project.posts.infrastructure.PostRepository
-import com.project.infrastructure.data.RoleRepository
 import com.project.posts.infrastructure.TagRepository
-import com.project.infrastructure.data.UserRepository
 import io.micronaut.data.model.Page
 import io.micronaut.data.model.Pageable
 import spock.lang.Specification
@@ -28,10 +26,10 @@ class PostServiceTests extends Specification {
 
     def "getNewest gets the four newest posts"() {
         given: "added mocks"
-        def post1 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
-        def post2 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
-        def post3 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
-        def post4 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
+        def post1 = new Post("Some title", "Some Text", "Some preview", UUID.randomUUID(), new Category("some category", "translated category", "image url"))
+        def post2 = new Post("Some title", "Some Text", "Some preview", UUID.randomUUID(), new Category("some category", "translated category", "image url"))
+        def post3 = new Post("Some title", "Some Text", "Some preview", UUID.randomUUID(), new Category("some category", "translated category", "image url"))
+        def post4 = new Post("Some title", "Some Text", "Some preview", UUID.randomUUID(), new Category("some category", "translated category", "image url"))
 
         post1.addImagesToPost(List.of(new PostImage("url", post1)))
         post2.addImagesToPost(List.of(new PostImage("url", post2)))
@@ -43,25 +41,25 @@ class PostServiceTests extends Specification {
         def result = postService.getNewest()
 
         then: "result is correct"
-        result.size() == 4
+        result.value.size() == 4
     }
 
     def "GetPostBy returns correct post"() {
-        def post = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
+        def post = new Post("Some title", "Some Text", "Some preview", UUID.randomUUID(), new Category("some category", "translated category", "image url"))
         1 * postRepository.findById(_) >> Optional.of(post)
 
         when: "a call to the service method is done"
         def result = postService.getPostBy(post.id)
 
         then: "result is correct"
-        result.id == post.id
+        result.value.id == post.id
     }
 
     def "getPostsBy returns correct number"() {
-        def post1 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
-        def post2 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
-        def post3 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
-        def post4 = new Post("Some title", "Some Text", "Some preview", new User("email", "pwd", "fn", "ln", new Role("MODERATOR")), new Category("some category", "translated category", "image url"))
+        def post1 = new Post("Some title", "Some Text", "Some preview", UUID.randomUUID(), new Category("some category", "translated category", "image url"))
+        def post2 = new Post("Some title", "Some Text", "Some preview", UUID.randomUUID(), new Category("some category", "translated category", "image url"))
+        def post3 = new Post("Some title", "Some Text", "Some preview", UUID.randomUUID(), new Category("some category", "translated category", "image url"))
+        def post4 = new Post("Some title", "Some Text", "Some preview", UUID.randomUUID(), new Category("some category", "translated category", "image url"))
         post1.addImageToPost(new PostImage("img", post1))
         post2.addImageToPost(new PostImage("img", post2))
         post3.addImageToPost(new PostImage("img", post3))

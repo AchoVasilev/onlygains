@@ -18,6 +18,8 @@ interface PostRepository : CrudRepository<Post, UUID> {
     @Query(value = "SELECT * from posts p WHERE p.is_deleted = false ORDER BY p.created_at DESC LIMIT 4", nativeQuery = true)
     fun findNewestFour(): List<Post>
 
+    fun findAll(pageable: Pageable): Page<Post>
+
     fun findAllByCategoryId(categoryId: UUID, pageable: Pageable): Page<Post>
 
     fun findByTitleAndCategoryIdAndIsDeletedFalse(title: String, categoryId: UUID): Optional<Post>

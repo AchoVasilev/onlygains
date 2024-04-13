@@ -9,8 +9,8 @@ import com.project.infrastructure.exceptions.DuplicateEntryException
 import com.project.posts.application.models.post.CreatePostResource
 import com.project.posts.application.models.post.PostDetailsResource
 import com.project.posts.application.models.post.PostViewResource
-import com.project.posts.domain.PostImage
 import com.project.posts.domain.Post
+import com.project.posts.domain.PostImage
 import com.project.posts.domain.Tag
 import com.project.posts.infrastructure.PostRepository
 import io.micronaut.data.model.Page
@@ -36,6 +36,18 @@ open class PostService(
 
         return OperationResult.success(posts
             .map { post: Post -> PostViewResource.from(post, users.first { u -> u.id == post.userId }) })
+    }
+
+    @Transactional(readOnly = true)
+    open fun getAll(page: Int, size: Int): OperationResult<Page<PostViewResource>> {
+        val posts = this.postRepository.findAll(Pageable.from(page, size))
+        val users = this.userRepository.findAllByIdIn(posts.content.map { p -> p.userId })
+
+        return OperationResult.success(posts.map { post: Post ->
+            PostViewResource.from(
+                post,
+                users.first { u -> u.id == post.id })
+        })
     }
 
     @Transactional(readOnly = true)

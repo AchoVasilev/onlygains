@@ -9,6 +9,13 @@ micronaut:
         web:
           allowedOrigins:
             - http://localhost:4200
+  security:
+    authentication: bearer
+    token:
+      jwt:
+        signatures:
+          generator:
+            secret: 1d0c3fa23991402e9586555c0f2c6706
 
 datasources:
   default:

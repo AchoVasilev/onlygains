@@ -1,35 +1,40 @@
 <mat-toolbar color="primary">
-  <ul>
+  <ul (mouseenter)="hideItems()">
     <li>
-      <a routerLink="/">
+      <a routerLink="/" (mouseenter)="hideItems()">
         <img src="assets/logo-no-background.png" alt="logo" />
       </a>
     </li>
     <li>
       <ul>
         <li>
-          <a routerLink="/" mat-button>Начало</a>
+          <a routerLink="/" mat-button (mouseenter)="hideItems()">Начало</a>
         </li>
         <li>
-          <a routerLink="/posts" mat-button>Теми</a>
+          <a routerLink="/posts/all" mat-button (mouseenter)="showCategories()"
+            >Теми</a
+          >
         </li>
-        <li>
+        <!-- <li>
           <a routerLink="/blog" mat-button>Тренировки</a>
-        </li>
-        <li>
-          <a routerLink="/categories" mat-button>Категории</a>
-        </li>
+        </li> -->
       </ul>
     </li>
     <li>
       <ul>
         <li>
-          <a routerLink="/users/login" mat-icon-button>
+          <a
+            routerLink="/users/login"
+            mat-icon-button
+            (mouseenter)="hideItems()">
             <mat-icon>login</mat-icon>
           </a>
         </li>
         <li>
-          <a routerLink="/users/logout" mat-icon-button>
+          <a
+            routerLink="/users/logout"
+            mat-icon-button
+            (mouseenter)="hideItems()">
             <mat-icon>follow_the_signs</mat-icon>
           </a>
         </li>
@@ -37,3 +42,9 @@
     </li>
   </ul>
 </mat-toolbar>
+
+<div class="categories hidden" #categories (mouseleave)="hideItems()">
+  @for (category of categories$ | async; track category.id) {
+    <active-category class="category" [category]="category"></active-category>
+  }
+</div>

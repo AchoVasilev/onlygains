@@ -14,7 +14,7 @@ const POST_ROUTES: Routes = [
         title: resolveTitle,
       },
       {
-        path: 'list/:itemType/:itemName/:itemId',
+        path: 'all',
         component: ListPostsComponent,
         pathMatch: 'full',
       },

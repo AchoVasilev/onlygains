@@ -12,17 +12,18 @@
   </div>
 </div> -->
 
-<mat-card class="box">
-  <a
-    routerLink="/posts/categories/{{ category?.translatedName }}/{{
-      category?.id
-    }}">
-    <img
-      class="category-image"
-      [src]="category?.imageUrl"
-      alt="category image" />
-    <mat-card-header>
-      <mat-card-title class="heading">{{ category?.name }}</mat-card-title>
-    </mat-card-header>
-  </a>
-</mat-card>
+@if (category) {
+  <mat-card class="box">
+    <a
+      routerLink="/posts/all"
+      [queryParams]="{ type: 'Category', id: category.id, page: 1, size: 10 }">
+      <img
+        class="category-image"
+        [src]="category.imageUrl"
+        alt="category image" />
+      <mat-card-header>
+        <mat-card-title class="heading">{{ category.name }}</mat-card-title>
+      </mat-card-header>
+    </a>
+  </mat-card>
+}

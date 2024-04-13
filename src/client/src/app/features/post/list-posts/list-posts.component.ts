@@ -18,9 +18,9 @@ export class ListPostsComponent implements OnInit {
   items: PostViewResource[] = [];
   private itemType: string = '';
   private itemId: string = '';
-  private currentPage: number = 0;
+  private currentPage!: number;
   private scrolling: boolean = false;
-  pageSize: number = itemsPerPage;
+  pageSize!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,37 +29,39 @@ export class ListPostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.itemType = params['itemType'];
-      this.itemId = params['itemId'];
-      this.getPosts();
+      this.itemType = params['type'];
+      this.itemId = params['id'];
+      this.currentPage = params['page'] ?? 0;
+      this.pageSize = params['size'] ?? itemsPerPage;
+      params['type'] && params['id'] ? this.getPosts() : this.getAllPosts();
     });
   }
 
   getPosts() {
-    if (this.itemType === 'Category') {
-      this.postService
-        .getPostsBy(this.itemId, this.currentPage, this.pageSize)
-        .subscribe(posts =>
-          this.scrolling
-            ? (this.items = [...this.items, ...posts])
-            : (this.items = posts)
-        );
-    } else if (this.itemType === 'Tag') {
-      this.postService
-        .getPostsByTagId(this.itemId, this.currentPage, this.pageSize)
-        .subscribe(posts =>
-          this.scrolling
-            ? (this.items = [...this.items, ...posts])
-            : (this.items = posts)
-        );
-    }
+    this.postService
+      .getPostsBy(this.itemId, this.currentPage, this.pageSize, this.itemType)
+      .subscribe(posts =>
+        this.scrolling
+          ? (this.items = [...this.items, ...posts.content])
+          : (this.items = [...posts.content])
+      );
+  }
+
+  getAllPosts() {
+    this.postService
+      .getAll(this.currentPage, this.pageSize)
+      .subscribe(posts => {
+        this.scrolling
+          ? (this.items = [...this.items, ...posts.content])
+          : (this.items = [...posts.content]);
+      });
   }
 
   onScroll() {
     if (this.items.length === this.pageSize) {
       this.currentPage++;
       this.scrolling = true;
-      this.getPosts();
+      this.itemType && this.itemId ? this.getPosts() : this.getAllPosts();
     }
   }
 }

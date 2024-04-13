@@ -89,16 +89,15 @@ export class CreatePostComponent {
     this.form.controls.text.patchValue(ev);
   }
 
-  categorySelect(ev: CategoryDTO) {
-    this.selectedCategory = ev;
+  categorySelect(ev: any) {
+    this.selectedCategory = ev as CategoryDTO;
     this.editor!.dom.setAttrib(
       this.categoryAnchor!,
       'href',
       this.buildCategoryUrl()
     );
 
-    //@ts-ignore
-    this.categoryAnchor?.textContent = this.selectedCategory?.name;
+    this.categoryAnchor!.textContent = this.selectedCategory?.name;
     this.form.controls.categoryId.setValue(this.selectedCategory?.id);
   }
 
