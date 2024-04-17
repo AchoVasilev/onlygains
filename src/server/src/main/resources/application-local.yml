@@ -17,6 +17,9 @@ micronaut:
           generator:
             secret: 1d0c3fa23991402e9586555c0f2c6706
 
+encryption:
+  initializationVector: RU5DUllQVElPTl9JTklUSUFMSVpBVElPTl9WRUNUT1JFTkNSWVBUSU9OX0lOSVRJQUxJWkFUSU9OX1ZFQ1RPUkVOQ1JZUFRJT05fSU5JVElBTElaQVRJT05fVkVDVE9S
+
 datasources:
   default:
     dialect: postgres
