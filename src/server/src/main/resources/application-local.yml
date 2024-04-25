@@ -16,9 +16,19 @@ micronaut:
         signatures:
           generator:
             secret: 1d0c3fa23991402e9586555c0f2c6706
+            base64: true
+            jws-algorithm: HS256
+pem:
+  path: classpath:config/rsa-2048bit-key-pair.pem
+
+jwt:
+  expirationTimeInSeconds: 3600
+  issuer: activeServer
 
 encryption:
   initializationVector: RU5DUllQVElPTl9JTklUSUFMSVpBVElPTl9WRUNUT1JFTkNSWVBUSU9OX0lOSVRJQUxJWkFUSU9OX1ZFQ1RPUkVOQ1JZUFRJT05fSU5JVElBTElaQVRJT05fVkVDVE9S
+  secret:
+    email: "1d0c3fa23991402e9586555c0f2c6706"
 
 datasources:
   default:

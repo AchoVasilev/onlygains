@@ -1,11 +1,14 @@
 package com.project.utilities
 
+import java.time.Instant
 import java.time.ZoneId
-import java.time.ZonedDateTime
 
 object Time {
     @JvmStatic
-    fun utcNow(): ZonedDateTime {
-        return ZonedDateTime.now(ZoneId.of("UTC"))
+    fun utcNow(): Instant {
+        return Instant.now()
     }
+
+    @JvmStatic
+    val utcZone = ZoneId.of("UTC")
 }

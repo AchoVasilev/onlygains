@@ -47,7 +47,26 @@ class AesEncryptionService : EncryptionService {
     }
 
     override fun decrypt(encrypted: String, secret: String): String {
-        TODO("Not yet implemented")
+        if (encrypted.isBlank()) {
+            return ""
+        }
+
+        try {
+            val ivParamSpec = IvParameterSpec(this.encryptionInitVector.toByteArray(StandardCharsets.UTF_8))
+            val keySpec = SecretKeySpec(Base64.getDecoder().decode(secret), this.algorithm)
+            val gcmParameterSpec = GCMParameterSpec(this.gcmTagLength * 8, ivParamSpec.iv)
+
+            val cipher = Cipher.getInstance(this.aesTransformation)
+
+            cipher.init(Cipher.DECRYPT_MODE, keySpec, gcmParameterSpec)
+
+            val cipherText = cipher.doFinal(Base64.getDecoder().decode(encrypted))
+
+            return String(cipherText)
+        } catch (e: Exception) {
+            log.error("Decryption problem", e)
+            throw AesEncryptionException()
+        }
     }
 
     companion object {

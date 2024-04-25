@@ -12,9 +12,9 @@ import java.util.UUID
 class User protected constructor() : BaseEntity() {
     @Id
     val id: UUID = UUID.randomUUID()
-    var email: String? = null
+    var email: String = ""
         private set
-    var password: String? = null
+    var password: String = ""
         private set
 
     @Embedded

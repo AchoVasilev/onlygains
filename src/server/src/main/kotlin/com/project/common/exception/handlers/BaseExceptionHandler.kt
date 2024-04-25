@@ -16,7 +16,7 @@ import jakarta.inject.Singleton
     Requires(classes = [BaseException::class, ExceptionHandler::class])
 )
 class BaseExceptionHandler : ExceptionHandler<BaseException, HttpResponse<*>>{
-    override fun handle(request: HttpRequest<*>?, exception: BaseException?): HttpResponse<*> {
-        TODO("Not yet implemented")
+    override fun handle(request: HttpRequest<*>, exception: BaseException): HttpResponse<*> {
+        return HttpResponse.serverError(exception.message)
     }
 }

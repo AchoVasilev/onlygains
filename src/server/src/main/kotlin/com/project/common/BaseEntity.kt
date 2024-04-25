@@ -2,12 +2,12 @@ package com.project.common
 
 import com.project.utilities.Time.utcNow
 import jakarta.persistence.MappedSuperclass
-import java.time.ZonedDateTime
+import java.time.Instant
 
 @MappedSuperclass
 abstract class BaseEntity protected constructor() {
-    val createdAt: ZonedDateTime = utcNow()
-    var modifiedAt: ZonedDateTime? = null
+    var createdAt: Instant = utcNow()
+    var modifiedAt: Instant? = null
     var isDeleted: Boolean = false
 
     fun markAsUpdated() {

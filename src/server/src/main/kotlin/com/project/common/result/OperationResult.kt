@@ -1,6 +1,6 @@
 package com.project.common.result
 
-open class OperationResult<T>(val value: T? = null) {
+open class OperationResult<T> private constructor(val value: T? = null) {
 
     private constructor(value: T, successMessage: String) : this(value) {
         this.successMessage = successMessage
@@ -36,6 +36,14 @@ open class OperationResult<T>(val value: T? = null) {
 
         fun <T> notFound(errors: List<String>): OperationResult<T> {
             return OperationResult(ResultStatus.NotFound, errors)
+        }
+
+        fun <T> badRequest(): OperationResult<T> {
+            return OperationResult(ResultStatus.Invalid)
+        }
+
+        fun <T> badRequest(errors: List<String>): OperationResult<T> {
+            return OperationResult(ResultStatus.Invalid, errors)
         }
     }
 }
