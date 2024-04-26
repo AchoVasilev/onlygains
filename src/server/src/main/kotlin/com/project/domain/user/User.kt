@@ -4,8 +4,9 @@ import com.project.common.BaseEntity
 import com.project.domain.valueobjects.FullName
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
 import java.util.UUID
 
 @Entity(name = "users")
@@ -20,9 +21,12 @@ class User protected constructor() : BaseEntity() {
     @Embedded
     private var fullName: FullName? = null
 
-    @ManyToOne
-    var role: Role? = null
+    @Enumerated(EnumType.STRING)
+    var role: Role = Role.USER
         private set
+
+    @Enumerated(EnumType.STRING)
+    var status: UserStatus = UserStatus.ACTIVE
 
     var imageUrl: String? = null
 
@@ -39,6 +43,7 @@ class User protected constructor() : BaseEntity() {
         this.password = password
         this.fullName = FullName.from(firstName, lastName)
         this.role = role
+        this.status = UserStatus.ACTIVE
     }
 
     fun getFullName(): String {

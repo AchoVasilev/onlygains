@@ -2,8 +2,8 @@ package com.project.posts.application
 
 import com.project.application.services.LoggerProvider
 import com.project.common.result.OperationResult
+import com.project.domain.user.Role
 import com.project.domain.user.User
-import com.project.infrastructure.data.RoleRepository
 import com.project.infrastructure.data.UserRepository
 import com.project.infrastructure.exceptions.DuplicateEntryException
 import com.project.posts.application.models.post.CreatePostResource
@@ -25,7 +25,6 @@ import java.util.UUID
 open class PostService(
     private val postRepository: PostRepository,
     private val categoryService: CategoryService, //TODO: remove this one
-    private val roleRepository: RoleRepository,
     private val userRepository: UserRepository,
     private val tagService: TagService
 ) {
@@ -95,8 +94,7 @@ open class PostService(
         }
 
         //TODO: mock user till auth
-        val role = roleRepository.findById(UUID.fromString("ac3d9fd0-1725-466e-b0a7-00b9cd2161a7"))
-        val user = User("email@abv.bg", "somepwd", "Gosho", "Peshev", role.get())
+        val user = User("email@abv.bg", "somepwd", "Gosho", "Peshev", Role.USER)
         user.imageUrl =
             "https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691942376/onlygains/categories/hiking-trail-names_fgpox2.jpg"
         val category = categoryService.getCategoryBy(postResource.categoryId)

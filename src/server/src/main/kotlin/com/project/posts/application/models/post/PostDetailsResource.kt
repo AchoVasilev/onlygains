@@ -8,11 +8,11 @@ import com.project.posts.domain.Comment
 import com.project.posts.domain.Post
 import com.project.posts.domain.Tag
 import io.micronaut.serde.annotation.Serdeable
-import java.time.ZonedDateTime
+import java.time.Instant
 import java.util.UUID
 
 @Serdeable
-data class PostDetailsResource(val id: UUID, val createdAt: ZonedDateTime, val createdBy: UserViewResource, val title: String?,
+data class PostDetailsResource(val id: UUID, val createdAt: Instant, val createdBy: UserViewResource, val title: String?,
                                val text: String?, val previewText: String?, val imageUrls: List<String?>, val category: CategoryViewResource,
                                val comments: List<CommentViewResource>, val tags: List<TagViewResource>) {
     companion object {

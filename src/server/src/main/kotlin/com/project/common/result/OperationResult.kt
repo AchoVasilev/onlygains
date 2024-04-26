@@ -12,12 +12,14 @@ open class OperationResult<T> private constructor(val value: T? = null) {
 
     private constructor(status: ResultStatus, errorMessages: List<String>) : this(status) {
         this.errors = errorMessages
+        this.isSuccess = false
     }
 
     var status: ResultStatus = ResultStatus.Ok
         private set
 
-    val isSuccess: Boolean = this.status == ResultStatus.Ok
+    var isSuccess: Boolean = this.status == ResultStatus.Ok
+        private set
     var successMessage: String = String()
     var errors: List<String> = listOf()
 

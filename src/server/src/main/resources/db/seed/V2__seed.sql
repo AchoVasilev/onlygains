@@ -1,9 +1,3 @@
-INSERT INTO roles (id, name)
-VALUES ('ca51ab2e-288c-4519-aa29-3ea4d1daf444', 'ADMINISTRATOR'),
-       ('25da1a4b-3b85-4398-b977-b429d5030b6c', 'USER'),
-       ('ac3d9fd0-1725-466e-b0a7-00b9cd2161a7', 'MODERATOR'),
-       ('d5a0270c-4b4a-40b7-af60-ca274f5858b6', 'WRITER');
-
 INSERT INTO categories(id, name, translated_name, image_url)
 VALUES ('5206274b-b473-49c1-bcca-6516838a9f1e', 'Рецепти', 'Recipes',
         'https://res.cloudinary.com/dpo3vbxnl/image/upload/v1691940539/onlygains/categories/istock-1155240408_stpuam.jpg'),

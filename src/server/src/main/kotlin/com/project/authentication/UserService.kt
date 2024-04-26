@@ -2,17 +2,14 @@ package com.project.authentication
 
 import com.project.application.services.LoggerProvider
 import com.project.common.result.OperationResult
+import com.project.domain.user.Role
 import com.project.domain.user.User
 import com.project.infrastructure.data.UserRepository
 import com.project.security.EmailEncryptionService
 import com.project.security.HashService
-import com.project.utilities.Time.utcNow
-import com.project.utilities.Time.utcZone
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
-import java.nio.charset.StandardCharsets
-import java.time.Instant
-import java.time.LocalDate
+import java.security.SecureRandom
 import java.util.Base64
 
 @Singleton
@@ -30,8 +27,14 @@ open class UserService(
             return OperationResult.badRequest(listOf("User exists!"))
         }
 
-        val now = utcNow()
-        val hashedPassword = this.hashPassword(password, now)
+        val hashedPassword = this.hashPassword(password)
+        val hashedEmail = this.emailEncryptionService.encryptEmail(email)
+        val newUser = User(hashedEmail, hashedPassword, firstName, lastName, Role.USER)
+
+        val result = OperationResult.success(this.userRepository.save(newUser))
+        log.info("Successfully created user. [id={}, email={}]", newUser.id, email)
+
+        return result
     }
 
     @Transactional(readOnly = true)
@@ -42,6 +45,7 @@ open class UserService(
             log.info("User not found. [email={}]", email)
             return OperationResult.notFound(listOf("Credentials do not match!"))
         }
+
         val passwordsMatch = this.hashService.matchHash(password, user.password)
         if (!passwordsMatch) {
             log.info("User credentials do not match. [email={}]", email)
@@ -51,23 +55,22 @@ open class UserService(
         return OperationResult.success(user)
     }
 
-    private fun findUserBy(email: String): User? {
+    @Transactional(readOnly = true)
+    open fun findUserBy(email: String): User? {
         val encryptedMail = this.emailEncryptionService.encryptEmail(email)
         return this.userRepository.findByEmail(encryptedMail)
     }
 
-    private fun hashPassword(password: String, createdAt: Instant): String {
-        return this.hashService.hashText(password, this.createSalt(createdAt))
+    private fun hashPassword(password: String): String {
+        return this.hashService.hashText(password, this.createSalt())
     }
 
-    private fun createSalt(createdAt: Instant): String {
-        val dateNow = LocalDate.now()
-        val epochMillis = createdAt.toEpochMilli()
-        val salt = createdAt.plusNanos(dateNow.plusYears(epochMillis).atStartOfDay(utcZone).toEpochSecond())
-            .minusMillis(dateNow.plusDays(epochMillis).atStartOfDay(utcZone).toEpochSecond())
-            .plusSeconds(dateNow.plusWeeks(createdAt.toEpochMilli()).atStartOfDay(utcZone).toEpochSecond())
+    private fun createSalt(): String {
+        val random = SecureRandom()
+        val bytes = ByteArray(10)
+        random.nextBytes(bytes)
 
-        return String(Base64.getEncoder().encode(salt.toString().toByteArray(StandardCharsets.UTF_8)))
+        return String(Base64.getEncoder().encode(bytes))
     }
 
     companion object {

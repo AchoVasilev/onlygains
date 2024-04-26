@@ -1,8 +1,6 @@
 package com.project.domain.workout
 
-import com.project.common.Constants
 import com.project.common.BaseEntity
-import com.project.utilities.DateTimeFormatterUtil
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.OneToMany
@@ -13,7 +11,7 @@ class OriginalWorkoutTemplate protected constructor() : BaseEntity() {
     @Id
     val id: UUID = UUID.randomUUID()
 
-    var name: String = "EMPTY ${createdAt.format(DateTimeFormatterUtil.formatterFrom(Constants.DATE_FORMAT))}"
+    var name: String = "EMPTY $createdAt"
         private set
 
     @OneToMany(mappedBy = "originalWorkoutTemplate")

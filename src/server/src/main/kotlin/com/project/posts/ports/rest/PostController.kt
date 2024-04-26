@@ -23,22 +23,22 @@ import java.util.UUID
 @Controller(value = "/posts")
 open class PostController(private val postService: PostService) : BaseController() {
     @Get(uri = "/newest")
-    open fun getNewest(): HttpResponse<Any> {
+    open fun getNewest(): HttpResponse<List<PostViewResource>> {
         return this.toResponse(postService.getNewest())
     }
 
     @Get(uri = "/popular")
-    open fun getPopular(): HttpResponse<Any> {
+    open fun getPopular(): HttpResponse<List<PostViewResource>> {
         return this.toResponse(postService.getMostPopularPosts())
     }
 
     @Get(uri = "/details/{id}", produces = [MediaType.APPLICATION_JSON])
-    open fun getPost(@PathVariable("id") id: UUID): HttpResponse<Any> {
+    open fun getPost(@PathVariable("id") id: UUID): HttpResponse<PostDetailsResource> {
         return this.toResponse(postService.getPostBy(id))
     }
 
     @Get(uri = "/all")
-    open fun getPostsBy(@QueryValue page: Int, @QueryValue size: Int) : HttpResponse<Any> {
+    open fun getPostsBy(@QueryValue page: Int, @QueryValue size: Int) : HttpResponse<Page<PostViewResource>> {
         return this.toResponse(postService.getAll(page, size))
     }
 

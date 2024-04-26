@@ -3,11 +3,11 @@ package com.project.posts.application.models.post
 import com.project.domain.user.User
 import com.project.posts.domain.Post
 import io.micronaut.serde.annotation.Serdeable
-import java.time.ZonedDateTime
+import java.time.Instant
 import java.util.UUID
 
 @Serdeable
-data class PostViewResource(val id: UUID, val imageUrl: String?, val createdAt: ZonedDateTime, val createdBy: String,
+data class PostViewResource(val id: UUID, val imageUrl: String?, val createdAt: Instant, val createdBy: String,
                        val creatorImageUrl: String?, val title: String?, val text: String?, val previewText: String?, val categoryName: String?,
                        val categoryNameTranslation: String?, val categoryId: UUID) {
     companion object {

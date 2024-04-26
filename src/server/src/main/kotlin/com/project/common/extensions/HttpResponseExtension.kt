@@ -7,16 +7,16 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 
 object HttpResponseExtension {
-    fun <T> BaseController.toResponse(operationResult: OperationResult<T>): HttpResponse<Any> {
+    fun <T> BaseController.toResponse(operationResult: OperationResult<T>): HttpResponse<T> {
         return when (operationResult.status) {
             ResultStatus.Ok -> HttpResponse.ok(operationResult.value)
-            ResultStatus.NotFound -> HttpResponse.notFound(operationResult.errors)
-            ResultStatus.Error -> HttpResponse.serverError(operationResult.errors)
-            ResultStatus.Forbidden -> HttpResponse.status(HttpStatus.FORBIDDEN, operationResult.errors.firstOrNull())
+            ResultStatus.NotFound -> HttpResponse.status(HttpStatus.NOT_FOUND, operationResult.errors.joinToString())
+            ResultStatus.Error -> HttpResponse.status(HttpStatus.INTERNAL_SERVER_ERROR, operationResult.errors.joinToString())
+            ResultStatus.Forbidden -> HttpResponse.status(HttpStatus.FORBIDDEN, operationResult.errors.joinToString())
             ResultStatus.Unauthorized -> HttpResponse.unauthorized()
-            ResultStatus.Invalid -> HttpResponse.badRequest(operationResult.errors)
-            ResultStatus.Conflict -> HttpResponse.status(HttpStatus.CONFLICT, operationResult.errors.firstOrNull())
-            ResultStatus.CriticalError -> HttpResponse.serverError(operationResult.errors)
+            ResultStatus.Invalid -> HttpResponse.status(HttpStatus.BAD_REQUEST, operationResult.errors.joinToString())
+            ResultStatus.Conflict -> HttpResponse.status(HttpStatus.CONFLICT, operationResult.errors.joinToString())
+            ResultStatus.CriticalError -> HttpResponse.status(HttpStatus.INTERNAL_SERVER_ERROR, operationResult.errors.joinToString())
             ResultStatus.Unavailable -> HttpResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
         }
     }

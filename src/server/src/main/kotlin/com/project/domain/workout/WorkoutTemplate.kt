@@ -1,8 +1,6 @@
 package com.project.domain.workout
 
-import com.project.common.Constants.DATE_FORMAT
 import com.project.common.BaseEntity
-import com.project.utilities.DateTimeFormatterUtil.formatterFrom
 import com.project.utilities.Time.utcNow
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
@@ -14,7 +12,7 @@ class WorkoutTemplate() : BaseEntity() {
     @Id
     val id: UUID = UUID.randomUUID()
 
-    var name: String = "EMPTY ${createdAt.format(formatterFrom(DATE_FORMAT))}"
+    var name: String = "EMPTY $createdAt"
         private set
 
     var originalWorkoutTemplateId: UUID? = null

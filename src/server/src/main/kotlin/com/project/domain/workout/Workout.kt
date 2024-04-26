@@ -12,7 +12,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
 import java.time.Duration
-import java.time.ZonedDateTime
+import java.time.Instant
 import java.util.UUID
 
 @Entity(name = "workouts")
@@ -24,7 +24,7 @@ class Workout protected constructor() : BaseEntity() {
     @JoinColumn(name = "workout_template_id")
     var workoutTemplate: WorkoutTemplate? = null
 
-    var finishedAt: ZonedDateTime? = null
+    var finishedAt: Instant? = null
         private set
 
     @Convert(converter = DurationToIntervalConverter::class)
