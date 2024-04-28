@@ -2,7 +2,10 @@ package com.project.authentication
 
 import com.project.application.services.LoggerProvider
 import com.project.authentication.models.LoginRequestResource
+import com.project.common.errormessages.UserMessages
+import com.project.common.result.Error
 import com.project.common.result.OperationResult
+import com.project.common.result.ResultStatus
 import com.project.domain.user.User
 import com.project.domain.user.UserStatus
 import com.project.security.jwt.JwtService
@@ -19,36 +22,43 @@ open class AuthenticationService(
 ) {
 
     @Transactional(readOnly = true)
-    open fun authenticate(loginRequest: LoginRequestResource): OperationResult<String> {
+    open fun authenticate(loginRequest: LoginRequestResource): OperationResult {
         val userResult = this.userService.findUserBy(loginRequest.email, loginRequest.password)
-        if (!userResult.isSuccess) {
-            log.info(userResult.errors.joinToString { ", " })
-            return OperationResult.badRequest(userResult.errors)
+        if (userResult is FailureResult) {
+            log.info(userResult.errors.joinToString())
+            return FailureResult(ResultStatus.Invalid, userResult.errors)
         }
 
-        val user = userResult.value!!
+        val user =
         if (UserStatus.ACTIVE != user.status) {
             log.info("User is deactivated. [userId={}, email={}]", user.id, loginRequest.email)
-            return OperationResult.badRequest(listOf("User is deactivated"))
+            return FailureResult(ResultStatus.Invalid, listOf("User is deactivated"))
         }
 
         log.info("Authenticating user. [userId={}, email={}]", user.id, loginRequest.email)
 
-        return OperationResult.success(this.generateToken(user, loginRequest.email))
+        return SuccessResult(this.generateToken(user, loginRequest.email))
     }
 
     @Transactional(readOnly = true)
-    open fun refreshToken(): OperationResult<String> {
+    open fun refreshToken(): OperationResult {
         val auth = this.securityService.authentication.orElse(null)
         if (auth == null) {
             log.info("Cannot issue refresh token for an unauthenticated user")
-            return OperationResult.badRequest(listOf("Cannot authenticate user"))
+            return OperationResult.failure(
+                UserMessages.AUTHENTICATION_FAILED.toError()
+            )
         }
 
         val user = this.userService.findUserBy(auth.name)
-        if (user == null || UserStatus.ACTIVE != user.status) {
-            log.info("Cannot issue refresh token for deactivated or not existing user. [email={}]", auth.name)
-            return OperationResult.badRequest(listOf("User does not exist or is deactivated"))
+        if (user == null) {
+            log.info("Cannot issue refresh token for non existing user. [email={}]", auth.name)
+            return OperationResult.failure(UserMessages.USER_NOT_EXIST.toError())
+        }
+
+        if (UserStatus.ACTIVE != user.status) {
+            log.info("Cannot issue refresh token for deactivated user. [email={}]", auth.name)
+            return OperationResult.failure(UserMessages.USER_DEACTIVATED.toError())
         }
 
         return OperationResult.success(this.generateToken(user, auth.name))

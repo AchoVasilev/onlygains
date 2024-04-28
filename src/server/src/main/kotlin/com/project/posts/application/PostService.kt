@@ -2,6 +2,7 @@ package com.project.posts.application
 
 import com.project.application.services.LoggerProvider
 import com.project.common.result.OperationResult
+import com.project.common.result.ResultStatus
 import com.project.domain.user.Role
 import com.project.domain.user.User
 import com.project.infrastructure.data.UserRepository
@@ -29,20 +30,20 @@ open class PostService(
     private val tagService: TagService
 ) {
     @Transactional(readOnly = true)
-    open fun getNewest(): OperationResult<List<PostViewResource>> {
+    open fun getNewest(): OperationResult {
         val posts = this.postRepository.findNewestFour()
         val users = this.userRepository.findAllByIdIn(posts.map { p -> p.userId })
 
-        return OperationResult.success(posts
+        return SuccessResult(posts
             .map { post: Post -> PostViewResource.from(post, users.first { u -> u.id == post.userId }) })
     }
 
     @Transactional(readOnly = true)
-    open fun getAll(page: Int, size: Int): OperationResult<Page<PostViewResource>> {
+    open fun getAll(page: Int, size: Int): OperationResult {
         val posts = this.postRepository.findAll(Pageable.from(page, size))
         val users = this.userRepository.findAllByIdIn(posts.content.map { p -> p.userId })
 
-        return OperationResult.success(posts.map { post: Post ->
+        return SuccessResult(posts.map { post: Post ->
             PostViewResource.from(
                 post,
                 users.first { u -> u.id == post.id })
@@ -59,27 +60,27 @@ open class PostService(
     }
 
     @Transactional(readOnly = true)
-    open fun getMostPopularPosts(): OperationResult<List<PostViewResource>> {
+    open fun getMostPopularPosts(): OperationResult {
         val posts = this.postRepository.findMostPopularPosts()
         val users = this.userRepository.findAllByIdIn(posts.map { p -> p.userId })
 
-        return OperationResult.success(posts
+        return SuccessResult(posts
             .map { post: Post -> PostViewResource.from(post, users.first { u -> u.id == post.id }) })
     }
 
     @Transactional(readOnly = true)
-    open fun getPostBy(postId: UUID): OperationResult<PostDetailsResource> {
+    open fun getPostBy(postId: UUID): OperationResult {
         val post = this.postRepository.findById(postId)
         if (post.isEmpty) {
-            return OperationResult.notFound(listOf("Post with id: $postId not found"))
+            return FailureResult(ResultStatus.NotFound, listOf("Post with id: $postId not found"))
         }
 
         val user = this.userRepository.findById(post.get().userId)
         if (user.isEmpty) {
-            return OperationResult.notFound(listOf("User with id: ${post.get().userId} not found"))
+            return FailureResult(ResultStatus.NotFound, listOf("User with id: ${post.get().userId} not found"))
         }
 
-        return OperationResult.success(PostDetailsResource.from(post.get(), user.get()))
+        return SuccessResult(PostDetailsResource.from(post.get(), user.get()))
     }
 
     @Transactional

@@ -1,8 +1,8 @@
 package com.project.common.exception.base
 
 open class BaseException : Exception {
-    private val errorCode: ErrorCode
-    private val args: MutableList<String> = mutableListOf()
+    val errorCode: ErrorCode
+    val args: MutableList<String> = mutableListOf()
 
     constructor(errorCode: ErrorCode) : this(errorCode, "")
 

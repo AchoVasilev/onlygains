@@ -1,6 +1,7 @@
 package com.project.security
 
 import com.project.application.services.LoggerProvider
+import com.project.common.exception.exceptions.AesDecryptionException
 import com.project.common.exception.exceptions.AesEncryptionException
 import com.project.posts.application.PostService
 import io.micronaut.context.annotation.Value
@@ -65,7 +66,7 @@ class AesEncryptionService : EncryptionService {
             return String(cipherText)
         } catch (e: Exception) {
             log.error("Decryption problem", e)
-            throw AesEncryptionException()
+            throw AesDecryptionException()
         }
     }
 

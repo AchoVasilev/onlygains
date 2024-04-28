@@ -8,6 +8,4 @@ enum class ResultStatus {
     Invalid,
     NotFound,
     Conflict,
-    CriticalError,
-    Unavailable
 }

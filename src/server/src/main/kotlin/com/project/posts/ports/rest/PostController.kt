@@ -1,7 +1,6 @@
 package com.project.posts.ports.rest
 
-import com.project.common.BaseController
-import com.project.common.extensions.HttpResponseExtension.toResponse
+import com.project.common.extensions.toResponse
 import com.project.posts.application.PostQueryType
 import com.project.posts.application.PostService
 import com.project.posts.application.models.post.CreatePostResource
@@ -21,25 +20,25 @@ import java.net.URI
 import java.util.UUID
 
 @Controller(value = "/posts")
-open class PostController(private val postService: PostService) : BaseController() {
+open class PostController(private val postService: PostService) {
     @Get(uri = "/newest")
-    open fun getNewest(): HttpResponse<List<PostViewResource>> {
-        return this.toResponse(postService.getNewest())
+    open fun getNewest(): HttpResponse<*> {
+        return postService.getNewest().toResponse()
     }
 
     @Get(uri = "/popular")
-    open fun getPopular(): HttpResponse<List<PostViewResource>> {
-        return this.toResponse(postService.getMostPopularPosts())
+    open fun getPopular(): HttpResponse<*> {
+        return postService.getMostPopularPosts().toResponse()
     }
 
     @Get(uri = "/details/{id}", produces = [MediaType.APPLICATION_JSON])
-    open fun getPost(@PathVariable("id") id: UUID): HttpResponse<PostDetailsResource> {
-        return this.toResponse(postService.getPostBy(id))
+    open fun getPost(@PathVariable("id") id: UUID): HttpResponse<*> {
+        return postService.getPostBy(id).toResponse()
     }
 
     @Get(uri = "/all")
-    open fun getPostsBy(@QueryValue page: Int, @QueryValue size: Int) : HttpResponse<Page<PostViewResource>> {
-        return this.toResponse(postService.getAll(page, size))
+    open fun getPostsBy(@QueryValue page: Int, @QueryValue size: Int) : HttpResponse<*> {
+        return postService.getAll(page, size).toResponse()
     }
 
     @Get(uri = "/all/filtered")
@@ -50,6 +49,6 @@ open class PostController(private val postService: PostService) : BaseController
     @Post
     open fun createPost(@Body @Valid postResource: CreatePostResource): HttpResponse<PostDetailsResource> {
         val post = postService.createPost(postResource)
-        return HttpResponse.created(post, URI.create("/posts"))
+        return HttpResponse.created(post, URI.create("/posts/details/${post.id}"))
     }
 }

@@ -1,23 +1,35 @@
 package com.project.common.extensions
 
-import com.project.common.BaseController
+import com.project.common.exception.exceptions.OperationException
 import com.project.common.result.OperationResult
 import com.project.common.result.ResultStatus
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 
-object HttpResponseExtension {
-    fun <T> BaseController.toResponse(operationResult: OperationResult<T>): HttpResponse<T> {
-        return when (operationResult.status) {
-            ResultStatus.Ok -> HttpResponse.ok(operationResult.value)
-            ResultStatus.NotFound -> HttpResponse.status(HttpStatus.NOT_FOUND, operationResult.errors.joinToString())
-            ResultStatus.Error -> HttpResponse.status(HttpStatus.INTERNAL_SERVER_ERROR, operationResult.errors.joinToString())
-            ResultStatus.Forbidden -> HttpResponse.status(HttpStatus.FORBIDDEN, operationResult.errors.joinToString())
-            ResultStatus.Unauthorized -> HttpResponse.unauthorized()
-            ResultStatus.Invalid -> HttpResponse.status(HttpStatus.BAD_REQUEST, operationResult.errors.joinToString())
-            ResultStatus.Conflict -> HttpResponse.status(HttpStatus.CONFLICT, operationResult.errors.joinToString())
-            ResultStatus.CriticalError -> HttpResponse.status(HttpStatus.INTERNAL_SERVER_ERROR, operationResult.errors.joinToString())
-            ResultStatus.Unavailable -> HttpResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
+fun OperationResult.toResponse(): HttpResponse<*> {
+    return if (this is SuccessResult<*>) {
+        HttpResponse.ok(this.value)
+    } else {
+        when ((this as FailureResult).status) {
+            ResultStatus.NotFound -> HttpResponse.status<String>(HttpStatus.NOT_FOUND)
+                .body(this.errors.joinToString())
+
+            ResultStatus.Error -> HttpResponse.status<String>(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(this.errors.joinToString())
+
+            ResultStatus.Forbidden -> HttpResponse.status<String>(HttpStatus.FORBIDDEN)
+                .body(this.errors.joinToString())
+
+            ResultStatus.Unauthorized -> HttpResponse.status<String>(HttpStatus.UNAUTHORIZED)
+                .body(this.errors.joinToString())
+
+            ResultStatus.Invalid -> HttpResponse.status<String>(HttpStatus.BAD_REQUEST)
+                .body(this.errors.joinToString())
+
+            ResultStatus.Conflict -> HttpResponse.status<String>(HttpStatus.CONFLICT)
+                .body(this.errors.joinToString())
+
+            else -> throw OperationException()
         }
     }
 }

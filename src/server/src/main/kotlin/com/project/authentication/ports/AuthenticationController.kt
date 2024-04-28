@@ -4,7 +4,6 @@ import com.nimbusds.jwt.SignedJWT
 import com.project.authentication.AuthenticationService
 import com.project.authentication.models.LoginRequestResource
 import com.project.authentication.models.TokenResponseResource
-import com.project.common.BaseController
 import com.project.common.result.OperationResult
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.HttpResponse
@@ -12,14 +11,18 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
+import io.micronaut.security.annotation.Secured
+import io.micronaut.security.rules.SecurityRule
 import jakarta.validation.Valid
 import java.util.Date
 
 @Controller("/auth")
+@Secured(SecurityRule.IS_AUTHENTICATED)
 open class AuthenticationController(
     @Value("\${jwt.expirationTimeInSeconds}") private val jwtExpirationInSeconds: Long,
-    private val authenticationService: AuthenticationService): BaseController() {
+    private val authenticationService: AuthenticationService) {
 
+    @Secured(SecurityRule.IS_ANONYMOUS)
     @Post("/login")
     open fun login(@Body @Valid loginRequest: LoginRequestResource): HttpResponse<TokenResponseResource> {
         val authenticationResult = this.authenticationService.authenticate(loginRequest)
@@ -34,12 +37,13 @@ open class AuthenticationController(
         return this.buildTokenResponse(refreshResult)
     }
 
-    private fun buildTokenResponse(tokenResult: OperationResult<String>): HttpResponse<TokenResponseResource> {
+    private fun buildTokenResponse(tokenResult: OperationResult): HttpResponse<TokenResponseResource> {
         if (!tokenResult.isSuccess) {
             return HttpResponse.notFound()
         }
 
-        val tokenResponse = TokenResponseResource(tokenResult.value!!, this.jwtExpirationInSeconds, this.getTokenExpirationAt(
+        val tokenResponse = TokenResponseResource(
+            (tokenResult as SuccessResult<String>).value, this.jwtExpirationInSeconds, this.getTokenExpirationAt(
             tokenResult.value
         ))
 

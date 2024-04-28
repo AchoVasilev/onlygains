@@ -1,6 +1,8 @@
 package com.project.common.exception.handlers
 
+import com.project.common.exception.ErrorResponse
 import com.project.common.exception.base.BaseException
+import com.project.common.exception.base.ErrorCode
 import io.micronaut.context.annotation.Requirements
 import io.micronaut.context.annotation.Requires
 import io.micronaut.http.HttpRequest
@@ -17,6 +19,11 @@ import jakarta.inject.Singleton
 )
 class BaseExceptionHandler : ExceptionHandler<BaseException, HttpResponse<*>>{
     override fun handle(request: HttpRequest<*>, exception: BaseException): HttpResponse<*> {
-        return HttpResponse.serverError(exception.message)
+        return createErrorResponse(exception.errorCode, exception.message, exception.args)
+    }
+
+    private fun createErrorResponse(errorCode: ErrorCode, message: String?, args: List<String>): HttpResponse<ErrorResponse> {
+        return HttpResponse.status<ErrorResponse?>(errorCode.httpStatus)
+            .body(ErrorResponse(errorCode.name, errorCode.pattern, args, message))
     }
 }

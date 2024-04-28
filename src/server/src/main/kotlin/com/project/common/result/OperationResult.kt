@@ -1,51 +1,44 @@
 package com.project.common.result
 
-open class OperationResult<T> private constructor(val value: T? = null) {
+import com.project.common.exception.base.ErrorCode
+import com.project.common.exception.exceptions.OperationException
 
-    private constructor(value: T, successMessage: String) : this(value) {
-        this.successMessage = successMessage
+open class OperationResult private constructor(val isSuccess: Boolean) {
+
+    protected constructor(isSuccess: Boolean, error: Error): this(isSuccess) {
+        require(isSuccess && error != Error.none() || !isSuccess && error == Error.none()) {
+            "Invalid error"
+        }
     }
 
-    private constructor(status: ResultStatus) : this() {
-        this.status = status
-    }
-
-    private constructor(status: ResultStatus, errorMessages: List<String>) : this(status) {
-        this.errors = errorMessages
-        this.isSuccess = false
-    }
-
-    var status: ResultStatus = ResultStatus.Ok
-        private set
-
-    var isSuccess: Boolean = this.status == ResultStatus.Ok
-        private set
-    var successMessage: String = String()
-    var errors: List<String> = listOf()
+    val isFailure: Boolean
+        get() = !isSuccess
 
     companion object {
-        fun <T> success(value: T): OperationResult<T> {
-            return OperationResult(value)
-        }
+        fun success(): OperationResult = OperationResult(true, Error.none())
 
-        fun <T> success(value: T, successMessage: String): OperationResult<T> {
-            return OperationResult(value, successMessage)
-        }
+        fun <TValue> success(value: TValue): ValueResult<TValue> = ValueResult(value, true, Error.none())
 
-        fun <T> notFound(): OperationResult<T> {
-            return OperationResult(ResultStatus.NotFound)
-        }
+        fun failure(error: Error): OperationResult = OperationResult(false, error)
 
-        fun <T> notFound(errors: List<String>): OperationResult<T> {
-            return OperationResult(ResultStatus.NotFound, errors)
-        }
+        fun <TValue> failureWithNull(error: Error): ValueResult<TValue> = ValueResult(null, false, error)
+    }
+}
 
-        fun <T> badRequest(): OperationResult<T> {
-            return OperationResult(ResultStatus.Invalid)
-        }
+class ValueResult<TValue>(private val value: TValue?, isSuccess: Boolean, error: Error) :
+    OperationResult(isSuccess, error) {
 
-        fun <T> badRequest(errors: List<String>): OperationResult<T> {
-            return OperationResult(ResultStatus.Invalid, errors)
+    fun value(): TValue {
+        return if (isSuccess) this.value!! else throw OperationException(ErrorCode.OPERATION_RESULT_VALUE_FAILED_EXCEPTION)
+    }
+
+    companion object {
+        fun <TValue> fromNullable(value: TValue?): ValueResult<TValue> {
+            return if (value != null) {
+                success(value)
+            } else {
+                failureWithNull(Error.nullValue())
+            }
         }
     }
 }

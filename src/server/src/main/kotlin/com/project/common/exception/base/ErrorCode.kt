@@ -2,9 +2,11 @@ package com.project.common.exception.base
 
 import io.micronaut.http.HttpStatus
 
-enum class ErrorCode(private val httpStatus: HttpStatus, private val pattern: String) {
+enum class ErrorCode(val httpStatus: HttpStatus, val pattern: String) {
     AES_ENCRYPTION_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "AES encryption exception"),
-    AES_DECRYPTION_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "AES decryption exception");
+    AES_DECRYPTION_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "AES decryption exception"),
+    OPERATION_RESULT_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid status"),
+    OPERATION_RESULT_VALUE_FAILED_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "The value of a failure result cannot be accessed");
 
     override fun toString(): String {
         return "${this.name}:${this.pattern}"

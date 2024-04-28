@@ -1,6 +1,7 @@
 package com.project.authentication
 
 import com.project.application.services.LoggerProvider
+import com.project.common.errormessages.UserMessages
 import com.project.common.result.OperationResult
 import com.project.domain.user.Role
 import com.project.domain.user.User
@@ -20,16 +21,16 @@ open class UserService(
 ) {
 
     @Transactional
-    open fun createUser(email: String, password: String, firstName: String, lastName: String): OperationResult<User> {
-        val user = this.findUserBy(email)
+    open fun createUser(email: String, password: String, firstName: String, lastName: String): OperationResult {
+        val encryptedMail = this.emailEncryptionService.encryptEmail(email)
+        val user = this.userRepository.findByEmail(encryptedMail)
         if (user != null) {
             log.info("User exists. [email={}]", email)
-            return OperationResult.badRequest(listOf("User exists!"))
+            return OperationResult.failure(UserMessages.USER_EXISTS.toError())
         }
 
         val hashedPassword = this.hashPassword(password)
-        val hashedEmail = this.emailEncryptionService.encryptEmail(email)
-        val newUser = User(hashedEmail, hashedPassword, firstName, lastName, Role.USER)
+        val newUser = User(encryptedMail, hashedPassword, firstName, lastName, Role.USER)
 
         val result = OperationResult.success(this.userRepository.save(newUser))
         log.info("Successfully created user. [id={}, email={}]", newUser.id, email)
@@ -38,18 +39,18 @@ open class UserService(
     }
 
     @Transactional(readOnly = true)
-    open fun findUserBy(email: String, password: String): OperationResult<User> {
+    open fun findUserBy(email: String, password: String): OperationResult {
         val user = this.findUserBy(email)
 
         if (user == null) {
             log.info("User not found. [email={}]", email)
-            return OperationResult.notFound(listOf("Credentials do not match!"))
+            return OperationResult.failure(UserMessages.CREDENTIALS_NOT_MATCH.toError())
         }
 
         val passwordsMatch = this.hashService.matchHash(password, user.password)
         if (!passwordsMatch) {
             log.info("User credentials do not match. [email={}]", email)
-            return OperationResult.badRequest(listOf("Credentials do not match!"))
+            return OperationResult.failure(UserMessages.CREDENTIALS_NOT_MATCH.toError())
         }
 
         return OperationResult.success(user)
