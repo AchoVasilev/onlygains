@@ -3,41 +3,45 @@ package com.project.common.result
 import com.project.common.exception.base.ErrorCode
 import com.project.common.exception.exceptions.OperationException
 
-open class OperationResult private constructor(val isSuccess: Boolean) {
+open class OperationResult<TValue> private constructor(private val isSuccess: Boolean, val status: ResultStatus) {
+    var error: Error = Error.none()
+        private set
 
-    protected constructor(isSuccess: Boolean, error: Error): this(isSuccess) {
-        require(isSuccess && error != Error.none() || !isSuccess && error == Error.none()) {
+    private var value: TValue? = null
+
+    private constructor(isSuccess: Boolean, error: Error, status: ResultStatus): this(isSuccess, status) {
+        require(!(isSuccess && error != Error.none() || !isSuccess && error == Error.none())) {
             "Invalid error"
         }
+
+        this.error = error
+    }
+
+    private constructor(value: TValue?, isSuccess: Boolean, error: Error, status: ResultStatus): this(isSuccess, error, status) {
+        this.value = value
     }
 
     val isFailure: Boolean
         get() = !isSuccess
 
-    companion object {
-        fun success(): OperationResult = OperationResult(true, Error.none())
-
-        fun <TValue> success(value: TValue): ValueResult<TValue> = ValueResult(value, true, Error.none())
-
-        fun failure(error: Error): OperationResult = OperationResult(false, error)
-
-        fun <TValue> failureWithNull(error: Error): ValueResult<TValue> = ValueResult(null, false, error)
-    }
-}
-
-class ValueResult<TValue>(private val value: TValue?, isSuccess: Boolean, error: Error) :
-    OperationResult(isSuccess, error) {
-
     fun value(): TValue {
-        return if (isSuccess) this.value!! else throw OperationException(ErrorCode.OPERATION_RESULT_VALUE_FAILED_EXCEPTION)
+        return if (this.isSuccess) this.value!! else throw OperationException(ErrorCode.OPERATION_RESULT_VALUE_FAILED_EXCEPTION)
     }
 
     companion object {
-        fun <TValue> fromNullable(value: TValue?): ValueResult<TValue> {
+        fun <TValue> success(): OperationResult<TValue> = OperationResult(true, Error.none(), ResultStatus.Ok)
+
+        fun <TValue> success(value: TValue): OperationResult<TValue> = OperationResult(value, true, Error.none(), ResultStatus.Ok)
+
+        fun <TValue> success(value: TValue, status: ResultStatus): OperationResult<TValue> = OperationResult(value, true, Error.none(), status)
+
+        fun <TValue> failure(error: Error, status: ResultStatus): OperationResult<TValue> = OperationResult(false, error, status)
+
+        fun <TValue> fromNullable(value: TValue?): OperationResult<TValue> {
             return if (value != null) {
-                success(value)
+                success(value, ResultStatus.Ok)
             } else {
-                failureWithNull(Error.nullValue())
+                failure(Error.nullValue(), ResultStatus.Invalid)
             }
         }
     }

@@ -2,7 +2,8 @@ package com.project.authentication.ports
 
 import com.project.authentication.UserService
 import com.project.authentication.models.RegisterUserRequestResource
-import com.project.common.extensions.toResponse
+import com.project.common.result.OperationResult
+import com.project.domain.user.User
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
@@ -16,9 +17,9 @@ import jakarta.validation.Valid
 open class UserController(private val userService: UserService) {
 
     @Post
-    open fun createUser(@Body @Valid request: RegisterUserRequestResource): HttpResponse<*> {
+    open fun createUser(@Body @Valid request: RegisterUserRequestResource): HttpResponse<OperationResult<User>> {
         val result = this.userService.createUser(request.email, request.password, request.firstName, request.lastName)
 
-        return result.toResponse()
+        return HttpResponse.created(result)
     }
 }

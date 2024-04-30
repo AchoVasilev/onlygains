@@ -3,6 +3,7 @@ package com.project.authentication
 import com.project.application.services.LoggerProvider
 import com.project.common.errormessages.UserMessages
 import com.project.common.result.OperationResult
+import com.project.common.result.ResultStatus
 import com.project.domain.user.Role
 import com.project.domain.user.User
 import com.project.infrastructure.data.UserRepository
@@ -21,12 +22,12 @@ open class UserService(
 ) {
 
     @Transactional
-    open fun createUser(email: String, password: String, firstName: String, lastName: String): OperationResult {
+    open fun createUser(email: String, password: String, firstName: String, lastName: String): OperationResult<User> {
         val encryptedMail = this.emailEncryptionService.encryptEmail(email)
         val user = this.userRepository.findByEmail(encryptedMail)
         if (user != null) {
             log.info("User exists. [email={}]", email)
-            return OperationResult.failure(UserMessages.USER_EXISTS.toError())
+            return OperationResult.failure(UserMessages.USER_EXISTS.toError(), ResultStatus.Invalid)
         }
 
         val hashedPassword = this.hashPassword(password)
@@ -39,18 +40,18 @@ open class UserService(
     }
 
     @Transactional(readOnly = true)
-    open fun findUserBy(email: String, password: String): OperationResult {
+    open fun findUserBy(email: String, password: String): OperationResult<User> {
         val user = this.findUserBy(email)
 
         if (user == null) {
             log.info("User not found. [email={}]", email)
-            return OperationResult.failure(UserMessages.CREDENTIALS_NOT_MATCH.toError())
+            return OperationResult.failure(UserMessages.CREDENTIALS_NOT_MATCH.toError(), ResultStatus.NotFound)
         }
 
         val passwordsMatch = this.hashService.matchHash(password, user.password)
         if (!passwordsMatch) {
             log.info("User credentials do not match. [email={}]", email)
-            return OperationResult.failure(UserMessages.CREDENTIALS_NOT_MATCH.toError())
+            return OperationResult.failure(UserMessages.CREDENTIALS_NOT_MATCH.toError(), ResultStatus.NotFound)
         }
 
         return OperationResult.success(user)

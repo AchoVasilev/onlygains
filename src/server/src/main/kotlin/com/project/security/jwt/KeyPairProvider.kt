@@ -1,6 +1,7 @@
 package com.project.security.jwt
 
 import com.project.application.services.LoggerProvider
+import io.micronaut.core.io.Readable
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.bouncycastle.openssl.PEMException
 import org.bouncycastle.openssl.PEMKeyPair
@@ -10,8 +11,6 @@ import org.slf4j.Logger
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStreamReader
-import java.nio.file.Files
-import java.nio.file.Paths
 import java.security.KeyPair
 import java.security.Security
 
@@ -19,12 +18,12 @@ class KeyPairProvider {
 
     companion object {
         @JvmStatic
-        fun keyPair(pemPath: String): KeyPair? {
+        fun keyPair(pemFile: Readable): KeyPair? {
             Security.addProvider(BouncyCastleProvider())
 
             val parser: PEMParser
             try {
-                parser = PEMParser(InputStreamReader(Files.newInputStream(Paths.get(pemPath))))
+                parser = PEMParser(InputStreamReader(pemFile.asInputStream()))
                 val pemKeyPair = parser.readObject() as PEMKeyPair
 
                 val converter = JcaPEMKeyConverter()
@@ -33,7 +32,7 @@ class KeyPairProvider {
 
                 return keyPair
             } catch (ex: FileNotFoundException) {
-                log.warn("file not found: {}", pemPath)
+                log.warn("file not found: {}", pemFile.name)
             } catch (ex: PEMException) {
                 log.warn("PEM exception: {}", ex.message)
             } catch (ex: IOException) {

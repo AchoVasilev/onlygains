@@ -1,35 +1,73 @@
 package com.project.common.extensions
 
-import com.project.common.exception.exceptions.OperationException
+
+import com.project.common.exception.HttpErrorResponse
 import com.project.common.result.OperationResult
 import com.project.common.result.ResultStatus
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 
-fun OperationResult.toResponse(): HttpResponse<*> {
-    return if (this is SuccessResult<*>) {
-        HttpResponse.ok(this.value)
-    } else {
-        when ((this as FailureResult).status) {
-            ResultStatus.NotFound -> HttpResponse.status<String>(HttpStatus.NOT_FOUND)
-                .body(this.errors.joinToString())
+fun HttpResponse<*>.fromResult(): HttpResponse<*> {
+    if (this.body.isPresent && this.body.get() is OperationResult<*>) {
+        val operationResult = this.body.get() as OperationResult<*>
+        return when (operationResult.status) {
+            ResultStatus.Ok -> HttpResponse.ok(operationResult.value())
+            ResultStatus.Error -> HttpResponse.serverError(
+                HttpErrorResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "500 Internal server error",
+                    "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1",
+                    mapOf(operationResult.error.code to operationResult.error.description)
+                )
+            )
 
-            ResultStatus.Error -> HttpResponse.status<String>(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(this.errors.joinToString())
+            ResultStatus.Forbidden -> HttpResponse.status<HttpErrorResponse>(HttpStatus.FORBIDDEN)
+                .body(
+                    HttpErrorResponse(
+                        HttpStatus.FORBIDDEN,
+                        "403 Forbidden",
+                        "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.3",
+                        mapOf(operationResult.error.code to operationResult.error.description)
+                    )
+                )
 
-            ResultStatus.Forbidden -> HttpResponse.status<String>(HttpStatus.FORBIDDEN)
-                .body(this.errors.joinToString())
+            ResultStatus.Unauthorized -> HttpResponse.status<HttpErrorResponse>(HttpStatus.UNAUTHORIZED).body(
+                HttpErrorResponse(
+                    HttpStatus.UNAUTHORIZED,
+                    "401 Unauthorized",
+                    "https://datatracker.ietf.org/doc/html/rfc7235#section-3.1",
+                    mapOf(operationResult.error.code to operationResult.error.description)
+                )
+            )
 
-            ResultStatus.Unauthorized -> HttpResponse.status<String>(HttpStatus.UNAUTHORIZED)
-                .body(this.errors.joinToString())
+            ResultStatus.Invalid -> HttpResponse.badRequest(
+                HttpErrorResponse(
+                    HttpStatus.BAD_REQUEST,
+                    "400 Bad Request",
+                    "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
+                    mapOf(operationResult.error.code to operationResult.error.description)
+                )
+            )
 
-            ResultStatus.Invalid -> HttpResponse.status<String>(HttpStatus.BAD_REQUEST)
-                .body(this.errors.joinToString())
+            ResultStatus.NotFound -> HttpResponse.notFound(
+                HttpErrorResponse(
+                    HttpStatus.BAD_REQUEST,
+                    "404 Not Found",
+                    "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.4",
+                    mapOf(operationResult.error.code to operationResult.error.description)
+                )
+            )
 
-            ResultStatus.Conflict -> HttpResponse.status<String>(HttpStatus.CONFLICT)
-                .body(this.errors.joinToString())
-
-            else -> throw OperationException()
+            ResultStatus.Conflict -> HttpResponse.status<HttpErrorResponse>(HttpStatus.CONFLICT).body(
+                HttpErrorResponse(
+                    HttpStatus.CONFLICT,
+                    "409 Conflict",
+                    "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.8",
+                    mapOf(operationResult.error.code to operationResult.error.description)
+                )
+            )
         }
     }
+
+    return this
 }

@@ -1,6 +1,6 @@
 package com.project.posts.ports.rest
 
-import com.project.common.extensions.toResponse
+import com.project.common.result.OperationResult
 import com.project.posts.application.PostQueryType
 import com.project.posts.application.PostService
 import com.project.posts.application.models.post.CreatePostResource
@@ -22,23 +22,23 @@ import java.util.UUID
 @Controller(value = "/posts")
 open class PostController(private val postService: PostService) {
     @Get(uri = "/newest")
-    open fun getNewest(): HttpResponse<*> {
-        return postService.getNewest().toResponse()
+    open fun getNewest(): HttpResponse<OperationResult<List<PostViewResource>>> {
+        return HttpResponse.ok(postService.getNewest())
     }
 
     @Get(uri = "/popular")
-    open fun getPopular(): HttpResponse<*> {
-        return postService.getMostPopularPosts().toResponse()
+    open fun getPopular(): HttpResponse<OperationResult<List<PostViewResource>>> {
+        return HttpResponse.ok(postService.getMostPopularPosts())
     }
 
     @Get(uri = "/details/{id}", produces = [MediaType.APPLICATION_JSON])
-    open fun getPost(@PathVariable("id") id: UUID): HttpResponse<*> {
-        return postService.getPostBy(id).toResponse()
+    open fun getPost(@PathVariable("id") id: UUID): HttpResponse<OperationResult<PostDetailsResource>> {
+        return HttpResponse.ok(postService.getPostBy(id))
     }
 
     @Get(uri = "/all")
-    open fun getPostsBy(@QueryValue page: Int, @QueryValue size: Int) : HttpResponse<*> {
-        return postService.getAll(page, size).toResponse()
+    open fun getPostsBy(@QueryValue page: Int, @QueryValue size: Int) : HttpResponse<OperationResult<Page<PostViewResource>>> {
+        return HttpResponse.ok(postService.getAll(page, size))
     }
 
     @Get(uri = "/all/filtered")

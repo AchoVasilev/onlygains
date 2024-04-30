@@ -37,19 +37,19 @@ open class AuthenticationController(
         return this.buildTokenResponse(refreshResult)
     }
 
-    private fun buildTokenResponse(tokenResult: OperationResult): HttpResponse<TokenResponseResource> {
-        if (!tokenResult.isSuccess) {
-            return HttpResponse.notFound()
+    private fun buildTokenResponse(tokenResult: OperationResult<String>): HttpResponse<TokenResponseResource> {
+        if (tokenResult.isFailure) {
+            return HttpResponse.status(tokenResult.status.toHttpStatus())
         }
 
         val tokenResponse = TokenResponseResource(
-            (tokenResult as SuccessResult<String>).value, this.jwtExpirationInSeconds, this.getTokenExpirationAt(
-            tokenResult.value
+            tokenResult.value(), this.jwtExpirationInSeconds, this.getTokenExpirationAt(
+            tokenResult.value()
         ))
 
         return HttpResponse.status<TokenResponseResource?>(HttpStatus.OK)
             .body(tokenResponse)
-            .header("X-AUTH-TOKEN", tokenResult.value)
+            .header("X-AUTH-TOKEN", tokenResult.value())
     }
 
     private fun getTokenExpirationAt(token: String): Date {
