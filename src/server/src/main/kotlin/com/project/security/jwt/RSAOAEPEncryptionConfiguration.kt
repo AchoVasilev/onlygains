@@ -10,11 +10,12 @@ import java.security.interfaces.RSAPublicKey
 
 @Singleton
 class RSAOAEPEncryptionConfiguration(
-    @Value("\${pem.path}") private val pemPath: Readable,
+    @Value("\${jwt.private.key}") private val privateKey: Readable,
+    @Value("\${jwt.public.key}") private val publicKey: Readable,
 ) {
-    private val keyPair = KeyPairProvider.keyPair(pemPath)
-    var rsaPublicKey: RSAPublicKey = keyPair?.public as RSAPublicKey
-    val rsaPrivateKey: RSAPrivateKey = keyPair?.private as RSAPrivateKey
+    private val keyPair = KeyPairProvider.keyPair(privateKey, publicKey)
+    var rsaPublicKey: RSAPublicKey = keyPair.public as RSAPublicKey
+    val rsaPrivateKey: RSAPrivateKey = keyPair.private as RSAPrivateKey
     val jweAlgorithm: JWSAlgorithm = JWSAlgorithm.RS256
     val encryptionMethod: EncryptionMethod = EncryptionMethod.A128GCM
 }

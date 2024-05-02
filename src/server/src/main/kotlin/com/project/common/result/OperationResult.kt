@@ -10,8 +10,8 @@ open class OperationResult<TValue> private constructor(private val isSuccess: Bo
     private var value: TValue? = null
 
     private constructor(isSuccess: Boolean, error: Error, status: ResultStatus): this(isSuccess, status) {
-        require(!(isSuccess && error != Error.none() || !isSuccess && error == Error.none())) {
-            "Invalid error"
+        if(isSuccess && error != Error.none() || !isSuccess && error == Error.none()) {
+            throw OperationException(ErrorCode.OPERATION_RESULT_SHOULD_NOT_BE_SUCCESS_EXCEPTION)
         }
 
         this.error = error

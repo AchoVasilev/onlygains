@@ -5,4 +5,4 @@ import com.project.common.exception.base.ErrorCode
 import io.micronaut.serde.annotation.Serdeable
 
 @Serdeable
-data class AesDecryptionException(val error: ErrorCode = ErrorCode.AES_DECRYPTION_EXCEPTION) : BaseException(error)
+data class KeyPairExtractionException(val code: ErrorCode = ErrorCode.KEY_PAIR_EXTRACTION_EXCEPTION) : BaseException(code)
