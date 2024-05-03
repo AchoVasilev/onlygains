@@ -1,4 +1,4 @@
-package com.project.security
+package com.project.infrastructure.security
 
 interface HashService {
     fun hashText(text: String, salt: String): String

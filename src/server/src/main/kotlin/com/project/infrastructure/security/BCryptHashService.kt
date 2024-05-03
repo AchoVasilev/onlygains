@@ -1,4 +1,4 @@
-package com.project.security
+package com.project.infrastructure.security
 
 import jakarta.inject.Singleton
 import org.bouncycastle.crypto.generators.OpenBSDBCrypt

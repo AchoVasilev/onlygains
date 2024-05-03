@@ -5,7 +5,7 @@ import com.project.application.models.workout.CreateWorkoutSetResource
 import com.project.application.models.workout.UpdateWorkoutExerciseResource
 import com.project.application.models.workout.WorkoutDetailsResource
 import com.project.application.models.workout.WorkoutSetResource
-import com.project.application.services.LoggerProvider.getLogger
+import com.project.infrastructure.utilities.LoggerProvider.getLogger
 import com.project.domain.workout.Workout
 import com.project.domain.workout.WorkoutExercise
 import com.project.domain.workout.WorkoutSet

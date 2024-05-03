@@ -1,7 +1,7 @@
-package com.project.security.jwt
+package com.project.infrastructure.security.jwt
 
-import com.project.application.services.LoggerProvider
 import com.project.common.exception.exceptions.KeyPairExtractionException
+import com.project.infrastructure.utilities.LoggerProvider
 import io.micronaut.core.io.Readable
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo
@@ -26,10 +26,11 @@ object KeyPairProvider {
     @JvmStatic
     fun keyPair(privateKey: Readable, publicKey: Readable): KeyPair {
         Security.addProvider(BouncyCastleProvider())
+        val keyFactory: KeyFactory = KeyFactory.getInstance("RSA")
 
         return try {
-            val publicKeyLoad = loadPublicKey(publicKey.asInputStream())
-            val privateKeyLoad = loadPrivateKey(privateKey.asInputStream())
+            val publicKeyLoad = loadPublicKey(publicKey.asInputStream(), keyFactory)
+            val privateKeyLoad = loadPrivateKey(privateKey.asInputStream(), keyFactory)
 
             KeyPair(publicKeyLoad, privateKeyLoad)
         } catch (ex: GeneralSecurityException) {
@@ -41,27 +42,21 @@ object KeyPairProvider {
         }
     }
 
-    private fun loadPublicKey(publicKeyStream: InputStream): RSAPublicKey {
+    private fun loadPublicKey(publicKeyStream: InputStream, keyFactory: KeyFactory): RSAPublicKey {
         publicKeyStream.use { inputStream ->
-            val pemParser =
-                PEMParser(InputStreamReader(inputStream))
-            val publicKeyInfo: SubjectPublicKeyInfo = SubjectPublicKeyInfo.getInstance(pemParser.readObject())
-            val pubKeySpec =
-                X509EncodedKeySpec(publicKeyInfo.encoded)
-            val keyFactory: KeyFactory = KeyFactory.getInstance("RSA")
+            val readObject = PEMParser(InputStreamReader(inputStream)).use { parser -> parser.readObject() }
+            val publicKeyInfo: SubjectPublicKeyInfo = SubjectPublicKeyInfo.getInstance(readObject)
+            val pubKeySpec = X509EncodedKeySpec(publicKeyInfo.encoded)
 
             return keyFactory.generatePublic(pubKeySpec) as RSAPublicKey
         }
     }
 
-    private fun loadPrivateKey(privateKeyStream: InputStream): RSAPrivateKey {
-        privateKeyStream.use { `in` ->
-            val pemParser =
-                PEMParser(InputStreamReader(`in`))
-            val privateKeyInfo: PrivateKeyInfo = PrivateKeyInfo.getInstance(pemParser.readObject())
-            val privateKeySpec =
-                PKCS8EncodedKeySpec(privateKeyInfo.encoded)
-            val keyFactory: KeyFactory = KeyFactory.getInstance("RSA")
+    private fun loadPrivateKey(privateKeyStream: InputStream, keyFactory: KeyFactory): RSAPrivateKey {
+        privateKeyStream.use { inputStream ->
+            val readObject = PEMParser(InputStreamReader(inputStream)).use { parser -> parser.readObject() }
+            val privateKeyInfo: PrivateKeyInfo = PrivateKeyInfo.getInstance(readObject)
+            val privateKeySpec = PKCS8EncodedKeySpec(privateKeyInfo.encoded)
 
             return keyFactory.generatePrivate(privateKeySpec) as RSAPrivateKey
         }

@@ -1,13 +1,13 @@
 package com.project.authentication
 
-import com.project.application.services.LoggerProvider
+import com.project.infrastructure.utilities.LoggerProvider
 import com.project.authentication.models.LoginRequestResource
 import com.project.common.errormessages.UserMessages
 import com.project.common.result.OperationResult
 import com.project.common.result.ResultStatus
 import com.project.domain.user.User
 import com.project.domain.user.UserStatus
-import com.project.security.jwt.JwtService
+import com.project.infrastructure.security.jwt.JwtService
 import io.micronaut.security.authentication.Authentication
 import io.micronaut.security.utils.SecurityService
 import io.micronaut.transaction.annotation.Transactional

@@ -1,8 +1,8 @@
 package com.project.domain.workout
 
 import com.project.common.BaseEntity
-import com.project.utilities.FindUtil.findByProperty
-import com.project.utilities.Time.utcNow
+import com.project.infrastructure.utilities.FindUtil.findByProperty
+import com.project.infrastructure.utilities.Time.utcNow
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType

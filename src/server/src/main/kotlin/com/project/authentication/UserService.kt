@@ -1,14 +1,14 @@
 package com.project.authentication
 
-import com.project.application.services.LoggerProvider
+import com.project.infrastructure.utilities.LoggerProvider
 import com.project.common.errormessages.UserMessages
 import com.project.common.result.OperationResult
 import com.project.common.result.ResultStatus
 import com.project.domain.user.Role
 import com.project.domain.user.User
 import com.project.infrastructure.data.UserRepository
-import com.project.security.EmailEncryptionService
-import com.project.security.HashService
+import com.project.infrastructure.security.EmailEncryptionService
+import com.project.infrastructure.security.HashService
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
 import java.security.SecureRandom

@@ -1,4 +1,4 @@
-package com.project.security.jwt
+package com.project.infrastructure.security.jwt
 
 import com.nimbusds.jose.EncryptionMethod
 import com.nimbusds.jose.JWEAlgorithm

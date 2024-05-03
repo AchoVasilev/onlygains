@@ -1,6 +1,6 @@
 package com.project.posts.application
 
-import com.project.application.services.LoggerProvider
+import com.project.infrastructure.utilities.LoggerProvider
 import com.project.common.errormessages.PostMessages
 import com.project.common.errormessages.UserMessages
 import com.project.common.result.OperationResult

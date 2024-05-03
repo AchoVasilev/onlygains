@@ -1,6 +1,6 @@
 package com.project.common
 
-import com.project.utilities.Time.utcNow
+import com.project.infrastructure.utilities.Time.utcNow
 import jakarta.persistence.MappedSuperclass
 import java.time.Instant
 

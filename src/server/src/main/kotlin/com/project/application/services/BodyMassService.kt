@@ -2,6 +2,7 @@ package com.project.application.services
 
 import com.project.application.models.user.workout.CreateBmrResource
 import com.project.application.models.user.workout.WorkoutProfileDetailsResource
+import com.project.infrastructure.utilities.LoggerProvider
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
 import java.util.UUID

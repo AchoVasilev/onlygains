@@ -1,4 +1,4 @@
-package com.project.utilities
+package com.project.infrastructure.utilities
 
 import java.time.format.DateTimeFormatter
 

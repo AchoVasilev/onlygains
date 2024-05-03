@@ -1,4 +1,4 @@
-package com.project.application.services
+package com.project.infrastructure.utilities
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

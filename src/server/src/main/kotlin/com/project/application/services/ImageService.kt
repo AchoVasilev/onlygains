@@ -40,12 +40,9 @@ class ImageService(private val cloudinary: Cloudinary) {
         }
     }
 
-    @Throws(IOException::class)
     private fun convertMultipartToFile(file: CompletedFileUpload): File {
         val convFile = File(file.filename)
-        val fos = FileOutputStream(convFile)
-        fos.write(file.bytes)
-        fos.close()
+        FileOutputStream(convFile).use { fos -> fos.write(file.bytes) }
 
         return convFile
     }

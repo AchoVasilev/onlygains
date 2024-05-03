@@ -1,4 +1,4 @@
-package com.project.utilities
+package com.project.infrastructure.utilities
 
 import java.util.Optional
 import java.util.function.Predicate

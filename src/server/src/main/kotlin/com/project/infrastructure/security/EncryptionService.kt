@@ -1,4 +1,4 @@
-package com.project.security
+package com.project.infrastructure.security
 
 interface EncryptionService {
     fun encrypt(original: String, secret: String): String

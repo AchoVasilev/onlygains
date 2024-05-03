@@ -1,4 +1,4 @@
-package com.project.security
+package com.project.infrastructure.security
 
 import io.micronaut.context.annotation.Value
 import jakarta.inject.Singleton

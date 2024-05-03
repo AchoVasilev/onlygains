@@ -6,6 +6,7 @@ import com.project.application.models.todoitem.TodoItemDetailsResource
 import com.project.domain.todo.TodoItem
 import com.project.infrastructure.data.TodoItemRepository
 import com.project.infrastructure.exceptions.EntityNotFoundException
+import com.project.infrastructure.utilities.LoggerProvider
 import io.micronaut.transaction.annotation.ReadOnly
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
