@@ -27,3 +27,20 @@ class BaseExceptionHandler : ExceptionHandler<BaseException, HttpResponse<*>>{
             .body(ErrorResponse(errorCode.name, errorCode.pattern, args, message))
     }
 }
+
+@Produces
+@Singleton
+@Requirements(
+    Requires(classes = [Exception::class, ExceptionHandler::class])
+)
+class ExceptionHandler : ExceptionHandler<Exception, HttpResponse<*>>{
+    override fun handle(request: HttpRequest<*>, exception: Exception): HttpResponse<*> {
+        return createErrorResponse(exception.message, listOf())
+    }
+
+    private fun createErrorResponse(message: String?, args: List<String>): HttpResponse<ErrorResponse> {
+        val errorCode: ErrorCode = ErrorCode.INTERNAL_ERROR
+        return HttpResponse.status<ErrorResponse?>(errorCode.httpStatus)
+            .body(ErrorResponse(errorCode.name, errorCode.pattern, args, message))
+    }
+}

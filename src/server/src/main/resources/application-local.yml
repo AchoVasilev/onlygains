@@ -10,13 +10,14 @@ micronaut:
           allowedOrigins:
             - http://localhost:4200
   security:
+    enabled: true
     authentication: bearer
     token:
       jwt:
+        enabled: true
         signatures:
           generator:
             secret: 1d0c3fa23991402e9586555c0f2c6706
-            base64: true
             jws-algorithm: HS256
 
 jwt:

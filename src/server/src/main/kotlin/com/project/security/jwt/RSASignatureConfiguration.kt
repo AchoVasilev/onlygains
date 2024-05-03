@@ -1,10 +1,9 @@
 package com.project.security.jwt
 
-import com.nimbusds.jose.EncryptionMethod
-import com.nimbusds.jose.JWEAlgorithm
+import com.nimbusds.jose.JWSAlgorithm
 import io.micronaut.context.annotation.Value
 import io.micronaut.core.io.Readable
-import io.micronaut.security.token.jwt.encryption.rsa.RSAEncryptionConfiguration
+import io.micronaut.security.token.jwt.signature.rsa.RSASignatureGeneratorConfiguration
 import jakarta.inject.Named
 import jakarta.inject.Singleton
 import java.security.interfaces.RSAPrivateKey
@@ -12,16 +11,15 @@ import java.security.interfaces.RSAPublicKey
 
 @Named("generator")
 @Singleton
-class RSAOAEPEncryptionConfiguration(
+class RSASignatureConfiguration(
     @Value("\${jwt.private.key}") private val privateKey: Readable,
     @Value("\${jwt.public.key}") private val publicKey: Readable,
-) : RSAEncryptionConfiguration {
+) : RSASignatureGeneratorConfiguration {
+
     private val keyPair = KeyPairProvider.keyPair(privateKey, publicKey)
     private var rsaPublicKey: RSAPublicKey = keyPair.public as RSAPublicKey
     private val rsaPrivateKey: RSAPrivateKey = keyPair.private as RSAPrivateKey
-    private val jweAlgorithm: JWEAlgorithm = JWEAlgorithm.RSA_OAEP_256
-    private val encryptionMethod: EncryptionMethod = EncryptionMethod.A256GCM
-
+    private val jwsAlgorithm: JWSAlgorithm = JWSAlgorithm.RS256
     override fun getPublicKey(): RSAPublicKey {
         return this.rsaPublicKey
     }
@@ -30,11 +28,7 @@ class RSAOAEPEncryptionConfiguration(
         return this.rsaPrivateKey
     }
 
-    override fun getJweAlgorithm(): JWEAlgorithm {
-        return this.jweAlgorithm
-    }
-
-    override fun getEncryptionMethod(): EncryptionMethod {
-        return this.encryptionMethod
+    override fun getJwsAlgorithm(): JWSAlgorithm {
+        return this.jwsAlgorithm
     }
 }

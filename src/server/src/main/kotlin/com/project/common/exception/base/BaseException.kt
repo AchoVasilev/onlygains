@@ -1,7 +1,5 @@
 package com.project.common.exception.base
 
-import io.micronaut.serde.annotation.Serdeable
-
 open class BaseException : Exception {
     val errorCode: ErrorCode
     val args: MutableList<String> = mutableListOf()

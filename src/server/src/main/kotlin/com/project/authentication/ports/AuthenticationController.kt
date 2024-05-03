@@ -20,7 +20,8 @@ import java.util.Date
 @Secured(SecurityRule.IS_AUTHENTICATED)
 open class AuthenticationController(
     @Value("\${jwt.expirationTimeInSeconds}") private val jwtExpirationInSeconds: Long,
-    private val authenticationService: AuthenticationService) {
+    private val authenticationService: AuthenticationService
+) {
 
     @Secured(SecurityRule.IS_ANONYMOUS)
     @Post("/login")

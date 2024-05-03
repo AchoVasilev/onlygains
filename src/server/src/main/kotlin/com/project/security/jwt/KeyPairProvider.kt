@@ -21,54 +21,52 @@ import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
 
 
-class KeyPairProvider {
+object KeyPairProvider {
 
-    companion object {
-        @JvmStatic
-        fun keyPair(privateKey: Readable, publicKey: Readable): KeyPair {
-            Security.addProvider(BouncyCastleProvider())
+    @JvmStatic
+    fun keyPair(privateKey: Readable, publicKey: Readable): KeyPair {
+        Security.addProvider(BouncyCastleProvider())
 
-            return try {
-                val publicKeyLoad = loadPublicKey(publicKey.asInputStream())
-                val privateKeyLoad = loadPrivateKey(privateKey.asInputStream())
+        return try {
+            val publicKeyLoad = loadPublicKey(publicKey.asInputStream())
+            val privateKeyLoad = loadPrivateKey(privateKey.asInputStream())
 
-                KeyPair(publicKeyLoad, privateKeyLoad)
-            } catch (ex: GeneralSecurityException) {
-                log.warn("GeneralSecurityException exception: {}", ex.message)
-                throw KeyPairExtractionException()
-            } catch (ex: IOException) {
-                log.warn("IO exception: {}", ex.message)
-                throw KeyPairExtractionException()
-            }
+            KeyPair(publicKeyLoad, privateKeyLoad)
+        } catch (ex: GeneralSecurityException) {
+            log.warn("GeneralSecurityException exception: {}", ex.message)
+            throw KeyPairExtractionException()
+        } catch (ex: IOException) {
+            log.warn("IO exception: {}", ex.message)
+            throw KeyPairExtractionException()
         }
-
-        private fun loadPublicKey(publicKeyStream: InputStream): RSAPublicKey {
-            publicKeyStream.use { `in` ->
-                val pemParser =
-                    PEMParser(InputStreamReader(`in`))
-                val publicKeyInfo: SubjectPublicKeyInfo = SubjectPublicKeyInfo.getInstance(pemParser.readObject())
-                val pubKeySpec =
-                    X509EncodedKeySpec(publicKeyInfo.encoded)
-                val keyFactory: KeyFactory = KeyFactory.getInstance("RSA")
-
-                return keyFactory.generatePublic(pubKeySpec) as RSAPublicKey
-            }
-        }
-
-        private fun loadPrivateKey(privateKeyStream: InputStream): RSAPrivateKey {
-            privateKeyStream.use { `in` ->
-                val pemParser =
-                    PEMParser(InputStreamReader(`in`))
-                val privateKeyInfo: PrivateKeyInfo = PrivateKeyInfo.getInstance(pemParser.readObject())
-                val privateKeySpec =
-                    PKCS8EncodedKeySpec(privateKeyInfo.encoded)
-                val keyFactory: KeyFactory = KeyFactory.getInstance("RSA")
-
-                return keyFactory.generatePrivate(privateKeySpec) as RSAPrivateKey
-            }
-        }
-
-        @JvmStatic
-        private val log: Logger = LoggerProvider.getLogger(KeyPairProvider::class.java)
     }
+
+    private fun loadPublicKey(publicKeyStream: InputStream): RSAPublicKey {
+        publicKeyStream.use { inputStream ->
+            val pemParser =
+                PEMParser(InputStreamReader(inputStream))
+            val publicKeyInfo: SubjectPublicKeyInfo = SubjectPublicKeyInfo.getInstance(pemParser.readObject())
+            val pubKeySpec =
+                X509EncodedKeySpec(publicKeyInfo.encoded)
+            val keyFactory: KeyFactory = KeyFactory.getInstance("RSA")
+
+            return keyFactory.generatePublic(pubKeySpec) as RSAPublicKey
+        }
+    }
+
+    private fun loadPrivateKey(privateKeyStream: InputStream): RSAPrivateKey {
+        privateKeyStream.use { `in` ->
+            val pemParser =
+                PEMParser(InputStreamReader(`in`))
+            val privateKeyInfo: PrivateKeyInfo = PrivateKeyInfo.getInstance(pemParser.readObject())
+            val privateKeySpec =
+                PKCS8EncodedKeySpec(privateKeyInfo.encoded)
+            val keyFactory: KeyFactory = KeyFactory.getInstance("RSA")
+
+            return keyFactory.generatePrivate(privateKeySpec) as RSAPrivateKey
+        }
+    }
+
+    @JvmStatic
+    private val log: Logger = LoggerProvider.getLogger(KeyPairProvider::class.java)
 }

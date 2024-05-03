@@ -14,7 +14,7 @@ import java.util.Objects
 
 @Singleton
 class JwtService(
-    private val encryptionConfiguration: RSAOAEPEncryptionConfiguration,
+    private val encryptionConfiguration: RSASignatureConfiguration,
     @Value("\${jwt.expirationTimeInSeconds}") private val jwtExpirationInSeconds: Long,
     @Value("\${jwt.issuer}") private val issuer: String
 ) {
@@ -23,9 +23,9 @@ class JwtService(
         return this.generate(authentication, emptyMap())
     }
 
-    fun generate(authentication: Authentication, additionalClaims: Map<String, Objects>): String {
-        val signer = RSASSASigner(this.encryptionConfiguration.rsaPrivateKey)
-        RSASSAVerifier(this.encryptionConfiguration.rsaPublicKey)
+    private fun generate(authentication: Authentication, additionalClaims: Map<String, Objects>): String {
+        val signer = RSASSASigner(this.encryptionConfiguration.privateKey)
+        RSASSAVerifier(this.encryptionConfiguration.publicKey)
 
         val now = Instant.now()
 
@@ -40,7 +40,7 @@ class JwtService(
 
         val claims = claimsBuilder.build()
 
-        val jwtHeader = JWSHeader.Builder(this.encryptionConfiguration.jweAlgorithm)
+        val jwtHeader = JWSHeader.Builder(this.encryptionConfiguration.jwsAlgorithm)
             .build()
 
         val signedJwt = SignedJWT(jwtHeader, claims)

@@ -3,7 +3,7 @@ package com.project.common.result
 import com.project.common.exception.base.ErrorCode
 import com.project.common.exception.exceptions.OperationException
 
-open class OperationResult<TValue> private constructor(private val isSuccess: Boolean, val status: ResultStatus) {
+open class OperationResult<TValue> private constructor(val isSuccess: Boolean, val status: ResultStatus) {
     var error: Error = Error.none()
         private set
 

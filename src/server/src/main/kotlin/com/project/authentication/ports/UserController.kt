@@ -11,6 +11,7 @@ import io.micronaut.http.annotation.Post
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import jakarta.validation.Valid
+import java.net.URI
 
 @Controller("/users")
 @Secured(SecurityRule.IS_ANONYMOUS)
@@ -20,6 +21,9 @@ open class UserController(private val userService: UserService) {
     open fun createUser(@Body @Valid request: RegisterUserRequestResource): HttpResponse<OperationResult<User>> {
         val result = this.userService.createUser(request.email, request.password, request.firstName, request.lastName)
 
-        return HttpResponse.created(result)
+        return if (result.isSuccess)
+            HttpResponse.created(result, URI.create("/users/${result.value()}}"))
+        else
+            return HttpResponse.ok(result)
     }
 }
