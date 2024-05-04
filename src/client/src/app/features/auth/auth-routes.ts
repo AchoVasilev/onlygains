@@ -1,13 +1,10 @@
 import { Routes } from '@angular/router';
+import { SignComponent } from './pages/sign/sign.component';
 
 const AUTH_ROUTES: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: 'login',
-      },
-    ],
+    component: SignComponent,
   },
 ];
 

@@ -28,6 +28,10 @@ export const APPLICATION_ROUTES: Routes = [
     loadChildren: () => import('./features/workout/workout-routes'),
   },
   {
+    path: 'auth',
+    loadChildren: () => import('./features/auth/auth-routes'),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./shared/components/not-found/not-found.component').then(
