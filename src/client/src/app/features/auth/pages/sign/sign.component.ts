@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { PanelComponent } from '../../components/panel/panel.component';
 import { SocialMediaComponent } from '../../components/social-media/social-media.component';
@@ -21,13 +21,18 @@ type AuthViewType = 'register' | 'login';
   styleUrl: './sign.component.scss',
 })
 export class SignComponent {
-  viewType: AuthViewType = 'register';
+  @ViewChild('container')
+  containerElement?: ElementRef<HTMLElement>;
+
+  viewType: AuthViewType = 'login';
 
   onViewRegister() {
     this.viewType = 'register';
+    this.containerElement?.nativeElement?.classList?.add('sign-up-mode');
   }
 
   onViewLogin() {
     this.viewType = 'login';
+    this.containerElement?.nativeElement?.classList?.remove('sign-up-mode');
   }
 }
