@@ -1,21 +1,26 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { PanelComponent } from '../../components/panel/panel.component';
 import { SocialMediaComponent } from '../../components/social-media/social-media.component';
-import { LoginComponent } from '../../components/login/login.component';
-import { RegisterComponent } from '../../components/register/register.component';
+import { InputFieldComponent } from '../../components/input-field/input-field.component';
+import { InputButtonComponent } from '../../components/input-button/input-button.component';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
-type AuthViewType = 'register' | 'login';
+export type AuthViewType = 'register' | 'login';
 
 @Component({
   selector: 'active-sign',
   standalone: true,
   imports: [
-    MatIconModule,
     PanelComponent,
     SocialMediaComponent,
-    LoginComponent,
-    RegisterComponent,
+    InputFieldComponent,
+    InputButtonComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './sign.component.html',
   styleUrl: './sign.component.scss',
@@ -23,8 +28,22 @@ type AuthViewType = 'register' | 'login';
 export class SignComponent {
   @ViewChild('container')
   containerElement?: ElementRef<HTMLElement>;
-
   viewType: AuthViewType = 'login';
+
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+  });
+
+  registerForm = new FormGroup({
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+    repeatPassword: new FormControl('', [Validators.required]),
+  });
+
+  constructor() {}
 
   onViewRegister() {
     this.viewType = 'register';

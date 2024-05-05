@@ -1,17 +1,59 @@
 <div class="container" #container>
   <div class="forms-container">
     <div class="signin-signup">
-      @if (viewType === 'login') {
-        <active-login class="sign-in-form"></active-login>
+      @defer (when viewType === 'login'; on idle) {
+        <form action="POST" class="sign-in-form" [formGroup]="loginForm">
+          <h2 class="title">Sign in</h2>
+          <active-input-field
+            matIcon="person"
+            type="text"
+            placeholder="Username"></active-input-field>
+          <active-input-field
+            matIcon="lock"
+            type="password"
+            placeholder="Password"></active-input-field>
+          <active-input-button
+            type="submit"
+            value="Login"></active-input-button>
+          <active-social-media
+            text="Or Sign in with social platforms"></active-social-media>
+        </form>
       }
 
-      @defer (when viewType === "register") {
-        <active-register class="sign-up-form"></active-register>
+      @defer (when viewType === 'register'; on idle) {
+        <form action="#" class="sign-up-form">
+          <h2 class="title">Sign up</h2>
+          <active-input-field
+            type="text"
+            placeholder="First name"
+            matIcon="person"></active-input-field>
+
+          <active-input-field
+            type="text"
+            placeholder="Last name"
+            matIcon="person"></active-input-field>
+
+          <active-input-field
+            type="email"
+            placeholder="Email"
+            matIcon="email"></active-input-field>
+
+          <active-input-field
+            type="password"
+            placeholder="Password"
+            matIcon="lock"></active-input-field>
+
+          <active-input-button
+            type="submit"
+            value="Sign up"></active-input-button>
+          <active-social-media
+            text="Or Sign up with social platforms"></active-social-media>
+        </form>
       }
     </div>
   </div>
 
   <active-panel
-    (viewRegister)="onViewRegister()"
-    (viewLogIn)="onViewLogin()"></active-panel>
+    (viewLogIn)="onViewLogin()"
+    (viewRegister)="onViewRegister()"></active-panel>
 </div>

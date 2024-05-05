@@ -1,5 +1,3 @@
-<input
-  [type]="type"
-  [value]="value"
-  class="btn"
-  [ngClass]="value === 'Login' ? 'solid' : ''" />
+<button [type]="type" class="btn" [ngClass]="value === 'Login' ? 'solid' : ''">
+  {{ value }}
+</button>
