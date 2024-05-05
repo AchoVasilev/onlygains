@@ -1,8 +1,13 @@
 <div class="container" #container>
   <div class="forms-container">
     <div class="signin-signup">
-      <active-login class="sign-in-form"></active-login>
-      <active-register class="sign-up-form"></active-register>
+      @if (viewType === 'login') {
+        <active-login class="sign-in-form"></active-login>
+      }
+
+      @defer (when viewType === "register") {
+        <active-register class="sign-up-form"></active-register>
+      }
     </div>
   </div>
 

@@ -1,5 +1,11 @@
 @use 'variables' as *;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container {
   position: relative;
   width: 100%;
@@ -54,10 +60,12 @@
 }
 
 .sign-in-form {
+  display: grid;
   z-index: 2;
 }
 
 .sign-up-form {
+  display: grid;
   opacity: 0;
   z-index: 1;
 }
