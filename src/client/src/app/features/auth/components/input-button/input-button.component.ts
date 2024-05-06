@@ -14,4 +14,7 @@ export class InputButtonComponent {
 
   @Input({ required: true })
   value = 'Login';
+
+  @Input()
+  disabled = false;
 }

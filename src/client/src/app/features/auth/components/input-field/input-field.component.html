@@ -1,4 +1,8 @@
 <div class="input-field">
   <mat-icon class="input-field-icon">{{ matIcon }}</mat-icon>
-  <input [type]="type" [placeholder]="placeholder" />
+  <input [type]="type" [placeholder]="placeholder" [formControl]="control" />
 </div>
+
+@for (error of evaluateErrors(); track $index) {
+  <p class="error">{{ mapErrorToMessage(error) }}</p>
+}

@@ -2,17 +2,24 @@
   <div class="forms-container">
     <div class="signin-signup">
       @defer (when viewType === 'login'; on idle) {
-        <form action="POST" class="sign-in-form" [formGroup]="loginForm">
+        <form
+          action="POST"
+          class="sign-in-form"
+          [formGroup]="loginForm"
+          (ngSubmit)="onLogin()">
           <h2 class="title">Sign in</h2>
           <active-input-field
+            [control]="loginForm.controls.email"
             matIcon="person"
             type="text"
             placeholder="Username"></active-input-field>
           <active-input-field
+            [control]="loginForm.controls.password"
             matIcon="lock"
             type="password"
             placeholder="Password"></active-input-field>
           <active-input-button
+            [disabled]="loginForm.invalid"
             type="submit"
             value="Login"></active-input-button>
           <active-social-media
@@ -21,24 +28,28 @@
       }
 
       @defer (when viewType === 'register'; on idle) {
-        <form action="#" class="sign-up-form">
+        <form action="POST" class="sign-up-form" [formGroup]="registerForm">
           <h2 class="title">Sign up</h2>
           <active-input-field
+            [control]="registerForm.controls.firstName"
             type="text"
             placeholder="First name"
             matIcon="person"></active-input-field>
 
           <active-input-field
+            [control]="registerForm.controls.lastName"
             type="text"
             placeholder="Last name"
             matIcon="person"></active-input-field>
 
           <active-input-field
+            [control]="registerForm.controls.email"
             type="email"
             placeholder="Email"
             matIcon="email"></active-input-field>
 
           <active-input-field
+            [control]="registerForm.controls.password"
             type="password"
             placeholder="Password"
             matIcon="lock"></active-input-field>

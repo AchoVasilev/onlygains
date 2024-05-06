@@ -1,6 +1,8 @@
+@use 'variables' as *;
+
 .container {
   position: relative;
-  width: 100%;
+  width: $max-size;
   background-color: #fff;
   min-height: 100vh;
   overflow: hidden;
@@ -8,18 +10,18 @@
 
 .forms-container {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: $max-size;
+  height: $max-size;
   top: 0;
   left: 0;
 }
 
 .signin-signup {
   position: absolute;
-  top: 50%;
+  top: $half-size;
   transform: translate(-50%, -50%);
   left: 75%;
-  width: 50%;
+  width: $half-size;
   transition: 1s 0.7s ease-in-out;
   display: grid;
   grid-template-columns: 1fr;
@@ -60,17 +62,17 @@ form.sign-in-form {
   width: 2000px;
   top: -10%;
   right: 48%;
-  transform: translateY(-50%);
-  background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+  transform: translateY(-$half-size);
+  background-image: linear-gradient(-45deg, #4481eb 0%, #04befe $max-size);
   transition: 1.8s ease-in-out;
-  border-radius: 50%;
+  border-radius: $half-size;
   z-index: 6;
 }
 
 /* ANIMATION */
 
 .container.sign-up-mode:before {
-  transform: translate(100%, -50%);
+  transform: translate($max-size, -$half-size);
   right: 52%;
 }
 
@@ -94,21 +96,21 @@ form.sign-in-form {
     height: 100vh;
   }
   .signin-signup {
-    width: 100%;
+    width: $max-size;
     top: 95%;
-    transform: translate(-50%, -100%);
+    transform: translate(-$half-size, -$max-size);
     transition: 1s 0.8s ease-in-out;
   }
 
   .signin-signup,
   .container.sign-up-mode .signin-signup {
-    left: 50%;
+    left: $half-size;
   }
 
   .container:before {
     width: 1500px;
     height: 1500px;
-    transform: translateX(-50%);
+    transform: translateX(-$half-size);
     left: 30%;
     bottom: 68%;
     right: initial;
@@ -117,14 +119,14 @@ form.sign-in-form {
   }
 
   .container.sign-up-mode:before {
-    transform: translate(-50%, 100%);
+    transform: translate(-$half-size, $max-size);
     bottom: 32%;
     right: initial;
   }
 
   .container.sign-up-mode .signin-signup {
     top: 5%;
-    transform: translate(-50%, 0);
+    transform: translate(-$half-size, 0);
   }
 }
 
@@ -139,11 +141,11 @@ form.sign-in-form {
 
   .container:before {
     bottom: 72%;
-    left: 50%;
+    left: $half-size;
   }
 
   .container.sign-up-mode:before {
     bottom: 28%;
-    left: 50%;
+    left: $half-size;
   }
 }

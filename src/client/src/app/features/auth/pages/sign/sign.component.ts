@@ -54,4 +54,8 @@ export class SignComponent {
     this.viewType = 'login';
     this.containerElement?.nativeElement?.classList?.remove('sign-up-mode');
   }
+
+  onLogin() {
+    console.log(this.loginForm);
+  }
 }
