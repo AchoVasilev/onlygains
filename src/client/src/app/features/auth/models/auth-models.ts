@@ -1,6 +1,6 @@
 export interface LoginResource {
-  email: string;
-  password: string;
+  email?: string | null;
+  password?: string | null;
 }
 
 export interface TokenResponseResource {

@@ -16,6 +16,9 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(resource: LoginResource): Observable<TokenResponseResource> {
-    return this.http.post<TokenResponseResource>(this.apiUrl, resource);
+    return this.http.post<TokenResponseResource>(
+      this.apiUrl + '/login',
+      resource
+    );
   }
 }

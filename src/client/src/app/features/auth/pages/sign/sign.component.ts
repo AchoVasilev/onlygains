@@ -9,6 +9,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from 'app/core/services/auth/auth.service';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { HTTP_ERRORS } from '../../models/validation';
 
 export type AuthViewType = 'register' | 'login';
 
@@ -43,7 +46,9 @@ export class SignComponent {
     repeatPassword: new FormControl('', [Validators.required]),
   });
 
-  constructor() {}
+  errors: string[] = [];
+
+  constructor(private authService: AuthService) {}
 
   onViewRegister() {
     this.viewType = 'register';
@@ -56,6 +61,26 @@ export class SignComponent {
   }
 
   onLogin() {
-    console.log(this.loginForm);
+    const { email, password } = this.loginForm.value;
+    this.authService.login({ email, password }).subscribe({
+      error: (err: HttpErrorResponse) => {
+        if (
+          err.status === HttpStatusCode.BadRequest ||
+          err.status === HttpStatusCode.NotFound
+        ) {
+          const errExtensions = err.error.extensions;
+          Object.keys(errExtensions).forEach(key => {
+            const errorMessages = HTTP_ERRORS.get(key)?.filter(
+              e => e === errExtensions[key]
+            );
+            if (errorMessages) {
+              this.errors = [...errorMessages];
+            }
+          });
+        }
+
+        console.log(this.errors);
+      },
+    });
   }
 }

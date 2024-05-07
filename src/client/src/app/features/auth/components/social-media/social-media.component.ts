@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'active-social-media',
@@ -12,10 +11,5 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class SocialMediaComponent {
   @Input({ required: true })
   text: string = '';
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
-      'google-icon',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/google-icon.svg')
-    );
-  }
+  constructor() {}
 }

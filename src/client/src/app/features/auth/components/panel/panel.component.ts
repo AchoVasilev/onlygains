@@ -24,14 +24,17 @@ export class PanelComponent {
   @ViewChild('container')
   private panelsContainerElement?: ElementRef<HTMLElement>;
 
+  isRegister = false;
+
   signUp() {
     this.viewRegister.emit();
+    this.isRegister = false;
     this.panelsContainerElement?.nativeElement?.classList?.add('sign-up-mode');
   }
 
   signIn() {
     this.viewLogIn.emit();
-
+    this.isRegister = true;
     this.panelsContainerElement?.nativeElement?.classList?.remove(
       'sign-up-mode'
     );
