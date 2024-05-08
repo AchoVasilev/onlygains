@@ -10,7 +10,6 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Post
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import jakarta.validation.Valid
@@ -21,18 +20,15 @@ import java.util.Date
 open class AuthenticationController(
     @Value("\${jwt.expirationTimeInSeconds}") private val jwtExpirationInSeconds: Long,
     private val authenticationService: AuthenticationService
-) {
+) : AuthenticationApi {
 
-    @Secured(SecurityRule.IS_ANONYMOUS)
-    @Post("/login")
-    open fun login(@Body @Valid loginRequest: LoginRequestResource): HttpResponse<TokenResponseResource> {
+    override fun login(@Body @Valid loginRequest: LoginRequestResource): HttpResponse<TokenResponseResource> {
         val authenticationResult = this.authenticationService.authenticate(loginRequest)
 
         return this.buildTokenResponse(authenticationResult)
     }
 
-    @Post("/refresh")
-    open fun refresh(): HttpResponse<TokenResponseResource> {
+    override fun refresh(): HttpResponse<TokenResponseResource> {
         val refreshResult = this.authenticationService.refreshToken()
 
         return this.buildTokenResponse(refreshResult)
