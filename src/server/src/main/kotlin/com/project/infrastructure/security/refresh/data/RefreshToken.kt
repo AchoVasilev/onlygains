@@ -1,4 +1,4 @@
-package com.project.infrastructure.security.jwt.data
+package com.project.infrastructure.security.refresh.data
 
 import com.project.common.BaseEntity
 import jakarta.persistence.Entity

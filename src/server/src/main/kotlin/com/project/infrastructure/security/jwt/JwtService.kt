@@ -18,13 +18,13 @@ class JwtService(
     @Value("\${jwt.expirationTimeInSeconds}") private val jwtExpirationInSeconds: Long,
     @Value("\${jwt.issuer}") private val issuer: String
 ) {
+    private val signer: RSASSASigner = RSASSASigner(encryptionConfiguration.privateKey)
 
     fun generate(authentication: Authentication): String {
         return this.generate(authentication, emptyMap())
     }
 
     private fun generate(authentication: Authentication, additionalClaims: Map<String, Objects>): String {
-        val signer = RSASSASigner(this.encryptionConfiguration.privateKey)
         RSASSAVerifier(this.encryptionConfiguration.publicKey)
 
         val now = Instant.now()
@@ -44,7 +44,7 @@ class JwtService(
             .build()
 
         val signedJwt = SignedJWT(jwtHeader, claims)
-        signedJwt.sign(signer)
+        signedJwt.sign(this.signer)
 
         return signedJwt.serialize()
     }
