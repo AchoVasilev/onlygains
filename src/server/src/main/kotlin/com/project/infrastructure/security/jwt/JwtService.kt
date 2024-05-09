@@ -12,14 +12,14 @@ import jakarta.inject.Singleton
 class JwtService(
     private val encryptionConfiguration: RSASignatureConfiguration,
     private val jwtClaimsSetGenerator: JwtClaimsSetGenerator,
-    @Value("\${jwt.expirationTimeInSeconds}") private val jwtExpirationInSeconds: Long,
+    @Value("\${jwt.expirationTimeInSeconds}") private val jwtExpirationInSeconds: Int,
 ) {
     private val signer: RSASSASigner = RSASSASigner(encryptionConfiguration.privateKey)
 
-     fun generate(authentication: Authentication): String {
+    fun generate(authentication: Authentication): String {
         RSASSAVerifier(this.encryptionConfiguration.publicKey)
 
-        val claims = this.jwtClaimsSetGenerator.generateClaims(authentication, this.jwtExpirationInSeconds)
+        val claims = this.jwtClaimsSetGenerator.generateClaims(authentication, this.jwtExpirationInSeconds.toLong())
 
         val jwtHeader = JWSHeader.Builder(this.encryptionConfiguration.jwsAlgorithm)
             .build()
@@ -28,5 +28,9 @@ class JwtService(
         signedJwt.sign(this.signer)
 
         return signedJwt.serialize()
+    }
+
+    fun getExpiration(): Int {
+        return this.jwtExpirationInSeconds
     }
 }

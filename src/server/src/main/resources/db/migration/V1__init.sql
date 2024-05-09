@@ -1,6 +1,6 @@
 CREATE TABLE users
 (
-    id                 UUID,
+    id                 UUID        NOT NULL,
     email              VARCHAR     NOT NULL,
     password           VARCHAR     NOT NULL,
     first_name         VARCHAR(50) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE users
 
 CREATE TABLE categories
 (
-    id              UUID,
+    id              UUID        NOT NULL,
     name            VARCHAR(100),
     translated_name VARCHAR(100),
     image_url       VARCHAR,
@@ -31,7 +31,7 @@ CREATE TABLE categories
 
 CREATE TABLE posts
 (
-    id           UUID,
+    id           UUID         NOT NULL,
     title        VARCHAR(100) NOT NULL,
     text         VARCHAR      NOT NULL,
     preview_text VARCHAR      NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE posts
 
 CREATE TABLE comments
 (
-    id          UUID,
+    id          UUID        NOT NULL,
     text        VARCHAR     NOT NULL,
     post_id     UUID,
     user_id     UUID,
@@ -65,7 +65,7 @@ CREATE TABLE comments
 
 CREATE TABLE likes
 (
-    id          UUID,
+    id          UUID        NOT NULL,
     comment_id  UUID,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
@@ -78,7 +78,7 @@ CREATE TABLE likes
 
 CREATE TABLE dislikes
 (
-    id          UUID,
+    id          UUID        NOT NULL,
     comment_id  UUID,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
@@ -90,7 +90,7 @@ CREATE TABLE dislikes
 
 CREATE TABLE post_images
 (
-    id          UUID,
+    id          UUID        NOT NULL,
     url         VARCHAR     NOT NULL,
     post_id     UUID,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
@@ -103,7 +103,7 @@ CREATE TABLE post_images
 
 CREATE TABLE tags
 (
-    id              UUID,
+    id              UUID        NOT NULL,
     name            VARCHAR(30),
     translated_name VARCHAR(30),
     created_at      TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
@@ -123,7 +123,7 @@ CREATE TABLE posts_tags
 
 CREATE TABLE workout_history
 (
-    id          UUID,
+    id          UUID        NOT NULL,
     workout_id  UUID,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
@@ -134,7 +134,7 @@ CREATE TABLE workout_history
 
 CREATE TABLE workout_templates
 (
-    id                           UUID,
+    id                           UUID        NOT NULL,
     name                         VARCHAR,
     original_workout_template_id UUID,
     created_at                   TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
@@ -146,7 +146,7 @@ CREATE TABLE workout_templates
 
 CREATE TABLE original_workout_templates
 (
-    id          UUID,
+    id          UUID        NOT NULL,
     name        VARCHAR,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
@@ -157,7 +157,7 @@ CREATE TABLE original_workout_templates
 
 CREATE TABLE workouts
 (
-    id                  UUID,
+    id                  UUID        NOT NULL,
     workout_template_id UUID,
     finished_at         TIMESTAMPTZ,
     duration            INTERVAL             DEFAULT NULL,
@@ -171,7 +171,7 @@ CREATE TABLE workouts
 
 CREATE TABLE workout_exercises
 (
-    id                           UUID,
+    id                           UUID        NOT NULL,
     exercise_id                  UUID,
     name                         VARCHAR,
     original_workout_template_id UUID,
@@ -187,7 +187,7 @@ CREATE TABLE workout_exercises
 
 CREATE TABLE sets
 (
-    id                  UUID,
+    id                  UUID        NOT NULL,
     weight              NUMERIC(4, 2),
     repetitions         INTEGER,
     weight_type         VARCHAR(3),
@@ -202,19 +202,19 @@ CREATE TABLE sets
 
 CREATE TABLE muscle_groups
 (
-    id              VARCHAR(100),
+    id              VARCHAR(100) NOT NULL,
     name            VARCHAR(50),
     translated_name VARCHAR(100),
-    created_at      TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    created_at      TIMESTAMPTZ  NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at     TIMESTAMPTZ,
-    is_deleted      BOOLEAN     NOT NULL DEFAULT FALSE,
+    is_deleted      BOOLEAN      NOT NULL DEFAULT FALSE,
 
     CONSTRAINT pk_muscle_group_id PRIMARY KEY (id)
 );
 
 CREATE TABLE exercises
 (
-    id                            UUID,
+    id                            UUID         NOT NULL,
     name                          VARCHAR(100) NOT NULL,
     translated_name               VARCHAR(150) NOT NULL,
     description                   VARCHAR,
@@ -247,7 +247,7 @@ CREATE TABLE exercises_musclegroups
 
 CREATE TABLE equipment
 (
-    id          UUID,
+    id          UUID        NOT NULL,
     name        VARCHAR,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
     modified_at TIMESTAMPTZ,
@@ -266,7 +266,7 @@ CREATE TABLE exercises_equipment
 
 CREATE TABLE todo_items
 (
-    id          UUID,
+    id          UUID        NOT NULL,
     name        VARCHAR,
     is_done     BOOLEAN     NOT NULL DEFAULT FALSE,
     user_id     UUID,
@@ -280,7 +280,7 @@ CREATE TABLE todo_items
 
 CREATE TABLE workout_profile
 (
-    id             UUID,
+    id             UUID        NOT NULL,
     user_id        UUID,
     age            INTEGER,
     gender         CHAR,
@@ -301,4 +301,18 @@ CREATE TABLE workout_profile
     is_deleted     BOOLEAN     NOT NULL DEFAULT FALSE,
 
     CONSTRAINT pk_workout_profile_id PRIMARY KEY (id)
+);
+
+CREATE TABLE refresh_token
+(
+    id          UUID        NOT NULL,
+    token       VARCHAR     NOT NULL,
+    user_id     UUID        NOT NULL,
+    expiry_date TIMESTAMPTZ NOT NULL,
+    is_revoked  BOOLEAN     NOT NULL,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT (now() at time zone 'utc'),
+    modified_at TIMESTAMPTZ,
+    is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
+
+    CONSTRAINT pk_refresh_token_id PRIMARY KEY (id)
 )

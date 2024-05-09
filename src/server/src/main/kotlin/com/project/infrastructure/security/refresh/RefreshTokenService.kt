@@ -10,6 +10,7 @@ import com.nimbusds.jose.Payload
 import com.nimbusds.jose.crypto.MACSigner
 import com.nimbusds.jose.crypto.MACVerifier
 import com.project.authentication.UserService
+import com.project.infrastructure.exceptions.base.ErrorCode
 import com.project.infrastructure.exceptions.exceptions.TokenException
 import com.project.infrastructure.security.refresh.data.RefreshToken
 import com.project.infrastructure.security.refresh.data.RefreshTokenRepository
@@ -17,6 +18,7 @@ import com.project.infrastructure.utilities.LoggerProvider
 import io.micronaut.security.authentication.Authentication
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
+import org.apache.http.ParseException
 import java.util.Base64
 import java.util.UUID
 import kotlin.text.Charsets.UTF_8
@@ -40,6 +42,7 @@ open class RefreshTokenService(
 
     @Transactional
     open fun generateToken(authentication: Authentication, payload: String): String {
+        log.info("Generating refresh token")
         val jwsObject = JWSObject(JWSHeader(this.algorithm), (Payload("${payload}-${authentication.name}")))
         try {
             jwsObject.sign(this.signer)
@@ -53,6 +56,27 @@ open class RefreshTokenService(
         } catch (ex: JOSEException) {
             log.error("Signing exception", ex)
             throw TokenException()
+        }
+    }
+
+    fun validateToken(token: String): String {
+        val jwsObject: JWSObject?
+        try {
+            jwsObject = JWSObject.parse(token)
+            if (jwsObject.verify(this.verifier)) {
+                return jwsObject.payload.toString()
+            }
+
+            return ""
+        } catch (ex: ParseException) {
+            log.error("JWS parsing exception", ex)
+            throw TokenException()
+        } catch (ex: IllegalStateException) {
+            log.error("JWS could is not in a signed or verified state", ex)
+            throw TokenException(ErrorCode.TOKEN_VERIFICATION_EXCEPTION)
+        } catch (ex: JOSEException) {
+            log.error("JWS could not be verified", ex)
+            throw TokenException(ErrorCode.TOKEN_VERIFICATION_EXCEPTION)
         }
     }
 

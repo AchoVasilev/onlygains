@@ -14,6 +14,7 @@ class RefreshToken protected constructor(): BaseEntity() {
     var token: String = ""
     var userId: UUID? = null
     var expiryDate: Instant? = null
+    var isRevoked: Boolean = false
 
     constructor(refreshToken: String, userId: UUID, expirationTimeInSeconds: Long) : this() {
         this.token = refreshToken

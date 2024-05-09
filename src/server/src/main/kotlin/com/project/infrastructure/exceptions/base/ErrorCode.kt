@@ -7,6 +7,7 @@ enum class ErrorCode(val httpStatus: HttpStatus, val pattern: String) {
     AES_DECRYPTION_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "AES decryption exception"),
 
     TOKEN_GENERATION_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Token generation exception"),
+    TOKEN_VERIFICATION_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Token verification exception"),
 
     OPERATION_RESULT_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid status"),
     OPERATION_RESULT_VALUE_FAILED_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Operation value exception"),
