@@ -3,7 +3,7 @@ package com.project.application.services
 import com.cloudinary.Cloudinary
 import com.cloudinary.utils.ObjectUtils
 import com.project.application.models.image.ImageResponseResource
-import com.project.infrastructure.exceptions.FileUploadException
+import com.project.infrastructure.exceptions.exceptions.FileUploadException
 import io.micronaut.http.multipart.CompletedFileUpload
 import jakarta.inject.Singleton
 import org.slf4j.Logger

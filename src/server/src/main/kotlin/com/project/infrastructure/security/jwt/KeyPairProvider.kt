@@ -1,6 +1,6 @@
 package com.project.infrastructure.security.jwt
 
-import com.project.common.exception.exceptions.KeyPairExtractionException
+import com.project.infrastructure.exceptions.exceptions.KeyPairExtractionException
 import com.project.infrastructure.utilities.LoggerProvider
 import io.micronaut.core.io.Readable
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo

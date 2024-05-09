@@ -5,8 +5,8 @@ import com.project.application.models.exercise.ExerciseDetailsResource
 import com.project.application.models.exercise.ExerciseResource
 import com.project.domain.workout.Exercise
 import com.project.infrastructure.data.ExerciseRepository
-import com.project.infrastructure.exceptions.DuplicateEntryException
-import com.project.infrastructure.exceptions.EntityNotFoundException
+import com.project.infrastructure.exceptions.exceptions.DuplicateEntryException
+import com.project.infrastructure.exceptions.exceptions.EntityNotFoundException
 import io.micronaut.transaction.annotation.ReadOnly
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton

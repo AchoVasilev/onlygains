@@ -15,10 +15,6 @@ micronaut:
     token:
       jwt:
         enabled: true
-        signatures:
-          generator:
-            secret: 1d0c3fa23991402e9586555c0f2c6706
-            jws-algorithm: HS256
     intercept-url-map:
       - pattern: /swagger/**
         http-method: GET
@@ -45,6 +41,11 @@ jwt:
     key: classpath:config/app.key
   public:
     key: classpath:config/app.pub
+  refresh-token:
+    secret: 7GyaAIYHXVGHNwmblflYo+dHO0KSNIVF5aHTc0xBznu5akR8gOVif1OM8IHcR2BA0jg3jysy/U0pv8UIMbCwwg==
+    expirationTimeInSeconds: 86400
+    base64: true
+    jws-algorithm: HS512
 
 encryption:
   initializationVector: RU5DUllQVElPTl9JTklUSUFMSVpBVElPTl9WRUNUT1JFTkNSWVBUSU9OX0lOSVRJQUxJWkFUSU9OX1ZFQ1RPUkVOQ1JZUFRJT05fSU5JVElBTElaQVRJT05fVkVDVE9S

@@ -2,7 +2,7 @@ package com.project.authentication.ports
 
 import com.project.authentication.models.LoginRequestResource
 import com.project.authentication.models.TokenResponseResource
-import com.project.common.exception.HttpErrorResponse
+import com.project.infrastructure.exceptions.HttpErrorResponse
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Post

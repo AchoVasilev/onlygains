@@ -1,8 +1,8 @@
 package com.project.infrastructure.security
 
 import com.project.infrastructure.utilities.LoggerProvider
-import com.project.common.exception.exceptions.AesDecryptionException
-import com.project.common.exception.exceptions.AesEncryptionException
+import com.project.infrastructure.exceptions.exceptions.AesDecryptionException
+import com.project.infrastructure.exceptions.exceptions.AesEncryptionException
 import com.project.posts.application.PostService
 import io.micronaut.context.annotation.Value
 import jakarta.inject.Singleton

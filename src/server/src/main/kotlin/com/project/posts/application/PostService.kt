@@ -8,7 +8,7 @@ import com.project.common.result.ResultStatus
 import com.project.domain.user.Role
 import com.project.domain.user.User
 import com.project.infrastructure.data.UserRepository
-import com.project.infrastructure.exceptions.DuplicateEntryException
+import com.project.infrastructure.exceptions.exceptions.DuplicateEntryException
 import com.project.posts.application.models.post.CreatePostResource
 import com.project.posts.application.models.post.PostDetailsResource
 import com.project.posts.application.models.post.PostViewResource

@@ -1,4 +1,4 @@
-package com.project.common.exception
+package com.project.infrastructure.exceptions
 
 import io.micronaut.serde.annotation.Serdeable
 

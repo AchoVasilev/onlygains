@@ -1,7 +1,7 @@
 package com.project.common.result
 
-import com.project.common.exception.base.ErrorCode
-import com.project.common.exception.exceptions.OperationException
+import com.project.infrastructure.exceptions.base.ErrorCode
+import com.project.infrastructure.exceptions.exceptions.OperationException
 
 open class OperationResult<TValue> private constructor(val isSuccess: Boolean, val status: ResultStatus) {
     var error: Error = Error.none()

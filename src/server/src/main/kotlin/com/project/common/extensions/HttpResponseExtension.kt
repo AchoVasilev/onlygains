@@ -2,7 +2,7 @@ package com.project.common.extensions
 
 
 import com.project.authentication.models.TokenResponseResource
-import com.project.common.exception.HttpErrorResponse
+import com.project.infrastructure.exceptions.HttpErrorResponse
 import com.project.common.result.OperationResult
 import com.project.common.result.ResultStatus
 import io.micronaut.http.HttpResponse

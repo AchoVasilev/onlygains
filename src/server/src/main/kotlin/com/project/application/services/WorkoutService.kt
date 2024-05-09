@@ -11,7 +11,7 @@ import com.project.domain.workout.WorkoutExercise
 import com.project.domain.workout.WorkoutSet
 import com.project.domain.workout.WorkoutTemplate
 import com.project.infrastructure.data.WorkoutRepository
-import com.project.infrastructure.exceptions.EntityNotFoundException
+import com.project.infrastructure.exceptions.exceptions.EntityNotFoundException
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
 import java.util.UUID

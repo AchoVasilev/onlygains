@@ -1,4 +1,4 @@
-package com.project.infrastructure.exceptions
+package com.project.infrastructure.exceptions.exceptions
 
 import java.util.UUID
 

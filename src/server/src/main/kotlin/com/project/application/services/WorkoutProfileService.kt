@@ -4,7 +4,7 @@ import com.project.application.models.user.workout.UpdateWorkoutProfileResource
 import com.project.application.models.user.workout.WorkoutProfileDetailsResource
 import com.project.domain.user.workout.WorkoutProfile
 import com.project.infrastructure.data.WorkoutProfileRepository
-import com.project.infrastructure.exceptions.EntityNotFoundException
+import com.project.infrastructure.exceptions.exceptions.EntityNotFoundException
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
 import java.util.UUID

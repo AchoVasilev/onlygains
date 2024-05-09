@@ -1,8 +1,8 @@
-package com.project.common.exception.handlers
+package com.project.infrastructure.exceptions.handlers
 
-import com.project.common.exception.ErrorResponse
-import com.project.common.exception.base.BaseException
-import com.project.common.exception.base.ErrorCode
+import com.project.infrastructure.exceptions.ErrorResponse
+import com.project.infrastructure.exceptions.base.BaseException
+import com.project.infrastructure.exceptions.base.ErrorCode
 import io.micronaut.context.annotation.Requirements
 import io.micronaut.context.annotation.Requires
 import io.micronaut.http.HttpRequest

@@ -1,4 +1,4 @@
-package com.project.common.exception.base
+package com.project.infrastructure.exceptions.base
 
 open class BaseException : Exception {
     val errorCode: ErrorCode
