@@ -1,11 +1,10 @@
 package com.project.authentication.ports
 
-import com.nimbusds.jwt.SignedJWT
 import com.project.authentication.AuthenticationService
+import com.project.authentication.models.AccessTokenResponseResource
 import com.project.authentication.models.LoginRequestResource
-import com.project.authentication.models.TokenResponseResource
 import com.project.common.result.OperationResult
-import io.micronaut.context.annotation.Value
+import com.project.infrastructure.security.token.AccessTokenResource
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Body
@@ -13,32 +12,33 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import jakarta.validation.Valid
-import java.util.Date
 
 @Controller("/auth")
 @Secured(SecurityRule.IS_AUTHENTICATED)
 open class AuthenticationController(
-    @Value("\${jwt.expirationTimeInSeconds}") private val jwtExpirationInSeconds: Long,
     private val authenticationService: AuthenticationService
 ) : AuthenticationApi {
 
-    override fun login(@Body @Valid loginRequest: LoginRequestResource): HttpResponse<TokenResponseResource> {
+    override fun login(@Body @Valid loginRequest: LoginRequestResource): HttpResponse<AccessTokenResponseResource> {
         val authenticationResult = this.authenticationService.authenticate(loginRequest)
 
-        return this.buildTokenResponse(authenticationResult)
+        return this.buildJwtResponse(authenticationResult)
     }
 
-    override fun refresh(): HttpResponse<TokenResponseResource> {
+    override fun refresh(): HttpResponse<AccessTokenResponseResource> {
         val refreshResult = this.authenticationService.refreshToken()
 
-        return this.buildTokenResponse(refreshResult)
+        return this.buildJwtResponse(refreshResult)
     }
 
-    private fun buildTokenResponse(operationResult: OperationResult<String>): HttpResponse<TokenResponseResource> {
+    private fun buildJwtResponse(operationResult: OperationResult<AccessTokenResource>): HttpResponse<AccessTokenResponseResource> {
         if (operationResult.isFailure) {
-            return HttpResponse.status<TokenResponseResource?>(operationResult.status.toHttpStatus())
+            return HttpResponse.status<AccessTokenResponseResource?>(operationResult.status.toHttpStatus())
                 .body(
-                    TokenResponseResource(
+                    AccessTokenResponseResource(
+                        null,
+                        null,
+                        null,
                         null,
                         null,
                         null,
@@ -47,20 +47,19 @@ open class AuthenticationController(
                 )
         }
 
-        val tokenResponse = TokenResponseResource(
-            operationResult.value(),
-            this.jwtExpirationInSeconds,
-            this.getTokenExpirationAt(operationResult.value()),
-            null
+        val accessToken = operationResult.value()
+        val tokenResponse = AccessTokenResponseResource(
+            accessToken.accessToken,
+            accessToken.tokenType,
+            accessToken.expiresIn,
+            accessToken.refreshToken,
+            accessToken.username,
+            accessToken.roles,
+            emptyMap()
         )
 
-        return HttpResponse.status<TokenResponseResource?>(HttpStatus.OK)
+        return HttpResponse.status<AccessTokenResponseResource?>(HttpStatus.OK)
             .body(tokenResponse)
-            .header("X-AUTH-TOKEN", operationResult.value())
-    }
-
-    private fun getTokenExpirationAt(token: String): Date {
-        val jwt = SignedJWT.parse(token)
-        return jwt.jwtClaimsSet.expirationTime
+            .header("X-AUTH-TOKEN", accessToken.accessToken)
     }
 }

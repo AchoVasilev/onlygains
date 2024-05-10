@@ -17,6 +17,7 @@ class JwtClaimsSetGenerator(@Value("\${jwt.issuer}") private val issuer: String)
             .issuer(this.issuer)
             .issueTime(Date())
             .expirationTime(Date(now.plusSeconds(expiration).toEpochMilli()))
+            .notBeforeTime(Date())
             .subject(authentication.name)
             .claim("roles", authentication.roles)
 

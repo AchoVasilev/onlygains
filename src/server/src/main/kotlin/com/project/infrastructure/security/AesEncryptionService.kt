@@ -1,8 +1,8 @@
 package com.project.infrastructure.security
 
-import com.project.infrastructure.utilities.LoggerProvider
 import com.project.infrastructure.exceptions.exceptions.AesDecryptionException
 import com.project.infrastructure.exceptions.exceptions.AesEncryptionException
+import com.project.infrastructure.utilities.LoggerProvider
 import com.project.posts.application.PostService
 import io.micronaut.context.annotation.Value
 import jakarta.inject.Singleton
@@ -53,6 +53,7 @@ class AesEncryptionService : EncryptionService {
         }
 
         try {
+            log.info("Decrypting $encrypted")
             val ivParamSpec = IvParameterSpec(this.encryptionInitVector.toByteArray(StandardCharsets.UTF_8))
             val keySpec = SecretKeySpec(Base64.getDecoder().decode(secret), this.algorithm)
             val gcmParameterSpec = GCMParameterSpec(this.gcmTagLength * 8, ivParamSpec.iv)

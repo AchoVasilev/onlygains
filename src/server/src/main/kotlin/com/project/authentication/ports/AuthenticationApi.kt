@@ -1,7 +1,7 @@
 package com.project.authentication.ports
 
 import com.project.authentication.models.LoginRequestResource
-import com.project.authentication.models.TokenResponseResource
+import com.project.authentication.models.AccessTokenResponseResource
 import com.project.infrastructure.exceptions.HttpErrorResponse
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
@@ -21,7 +21,7 @@ interface AuthenticationApi {
             ApiResponse(
                 responseCode = "200",
                 description = "Ok",
-                content = arrayOf(Content(schema = Schema(implementation = TokenResponseResource::class)))
+                content = arrayOf(Content(schema = Schema(implementation = AccessTokenResponseResource::class)))
             ),
             ApiResponse(
                 responseCode = "400",
@@ -56,8 +56,8 @@ interface AuthenticationApi {
 
     @Secured(SecurityRule.IS_ANONYMOUS)
     @Post("/login")
-    fun login(@Body @Valid loginRequest: LoginRequestResource): HttpResponse<TokenResponseResource>
+    fun login(@Body @Valid loginRequest: LoginRequestResource): HttpResponse<AccessTokenResponseResource>
 
     @Post("/refresh")
-    fun refresh(): HttpResponse<TokenResponseResource>
+    fun refresh(): HttpResponse<AccessTokenResponseResource>
 }

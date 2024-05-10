@@ -1,10 +1,10 @@
 package com.project.common.extensions
 
 
-import com.project.authentication.models.TokenResponseResource
-import com.project.infrastructure.exceptions.HttpErrorResponse
+import com.project.authentication.models.AccessTokenResponseResource
 import com.project.common.result.OperationResult
 import com.project.common.result.ResultStatus
+import com.project.infrastructure.exceptions.HttpErrorResponse
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 
@@ -61,8 +61,8 @@ fun HttpResponse<*>.fromResult(): HttpResponse<*> {
             }
         }
 
-        this.body() is TokenResponseResource -> {
-            val tokenResponse = this.body() as TokenResponseResource
+        this.body() is AccessTokenResponseResource -> {
+            val tokenResponse = this.body() as AccessTokenResponseResource
             if (this.status == HttpStatus.NOT_FOUND) {
                  HttpResponse.notFound(HttpErrorResponse.toNotFound(tokenResponse.extensions))
             }

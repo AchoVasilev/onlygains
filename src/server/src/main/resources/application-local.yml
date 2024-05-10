@@ -43,7 +43,7 @@ jwt:
     key: classpath:config/app.pub
   refresh-token:
     secret: 7GyaAIYHXVGHNwmblflYo+dHO0KSNIVF5aHTc0xBznu5akR8gOVif1OM8IHcR2BA0jg3jysy/U0pv8UIMbCwwg==
-    expirationTimeInSeconds: 86400
+    expirationTimeInSeconds: 172800
     base64: true
     jws-algorithm: HS512
 

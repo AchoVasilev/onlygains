@@ -1,6 +1,5 @@
 package com.project.authentication
 
-import com.project.infrastructure.utilities.LoggerProvider
 import com.project.common.errormessages.UserMessages
 import com.project.common.result.OperationResult
 import com.project.common.result.ResultStatus
@@ -9,10 +8,12 @@ import com.project.domain.user.User
 import com.project.infrastructure.data.UserRepository
 import com.project.infrastructure.security.EmailEncryptionService
 import com.project.infrastructure.security.HashService
+import com.project.infrastructure.utilities.LoggerProvider
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
 import java.security.SecureRandom
 import java.util.Base64
+import java.util.UUID
 
 @Singleton
 open class UserService(
@@ -61,6 +62,11 @@ open class UserService(
     open fun findUserBy(email: String): User? {
         val encryptedMail = this.emailEncryptionService.encryptEmail(email)
         return this.userRepository.findByEmail(encryptedMail)
+    }
+
+    @Transactional(readOnly = true)
+    open fun findUserBy(id: UUID): User? {
+        return this.userRepository.findById(id).orElse(null)
     }
 
     private fun hashPassword(password: String): String {

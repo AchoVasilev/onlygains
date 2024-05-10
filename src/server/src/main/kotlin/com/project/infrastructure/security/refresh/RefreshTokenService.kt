@@ -10,8 +10,10 @@ import com.nimbusds.jose.Payload
 import com.nimbusds.jose.crypto.MACSigner
 import com.nimbusds.jose.crypto.MACVerifier
 import com.project.authentication.UserService
+import com.project.domain.user.UserStatus
 import com.project.infrastructure.exceptions.base.ErrorCode
 import com.project.infrastructure.exceptions.exceptions.TokenException
+import com.project.infrastructure.security.EmailEncryptionService
 import com.project.infrastructure.security.refresh.data.RefreshToken
 import com.project.infrastructure.security.refresh.data.RefreshTokenRepository
 import com.project.infrastructure.utilities.LoggerProvider
@@ -19,6 +21,7 @@ import io.micronaut.security.authentication.Authentication
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
 import org.apache.http.ParseException
+import java.time.Instant
 import java.util.Base64
 import java.util.UUID
 import kotlin.text.Charsets.UTF_8
@@ -27,7 +30,8 @@ import kotlin.text.Charsets.UTF_8
 open class RefreshTokenService(
     private val refreshTokenRepository: RefreshTokenRepository,
     private val config: RefreshTokenConfiguration,
-    private val userService: UserService
+    private val userService: UserService,
+    private val emailEncryptionService: EmailEncryptionService
 ) {
     private val algorithm: JWSAlgorithm = this.config.jwsAlgorithm
     private val signer: JWSSigner
@@ -59,15 +63,17 @@ open class RefreshTokenService(
         }
     }
 
+    /**
+     * Returns the parsed token's payload or an empty String if token is not verified
+     */
     fun validateToken(token: String): String {
         val jwsObject: JWSObject?
         try {
             jwsObject = JWSObject.parse(token)
-            if (jwsObject.verify(this.verifier)) {
-                return jwsObject.payload.toString()
-            }
+            return if (jwsObject.verify(this.verifier)) {
+                jwsObject.payload.toString()
+            } else ""
 
-            return ""
         } catch (ex: ParseException) {
             log.error("JWS parsing exception", ex)
             throw TokenException()
@@ -84,9 +90,27 @@ open class RefreshTokenService(
         return UUID.randomUUID().toString()
     }
 
+    fun getAuthentication(validRefreshToken: String): Authentication {
+        val refreshToken = this.refreshTokenRepository.findByToken(validRefreshToken)
+        if (refreshToken == null || refreshToken.isRevoked) {
+            log.error("Invalid refresh token. [tokenId={}]", refreshToken?.id)
+            throw TokenException(ErrorCode.TOKEN_INVALIDATION_EXCEPTION)
+        }
+
+        val user = this.userService.findUserBy(refreshToken.userId!!)
+        if (user == null || UserStatus.DEACTIVATED == user.status) {
+            log.error("User is null or is deactivated. [userId={}]", user?.id)
+            throw TokenException(ErrorCode.TOKEN_INVALIDATION_EXCEPTION)
+        }
+
+        val decryptedEmail = this.emailEncryptionService.decryptEmail(user.email)
+
+        return Authentication.build(decryptedEmail, listOf(user.role.name))
+    }
+
     private fun persistToken(userName: String, serializedToken: String) {
         val user = this.userService.findUserBy(userName) ?: throw TokenException()
-        val token = RefreshToken(serializedToken, user.id, this.config.getExpirationTime())
+        val token = RefreshToken(serializedToken, user.id, Instant.now().plusSeconds(this.config.getExpirationTime()))
         this.refreshTokenRepository.save(token)
     }
 

@@ -7,14 +7,14 @@ import jakarta.inject.Singleton
 
 @Singleton
 class RefreshTokenConfiguration(
-    @Value("jwt.refresh-token.secret") private val secret: String,
-    @Value("jwt.refresh-token.expirationTimeInSeconds") private val expirationTimeInSeconds: Long,
-    @Value("jwt.refresh-toke.base64") private val isEncoded: Boolean,
-    @Value("jwt-refresh-token.jws-algorithm") private val jwsAlgorithm: JWSAlgorithm
+    @Value("\${jwt.refresh-token.secret}") private val secret: String,
+    @Value("\${jwt.refresh-token.expirationTimeInSeconds}") private val expirationTimeInSeconds: Long,
+    @Value("\${jwt.refresh-token.base64}") private val isEncoded: Boolean,
+    @Value("\${jwt.refresh-token.jws-algorithm}") private val jwsAlgorithm: String
 ) : RefreshTokenConfiguration {
 
     override fun getJwsAlgorithm(): JWSAlgorithm {
-        return this.jwsAlgorithm
+        return JWSAlgorithm.parse(this.jwsAlgorithm)
     }
 
     override fun getSecret(): String {
