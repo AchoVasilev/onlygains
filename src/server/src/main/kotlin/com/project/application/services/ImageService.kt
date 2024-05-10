@@ -4,47 +4,33 @@ import com.cloudinary.Cloudinary
 import com.cloudinary.utils.ObjectUtils
 import com.project.application.models.image.ImageResponseResource
 import com.project.infrastructure.exceptions.exceptions.FileUploadException
-import io.micronaut.http.multipart.CompletedFileUpload
+import io.micronaut.http.multipart.StreamingFileUpload
 import jakarta.inject.Singleton
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 
 @Singleton
 class ImageService(private val cloudinary: Cloudinary) {
-    fun upload(folder: String?, file: CompletedFileUpload): ImageResponseResource {
+    fun upload(folder: String?, file: StreamingFileUpload): ImageResponseResource {
         val rootFolderName = "myactivepal"
         val uploadFolder = String.format("%s/%s", rootFolderName, folder)
+        val stream = file.asInputStream()
         try {
-            val uploadedFile = this.convertMultipartToFile(file)
             val params = ObjectUtils.asMap(
-                    "public_id", String.format("%s/%s", uploadFolder, uploadedFile.name)
+                "public_id", String.format("%s/%s", uploadFolder, file.filename)
             )
-            val uploadResult = cloudinary.uploader().upload(uploadedFile, params)
+
+            val uploadResult = cloudinary.uploader().uploadLarge(stream, params)
             val url = uploadResult["secure_url"].toString()
 
-            log.info("Successfully uploaded image. [name={}]", uploadedFile.name)
-
-            val isDeleted = uploadedFile.delete()
-            if (isDeleted) {
-                log.info("File successfully deleted")
-            } else {
-                log.info("File doesn't exist")
-            }
+            log.info("Successfully uploaded image. [name={}]", file.filename)
 
             return ImageResponseResource(url, file.filename)
         } catch (e: IOException) {
+            stream.close()
             throw FileUploadException(file.javaClass, e)
         }
-    }
-
-    private fun convertMultipartToFile(file: CompletedFileUpload): File {
-        val convFile = File(file.filename)
-        FileOutputStream(convFile).use { fos -> fos.write(file.bytes) }
-
-        return convFile
     }
 
     companion object {

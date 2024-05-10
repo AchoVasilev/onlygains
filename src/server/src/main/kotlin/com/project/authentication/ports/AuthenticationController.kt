@@ -3,8 +3,14 @@ package com.project.authentication.ports
 import com.project.authentication.AuthenticationService
 import com.project.authentication.models.AccessTokenResponseResource
 import com.project.authentication.models.LoginRequestResource
+import com.project.authentication.models.RefreshTokenResponseResource
+import com.project.common.Constants.GRANT_TYPE
 import com.project.common.result.OperationResult
+import com.project.infrastructure.exceptions.base.ErrorCode
+import com.project.infrastructure.exceptions.exceptions.TokenException
 import com.project.infrastructure.security.token.AccessTokenResource
+import com.project.infrastructure.security.token.RefreshTokenResource
+import com.project.infrastructure.security.token.TokenType
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Body
@@ -14,7 +20,7 @@ import io.micronaut.security.rules.SecurityRule
 import jakarta.validation.Valid
 
 @Controller("/auth")
-@Secured(SecurityRule.IS_AUTHENTICATED)
+@Secured(SecurityRule.IS_ANONYMOUS)
 open class AuthenticationController(
     private val authenticationService: AuthenticationService
 ) : AuthenticationApi {
@@ -25,10 +31,16 @@ open class AuthenticationController(
         return this.buildJwtResponse(authenticationResult)
     }
 
-    override fun refresh(): HttpResponse<AccessTokenResponseResource> {
-        val refreshResult = this.authenticationService.refreshToken()
+    override fun refresh(body: Map<String, String>): HttpResponse<RefreshTokenResponseResource> {
+        val grantType = body[GRANT_TYPE]
+        val refreshToken = body[TokenType.RefreshToken.value]
+        if (grantType == null || refreshToken == null) {
+            throw TokenException(ErrorCode.TOKEN_GRANT_TYPE_EXCEPTION)
+        }
 
-        return this.buildJwtResponse(refreshResult)
+        val refreshResult = this.authenticationService.refreshToken(refreshToken)
+
+        return this.buildRefreshTokenResponse(refreshResult)
     }
 
     private fun buildJwtResponse(operationResult: OperationResult<AccessTokenResource>): HttpResponse<AccessTokenResponseResource> {
@@ -61,5 +73,30 @@ open class AuthenticationController(
         return HttpResponse.status<AccessTokenResponseResource?>(HttpStatus.OK)
             .body(tokenResponse)
             .header("X-AUTH-TOKEN", accessToken.accessToken)
+    }
+
+    private fun buildRefreshTokenResponse(operationResult: OperationResult<RefreshTokenResource>): HttpResponse<RefreshTokenResponseResource> {
+        if (operationResult.isFailure) {
+            return HttpResponse.status<RefreshTokenResponseResource?>(operationResult.status.toHttpStatus()).body(
+                RefreshTokenResponseResource(
+                    null,
+                    null,
+                    null,
+                    null,
+                    mapOf(operationResult.error.code to operationResult.error.description)
+                )
+            )
+        }
+
+        val refreshToken = operationResult.value()
+        val responseResource = RefreshTokenResponseResource(
+            refreshToken.accessToken,
+            refreshToken.tokenType,
+            refreshToken.expiresIn,
+            refreshToken.refreshToken,
+            emptyMap()
+        )
+
+        return HttpResponse.ok(responseResource)
     }
 }

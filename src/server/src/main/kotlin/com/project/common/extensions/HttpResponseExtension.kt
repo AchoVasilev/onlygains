@@ -2,6 +2,7 @@ package com.project.common.extensions
 
 
 import com.project.authentication.models.AccessTokenResponseResource
+import com.project.authentication.models.RefreshTokenResponseResource
 import com.project.common.result.OperationResult
 import com.project.common.result.ResultStatus
 import com.project.infrastructure.exceptions.HttpErrorResponse
@@ -69,6 +70,19 @@ fun HttpResponse<*>.fromResult(): HttpResponse<*> {
 
             if (this.status == HttpStatus.BAD_REQUEST) {
                  HttpResponse.badRequest(HttpErrorResponse.toBadRequest(tokenResponse.extensions))
+            }
+
+            this
+        }
+
+        this.body() is RefreshTokenResponseResource -> {
+            val tokenResponse = this.body() as RefreshTokenResponseResource
+            if (this.status == HttpStatus.NOT_FOUND) {
+                HttpResponse.notFound(HttpErrorResponse.toNotFound(tokenResponse.extensions))
+            }
+
+            if (this.status == HttpStatus.BAD_REQUEST) {
+                HttpResponse.badRequest(HttpErrorResponse.toBadRequest(tokenResponse.extensions))
             }
 
             this

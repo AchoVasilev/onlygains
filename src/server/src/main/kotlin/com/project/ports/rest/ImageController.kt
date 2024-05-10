@@ -7,12 +7,12 @@ import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
-import io.micronaut.http.multipart.CompletedFileUpload
+import io.micronaut.http.multipart.StreamingFileUpload
 
 @Controller("/images")
 open class ImageController(private val imageService: ImageService) {
     @Post(value = "/{folder}", consumes = [MediaType.MULTIPART_FORM_DATA])
-    open fun upload(@PathVariable folder: String?, file: CompletedFileUpload): HttpResponse<ImageResponseResource> {
+    open fun upload(@PathVariable folder: String?, file: StreamingFileUpload): HttpResponse<ImageResponseResource> {
         return HttpResponse.ok(imageService.upload(folder, file))
     }
 }

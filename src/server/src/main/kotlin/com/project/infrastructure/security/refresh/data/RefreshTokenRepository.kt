@@ -7,4 +7,5 @@ import java.util.UUID
 @Repository
 interface RefreshTokenRepository : CrudRepository<RefreshToken, UUID> {
     fun findByToken(token: String): RefreshToken?
+    fun deleteAllByUserId(userId: UUID)
 }

@@ -90,22 +90,60 @@ open class RefreshTokenService(
         return UUID.randomUUID().toString()
     }
 
-    fun getAuthentication(validRefreshToken: String): Authentication {
+    @Transactional
+    open fun getAuthentication(validRefreshToken: String): Authentication {
         val refreshToken = this.refreshTokenRepository.findByToken(validRefreshToken)
         if (refreshToken == null || refreshToken.isRevoked) {
-            log.error("Invalid refresh token. [tokenId={}]", refreshToken?.id)
+            log.error("Invalid refresh token. [token={}]", validRefreshToken)
+
+            refreshToken?.userId?.let { userId ->
+                {
+                    log.warn(
+                        "Deleting invalid/revoked refresh tokens. [tokenId={}, userId={}]",
+                        refreshToken.id,
+                        userId
+                    )
+                    this.refreshTokenRepository.deleteAllByUserId(userId)
+                }
+            }
+
             throw TokenException(ErrorCode.TOKEN_INVALIDATION_EXCEPTION)
         }
 
         val user = this.userService.findUserBy(refreshToken.userId!!)
         if (user == null || UserStatus.DEACTIVATED == user.status) {
             log.error("User is null or is deactivated. [userId={}]", user?.id)
+
+            refreshToken.userId?.let { userId ->
+                {
+                    log.warn("Deleting user refresh tokens. [tokenId={}, userId={}]", refreshToken.id, userId)
+                    this.refreshTokenRepository.deleteAllByUserId(userId)
+                }
+            }
+
             throw TokenException(ErrorCode.TOKEN_INVALIDATION_EXCEPTION)
         }
 
         val decryptedEmail = this.emailEncryptionService.decryptEmail(user.email)
 
         return Authentication.build(decryptedEmail, listOf(user.role.name))
+    }
+
+    @Transactional
+    open fun revokeToken(validRefreshToken: String) {
+        val refreshToken = this.refreshTokenRepository.findByToken(validRefreshToken)
+        if (refreshToken == null || refreshToken.isRevoked) {
+            log.error("Could not revoke token. [tokenId={}]", refreshToken?.id)
+            throw TokenException(ErrorCode.TOKEN_INVALIDATION_EXCEPTION)
+        }
+
+        refreshToken.revoke()
+        this.refreshTokenRepository.save(refreshToken)
+        log.info("Token revoked. [tokenId={}]", refreshToken.id)
+    }
+
+    fun getExpiration(): Long {
+        return this.config.getExpirationTime()
     }
 
     private fun persistToken(userName: String, serializedToken: String) {

@@ -35,7 +35,7 @@ micronaut:
         mapping: /swagger-ui/**
 
 jwt:
-  expirationTimeInSeconds: 3600
+  expirationTimeInSeconds: 1800
   issuer: activeServer
   private:
     key: classpath:config/app.key

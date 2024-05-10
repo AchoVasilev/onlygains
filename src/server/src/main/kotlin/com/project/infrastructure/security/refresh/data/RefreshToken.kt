@@ -21,4 +21,9 @@ class RefreshToken protected constructor(): BaseEntity() {
         this.userId = userId
         this.expiryDate = expiryDate
     }
+
+    fun revoke() {
+        this.isRevoked = true
+        this.markAsUpdated()
+    }
 }
