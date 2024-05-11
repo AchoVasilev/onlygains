@@ -7,9 +7,9 @@ enum class ErrorCode(val httpStatus: HttpStatus, val pattern: String) {
     AES_DECRYPTION_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "AES decryption exception"),
 
     TOKEN_GENERATION_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Token generation exception"),
-    TOKEN_VERIFICATION_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Token verification exception"),
-    TOKEN_INVALIDATION_EXCEPTION(HttpStatus.BAD_REQUEST, "Invalid user request"),
-    TOKEN_GRANT_TYPE_EXCEPTION(HttpStatus.BAD_REQUEST, "Invalid token type"),
+    TOKEN_VERIFICATION_EXCEPTION(HttpStatus.FORBIDDEN, "Token verification exception"),
+    TOKEN_INVALIDATION_EXCEPTION(HttpStatus.FORBIDDEN, "Invalid user request"),
+    TOKEN_GRANT_TYPE_EXCEPTION(HttpStatus.FORBIDDEN, "Invalid token type"),
 
     OPERATION_RESULT_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid status"),
     OPERATION_RESULT_VALUE_FAILED_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Operation value exception"),

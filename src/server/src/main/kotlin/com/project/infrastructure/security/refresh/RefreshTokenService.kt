@@ -53,6 +53,8 @@ open class RefreshTokenService(
             val serialized = jwsObject.serialize()
             this.persistToken(authentication.name, serialized)
 
+            log.info("New token generated")
+
             return serialized
         } catch (ex: IllegalStateException) {
             log.error("JWS is in unsigned state", ex)
@@ -67,16 +69,18 @@ open class RefreshTokenService(
      * Returns the parsed token's payload or an empty String if token is not verified
      */
     fun validateToken(token: String): String {
+        log.info("Validating token.")
         val jwsObject: JWSObject?
         try {
             jwsObject = JWSObject.parse(token)
             return if (jwsObject.verify(this.verifier)) {
+                log.info("Token validated.")
                 jwsObject.payload.toString()
             } else ""
 
         } catch (ex: ParseException) {
             log.error("JWS parsing exception", ex)
-            throw TokenException()
+            throw TokenException(ErrorCode.TOKEN_VERIFICATION_EXCEPTION)
         } catch (ex: IllegalStateException) {
             log.error("JWS could is not in a signed or verified state", ex)
             throw TokenException(ErrorCode.TOKEN_VERIFICATION_EXCEPTION)
@@ -92,6 +96,8 @@ open class RefreshTokenService(
 
     @Transactional
     open fun getAuthentication(validRefreshToken: String): Authentication {
+        log.info("Retrieving authentication for validated refresh token.")
+
         val refreshToken = this.refreshTokenRepository.findByToken(validRefreshToken)
         if (refreshToken == null || refreshToken.isRevoked) {
             log.error("Invalid refresh token. [token={}]", validRefreshToken)
@@ -131,6 +137,7 @@ open class RefreshTokenService(
 
     @Transactional
     open fun revokeToken(validRefreshToken: String) {
+        log.info("Revoking token")
         val refreshToken = this.refreshTokenRepository.findByToken(validRefreshToken)
         if (refreshToken == null || refreshToken.isRevoked) {
             log.error("Could not revoke token. [tokenId={}]", refreshToken?.id)

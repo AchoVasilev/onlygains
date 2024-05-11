@@ -12,6 +12,10 @@ import io.micronaut.http.HttpStatus
 fun HttpResponse<*>.fromResult(): HttpResponse<*> {
     return when {
         this.body() is OperationResult<*> -> {
+            if (this.status == HttpStatus.CREATED) {
+                return this
+            }
+
             val operationResult = this.body.get() as OperationResult<*>
             return when (operationResult.status) {
                 ResultStatus.Ok -> HttpResponse.ok(operationResult.value())

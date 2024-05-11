@@ -15,33 +15,36 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.QueryValue
+import io.micronaut.security.annotation.Secured
+import io.micronaut.security.rules.SecurityRule
 import jakarta.validation.Valid
 import java.net.URI
 import java.util.UUID
 
-@Controller(value = "/posts")
+@Controller("/posts")
+@Secured(SecurityRule.IS_AUTHENTICATED)
 open class PostController(private val postService: PostService) {
-    @Get(uri = "/newest")
+    @Get("/newest")
     open fun getNewest(): HttpResponse<OperationResult<List<PostViewResource>>> {
         return HttpResponse.ok(postService.getNewest())
     }
 
-    @Get(uri = "/popular")
+    @Get("/popular")
     open fun getPopular(): HttpResponse<OperationResult<List<PostViewResource>>> {
         return HttpResponse.ok(postService.getMostPopularPosts())
     }
 
-    @Get(uri = "/details/{id}", produces = [MediaType.APPLICATION_JSON])
+    @Get("/details/{id}", produces = [MediaType.APPLICATION_JSON])
     open fun getPost(@PathVariable("id") id: UUID): HttpResponse<OperationResult<PostDetailsResource>> {
         return HttpResponse.ok(postService.getPostBy(id))
     }
 
-    @Get(uri = "/all")
+    @Get("/all")
     open fun getPostsBy(@QueryValue page: Int, @QueryValue size: Int) : HttpResponse<OperationResult<Page<PostViewResource>>> {
         return HttpResponse.ok(postService.getAll(page, size))
     }
 
-    @Get(uri = "/all/filtered")
+    @Get("/all/filtered")
     open fun getPostsBy(@QueryValue id: UUID, @QueryValue page: Int, @QueryValue size: Int, @QueryValue type: PostQueryType?): HttpResponse<Page<PostViewResource>> {
         return HttpResponse.ok(postService.getPostsBy(id, page, size, type))
     }

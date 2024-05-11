@@ -41,8 +41,8 @@ open class AuthenticationService(
 
     @Transactional
     open fun refreshToken(refreshToken: String): OperationResult<RefreshTokenResource> {
-        log.info("Generating new refresh token")
         val generatedResult = this.tokenGenerator.refreshToken(refreshToken)
+        log.info("Generating new refresh token")
         if (generatedResult.isFailure) {
             log.info("Could not generate refresh token")
             return OperationResult.failure(generatedResult.error, generatedResult.status)

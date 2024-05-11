@@ -24,6 +24,6 @@ open class UserController(private val userService: UserService) {
         return if (result.isSuccess)
             HttpResponse.created(result, URI.create("/users/${result.value()}}"))
         else
-            return HttpResponse.ok(result)
+            return HttpResponse.badRequest(result)
     }
 }

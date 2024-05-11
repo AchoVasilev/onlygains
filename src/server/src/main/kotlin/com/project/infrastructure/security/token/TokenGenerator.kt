@@ -35,7 +35,7 @@ open class TokenGenerator(
     open fun refreshToken(refreshToken: String): OperationResult<RefreshTokenResource> {
         val refreshTokenPayload = this.refreshTokenService.validateToken(refreshToken)
         if (refreshTokenPayload.isBlank()) {
-            return OperationResult.failure(UserMessages.AUTHENTICATION_FAILED.toError(), ResultStatus.Invalid)
+            return OperationResult.failure(UserMessages.AUTHENTICATION_FAILED.toError(), ResultStatus.Forbidden)
         }
 
         val auth = this.transactionExecutor.runInTransaction {
