@@ -19,7 +19,8 @@
       [queryParams]="{ type: 'Category', id: category.id, page: 1, size: 10 }">
       <img
         class="category-image"
-        [src]="category.imageUrl"
+        loading="lazy"
+        [srcset]="category.imageUrl"
         alt="category image" />
       <mat-card-header>
         <mat-card-title class="heading">{{ category.name }}</mat-card-title>

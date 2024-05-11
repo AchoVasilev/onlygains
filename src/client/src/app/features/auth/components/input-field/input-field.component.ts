@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { VALIDATION_ERRORS } from '../../models/validation';
+import { VALIDATION_ERRORS } from '../../shared/models/validation';
 
 @Component({
   selector: 'active-input-field',

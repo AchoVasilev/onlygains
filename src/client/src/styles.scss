@@ -174,3 +174,9 @@ body {
   align-items: center;
   height: $half-size;
 }
+
+.error {
+  color: $red;
+  text-align: center;
+  height: $one-rem;
+}

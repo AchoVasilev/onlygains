@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -11,6 +12,7 @@ import {
   selector: 'active-panel',
   standalone: true,
   imports: [NgClass],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss',
 })

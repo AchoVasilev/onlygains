@@ -7,58 +7,77 @@
           class="sign-in-form"
           [formGroup]="loginForm"
           (ngSubmit)="onLogin()">
-          <h2 class="title">Sign in</h2>
+          <h2 class="title">Вход</h2>
           <active-input-field
             [control]="loginForm.controls.email"
             matIcon="person"
             type="text"
-            placeholder="Username"></active-input-field>
+            placeholder="И-мейл"></active-input-field>
           <active-input-field
             [control]="loginForm.controls.password"
             matIcon="lock"
             type="password"
-            placeholder="Password"></active-input-field>
+            placeholder="Парола"></active-input-field>
+
+          @for (error of errors; track $index) {
+            <p class="error">{{ error }}</p>
+          }
+
           <active-input-button
             [disabled]="loginForm.invalid"
             type="submit"
-            value="Login"></active-input-button>
+            value="Вход"></active-input-button>
           <active-social-media
-            text="Or Sign in with social platforms"></active-social-media>
+            text="Или използвайте някоя от социалните платформи"></active-social-media>
         </form>
       }
 
       @defer (when viewType === 'register'; on idle) {
-        <form action="POST" class="sign-up-form" [formGroup]="registerForm">
-          <h2 class="title">Sign up</h2>
+        <form
+          action="POST"
+          class="sign-up-form"
+          [formGroup]="registerForm"
+          (ngSubmit)="onRegister()">
+          <h2 class="title">Регистрация</h2>
           <active-input-field
             [control]="registerForm.controls.firstName"
             type="text"
-            placeholder="First name"
+            placeholder="Име"
             matIcon="person"></active-input-field>
 
           <active-input-field
             [control]="registerForm.controls.lastName"
             type="text"
-            placeholder="Last name"
+            placeholder="Фамилия"
             matIcon="person"></active-input-field>
 
           <active-input-field
             [control]="registerForm.controls.email"
             type="email"
-            placeholder="Email"
+            placeholder="И-мейл"
             matIcon="email"></active-input-field>
 
           <active-input-field
             [control]="registerForm.controls.password"
             type="password"
-            placeholder="Password"
+            placeholder="Парола"
             matIcon="lock"></active-input-field>
+
+          <active-input-field
+            [control]="registerForm.controls.repeatPassword"
+            type="password"
+            placeholder="Повтори паролата"
+            matIcon="lock"></active-input-field>
+
+          @if (passwordsNotMatch()) {
+            <p class="error">Паролите не съвпадат</p>
+          }
 
           <active-input-button
             type="submit"
-            value="Sign up"></active-input-button>
+            value="Регистрация"></active-input-button>
           <active-social-media
-            text="Or Sign up with social platforms"></active-social-media>
+            text="Или използвайте някоя от социалните платформи"></active-social-media>
         </form>
       }
     </div>
