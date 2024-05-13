@@ -10,6 +10,7 @@ enum class ErrorCode(val httpStatus: HttpStatus, val pattern: String) {
     TOKEN_VERIFICATION_EXCEPTION(HttpStatus.FORBIDDEN, "Token verification exception"),
     TOKEN_INVALIDATION_EXCEPTION(HttpStatus.FORBIDDEN, "Invalid user request"),
     TOKEN_GRANT_TYPE_EXCEPTION(HttpStatus.FORBIDDEN, "Invalid token type"),
+    TOKEN_REVOCATION_EXCEPTION(HttpStatus.BAD_REQUEST, "Token revocation exception"),
 
     OPERATION_RESULT_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid status"),
     OPERATION_RESULT_VALUE_FAILED_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Operation value exception"),

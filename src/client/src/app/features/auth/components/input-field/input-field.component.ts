@@ -2,11 +2,12 @@ import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { VALIDATION_ERRORS } from '../../shared/models/validation';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'active-input-field',
   standalone: true,
-  imports: [MatIconModule, ReactiveFormsModule],
+  imports: [MatIconModule, ReactiveFormsModule, NgClass],
   templateUrl: './input-field.component.html',
   styleUrl: './input-field.component.scss',
 })

@@ -36,10 +36,10 @@ open class RefreshTokenService(
     private val algorithm: JWSAlgorithm = this.config.jwsAlgorithm
     private val signer: JWSSigner
     private val verifier: JWSVerifier
+    private val secret: ByteArray =
+        if (config.isBase64) Base64.getDecoder().decode(config.secret) else config.secret.toByteArray(UTF_8)
 
     init {
-        val secret =
-            if (config.isBase64) Base64.getDecoder().decode(config.secret) else config.secret.toByteArray(UTF_8)
         this.signer = MACSigner(secret)
         this.verifier = MACVerifier(secret)
     }
@@ -99,19 +99,8 @@ open class RefreshTokenService(
         log.info("Retrieving authentication for validated refresh token.")
 
         val refreshToken = this.refreshTokenRepository.findByToken(validRefreshToken)
-        if (refreshToken == null || refreshToken.isRevoked) {
+        if (refreshToken == null || refreshToken.isRevoked || refreshToken.isExpired()) {
             log.error("Invalid refresh token. [token={}]", validRefreshToken)
-
-            refreshToken?.userId?.let { userId ->
-                {
-                    log.warn(
-                        "Deleting invalid/revoked refresh tokens. [tokenId={}, userId={}]",
-                        refreshToken.id,
-                        userId
-                    )
-                    this.refreshTokenRepository.deleteAllByUserId(userId)
-                }
-            }
 
             throw TokenException(ErrorCode.TOKEN_INVALIDATION_EXCEPTION)
         }
@@ -120,12 +109,10 @@ open class RefreshTokenService(
         if (user == null || UserStatus.DEACTIVATED == user.status) {
             log.error("User is null or is deactivated. [userId={}]", user?.id)
 
-            refreshToken.userId?.let { userId ->
-                {
-                    log.warn("Deleting user refresh tokens. [tokenId={}, userId={}]", refreshToken.id, userId)
-                    this.refreshTokenRepository.deleteAllByUserId(userId)
-                }
-            }
+            refreshToken.revoke()
+            this.refreshTokenRepository.save(refreshToken)
+
+            log.info("Refresh token is revoked. [userId={}, tokenId={}]", user?.id, refreshToken.id)
 
             throw TokenException(ErrorCode.TOKEN_INVALIDATION_EXCEPTION)
         }
@@ -147,6 +134,15 @@ open class RefreshTokenService(
         refreshToken.revoke()
         this.refreshTokenRepository.save(refreshToken)
         log.info("Token revoked. [tokenId={}]", refreshToken.id)
+    }
+
+    @Transactional
+    open fun revokeTokens(userId: UUID, now: Instant) {
+        log.info("Revoking user tokens. [userId={}]", userId)
+
+        val count = this.refreshTokenRepository.revokeAllByUserId(userId, now)
+
+        log.info("Successfully revoked user tokens. [userId={}, count={}]", userId, count)
     }
 
     fun getExpiration(): Long {

@@ -1,4 +1,6 @@
-<div class="input-field">
+<div
+  class="input-field"
+  [ngClass]="control.invalid && control.touched ? 'error-field' : ''">
   <mat-icon class="input-field-icon">{{ matIcon }}</mat-icon>
   <input [type]="type" [placeholder]="placeholder" [formControl]="control" />
 </div>
@@ -6,3 +8,5 @@
 @for (error of evaluateErrors(); track $index) {
   <p class="error">{{ mapErrorToMessage(error) }}</p>
 }
+
+<!-- TODO: Add a question mark with tooltips as errors https://medium.com/@ojiofor/angular-reactive-forms-strong-password-validation-8dbcce92eb6c -->

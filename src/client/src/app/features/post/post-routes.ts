@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { ListPostsComponent } from './list-posts/list-posts.component';
-import { resolveTitle } from 'app/core/title-resolvers/posts-title-resolvers';
+import { resolveTitle } from 'app/core/util/title-resolvers/posts-title-resolvers';
 
 const POST_ROUTES: Routes = [
   {

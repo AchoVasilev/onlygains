@@ -5,12 +5,15 @@ import com.project.common.result.OperationResult
 import com.project.common.result.ResultStatus
 import com.project.infrastructure.security.jwt.JwtService
 import com.project.infrastructure.security.refresh.RefreshTokenService
+import com.project.infrastructure.utilities.Time
 import com.project.infrastructure.utilities.TransactionExecutor
 import io.micronaut.security.authentication.Authentication
+import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
+import java.util.UUID
 
 @Singleton
-open class TokenGenerator(
+open class TokenService(
     private val refreshTokenService: RefreshTokenService,
     private val jwtService: JwtService,
     private val transactionExecutor: TransactionExecutor
@@ -58,5 +61,10 @@ open class TokenGenerator(
                 newRefreshToken
             )
         )
+    }
+
+    @Transactional
+    open fun revokeUserRefreshTokens(userId: UUID) {
+        this.refreshTokenService.revokeTokens(userId, Time.utcNow())
     }
 }

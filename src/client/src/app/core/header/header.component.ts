@@ -14,6 +14,7 @@ import { Observable, Subject, filter, takeUntil } from 'rxjs';
 import { CategoryViewResource } from 'app/shared/models/category';
 import { AsyncPipe } from '@angular/common';
 import { CategoryComponent } from 'app/shared/components/category/category.component';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'active-header',
@@ -37,7 +38,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -65,5 +67,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   hideItems() {
     this.hideCategories();
+  }
+
+  onLogout() {
+    this.authService.logOut().subscribe();
+  }
+
+  get isLoggedIn() {
+    return this.authService.isLoggedIn();
   }
 }

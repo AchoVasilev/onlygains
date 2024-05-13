@@ -27,8 +27,9 @@ export interface UserModel {
 }
 
 export interface RegisterUserRequestResource {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  email?: string | null;
+  password?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  repeatPassword?: string | null;
 }

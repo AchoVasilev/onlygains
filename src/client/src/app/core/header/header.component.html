@@ -22,19 +22,22 @@
     </li>
     <li>
       <ul>
-        <li>
-          <a routerLink="/auth" mat-icon-button (mouseenter)="hideItems()">
-            <mat-icon>login</mat-icon>
-          </a>
-        </li>
-        <li>
-          <a
-            routerLink="/users/logout"
-            mat-icon-button
-            (mouseenter)="hideItems()">
-            <mat-icon>follow_the_signs</mat-icon>
-          </a>
-        </li>
+        @if (!isLoggedIn) {
+          <li>
+            <a routerLink="/auth" mat-icon-button (mouseenter)="hideItems()">
+              <mat-icon>login</mat-icon>
+            </a>
+          </li>
+        } @else {
+          <li>
+            <button
+              mat-icon-button
+              (mouseenter)="hideItems()"
+              (click)="onLogout()">
+              <mat-icon>follow_the_signs</mat-icon>
+            </button>
+          </li>
+        }
       </ul>
     </li>
   </ul>

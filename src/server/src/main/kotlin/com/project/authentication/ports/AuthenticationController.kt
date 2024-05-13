@@ -2,6 +2,7 @@ package com.project.authentication.ports
 
 import com.project.authentication.AuthenticationService
 import com.project.authentication.models.AccessTokenResponseResource
+import com.project.authentication.models.AuthModel
 import com.project.authentication.models.LoginRequestResource
 import com.project.authentication.models.RefreshTokenResponseResource
 import com.project.common.Constants.GRANT_TYPE
@@ -16,6 +17,7 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.security.annotation.Secured
+import io.micronaut.security.authentication.Authentication
 import io.micronaut.security.rules.SecurityRule
 import jakarta.validation.Valid
 
@@ -41,6 +43,21 @@ open class AuthenticationController(
         val refreshResult = this.authenticationService.refreshToken(refreshToken)
 
         return this.buildRefreshTokenResponse(refreshResult)
+    }
+
+    override fun isAuthenticated(authentication: Authentication?): HttpResponse<AuthModel> {
+        if (authentication == null) {
+            return HttpResponse.ok()
+        }
+
+        return HttpResponse.ok(AuthModel(authentication.name, authentication.roles))
+    }
+
+    @Secured(SecurityRule.IS_AUTHENTICATED)
+    override fun logOut(authentication: Authentication): HttpResponse<Unit> {
+        this.authenticationService.logout(authentication)
+
+        return HttpResponse.ok()
     }
 
     private fun buildJwtResponse(operationResult: OperationResult<AccessTokenResource>): HttpResponse<AccessTokenResponseResource> {

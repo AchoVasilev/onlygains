@@ -7,7 +7,7 @@ import {
   RefreshTokenResponseResource,
 } from 'app/features/auth/shared/models/auth-models';
 import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable({
@@ -22,10 +22,26 @@ export class AuthService {
   ) {}
 
   login(resource: LoginResource): Observable<AccessTokenResponseResource> {
-    return this.http.post<AccessTokenResponseResource>(
-      this.apiUrl + '/login',
-      resource
-    );
+    return this.http
+      .post<AccessTokenResponseResource>(this.apiUrl + '/login', resource)
+      .pipe(
+        tap(response => {
+          this.localStorageService.setItem(
+            response.tokenType,
+            response.accessToken
+          );
+
+          this.localStorageService.setItem(
+            'refresh_token',
+            response.refreshToken
+          );
+
+          this.currentUserSignal.set({
+            username: response.username,
+            roles: response.roles,
+          });
+        })
+      );
   }
 
   refreshToken(token: string): Observable<RefreshTokenResponseResource> {
@@ -36,6 +52,18 @@ export class AuthService {
         refresh_token: token,
       }
     );
+  }
+
+  logOut(): Observable<void> {
+    return this.http.post<void>(this.apiUrl + '/logout', {}).pipe(
+      tap(() => {
+        this.clearLocalData();
+      })
+    );
+  }
+
+  getLogin(): Observable<UserModel> {
+    return this.http.get<UserModel>(this.apiUrl);
   }
 
   currentUserSignal = signal<UserModel | null | undefined>(null);

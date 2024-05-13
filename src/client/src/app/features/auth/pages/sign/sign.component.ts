@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from 'app/core/services/auth/auth.service';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { HTTP_ERRORS } from '../../shared/models/validation';
+import { HTTP_ERRORS, PASSWORDS_REGEX } from '../../shared/models/validation';
 import { LocalStorageService } from 'app/core/services/local-storage/local-storage.service';
 import { Router } from '@angular/router';
 import { UserService } from 'app/core/services/user/user.service';
@@ -47,7 +47,10 @@ export class SignComponent {
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PASSWORDS_REGEX),
+      ]),
       repeatPassword: new FormControl('', [Validators.required]),
     },
     { validators: confirmPasswordValidator }
@@ -66,33 +69,20 @@ export class SignComponent {
     this.viewType = 'register';
     this.containerElement?.nativeElement?.classList?.add('sign-up-mode');
     this.loginForm.reset();
+    this.errors = [];
   }
 
   onViewLogin() {
     this.viewType = 'login';
     this.containerElement?.nativeElement?.classList?.remove('sign-up-mode');
     this.registerForm.reset();
+    this.errors = [];
   }
 
   onLogin() {
     const { email, password } = this.loginForm.value;
     this.authService.login({ email, password }).subscribe({
-      next: response => {
-        this.localStorageService.setItem(
-          response.tokenType,
-          response.accessToken
-        );
-
-        this.localStorageService.setItem(
-          'refresh_token',
-          response.refreshToken
-        );
-
-        this.authService.currentUserSignal.set({
-          username: response.username,
-          roles: response.roles,
-        });
-
+      next: () => {
         this.router.navigateByUrl('/');
       },
       error: (err: HttpErrorResponse) => {
@@ -115,10 +105,18 @@ export class SignComponent {
     });
   }
 
-  onRegister() {}
+  onRegister() {
+    const user = this.registerForm.value;
+
+    this.userService.createUser(user).subscribe();
+  }
 
   passwordsNotMatch(): boolean {
-    return this.registerForm.errors !== null
+    return this.registerForm.errors !== null &&
+      this.registerForm.controls.password.touched &&
+      this.registerForm.controls.password.dirty &&
+      this.registerForm.controls.repeatPassword.touched &&
+      this.registerForm.controls.repeatPassword.dirty
       ? this.registerForm.errors['PasswordsNotMatch']
       : false;
   }

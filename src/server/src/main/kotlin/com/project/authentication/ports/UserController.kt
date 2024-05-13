@@ -19,7 +19,13 @@ open class UserController(private val userService: UserService) {
 
     @Post
     open fun createUser(@Body @Valid request: RegisterUserRequestResource): HttpResponse<OperationResult<User>> {
-        val result = this.userService.createUser(request.email, request.password, request.firstName, request.lastName)
+        val result = this.userService.createUser(
+            request.email,
+            request.password,
+            request.repeatPassword,
+            request.firstName,
+            request.lastName
+        )
 
         return if (result.isSuccess)
             HttpResponse.created(result, URI.create("/users/${result.value()}}"))

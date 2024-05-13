@@ -24,7 +24,7 @@
           }
 
           <active-input-button
-            [disabled]="loginForm.invalid"
+            [disabled]="loginForm.invalid || errors.length > 0"
             type="submit"
             value="Вход"></active-input-button>
           <active-social-media
@@ -74,6 +74,7 @@
           }
 
           <active-input-button
+            [disabled]="registerForm.invalid || errors.length > 0"
             type="submit"
             value="Регистрация"></active-input-button>
           <active-social-media

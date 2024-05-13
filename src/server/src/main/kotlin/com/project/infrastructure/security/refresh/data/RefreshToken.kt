@@ -1,6 +1,7 @@
 package com.project.infrastructure.security.refresh.data
 
 import com.project.common.BaseEntity
+import com.project.infrastructure.utilities.Time
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import java.time.Instant
@@ -25,5 +26,9 @@ class RefreshToken protected constructor(): BaseEntity() {
     fun revoke() {
         this.isRevoked = true
         this.markAsUpdated()
+    }
+
+    fun isExpired(): Boolean {
+        return this.expiryDate!!.isAfter(Time.utcNow())
     }
 }

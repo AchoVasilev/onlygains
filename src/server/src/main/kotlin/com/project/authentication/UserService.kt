@@ -23,7 +23,12 @@ open class UserService(
 ) {
 
     @Transactional
-    open fun createUser(email: String, password: String, firstName: String, lastName: String): OperationResult<User> {
+    open fun createUser(email: String, password: String, repeatPassword: String, firstName: String, lastName: String): OperationResult<User> {
+        if (password != repeatPassword) {
+            log.info("Passwords do not match")
+            return OperationResult.failure(UserMessages.PASSWORDS_NOT_MATCH.toError(), ResultStatus.Invalid)
+        }
+
         val encryptedMail = this.emailEncryptionService.encryptEmail(email)
         val user = this.userRepository.findByEmail(encryptedMail)
         if (user != null) {

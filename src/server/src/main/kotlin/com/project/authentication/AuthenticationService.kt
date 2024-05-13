@@ -6,9 +6,11 @@ import com.project.common.result.OperationResult
 import com.project.common.result.ResultStatus
 import com.project.domain.user.User
 import com.project.domain.user.UserStatus
+import com.project.infrastructure.exceptions.base.ErrorCode
+import com.project.infrastructure.exceptions.exceptions.TokenException
 import com.project.infrastructure.security.token.AccessTokenResource
 import com.project.infrastructure.security.token.RefreshTokenResource
-import com.project.infrastructure.security.token.TokenGenerator
+import com.project.infrastructure.security.token.TokenService
 import com.project.infrastructure.utilities.LoggerProvider
 import io.micronaut.security.authentication.Authentication
 import io.micronaut.transaction.annotation.Transactional
@@ -16,7 +18,7 @@ import jakarta.inject.Singleton
 
 @Singleton
 open class AuthenticationService(
-    private val tokenGenerator: TokenGenerator,
+    private val tokenService: TokenService,
     private val userService: UserService
 ) {
 
@@ -41,7 +43,7 @@ open class AuthenticationService(
 
     @Transactional
     open fun refreshToken(refreshToken: String): OperationResult<RefreshTokenResource> {
-        val generatedResult = this.tokenGenerator.refreshToken(refreshToken)
+        val generatedResult = this.tokenService.refreshToken(refreshToken)
         log.info("Generating new refresh token")
         if (generatedResult.isFailure) {
             log.info("Could not generate refresh token")
@@ -51,9 +53,20 @@ open class AuthenticationService(
         return generatedResult
     }
 
+    @Transactional
+    open fun logout(authentication: Authentication) {
+        val user = this.userService.findUserBy(authentication.name)
+        if (user == null) {
+            log.error("User is null. [email={}]", authentication.name)
+            throw TokenException(ErrorCode.TOKEN_REVOCATION_EXCEPTION)
+        }
+
+        this.tokenService.revokeUserRefreshTokens(user.id)
+    }
+
     private fun generateToken(user: User, email: String): AccessTokenResource {
         val authentication = this.createAuthentication(user, email)
-        return this.tokenGenerator.generateJwt(authentication)
+        return this.tokenService.generateJwt(authentication)
     }
 
     private fun createAuthentication(user: User, email: String): Authentication {
